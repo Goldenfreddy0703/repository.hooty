@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.7+matrix.1">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.future" version="0.17.1+matrix.1"/>
+    <import addon="script.module.requests" version="2.22.0+matrix.1" />
+    <import addon="script.module.beautifulsoup4" version="4.9.3+matrix.1" />
+    <import addon="script.common.plugin.cache" version="2.5.5+matrix.1" />
+    <import addon="script.module.inputstreamhelper" version="0.5.2+matrix.1" />
+    <import addon="script.module.myconnpy" version="1.1.7"/>
+  </requires>
+  <extension library="default.py" point="xbmc.python.pluginsource">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" />
+  <extension point="xbmc.addon.metadata">
+    <reuselanguageinvoker>false</reuselanguageinvoker>
+    <summary lang="en">kaito video plugin</summary>
+    <description lang="en">HD Animes</description>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+    <assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+    <news>
+Changelog 0.0.11-beta7:
+Fix issue where romajii language users get wrong series
+Add proper scraping for one piece/detective conan
+
+Changelog 0.0.11-beta6:
+Add episode check to batches with no season. put sources with special or extra in name at bottom of auto play list
+
+Changelog 0.0.11-beta5:
+Fix regex for batch episodes. Add bluray search term to batch episodes
+	    
+Changelog 0.0.11-beta4:    
+Add check to batch torrent to match seasons
+	      
+Changelog 0.0.11-beta3:
+Remove nonalphanumeric characters from anime title on scraping
+fix misnamed variable
+	    
+Changelog 0.0.11-beta2:
+Minor visual bug with the background
+Title Language seem to be fixed
+	    
+Changelog 0.0.11:
+Updated nyaa scraping
+Updated parsing filename (credits: igorcmoura/anitopy)
+Updated Next Up
+Added Fanart.Tv support (Clear Logos)
+Added a4ksubtitles support
+Added Skip Intro Automatic close popup
+Fixed Non-Debrid sources (gogo embed
+Fixed [Bug] Next Up: Please update your app
+Updated tvshow/episode builder (credits: seren/nixgates)
+
+Changelog 0.0.10:
+Refactor code for Kodi 19 support
+Add setting to toggle reuselanguageinvoker (If enabled, expect some instability but much faster menu speeds)
+Fix MyAnimeList sortby [Prometheusx-git]
+Fix AllDebrid playback [Gujal00]
+
+Changelog 0.0.9:
+Kodi 19 support
+Updated anime season for upcoming and popular this season menu items
+
+Changelog 0.0.8:
+Fixed movies not working in AniList watchlist
+Fixed scrape and rescrape running twice
+Updated anime season for upcoming and trending menu items
+
+Changelog 0.0.7:
+Improved cloud inspection
+Adjusted 'Next Up'
+Adjusted 'Rebuild Database'
+Fixed gogo embed
+Fixed new episodes not being added
+
+Changelog 0.0.6:
+Added Premiumize and Real-Debrid cloud inspection
+Added setting 'Seperate Dubs and Subs' to seperate anime into sub and dub list items if dub is available (test flight)
+Added instruction dialog for MAL/AniList auth for linux os
+Adjusted set titles to romaji/english
+Adjusted Tertiary Dub filter
+Improved 'Next Up'
+Improved season torrent pack scraping
+
+Changelog 0.0.5:
+Fixed bug
+
+Changelog 0.0.4:
+Fixed bug
+
+Changelog 0.0.3:
+Added Rescrape Item option to episode context menu
+Added setting 'Title Language' to set titles to romaji/english
+Added 'Airing Dubbed Anime' menu item
+Added 'Next Up' to watchlist menu items
+Adjusted content types of items
+Adjusted MAL/AniList auth for linux os
+Improved season torrent pack handling
+
+Changelog 0.0.2:
+Added premiumize support
+Improved handling of episodes/seasons retrieval
+Improved nyaa search
+Added 'episodes' content type to set menu content type setting
+Added menu content type to be applied to watchlist landing page
+
+Changelog 0.0.1:
+Initial release
+    </news>
+  </extension>
+</addon>

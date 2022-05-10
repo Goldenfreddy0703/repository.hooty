@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.10+matrix.1">
+<addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.11+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.future" version="0.17.1+matrix.1"/>
@@ -24,6 +24,11 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
     <news>
+Changelog 0.0.11-beta11:
+Trakt Id fetch update
+Lot of scraping changes
+Cloud scraping improvements
+
 Changelog 0.0.11-beta10:
 Fix some episode processing issues for batch episodes
 Correct current and next seasons

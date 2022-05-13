@@ -73,7 +73,7 @@ Changelog 0.0.1:
       <fanart>resources/fanart.png</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.13+matrix.1">
+</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.14+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.future" version="0.17.1+matrix.1" />
@@ -98,6 +98,9 @@ Changelog 0.0.1:
 			<fanart>fanart.jpg</fanart>
 		</assets>
     <news>
+Changelog 0.0.11-beta14:
+Made a couple of fixes for MAL watchlist
+
 Changelog 0.0.11-beta13:
 Add MAL watchlist import support
 Improve trakt id fetch for seasons and romaji users

@@ -255,4 +255,14 @@ Initial release
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" version="0.0.7" provider-name="Team Kodi">
+	<extension point="kodi.resource.images" compile="true" type="moviegenreicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Transparent Movie Genre Icons</summary>
+		<description lang="en">Movie Genre Icons with a transparent background</description>
+		<platform>all</platform>
+	</extension>
 </addon></addons>

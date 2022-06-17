@@ -14,8 +14,6 @@ if __name__ == '__main__':
     action_args = json.loads(urllib.parse.unquote(action_args))
     anilist_id = action_args['anilist_id']
     action_path = "plugin://plugin.video.kaito?action=find_similar&action_args=%s" % params['action_args'][0]
-    import web_pdb
-    web_pdb.set_trace()
 
     xbmc.executebuiltin('ActivateWindow(Videos,%s,return)'
                         % action_path)

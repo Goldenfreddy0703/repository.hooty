@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="context.kaito" version="0.0.4+matrix.1" name="kaito - Global Context Menu Items" provider-name="SwagOtaku">
+<addon id="context.kaito" version="0.0.5+matrix.1" name="kaito - Global Context Menu Items" provider-name="SwagOtaku">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>

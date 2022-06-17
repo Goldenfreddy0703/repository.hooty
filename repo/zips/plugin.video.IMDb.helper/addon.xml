@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.IMDb.helper"
-version="4.8.15"
+version="4.8.20"
 name="IMDb Helper"
 provider-name="jurialmunkey">
 <requires>

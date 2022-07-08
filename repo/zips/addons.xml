@@ -271,15 +271,19 @@ Initial release
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" version="0.0.8" provider-name="Team Kodi">
+</addon><addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" version="0.0.9" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="moviegenreicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Transparent Movie Genre Icons</summary>
-		<description lang="en">Movie Genre Icons with a transparent background</description>
+		<description lang="en">Movie Genre Icons for Auramod compatable with Tmdb and Trakt.</description>
 		<platform>all</platform>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
 	</extension>
 </addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="serenicons" />

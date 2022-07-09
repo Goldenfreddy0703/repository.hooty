@@ -300,13 +300,13 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbgenreicons.coloured" name="TheMovieDb Helper Genre Icons - coloured" version="0.0.1" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="tmdbgenreicons" />
+</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">TheMovieDb Helper Genre Icons</summary>
+		<summary lang="en">TheMovieDb Helper Icons</summary>
 		<description lang="en">Icons for TheMovieDb Helper</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>

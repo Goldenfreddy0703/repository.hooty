@@ -300,7 +300,37 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="serenicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Seren Icons</summary>
+		<description lang="en">Icons for Seren</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>ico-seren-2.png</icon>
+			<fanart>fanart-seren-2.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">TheMovieDb Helper Icons</summary>
+		<description lang="en">Icons for TheMovieDb Helper</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.tmdbicons.white" name="TheMovieDb Helper Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

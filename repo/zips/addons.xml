@@ -285,7 +285,7 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="serenicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -300,7 +300,7 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="serenicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -315,7 +315,7 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -330,7 +330,7 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbicons.white" name="TheMovieDb Helper Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.tmdbicons.white" name="TheMovieDb Helper Icons - White" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

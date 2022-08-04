@@ -488,22 +488,6 @@ Initial release
 			<screenshot>resources/images/screenshot-4.png</screenshot>
 		</assets>
 	</extension>
-</addon><addon id="script.module.autocompletion" name="AutoCompletion library" version="2.0.0" provider-name="Philipp Temminghoff (phil65), bbaronSVK, drinfernoo">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.requests" version="2.9.1" />
-    </requires>
-    <extension point="xbmc.python.module" library="lib" />
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">Module providing some AutoCompletion functions</summary>
-        <description lang="en">Module providing some AutoCompletion functions</description>
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
-        <source>https://github.com/phil65/script.module.autocompletion</source>
-        <assets>
-            <icon>icon.png</icon>
-        </assets>
-    </extension>
 </addon><addon id="script.service.sponsorblock" version="0.4.0" name="SponsorBlock" provider-name="siku2">
     <requires>
         <import addon="script.module.requests" version="2.15.1" />

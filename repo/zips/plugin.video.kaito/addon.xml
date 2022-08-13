@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.26+matrix.1">
+<addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.27+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.future" version="0.17.1+matrix.1"/>
@@ -24,6 +24,9 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
     <news>
+Changelog 0.0.11-beta27:
+Fix MAL token refresh
+
 Changelog 0.0.11-beta26:
 Fixed findSimilar context menu on shows
 	    

@@ -73,7 +73,7 @@ Changelog 0.0.1:
       <fanart>resources/fanart.png</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.30+matrix.1">
+</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.31+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.future" version="0.17.1+matrix.1" />
@@ -98,6 +98,9 @@ Changelog 0.0.1:
 			<fanart>fanart.jpg</fanart>
 		</assets>
     <news>
+Changelog 0.0.11-beta31:
+Added Icons to Kaito
+
 Changelog 0.0.11-beta30:
 Kitsu Watchlist update sync fix
 
@@ -317,7 +320,7 @@ Initial release
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" version="0.0.4" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="kaitoicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -332,7 +335,7 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.kaitoicons.white" name="Kaito Icons - White" version="0.0.3" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.kaitoicons.white" name="Kaito Icons - White" version="0.0.4" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="kaitoicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

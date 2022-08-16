@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
+<addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" version="0.0.4" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="kaitoicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0"/>

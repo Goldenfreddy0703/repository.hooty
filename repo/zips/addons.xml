@@ -73,7 +73,7 @@ Changelog 0.0.1:
       <fanart>resources/fanart.png</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.31+matrix.1">
+</addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.32+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.future" version="0.17.1+matrix.1" />
@@ -98,6 +98,9 @@ Changelog 0.0.1:
 			<fanart>fanart.jpg</fanart>
 		</assets>
     <news>
+Changelog 0.0.11-beta32:
+Improved the crap out of theming
+
 Changelog 0.0.11-beta31:
 Added Icons to Kaito
 

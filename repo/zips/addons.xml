@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="context.kaito" version="0.0.6+matrix.1" name="kaito - Global Context Menu Items" provider-name="SwagOtaku">
+<addons><addon id="context.kaito" name="kaito - Global Context Menu Items" provider-name="SwagOtaku" version="0.0.6+matrix.1">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.seren" version="2.2.0" name="Seren - Global Context Menu Items" provider-name="Nixgates">
+</addon><addon id="context.seren" name="Seren - Global Context Menu Items" provider-name="Nixgates" version="2.2.0">
 	<requires>
 		<import addon="xbmc.addon" version="17.9.910" />
 		<import addon="script.module.future" version="0.17.1" />
@@ -101,7 +101,7 @@ Changelog 0.0.1:
 			</item>
         </menu>
     </extension>
-	<extension point="xbmc.service" library="service.py" />
+	<extension library="service.py" point="xbmc.service" />
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Seren - Global Context Menu Items</summary>
 		<summary lang="nl">Seren - Algemene contextmenu-items</summary>
@@ -145,7 +145,7 @@ Changelog 0.0.1:
 			Rework for Seren 2.0
 		</news>
 	</extension>
-</addon><addon id="context.themoviedb.helper" version="1.1.1" name="TMDbHelper - Additional Context Menu Items" provider-name="jurialmunkey">
+</addon><addon id="context.themoviedb.helper" name="TMDbHelper - Additional Context Menu Items" provider-name="jurialmunkey" version="1.1.1">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="plugin.video.themoviedb.helper" version="4.10.30" />
@@ -154,27 +154,27 @@ Changelog 0.0.1:
         <menu id="kodi.core.main">
             <menu>
                 <label>$ADDON[plugin.video.themoviedb.helper 32145]</label>
-                <item library="context.py" args="play_using">
+                <item args="play_using" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32322]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
-                <item library="context.py" args="related_lists">
+                <item args="related_lists" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32235]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
-                <item library="context.py" args="sync_trakt">
+                <item args="sync_trakt" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32295]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
-                <item library="context.py" args="refresh_details">
+                <item args="refresh_details" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32233]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
-                <item library="context.py" args="manage_artwork">
+                <item args="manage_artwork" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32222]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
-                <item library="context.py" args="add_to_library">
+                <item args="add_to_library" library="context.py">
                     <label>$ADDON[plugin.video.themoviedb.helper 32151]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
@@ -196,12 +196,12 @@ Changelog 0.0.1:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta10" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" provider-name="ForeverGuest" version="1.0~beta10">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
   </requires>
-  <extension point="xbmc.python.pluginsource" library="resources/lib/addon.py">
+  <extension library="resources/lib/addon.py" point="xbmc.python.pluginsource">
     <provides>audio</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
@@ -217,14 +217,55 @@ Changelog 0.0.1:
       <fanart>resources/fanart.png</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.5.5" provider-name="drinfernoo">
+</addon><addon id="plugin.program.iagl" name="Internet Archive Game Launcher" version="3.0.6">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.dateutil" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+    <import addon="vfs.libarchive" />
+    <import addon="vfs.rar" optional="true" />
+    <import addon="script.module.archive_tool" version="2.0.2" />
+    <import addon="plugin.video.youtube" version="6.8.7" />
+  </requires>
+  <extension library="addon.py" point="xbmc.python.pluginsource">
+    <provides>video game</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    
+    <platform>all</platform>
+    <summary lang="en_GB">Internet Archive Game Launcher</summary>
+    <description lang="en_GB">The Internet Archive Game Launcher (IAGL) is a FREE Kodi addon that will browse and launch games available from the Internet</description>
+    <summary lang="es_ES">Internet Archive Game Launcher</summary>
+    <description lang="es_ES">Internet Archive Game Launcher (IAGL) es un complemento gratuito para Kodi que explora y lanza juegos disponibles en Internet</description>
+    <summary lang="es_MX">Internet Archive Game Launcher</summary>
+    <description lang="es_MX">Internet Archive Game Launcher (IAGL) es un complemento gratuito para Kodi que explorará y lanzará juegos disponibles en Internet</description>
+    <summary lang="pt_BR">Internet Archive Game Launcher</summary>
+    <description lang="pt_BR">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
+    <summary lang="pt_PT">Internet Archive Game Launcher</summary>
+    <description lang="pt_PT">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
+    <license>CC BY-SA 4.0, GNU GENERAL PUBLIC LICENSE Version 2.0</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=231339</forum>
+    <source>https://github.com/zach-morris/plugin.program.iagl</source>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+      <screenshot>support/media/screen1.jpg</screenshot>
+      <screenshot>support/media/screen2.jpg</screenshot>
+      <screenshot>support/media/screen3.jpg</screenshot>
+      <screenshot>support/media/screen4.jpg</screenshot>
+      <screenshot>support/media/screen5.jpg</screenshot>
+      <screenshot>support/media/screen6.jpg</screenshot>
+    </assets>
+  </extension>
+</addon><addon id="plugin.program.opendevtools" name="OpenDevTools" provider-name="drinfernoo" version="1.5.5">
 	<requires>
 		<import addon="script.module.dateutil" />
 		<import addon="script.module.pil" />
 		<import addon="script.module.pyqrcode" />
 		<import addon="script.module.requests" />
 	</requires>
-	<extension point="xbmc.python.script" library="default.py">
+	<extension library="default.py" point="xbmc.python.script">
 		<provides>executable</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
@@ -293,7 +334,7 @@ Changelog 0.0.1:
  - Initial Release
 		</news>
 	</extension>
-</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="1.4.9" provider-name="drinfernoo">
+</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" provider-name="drinfernoo" version="1.4.9">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.requests" />
@@ -302,11 +343,11 @@ Changelog 0.0.1:
         <import addon="script.speedtester" optional="true" version="1.1.2" />
     </requires>
     
-    <extension point="xbmc.python.pluginsource" library="default.py">
+    <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>executable</provides>
     </extension>
     
-    <extension point="xbmc.service" library="startup.py" start="startup" />
+    <extension library="startup.py" point="xbmc.service" start="startup" />
     
     <extension point="xbmc.addon.metadata">
         <summary lang="en">[COLOR limegreen]Open[/COLOR]Wizard</summary>
@@ -431,6 +472,27 @@ Changelog 0.0.1:
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.program.retrobiostool" name="Retro BIOS Tool" version="0.5">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.kodi-six" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+  </requires>
+  <extension library="retrobiostool.py" point="xbmc.python.pluginsource">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    
+    <platform>all</platform>
+    <summary lang="en_GB">Retro BIOS Tool</summary>
+    <description lang="en_GB">Retro BIOS Tool will scan a folder of your choosing and copy the appropriate files for use in Kodi game addons</description>
+    <license>GNU General Public License v3.0</license>
+    <source>https://github.com/zach-morris/plugin.program.retrobiostool</source>
+    <assets>
+      <icon>icon.jpg</icon>
+    </assets>
+  </extension>
 </addon><addon id="plugin.video.kaito" name="Kaito [COLOR yellow]Beta[/COLOR]" provider-name="SwagOtaku" version="0.0.11.36+matrix.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
@@ -444,7 +506,7 @@ Changelog 0.0.1:
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
   </extension>
-  <extension point="xbmc.service" library="service.py" />
+  <extension library="service.py" point="xbmc.service" />
   <extension point="xbmc.addon.metadata">
     <reuselanguageinvoker>false</reuselanguageinvoker>
     <summary lang="en">kaito video plugin</summary>
@@ -642,7 +704,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.newson" version="1.3.0" name="NewsON" provider-name="Lunatixz">
+</addon><addon id="plugin.video.newson" name="NewsON" provider-name="Lunatixz" version="1.3.0">
     <requires>
         <import addon="xbmc.python" version="3.0.0" /> 
         <import addon="script.module.six" version="1.0.0" />
@@ -651,10 +713,10 @@ Initial release
         <import addon="script.module.simplecache" version="1.0.0" />
         <import addon="script.module.routing" version="0.2.3" />
     </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
+    <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
     </extension>
-    <extension point="xbmc.service" library="pseudotv_recommended.py" />
+    <extension library="pseudotv_recommended.py" point="xbmc.service" />
     <extension point="xbmc.addon.metadata">
         <reuselanguageinvoker>true</reuselanguageinvoker>
         <platform>all</platform>
@@ -676,21 +738,21 @@ Initial release
         <description lang="da_DK">NewsON giver øjeblikkelig adgang til direkte- eller on-demand-udsendelser fra over 175 lokale stationer på 114 amerikanske markeder. Få adgang til tidligere nyhedsudsendelser i op til 48 timer, efter de er blevet sendt, og del interessante historier med den integrerede delefunktion på sociale medier direkte fra appen. Søg efter en lokal station med det interaktive kort, eller se stationen tættest på dig på smartphones, tablets eller Roku-streamingafspillere. Gem favoritstationer, og hold dig opdateret med alarmer om seneste nyheder sendt direkte til mobile enheder fra den lokale nyhedskilde. Hold forbindelsen når som helst og hvor som helst uden et kabelabonnement eller login.</description>
         <description lang="en_GB">NewsON provides instant access to live or on-demand broadcasts from over 175 local stations in 114 U.S. markets. Access previous newscasts for up to 48 hours after they air, and share interesting stories with the integrated social media share function directly from the app. Search for a local station with the interactive map or watch the station closest to you on smartphones, tablets, or Roku streaming players. Save favorite stations, and stay updated with breaking news alerts sent directly to mobile devices from the local source of the news. Stay connected anytime, anywhere without a cable subscription or login.</description>
     </extension>
-</addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" name="Seren" provider-name="Nixgates" version="2.2.1">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="script.module.future" version="0.17.1" />
         <import addon="script.module.requests" version="2.22.0" />
         <import addon="script.module.beautifulsoup4" version="4.6.2" />
         <import addon="context.seren" version="2.2.0" />
-        <import addon="script.module.inputstreamhelper" version="0.3.3" optional="true" />
+        <import addon="script.module.inputstreamhelper" optional="true" version="0.3.3" />
         <import addon="script.module.unidecode" version="1.1.1" />
         <import addon="script.module.myconnpy" version="1.1.7" />
     </requires>
-    <extension point="xbmc.python.pluginsource" library="seren.py">
+    <extension library="seren.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
     </extension>
-    <extension point="xbmc.service" library="service.py" />
+    <extension library="service.py" point="xbmc.service" />
     <extension point="xbmc.addon.metadata">
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <summary lang="en">Seren - Modular Multi-source Addon</summary>
@@ -1162,18 +1224,18 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="4.10.31" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" name="TheMovieDb Helper" provider-name="jurialmunkey" version="4.10.34">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
 </requires>
-<extension point="xbmc.python.pluginsource" library="plugin.py">
+<extension library="plugin.py" point="xbmc.python.pluginsource">
   <provides>video</provides>
 </extension>
-<extension point="xbmc.python.script" library="script.py" />
-<extension point="xbmc.service" library="service.py" />
+<extension library="script.py" point="xbmc.python.script" />
+<extension library="service.py" point="xbmc.service" />
 <extension point="xbmc.addon.metadata">
   <reuselanguageinvoker>false</reuselanguageinvoker>
   <summary lang="en_GB">TheMovieDb Helper - Now With Trakt Support!</summary>
@@ -1195,8 +1257,8 @@ Initial release
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="repository.hooty" name="Hooty's Repository" version="1.0" provider-name="Goldenfreddy0703">
-    <extension point="xbmc.addon.repository" name="Hooty's Repository">
+</addon><addon id="repository.hooty" name="Hooty's Repository" provider-name="Goldenfreddy0703" version="1.0">
+    <extension name="Hooty's Repository" point="xbmc.addon.repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/addons.xml.md5</checksum>
@@ -1213,8 +1275,8 @@ Initial release
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" version="0.0.4" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="kaitoicons" />
+</addon><addon id="resource.images.kaitoicons.coloured" name="Kaito Icons - Coloured" provider-name="Goldenfreddy0703" version="0.0.4">
+	<extension compile="true" point="kodi.resource.images" type="kaitoicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1228,8 +1290,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.kaitoicons.white" name="Kaito Icons - White" version="0.0.4" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="kaitoicons" />
+</addon><addon id="resource.images.kaitoicons.white" name="Kaito Icons - White" provider-name="Goldenfreddy0703" version="0.0.4">
+	<extension compile="true" point="kodi.resource.images" type="kaitoicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1243,8 +1305,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" version="0.0.9" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="moviegenreicons" />
+</addon><addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" provider-name="Goldenfreddy0703" version="0.0.9">
+	<extension compile="true" point="kodi.resource.images" type="moviegenreicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1257,8 +1319,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="serenicons" />
+</addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="serenicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1272,8 +1334,8 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="serenicons" />
+</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="serenicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1287,8 +1349,8 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbgenreicons.coloured" name="TheMovieDb Helper Genre Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="tmdbgenreicons" />
+</addon><addon id="resource.images.tmdbgenreicons.coloured" name="TheMovieDb Helper Genre Icons - Coloured" provider-name="Goldenfreddy0703" version="0.0.1">
+	<extension compile="true" point="kodi.resource.images" type="tmdbgenreicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1302,8 +1364,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
+</addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1317,8 +1379,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.tmdbicons.white" name="TheMovieDb Helper Icons - White" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="tmdbicons" />
+</addon><addon id="resource.images.tmdbicons.white" name="TheMovieDb Helper Icons - White" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="tmdbicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1332,8 +1394,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.ytmusicicons.black" name="YT [COLOR red]Music[/COLOR] EXP Icons - Black" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+</addon><addon id="resource.images.ytmusicicons.black" name="YT [COLOR red]Music[/COLOR] EXP Icons - Black" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1347,8 +1409,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.ytmusicicons.coloured" name="YT [COLOR red]Music[/COLOR] EXP Icons - Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+</addon><addon id="resource.images.ytmusicicons.coloured" name="YT [COLOR red]Music[/COLOR] EXP Icons - Coloured" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1362,8 +1424,8 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.ytmusicicons.white" name="YT [COLOR red]Music[/COLOR] EXP Icons - White" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+</addon><addon id="resource.images.ytmusicicons.white" name="YT [COLOR red]Music[/COLOR] EXP Icons - White" provider-name="Goldenfreddy0703" version="0.0.3">
+	<extension compile="true" point="kodi.resource.images" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
 	</requires>
@@ -1377,12 +1439,12 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="screensaver.kaster" name="Kaster" version="1.3.7+matrix.1" provider-name="enen92">
+</addon><addon id="screensaver.kaster" name="Kaster" provider-name="enen92" version="1.3.7+matrix.1">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.22.0" />
 	</requires>
-	<extension point="xbmc.ui.screensaver" library="entrypoint.py" />
+	<extension library="entrypoint.py" point="xbmc.ui.screensaver" />
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
 		<license>GPL-2.0-or-later</license>
@@ -1411,14 +1473,30 @@ Initial release
 			<screenshot>resources/images/screenshot-4.png</screenshot>
 		</assets>
 	</extension>
-</addon><addon id="script.service.sponsorblock" version="0.4.0" name="SponsorBlock" provider-name="siku2">
+</addon><addon id="script.module.archive_tool" name="archive_tool" provider-name="Zach Morris" version="2.0.3">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="vfs.libarchive" />
+    <import addon="vfs.rar" optional="true" />
+  </requires>
+  <extension library="lib" point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Python class for working with file archives</summary>
+    <description lang="en">archive_tool is a set of common tools to work with the Kodi libarchive virtual file system</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+    <license>GNU GENERAL PUBLIC LICENSE V3</license>
+  </extension>
+</addon><addon id="script.service.sponsorblock" name="SponsorBlock" provider-name="siku2" version="0.4.0">
     <requires>
         <import addon="script.module.requests" version="2.15.1" />
         <import addon="script.module.six" version="1.13.0" />
         <import addon="plugin.video.youtube" version="6.7.0" />
     </requires>
 
-    <extension point="xbmc.service" library="service.py" />
+    <extension library="service.py" point="xbmc.service" />
 
     <extension point="kodi.context.item">
         <menu id="kodi.core.main">
@@ -1461,12 +1539,12 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="1.0.5" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" name="Skin Variables" provider-name="jurialmunkey" version="1.0.5">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
 </requires>
-<extension point="xbmc.python.script" library="script.py" />
-<extension point="xbmc.python.pluginsource" library="plugin.py" />
+<extension library="script.py" point="xbmc.python.script" />
+<extension library="plugin.py" point="xbmc.python.pluginsource" />
 <extension point="xbmc.addon.metadata">
   <summary lang="en_GB">Skin Variables helps skinners to construct variables and expressions for multiple containers and listitems using a template</summary>
   <summary lang="fr_FR">Skin Variables aide les skinners à créer des variables et des expressions pour plusieurs conteneurs et listes à l'aide d'un modèle</summary>
@@ -1481,13 +1559,13 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
   </assets>
   <news>0.2.1 - Improve variable build speed</news>
 </extension>
-</addon><addon id="script.texturemaker" version="0.2.7" name="Texture Maker" provider-name="jurialmunkey">
+</addon><addon id="script.texturemaker" name="Texture Maker" provider-name="jurialmunkey" version="0.2.7">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.pil" version="1.1.7" />
 </requires>
-<extension point="xbmc.python.script" library="script.py" />
-<extension point="xbmc.python.pluginsource" library="plugin.py">
+<extension library="script.py" point="xbmc.python.script" />
+<extension library="plugin.py" point="xbmc.python.pluginsource">
   <provides>image</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
@@ -1500,13 +1578,13 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.3.0" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" provider-name="Unknown" version="3.3.0">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
     </requires>
-    <extension point="xbmc.subtitle.module" library="main.py" />
-    <extension point="xbmc.service" library="main_service.py" />
+    <extension library="main.py" point="xbmc.subtitle.module" />
+    <extension library="main_service.py" point="xbmc.service" />
     <extension point="xbmc.addon.metadata">
         <summary lang="en">a4kSubtitles - Multi-Source Subtitles Addon</summary>
         <description>
@@ -1747,7 +1825,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.4.1">
+</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.4.2">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />

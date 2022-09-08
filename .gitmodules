@@ -52,3 +52,9 @@
 [submodule "repo/service.subtitles.a4ksubtitles"]
 	path = repo/service.subtitles.a4ksubtitles
 	url = https://github.com/a4k-openproject/a4kSubtitles.git
+[submodule "repo/plugin.program.opendevtools"]
+	path = repo/plugin.program.opendevtools
+	url = https://github.com/drinfernoo/plugin.program.opendevtools.git
+[submodule "repo/script.service.sponsorblock"]
+	path = repo/script.service.sponsorblock
+	url = https://github.com/siku2/script.service.sponsorblock.git

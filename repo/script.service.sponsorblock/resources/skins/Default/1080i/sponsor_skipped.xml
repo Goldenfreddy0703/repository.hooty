@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <onload>Dialog.Close(fullscreeninfo,true)</onload>
+    <onload>Dialog.Close(videoosd,true)</onload>
+
+    <defaultcontrol always="true">1</defaultcontrol>
+
+    <controls>
+        <control type="group">
+            <animation type="WindowOpen" reversible="false">
+                <effect type="fade" start="0" end="100" time="300"/>
+                <effect type="slide" start="400%,0" end="0,0" time="400"/>
+            </animation>
+            <animation type="WindowClose" reversible="false">
+                <effect type="fade" start="100" end="0" time="400"/>
+                <effect type="slide" start="0,0" end="400%,0" time="400"/>
+            </animation>
+
+            <control type="group">
+                <right>0</right>
+                <bottom>30%</bottom>
+                <height>15%</height>
+                <width>20%</width>
+
+                <!-- Background -->
+                <control type="image">
+                    <height>100%</height>
+                    <width>100%</width>
+
+                    <texture colordiffuse="cc000010">white.png</texture>
+                </control>
+
+                <!-- Header -->
+                <control type="textbox">
+                    <left>0</left>
+                    <top>0</top>
+                    <width>100%</width>
+                    <height>75%</height>
+
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font12</font>
+                    <textcolor>ffffffff</textcolor>
+                    <shadowcolor>00000000</shadowcolor>
+                    <label>$ADDON[script.service.sponsorblock 32008]</label>
+                </control>
+
+                <!-- Buttons -->
+                <control type="grouplist">
+                    <left>10</left>
+                    <right>10</right>
+                    <bottom>10</bottom>
+                    <height>60</height>
+
+                    <orientation>horizontal</orientation>
+
+                    <control type="button" id="1">
+                        <width min="200">auto</width>
+                        <width>auto</width>
+
+                        <align>center</align>
+                        <focusedcolor>eeffffff</focusedcolor>
+                        <font>font20_title</font>
+                        <label>$ADDON[script.service.sponsorblock 32009]</label>
+                        <selectedcolor>ddffffff</selectedcolor>
+                        <shadowcolor>22000000</shadowcolor>
+                        <textcolor>ddffffff</textcolor>
+                    </control>
+
+                    <control type="button" id="2">
+                        <width min="150">auto</width>
+
+                        <align>center</align>
+                        <focusedcolor>eeffffff</focusedcolor>
+                        <font>font20_title</font>
+                        <label>$ADDON[script.service.sponsorblock 32010]</label>
+                        <selectedcolor>ddffffff</selectedcolor>
+                        <shadowcolor>22000000</shadowcolor>
+                        <textcolor>ddffdddd</textcolor>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

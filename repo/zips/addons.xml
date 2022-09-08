@@ -1,5 +1,357 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="repository.hooty" name="Hooty's Repository" version="1.0" provider-name="Goldenfreddy0703">
+<addons><addon id="context.kaito" version="0.0.6+matrix.1" name="kaito - Global Context Menu Items" provider-name="SwagOtaku">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="kodi.context.item">
+        <menu id="kodi.core.main">
+			<item library="rescrape.py">
+	              <label>Rescrape Item</label>
+	              <visible>String.StartsWith(ListItem.path,plugin://plugin.video.kaito/)+[String.IsEqual(ListItem.dbtype,episode)]</visible>
+	          </item>
+			<item library="sourceSelect.py">
+					      <label>Source Select</label>
+					      <visible>String.StartsWith(ListItem.path,plugin://plugin.video.kaito/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+					  </item>
+			<item library="findSimilar.py">
+		            <label>Find Similar</label>
+		            <visible>String.StartsWith(ListItem.path,plugin://plugin.video.kaito/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+		        </item>
+			<item library="seasonCorrection.py">
+                <label>Season Correction</label>
+                <visible>String.StartsWith(ListItem.path,plugin://plugin.video.kaito/)+[String.IsEqual(ListItem.dbtype,tvshow)]</visible>
+            </item>
+			<item library="watchlistLogout.py">
+			          <label>Logout</label>
+			          <visible>String.StartsWith(ListItem.path,plugin://plugin.video.kaito/)+[String.Contains(ListItem.folderpath,/watchlist/)]</visible>
+			      </item>
+        </menu>
+    </extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">kaito - This Addon is currently in beta. Please be aware there may be bugs present</summary>
+		<description lang="en">Adds Global Contextual Menu Items for kaito menu items throughout Kodi
+		</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum />
+		<website />
+		<source />
+		<disclaimer lang="en" />
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+		<news>
+Changelog 0.0.3:
+- Fixed Rescrape running twice
+
+Changelog 0.0.2:
+- Added Rescrape Item option
+
+Changelog 0.0.1:
+- Initial release
+		</news>
+	</extension>
+</addon><addon id="context.otaku" version="0.0.6" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+  <requires>
+    
+  </requires>
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+      <item library="rescrape.py">
+        <label>Rescrape Item</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,episode)]</visible>
+      </item>
+      <item library="sourceSelect.py">
+        <label>Source Select</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="findSimilar.py">
+        <label>Find Similar</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="seasonCorrection.py">
+        <label>Season Correction</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)]</visible>
+      </item>
+      <item library="watchlistLogout.py">
+        <label>Logout</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.Contains(ListItem.folderpath,/watchlist/)]</visible>
+      </item>
+    </menu>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">otaku - This Addon is currently in beta. Please be aware there may be bugs present</summary>
+    <description lang="en">Adds Global Contextual Menu Items for otaku menu items throughout Kodi
+    </description>
+    <platform>all</platform>
+    <license>GPL-3.0</license>
+    <forum />
+    <website />
+    <source />
+    <disclaimer lang="en" />
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+    <news>
+Changelog 0.0.6:
+- Initial release
+    </news>
+  </extension>
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta10" provider-name="ForeverGuest">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" version="1.1.0" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="resources/lib/addon.py">
+    <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
+    <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
+    <news>
+1.0~beta10 (2022-04-30)
+- Fix the handling of artist albums.
+    </news>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.png</fanart>
+    </assets>
+  </extension>
+</addon><addon id="plugin.program.iagl" name="Internet Archive Game Launcher" version="3.0.6">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.dateutil" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+    <import addon="vfs.libarchive" />
+    <import addon="vfs.rar" optional="true" />
+    <import addon="script.module.archive_tool" version="2.0.2" />
+    <import addon="plugin.video.youtube" version="6.8.7" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video game</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    
+    <platform>all</platform>
+    <summary lang="en_GB">Internet Archive Game Launcher</summary>
+    <description lang="en_GB">The Internet Archive Game Launcher (IAGL) is a FREE Kodi addon that will browse and launch games available from the Internet</description>
+    <summary lang="es_ES">Internet Archive Game Launcher</summary>
+    <description lang="es_ES">Internet Archive Game Launcher (IAGL) es un complemento gratuito para Kodi que explora y lanza juegos disponibles en Internet</description>
+    <summary lang="es_MX">Internet Archive Game Launcher</summary>
+    <description lang="es_MX">Internet Archive Game Launcher (IAGL) es un complemento gratuito para Kodi que explorará y lanzará juegos disponibles en Internet</description>
+    <summary lang="pt_BR">Internet Archive Game Launcher</summary>
+    <description lang="pt_BR">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
+    <summary lang="pt_PT">Internet Archive Game Launcher</summary>
+    <description lang="pt_PT">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
+    <license>CC BY-SA 4.0, GNU GENERAL PUBLIC LICENSE Version 2.0</license>
+    <forum>https://forum.kodi.tv/showthread.php?tid=231339</forum>
+    <source>https://github.com/zach-morris/plugin.program.iagl</source>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+      <screenshot>support/media/screen1.jpg</screenshot>
+      <screenshot>support/media/screen2.jpg</screenshot>
+      <screenshot>support/media/screen3.jpg</screenshot>
+      <screenshot>support/media/screen4.jpg</screenshot>
+      <screenshot>support/media/screen5.jpg</screenshot>
+      <screenshot>support/media/screen6.jpg</screenshot>
+    </assets>
+  </extension>
+</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="1.4.9" provider-name="drinfernoo">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.six" />
+        <import addon="script.kodi.android.update" optional="true" version="1.1.7" />
+        <import addon="script.speedtester" optional="true" version="1.1.2" />
+    </requires>
+    
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    
+    <extension point="xbmc.service" library="startup.py" start="startup" />
+    
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">[COLOR limegreen]Open[/COLOR]Wizard</summary>
+        <description lang="en">[COLOR limegreen]Open[/COLOR]Wizard offers many maintenance features, selective add-on data saving, and automated build installs.</description>
+        <platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <source>https://www.github.com/drinfernoo/plugin.program.openwizard/</source>
+        <news>
+1.4.9
+ - Fix Error Related to Log
+1.4.8
+ - Fix regex for formatting tags
+ - Fix theme selection after build install
+ - Fix downloading into invalid path
+1.4.7
+ - Don't show Matrix builds in previous versions
+1.4.6
+ - Use Speed Tester add-on from official repo
+1.4.5
+ - Fix bugs with unintended files being cleared
+1.4.4
+ - Transfer ownership
+1.4.3
+ - Fix missing artwork on items (thanks @xulek)
+1.4.2
+ - A few bug fixes
+1.4.1
+ - Fix crash on fresh installs
+1.4.0
+ - Fix APK Installer
+ - Convert official APK downloader to use official script
+ - Add scrollbar to Save Data dialog
+ - Fix skin path in build info
+1.3.7
+ - Fix import lock error
+1.3.6
+ - Fix notifications
+ - Cleanup log files
+1.3.5
+ - Add Fen
+ - Add Shadow
+ - Fix restoring saved data every boot
+1.3.4
+ - Fix bad indent
+1.3.3
+ - Fix Unicode characters in notification window
+1.3.2
+ - Fix build restore
+1.3.1
+ - Fix "Keep Login Info" menu        
+1.3.0
+ - Fix formatting of saved restore times
+ - Fix local build zip being deleted on restore
+ - Add YouTube API saving
+ - Remove broken context menus
+ - Fix repeating dialogs from shortcuts/favorites
+ - Remove "Normal Install" option
+ - Add "Logging Tools" menu
+ - Add option to save guisettings.xml
+ - Add TMDbHelper Fanart.tv saving
+ - More fixes for OS X
+ - Fix Seren Fanart.tv saving
+1.2.9
+ - Fix NuMb3r5 cache clearing
+ - Fix hang during repo force check
+ - Fix logins being restored every startup
+ - Fix some file permission errors
+ - Fix OS X backup errors
+1.2.8
+ - Add Gaia PM OAuth
+ - Fix binary add-on restoration
+ - Fix some issues with old settings
+ - Fix timing on many startup tasks
+1.2.7
+ - Add TheMovieDb Helper
+1.2.6
+ - Fix Seren PM OAuth    
+1.2.5
+ - Fix typo in debridit.py
+1.2.4
+ - Cover more edge cases during binary detection
+1.2.3
+ - Fix notification ID bug
+1.2.2
+ - Add Seren PM OAuth
+ - Add AllDebrid spport for Gaia, Seren, ResolveURL, and URLResolver
+1.2.1
+ - General bug fixes
+1.2.0
+ - Silence save data notifications on startup
+ - Fix Addon Installer menu
+ - Convert addons.txt to JSON format
+1.1.1
+ - Fix error on advancedsettings categories
+1.1.0
+ - Add back advancedsettings area under System Tweaks/Fixes
+ - Rudimentary version of advancedsettings editor. Can currently only handle editing pre-existing tags under 'cache' and 'network'.
+ - Convert advanced.txt to JSON format
+ - Add "built-in" advancedsettings.xml presets
+1.0.3
+ - Update artwork
+ - Fix rare issues with URLs not working
+ - Fix repetitive build prompt (again)
+ - Fix builds downloading twice
+ - Fix title coloring on notifications
+ - Fix auto repo install
+ - Fix first run settings not being respected
+1.0.2
+ - Fix crash in login menu
+ - Fix auto install repo
+1.0.1
+ - Fix double startup
+ - Fix repetitive build prompt
+ - Fix main menu not opening on Krypton
+ - Fix notification timeout
+ - Fix crash in Trakt menu
+1.0.0
+ - Initial Commit
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
+        </assets>
+    </extension>
+</addon><addon id="plugin.program.retrobiostool" name="Retro BIOS Tool" version="0.5">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.kodi-six" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="retrobiostool.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    
+    <platform>all</platform>
+    <summary lang="en_GB">Retro BIOS Tool</summary>
+    <description lang="en_GB">Retro BIOS Tool will scan a folder of your choosing and copy the appropriate files for use in Kodi game addons</description>
+    <license>GNU General Public License v3.0</license>
+    <source>https://github.com/zach-morris/plugin.program.retrobiostool</source>
+    <assets>
+      <icon>icon.jpg</icon>
+    </assets>
+  </extension>
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.1.5">
+  <requires>
+    
+    <import addon="script.module.requests" version="2.19.1" />
+    <import addon="script.module.beautifulsoup4" version="4.5.3" />
+    <import addon="script.common.plugin.cache" version="2.5.5" />
+    <import addon="script.module.inputstreamhelper" version="0.3.3" />
+    <import addon="script.module.six" version="1.15.0" />
+    <import addon="script.module.kodi-six" version="0.1.3" />
+    <import addon="context.otaku" version="0.0.1" />
+    <import addon="script.otaku.themepak" version="0.0.1" />
+  </requires>
+  <extension library="default.py" point="xbmc.python.pluginsource">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" />
+  <extension point="xbmc.addon.metadata">
+    <reuselanguageinvoker>false</reuselanguageinvoker> 
+    <summary lang="en">Otaku video plugin</summary>
+    <description lang="en">HD Animes</description>
+    <platform>all</platform>
+    <license>GPL-3.0</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+    <news>
+Changelog 0.1.5 [20220907]:
+- Improve gogo scraping and playback
+    </news>
+  </extension>
+</addon><addon id="repository.hooty" name="Hooty's Repository" version="1.0" provider-name="Goldenfreddy0703">
     <extension point="xbmc.addon.repository" name="Hooty's Repository">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/addons.xml</info>
@@ -181,6 +533,37 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="script.module.archive_tool" name="archive_tool" provider-name="Zach Morris" version="2.0.3">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="vfs.libarchive" />
+    <import addon="vfs.rar" optional="true" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Python class for working with file archives</summary>
+    <description lang="en">archive_tool is a set of common tools to work with the Kodi libarchive virtual file system</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+    <license>GNU GENERAL PUBLIC LICENSE V3</license>
+  </extension>
+</addon><addon id="script.otaku.themepak" version="0.0.1" name="Otaku Themepak" provider-name="TeamOtaku">
+    <requires>
+        <import addon="kodi.resource" version="1.0.0" />
+    </requires>
+    <extension point="kodi.resource.images" compile="false" type="themepak" />
+    <extension point="xbmc.addon.metadata">
+        <summary>Themes for the Otaku Addon</summary>
+        <description>Themes for Otaku are maintained separately to make distribution of the the addon itself easier/faster.</description>
+        <platform>all</platform>
+        <license>GPL-2.0</license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="script.service.sponsorblock" version="0.4.0" name="SponsorBlock" provider-name="siku2">
     <requires>
         <import addon="script.module.requests" version="2.15.1" />

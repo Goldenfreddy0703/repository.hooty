@@ -1,0 +1,21 @@
+[submodule "repo/context.kaito"]
+	path = repo/context.kaito
+	url = https://github.com/Goldenfreddy0703/context.kaito.git
+[submodule "repo/plugin.audio.ytmusic.exp"]
+	path = repo/plugin.audio.ytmusic.exp
+	url = https://github.com/Goldenfreddy0703/plugin.audio.ytmusic.exp.git
+[submodule "repo/plugin.program.iagl"]
+	path = repo/plugin.program.iagl
+	url = https://github.com/zach-morris/plugin.program.iagl.git
+[submodule "repo/plugin.program.retrobiostool"]
+	path = repo/plugin.program.retrobiostool
+	url = https://github.com/zach-morris/plugin.program.retrobiostool.git
+[submodule "repo/script.module.archive_tool"]
+	path = repo/script.module.archive_tool
+	url = https://github.com/zach-morris/script.module.archive_tool.git
+[submodule "repo/plugin.program.openwizard"]
+	path = repo/plugin.program.openwizard
+	url = https://github.com/a4k-openproject/plugin.program.openwizard.git
+[submodule "repo/Otaku"]
+	path = repo/Otaku
+	url = https://github.com/Goldenfreddy0703/Otaku.git

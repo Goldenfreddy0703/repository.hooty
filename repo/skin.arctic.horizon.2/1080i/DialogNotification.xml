@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <controls>
+        <include content="Object_ShadowSpot">
+            <include>Dimension_ClockShadow</include>
+            <visible>!Window.IsVisible(DialogVolumeBar.xml) | Player.Muted</visible>
+            <visible>VideoPlayer.IsFullscreen | Window.IsVisible(MusicVisualisation.xml)</visible>
+            <visible>!Window.IsVisible(DialogSeekBar.xml)</visible>
+        </include>
+        <include content="Furniture_Topbar_Group">
+            <visible>!Window.IsVisible(DialogVolumeBar.xml) | Player.Muted</visible>
+            <include content="Furniture_Gutters">
+                <control type="group">
+                    <width>60</width>
+                    <height>60</height>
+                    <right>0</right>
+                    <control type="group">
+                        <visible>String.StartsWith(Control.GetLabel(400),Default)</visible>
+                        <include content="Object_MenuButton">
+                            <param name="icon" value="dialog/info.png" />
+                            <param name="bordersize" value="10" />
+                        </include>
+                    </control>
+                    <control type="group">
+                        <visible>!String.StartsWith(Control.GetLabel(400),Default)</visible>
+                        <include content="Object_MenuButton">
+                            <param name="icon" value="special://skin/extras/icons/_none.png" />
+                        </include>
+                        <control type="image">
+                            <width>40</width>
+                            <height>40</height>
+                            <centertop>50%</centertop>
+                            <centerleft>50%</centerleft>
+                            <texture diffuse="common/circle.png">$INFO[Control.GetLabel(400)]</texture>
+                        </control>
+                    </control>
+                </control>
+                <control type="group">
+                    <right>grid_x08</right>
+                    <include content="Furniture_MenuLabel">
+                        <param name="id" value="401" />
+                        <align>right</align>
+                        <height>50%</height>
+                        <top>0</top>
+                    </include>
+                    <include content="Furniture_MiniLabel">
+                        <param name="id" value="402" />
+                        <align>right</align>
+                        <height>50%</height>
+                        <bottom>0</bottom>
+                    </include>
+                </control>
+            </include>
+        </include>
+        <control type="image" id="400">
+            <visible>false</visible>
+            <height>1</height>
+            <width>1</width>
+        </control>
+    </controls>
+</window>

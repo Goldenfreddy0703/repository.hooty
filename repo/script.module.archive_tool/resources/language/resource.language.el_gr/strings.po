@@ -1,0 +1,33 @@
+# Kodi Media Center language file
+# Addon Name: archive_tool
+# Addon id: script.module.archive_tool
+# Addon Provider: Zach Morris
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: zachmorris\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30001"
+msgid "script.module.archive_tool"
+msgstr "script.module.archive_tool"
+
+msgctxt "#30002"
+msgid "Select File"
+msgstr "Επιλογή αρχείου"
+
+msgctxt "#30003"
+msgid "Select Extraction Folder"
+msgstr "Επιλογή διαδρομής για την εξαγωγή"
+
+msgctxt "#30004"
+msgid "Select VFS"
+msgstr "Επιλογή VFS"
+
+msgctxt "#30005"
+msgid "Run Archive Test"
+msgstr "Εκτέλεση δοκιμής τόμου"
+
+msgctxt "#30006"
+msgid "Archive Test"
+msgstr "Δοκιμή τόμου"

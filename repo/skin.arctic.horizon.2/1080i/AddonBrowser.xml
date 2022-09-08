@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">50</defaultcontrol>
+    <views>50</views>
+    <menucontrol>9000</menucontrol>
+    <include>Action_Blur_Onload</include>
+    <include>Action_ClearContext_OnUnload</include>
+
+    <onload>SetFocus(6000,0,absolute)</onload>
+    <onload condition="String.IsEqual(Container.FolderPath,addons://recently_updated/)">SetFocus(6000,1,absolute)</onload>
+    <onload condition="String.IsEqual(Container.FolderPath,addons://dependencies/) + Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,2,absolute)</onload>
+    <onload condition="String.IsEqual(Container.FolderPath,addons://dependencies/) + !Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,3,absolute)</onload>
+    <onload condition="String.IsEqual(Container.FolderPath,addons://running/) + Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,3,absolute)</onload>
+    <onload condition="String.IsEqual(Container.FolderPath,addons://running/) + !Integer.IsEqual(Container(6301).NumItems,0)">SetFocus(6000,4,absolute)</onload>
+    <controls>
+        <include>Background_Main</include>
+        <include content="Dialog_Background">
+            <include>Dimension_Info</include>
+            <include content="Animation_WindowTransition_Settings">
+                <param name="windowopen" value="!Window.Previous(AddonBrowser.xml)" />
+                <param name="windowclose" value="!Window.Next(AddonBrowser.xml)" />
+            </include>
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>Animation_Common</include>
+            <control type="group">
+                <width>addonbrowser_category_w</width>
+                <top>grid_x04</top>
+                <bottom>grid_x04</bottom>
+                <include content="List_AddonCategories">
+                    <param name="id" value="6000" />
+                    <param name="altfocus" value="true" />
+                    <param name="width" value="addonbrowser_category_w" />
+                    <onback>Action(PreviousMenu)</onback>
+                    <onleft>menu</onleft>
+                    <onright condition="String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.FolderPath],replace)</onright>
+                    <onright condition="!String.IsEmpty(Container(6000).ListItem.Property(folderpath))">Container.Update($INFO[Container(6000).ListItem.Property(folderpath)],replace)</onright>
+                    <onright>50</onright>
+                    <content>
+                        <item>
+                            <label>$LOCALIZE[24998]</label>
+                            <property name="folderpath">addons://user/</property>
+                            <icon>DefaultAddonsInstalled.png</icon>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[24004]</label>
+                            <property name="folderpath">addons://recently_updated/</property>
+                            <icon>DefaultAddonsRecentlyUpdated.png</icon>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[24043]$INFO[System.AddonUpdateCount, (,)]</label>
+                            <property name="folderpath">addons://outdated/</property>
+                            <icon>DefaultAddonsUpdates.png</icon>
+                            <visible>!Integer.IsEqual(Container(6301).NumItems,0)</visible>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[24996]</label>
+                            <property name="folderpath">addons://dependencies/</property>
+                            <icon>DefaultAddonService.png</icon>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[23054] [LOWERCASE]$LOCALIZE[24001][/LOWERCASE]</label>
+                            <property name="folderpath">addons://running/</property>
+                            <icon>DefaultScript.png</icon>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[137]</label>
+                            <property name="folderpath">addons://user/</property>
+                            <icon>DefaultAddonsSearch.png</icon>
+                            <onclick>SetFocus(50)</onclick>
+                            <onclick>Container.Update(addons://search/,replace)</onclick>
+                        </item>
+                    </content>
+                    <content sortby="label">addons://repos/</content>
+                </include>
+            </control>
+
+            <control type="group">
+                <control type="group">
+                    <left>addonbrowser_category_w</left>
+                    <include>Dialog_Overlay</include>
+                    <include>Object_Separator</include>
+                    <control type="group">
+                        <include content="List_AddonBrowser">
+                            <param name="id" value="50" />
+                            <onback condition="String.IsEqual(Container.FolderPath,Container(6000).ListItem.FolderPath) | String.IsEqual(Container.FolderPath,addons://user/) | String.IsEqual(Container.FolderPath,addons://)">6000</onback>
+                            <onleft>6000</onleft>
+                            <onright>60</onright>
+                            <pagecontrol>60</pagecontrol>
+                        </include>
+                        <include content="Dialog_Scrollbar">
+                            <param name="id" value="60" />
+                            <right>0</right>
+                            <onleft>50</onleft>
+                            <onright>Setfocus(9000)</onright>
+                        </include>
+                    </control>
+                </control>
+
+            </control>
+        </include>
+        <include>View_Furniture_Top</include>
+        <include content="Object_Options_Menu">
+            <param name="grouplist_items" value="Items_AddonBrowser_Settings" />
+            <param name="visible" value="!$EXP[Exp_OverlayDialogs]" />
+            <param name="usemousefocus">true</param>
+        </include>
+
+        <control type="list" id="6301">
+            <width>1</width>
+            <height>1</height>
+            <left>-1000</left>
+            <itemlayout width="1" height="1" />
+            <focusedlayout width="1" height="1" />
+            <content>addons://outdated/</content>
+        </control>
+
+    </controls>
+
+</window>

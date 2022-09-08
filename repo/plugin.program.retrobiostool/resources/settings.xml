@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Retro BIOS Tool">
+		<setting id="rbt_folder" type="folder" label="Folder Containing BIOS Files" visible="true"/>
+		<setting id="rbt_generate_report" type="bool" label="Generate Report" default="true" visible="true"/>
+	</category>
+</settings>

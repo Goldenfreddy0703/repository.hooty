@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <menucontrol>9000</menucontrol>
+    <onunload>ClearProperty(HasTrailer,Home)</onunload>
+    <controls>
+
+        <include condition="Window.IsVisible(fullscreenvideo)">Background_Main</include>
+
+        <include content="DialogInfo_MainGroup">
+            <include content="DialogInfo_LeftGroup">
+                <param name="icon">$VAR[Image_PVRPoster]</param>
+                <param name="poster_visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Poster)) | !String.IsEmpty(ListItem.Art(tvshow.poster)) | !String.IsEmpty(ListItem.Art(poster))</param>
+
+                <!-- Use Square when Poster not available -->
+                <include content="Object_BigPoster">
+                    <param name="aspectratio">keep</param>
+                    <param name="diffuse">diffuse/square_w544_h544.png</param>
+                    <top>view_top</top>
+                    <left>view_pad</left>
+                    <height>infodialog_poster_w</height>
+                    <width>infodialog_poster_w</width>
+                    <visible>String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Poster)) + String.IsEmpty(ListItem.Art(tvshow.poster)) + String.IsEmpty(ListItem.Art(poster))</visible>
+                </include>
+            </include>
+
+            <include content="DialogInfo_RightGroup">
+                <!-- Info -->
+                <control type="group">
+                    <visible>!Control.HasFocus(61)</visible>
+                    <visible>!Control.HasFocus(7001) | !Player.HasVideo</visible>
+                    <include>Animation_DialogInfo_Recommendations</include>
+
+                    <!-- Video Info -->
+                    <include content="Info_Panel">
+                        <param name="plotheight" value="info_plot_large_h" />
+                    </include>
+
+                    <!-- Button Group -->
+                    <include content="DialogInfo_ButtonGroup">
+                        <param name="include">Items_DialogPVRInfo_MenuBar</param>
+                    </include>
+
+                    <!-- Video Details -->
+                    <include content="DialogInfo_VideoDetails">
+                        <top>grid_x48</top>
+                        <bottom>grid_x08</bottom>
+                    </include>
+
+                    <!-- Codecs -->
+                    <include>DialogInfo_Codecs</include>
+
+                    <!-- Mouse Nav Button -->
+                    <!-- <include>DialogInfo_MouseNavArrow</include> -->
+                </control>
+
+                <!-- Trailer and Plot -->
+                <include>DialogInfo_VideoTrailer</include>
+                <include>DialogInfo_PlotBox</include>
+            </include>
+
+            <include>Furniture_Top_Left</include>
+        </include>
+
+        <control type="group">
+            <visible>!Window.IsVisible(1120)</visible>
+            <include>Furniture_Top_Right</include>
+        </control>
+
+        <include content="Object_Options_Menu">
+            <param name="grouplist_items" value="Items_DialogPVRInfo_Options" />
+            <param name="visible" value="!$EXP[Exp_OverlayDialogs]" />
+            <param name="onback" value="5000" />
+            <param name="usemousefocus">true</param>
+        </include>
+
+        <include>DialogInfo_VideoTrailerFullscreen</include>
+        <include>DialogInfo_RecommendationsButton</include>
+        <include>DialogInfo_FilePathInfo</include>
+    </controls>
+</window>

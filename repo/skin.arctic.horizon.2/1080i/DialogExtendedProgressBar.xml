@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <controls>
+
+        <include content="Furniture_Busy">
+            <param name="hasspinner" value="false" />
+            <param name="hasprogress" value="true" />
+            <param name="mainlabel_id" value="30" />
+            <param name="minilabel" value="$INFO[Control.GetLabel(31)]$INFO[Control.GetLabel(32), - ,%]" />
+            <param name="spinprogress" value="Window.IsVisible(DialogBusy.xml)" />
+            <visible>!Window.IsVisible(DialogNotification.xml)</visible>
+            <visible>!Window.IsVisible(DialogVolumeBar.xml) | Player.Muted</visible>
+            <visible>!Window.IsVisible(fullscreenvideo)</visible>
+            <visible>!Window.IsVisible(visualisation)</visible>
+        </include>
+
+        <control type="label" id="31">
+            <left>-2000</left>
+            <width>100</width>
+            <visible>False</visible>
+        </control>
+
+        <control type="progress" id="32">
+            <left>-2000</left>
+            <width>100</width>
+            <height>1</height>
+            <info>Player.Progress</info>
+        </control>
+    </controls>
+</window>

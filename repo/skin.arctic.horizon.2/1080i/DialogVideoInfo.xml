@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">5000</defaultcontrol>
+    <menucontrol>9000</menucontrol>
+    <onunload>ClearProperty(HasTrailer,Home)</onunload>
+    <controls>
+
+        <include content="DialogInfo_MainGroup">
+            <include content="DialogInfo_LeftGroup">
+            </include>
+            <include content="DialogInfo_RightGroup">
+                <!-- Info -->
+                <control type="group">
+                    <visible>!Control.HasFocus(61)</visible>
+                    <visible>!Control.HasFocus(7001) | !Player.HasVideo</visible>
+                    <include>Animation_DialogInfo_Recommendations</include>
+
+                    <!-- Video Info -->
+                    <include content="Info_Panel" condition="!$EXP[Exp_IsPersonInfo]">
+                        <param name="plotheight" value="info_plot_large_h" />
+                    </include>
+
+                    <!-- Person Info -->
+                    <include content="Info_Panel" condition="$EXP[Exp_IsPersonInfo]">
+                        <param name="plotheight" value="info_plot_person_h" />
+                    </include>
+
+                    <!-- Button Group -->
+                    <include content="DialogInfo_ButtonGroup" condition="!$EXP[Exp_IsPersonInfo]">
+                        <param name="include">Items_DialogVideoInfo_MenuBar</param>
+                    </include>
+                    <include condition="$EXP[Exp_IsPersonInfo]">DialogInfo_ButtonHidden</include>
+
+                    <!-- Video Details -->
+                    <include content="DialogInfo_VideoDetails" condition="!$EXP[Exp_IsPersonInfo]">
+                        <top>grid_x48</top>
+                        <bottom>grid_x08</bottom>
+                    </include>
+
+                    <!-- Codecs -->
+                    <include>DialogInfo_Codecs</include>
+
+                    <!-- Mouse Nav Button -->
+                    <include>DialogInfo_MouseNavArrow</include>
+                </control>
+
+                <!-- Trailer and Plot -->
+                <include>DialogInfo_VideoTrailer</include>
+                <include>DialogInfo_PlotBox</include>
+            </include>
+
+            <include>Furniture_Top_Left</include>
+        </include>
+
+        <control type="group">
+            <visible>!Window.IsVisible(1120)</visible>
+            <include>Furniture_Top_Right</include>
+        </control>
+
+        <include content="Object_Options_Menu">
+            <param name="grouplist_items" value="Items_DialogVideoInfo_Options" />
+            <param name="visible" value="!$EXP[Exp_OverlayDialogs]" />
+            <param name="onback" value="5000" />
+            <param name="usemousefocus">true</param>
+        </include>
+
+        <include>DialogInfo_VideoTrailerFullscreen</include>
+        <include>DialogInfo_RecommendationsButton</include>
+        <include>DialogInfo_FilePathInfo</include>
+
+    </controls>
+</window>

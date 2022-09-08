@@ -46,3 +46,9 @@
 [submodule "repo/Otaku"]
 	path = repo/Otaku
 	url = https://github.com/Goldenfreddy0703/Otaku.git
+[submodule "repo/a4kSubtitles"]
+	path = repo/a4kSubtitles
+	url = https://github.com/a4k-openproject/a4kSubtitles.git
+[submodule "repo/service.subtitles.a4ksubtitles"]
+	path = repo/service.subtitles.a4ksubtitles
+	url = https://github.com/a4k-openproject/a4kSubtitles.git

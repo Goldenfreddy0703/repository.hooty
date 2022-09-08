@@ -1,0 +1,1860 @@
+﻿<?xml version="1.0" ?>
+<settings version="1">
+	<section id="plugin.program.iagl">
+		<category help="30522" id="general" label="30002">
+			<group id="1">
+				<setting help="30532" id="iagl_setting_archive_listings" label="30010" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30058">0</option>
+							<option label="30059">1</option>
+							<option label="30060">2</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30010</heading>
+					</control>
+				</setting>
+				<setting help="30533" id="iagl_setting_listing" label="30011" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30061">0</option>
+							<option label="30058">1</option>
+							<option label="30062">2</option>
+							<option label="30063">3</option>
+							<option label="30064">4</option>
+							<option label="30065">5</option>
+							<option label="30066">6</option>
+							<option label="30196">7</option>
+							<option label="30197">8</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30011</heading>
+					</control>
+				</setting>
+				<setting help="30534" id="iagl_setting_naming" label="30012" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30414">0</option>
+							<option label="30067">1</option>
+							<option label="30068">2</option>
+							<option label="30069">3</option>
+							<option label="30070">4</option>
+							<option label="30071">5</option>
+							<option label="30072">6</option>
+							<option label="30073">7</option>
+							<option label="30074">8</option>
+							<option label="30075">9</option>
+							<option label="30076">10</option>
+							<option label="30077">11</option>
+							<option label="30078">12</option>
+							<option label="30079">13</option>
+							<option label="30080">14</option>
+							<option label="30081">15</option>
+							<option label="30082">16</option>
+							<option label="30083">17</option>
+							<option label="30084">18</option>
+							<option label="30085">19</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30012</heading>
+					</control>
+				</setting>
+				<setting help="30535" id="iagl_setting_clean_list" label="30009" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="30536" id="iagl_setting_items_pp" label="30013" type="integer">
+					<level>0</level>
+					<default>12</default>
+					<constraints>
+						<options>
+							<option label="30501">0</option>
+							<option label="30502">1</option>
+							<option label="30503">2</option>
+							<option label="30504">3</option>
+							<option label="30505">4</option>
+							<option label="30506">5</option>
+							<option label="30507">6</option>
+							<option label="30508">7</option>
+							<option label="30509">8</option>
+							<option label="30510">9</option>
+							<option label="30511">10</option>
+							<option label="30512">11</option>
+							<option label="30500">12</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30013</heading>
+					</control>
+				</setting>
+				<setting help="30537" id="iagl_setting_history" label="30014" type="integer">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>1</step>
+						<maximum>100</maximum>
+					</constraints>
+					<control format="integer" type="slider">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting help="30538" id="iagl_setting_localfile_action" label="30015" type="integer">
+					<level>1</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30086">0</option>
+							<option label="30087">1</option>
+							<option label="30088">2</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30015</heading>
+					</control>
+				</setting>
+				<setting help="30539" id="iagl_setting_default_action" label="30016" type="integer">
+					<level>0</level>
+					<default>2</default>
+					<constraints>
+						<options>
+							<option label="30089">0</option>
+							<option label="30090">1</option>
+							<option label="30091">2</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30016</heading>
+					</control>
+				</setting>
+				<setting help="30640" id="iagl_setting_filter_to_1g1r" label="30639" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30639</heading>
+					</control>
+				</setting>
+				<setting help="30544" id="iagl_setting_autoplay_trailer" label="30020" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30200">0</option>
+							<option label="30204">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30020</heading>
+					</control>
+				</setting>
+				<setting help="30580" id="iagl_setting_include_all_art" label="30209" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30200">0</option>
+							<option label="30204">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30020</heading>
+					</control>
+				</setting>
+				<setting help="30545" id="iagl_append_emu_name_to_results" label="30195" type="integer">
+					<level>1</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30200">0</option>
+							<option label="30204">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30195</heading>
+					</control>
+				</setting>
+				<setting help="30623" id="iagl_enable_list_sharing" label="30622" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30622</heading>
+					</control>
+				</setting>
+				<setting help="30546" id="iagl_setting_dl_cache" label="30021" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30097">0</option>
+							<option label="30098">1</option>
+							<option label="30099">2</option>
+							<option label="30100">3</option>
+							<option label="30101">4</option>
+							<option label="30102">5</option>
+							<option label="30103">6</option>
+							<option label="30104">7</option>
+							<option label="30105">8</option>
+							<option label="30106">9</option>
+							<option label="30107">10</option>
+							<option label="30108">11</option>
+							<option label="30109">12</option>
+							<option label="30110">13</option>
+							<option label="30111">14</option>
+							<option label="30112">15</option>
+							<option label="30113">16</option>
+							<option label="30114">17</option>
+							<option label="30129">18</option>
+							<option label="30130">19</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30021</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30581" id="download_options" label="30581">
+			<group id="2">
+				<setting help="30547" id="iagl_setting_enable_login" label="30022" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30022</heading>
+					</control>
+				</setting>
+				<setting help="30548" id="iagl_setting_ia_username" label="30023" type="string">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="iagl_setting_enable_login">0</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="edit">
+						<heading>30023</heading>
+					</control>
+				</setting>
+				<setting help="30549" id="iagl_setting_ia_password" label="30024" type="string">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="iagl_setting_enable_login">0</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="edit">
+						<heading>30024</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>
+				<setting help="30549" id="iagl_run_check_login" label="30587" type="action">
+					<level>0</level>
+					<data>RunScript($CWD/check_archive_org_login.py)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="iagl_setting_enable_login">0</condition>
+						</dependency>
+					</dependencies>
+					<control format="action" type="button">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30523" id="external_launchers" label="30003">
+			<group id="3">
+				<setting help="30550" id="iagl_external_user_external_env" label="30025" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30115">0</option>
+							<option label="30116">1</option>
+							<option label="30117">2</option>
+							<option label="30118">3</option>
+							<option label="30123">4</option>
+							<option label="30514">5</option>
+							<option label="30582">6</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30025</heading>
+					</control>
+				</setting>
+				<setting help="30551" id="iagl_external_launch_close_kodi" label="30026" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30026</heading>
+					</control>
+				</setting>
+				<setting help="30552" id="iagl_external_launch_pause_kodi" label="30027" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30027</heading>
+					</control>
+				</setting>
+				<setting help="30553" id="iagl_external_path_to_retroarch" label="30028" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>30028</heading>
+					</control>
+				</setting>
+				<setting help="30554" id="iagl_external_path_to_retroarch_system_dir" label="30029" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>30029</heading>
+					</control>
+				</setting>
+				<setting help="30555" id="iagl_external_path_to_retroarch_cfg" label="30030" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">4</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">5</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">6</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>30030</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="4" label="30031">
+				<setting help="30556" id="iagl_external_additional_emulator_1_type" label="30032" type="integer">
+					<level>0</level>
+					<default>6</default>
+					<constraints>
+						<options>
+							<option label="30516">0</option>
+							<option label="30517">1</option>
+							<option label="30518">2</option>
+							<option label="30519">3</option>
+							<option label="30520">4</option>
+							<option label="30521">5</option>
+							<option label="30096">6</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30032</heading>
+					</control>
+				</setting>
+				<setting help="30557" id="iagl_external_additional_emulator_1_path" label="30033" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>30033</heading>
+					</control>
+				</setting>
+				<setting help="30556" id="iagl_external_additional_emulator_2_type" label="30034" type="integer">
+					<level>0</level>
+					<default>6</default>
+					<constraints>
+						<options>
+							<option label="30516">0</option>
+							<option label="30517">1</option>
+							<option label="30518">2</option>
+							<option label="30519">3</option>
+							<option label="30520">4</option>
+							<option label="30521">5</option>
+							<option label="30096">6</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30034</heading>
+					</control>
+				</setting>
+				<setting help="30557" id="iagl_external_additional_emulator_2_path" label="30035" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>30035</heading>
+					</control>
+				</setting>
+				<setting help="30556" id="iagl_external_additional_emulator_3_type" label="30036" type="integer">
+					<level>0</level>
+					<default>6</default>
+					<constraints>
+						<options>
+							<option label="30516">0</option>
+							<option label="30517">1</option>
+							<option label="30518">2</option>
+							<option label="30519">3</option>
+							<option label="30520">4</option>
+							<option label="30521">5</option>
+							<option label="30096">6</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30036</heading>
+					</control>
+				</setting>
+				<setting help="30557" id="iagl_external_additional_emulator_3_path" label="30037" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>30037</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30625" id="user" label="30624">
+			<group id="13">
+			<setting help="30560" id="iagl_netplay_nickname" label="30040" type="string">
+					<level>0</level>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<default>Kodi Player 1</default>
+					<control format="string" type="edit">
+						<heading>30040</heading>
+					</control>
+				</setting>
+				<setting help="30615" id="iagl_discord_id" label="30614" type="string">
+					<level>0</level>
+					<default/>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>30614</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30525" id="netplay" label="30004">
+			<group id="6">
+				<setting help="30596" id="iagl_netplay_enable_netplay_launch" label="30038" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="30092">0</option>
+							<option label="30093">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30038</heading>
+					</control>
+				</setting>
+				<setting help="30612" id="iagl_netplay_netplay_launch_choose" label="30611" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="30058">0</option>
+							<option label="30608">1</option>
+							<option label="30609">2</option>
+							<!-- <option label="30610">3</option> -->
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30010</heading>
+					</control>
+				</setting>
+				<setting help="30613" id="iagl_netplay_show_netplay_lobby" label="30597" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="30092">0</option>
+							<option label="30093">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30597</heading>
+					</control>
+				</setting>
+				<setting help="30605" id="iagl_netplay_filter_lobby" label="30604" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30596</heading>
+					</control>
+				</setting>
+				
+				<setting help="30562" id="iagl_netplay_port" label="30042" type="string">
+					<level>0</level>
+					<default/>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>30042</heading>
+					</control>
+				</setting>
+				<setting help="30561" id="iagl_default_manual_ip" label="30446" type="string">
+					<level>0</level>
+					<default/>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>30043</heading>
+					</control>
+				</setting>
+				<setting help="30563" id="iagl_netplay_frames" label="30043" type="string">
+					<level>0</level>
+					<default/>
+					<dependencies>
+						<dependency type="visible">
+							<or>
+								<condition operator="is" setting="iagl_external_user_external_env">1</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">3</condition>
+								<condition operator="is" setting="iagl_external_user_external_env">2</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>30043</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30524" id="viewtypes" label="30135">
+			<group id="5" label="">
+				<setting help="30185" id="iagl_enable_forced_views" label="30136" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30136</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_1" label="30137" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30137</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_2" label="30138" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30138</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_3" label="30139" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30139</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_4" label="30140" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30140</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_5" label="30141" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30141</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_6" label="30142" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30142</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_7" label="30143" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30143</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_8" label="30144" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30144</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_9" label="30145" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30145</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_10" label="30210" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30145</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_11" label="30211" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30145</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_12" label="30146" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30146</heading>
+					</control>
+				</setting>
+				<setting help="30185" id="iagl_enable_forced_views_13" label="30147" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30148">0</option>
+							<option label="30149">1</option>
+							<option label="30150">2</option>
+							<option label="30151">3</option>
+							<option label="30152">4</option>
+							<option label="30153">5</option>
+							<option label="30154">6</option>
+							<option label="30155">7</option>
+							<option label="30156">8</option>
+							<option label="30157">9</option>
+							<option label="30158">10</option>
+							<option label="30159">11</option>
+							<option label="30160">12</option>
+							<option label="30161">13</option>
+							<option label="30162">14</option>
+							<option label="30163">15</option>
+							<option label="30164">16</option>
+							<option label="30187">17</option>
+							<option label="30192">18</option>
+							<option label="30188">19</option>
+							<option label="30189">20</option>
+							<option label="30165">21</option>
+							<option label="30166">22</option>
+							<option label="30167">23</option>
+							<option label="30168">24</option>
+							<option label="30169">25</option>
+							<option label="30170">26</option>
+							<option label="30171">27</option>
+							<option label="30172">28</option>
+							<option label="30173">29</option>
+							<option label="30174">30</option>
+							<option label="30175">31</option>
+							<option label="30176">32</option>
+							<option label="30177">33</option>
+							<option label="30178">34</option>
+							<option label="30179">35</option>
+							<option label="30180">36</option>
+							<option label="30181">37</option>
+							<option label="30182">38</option>
+							<option label="30183">39</option>
+							<option label="30184">40</option>
+							<option label="30190">41</option>
+							<option label="30191">42</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="!is" setting="iagl_enable_forced_views">1</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30147</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30526" id="setup wizard" label="30005">
+			<group id="7" label="30044">
+				<setting help="" id="iagl_run_wizard" label="Run Wizard Flag" type="boolean">
+					<level>4</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting help="30588" id="iagl_wizard_launcher_report" label="30589" type="integer">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30200">0</option>
+							<option label="30204">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30045</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="8">
+				<setting help="30565" id="iagl_run_script_wizard" label="30046" type="action">
+					<level>0</level>
+					<data>RunScript($CWD/run_IAGL_wizard.py)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="action" type="button">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category help="30047" id="advanced settings" label="30006">
+			<group id="9" label="">
+				<setting help="30566" id="iagl_silence_query_warning" label="30186" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30186</heading>
+					</control>
+				</setting>
+				<setting help="30567" id="iagl_enable_post_dl_edit" label="30048" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30048</heading>
+					</control>
+				</setting>
+				<setting help="30568" id="iagl_organize_temp_files" label="30193" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30193</heading>
+					</control>
+				</setting>
+				<setting help="30570" id="iagl_enable_android_stop_command" label="30049" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30049</heading>
+					</control>
+				</setting>
+				<setting help="30571" id="iagl_suspend_audio_and_input" label="30057" type="integer">
+					<level>3</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30057</heading>
+					</control>
+				</setting>
+				<setting help="30645" id="iagl_enable_stop_media_before_launch" label="30643" type="integer">
+					<level>3</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30057</heading>
+					</control>
+				</setting>
+				<setting help="30646" id="iagl_enable_wait_for_return" label="30644" type="integer">
+					<level>3</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30057</heading>
+					</control>
+				</setting>
+				<setting help="30576" id="iagl_setting_setcontent" label="30054" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="movies">0</option>
+							<option label="tvshows">1</option>
+							<option label="videos">2</option>
+							<option label="mixed">3</option>
+							<option label="games">4</option>
+							<option label="None">5</option>
+						</options>
+					</constraints>
+					<control format="string" type="list">
+						<heading>30054</heading>
+					</control>
+				</setting>
+				<setting help="30642" id="iagl_max_download_threads" label="30641" type="integer">
+					<level>3</level>
+					<default>5</default>
+					<constraints>
+						<minimum>1</minimum>
+						<step>1</step>
+						<maximum>12</maximum>
+					</constraints>
+					<control format="integer" type="slider">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting help="30648" id="iagl_copy_network_to_local" label="30647" type="integer">
+					<level>3</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="30095">0</option>
+							<option label="30096">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="list">
+						<heading>30647</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="10">
+				<setting help="30577" id="iagl_run_script_unhide_all" label="30055" type="action">
+					<level>2</level>
+					<data>RunScript($CWD/unhide_all_archives.py)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="action" type="button"/>
+				</setting>
+				<setting help="30619" id="iagl_convert_old_favorites" label="30618" type="action">
+					<level>2</level>
+					<data>RunScript($CWD/convert_old_favorites.py)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="action" type="button"/>
+				</setting>
+			</group>
+			<group id="11">
+				<setting help="30578" id="iagl_run_script_clear_cache" label="30056" type="action">
+					<level>2</level>
+					<data>RunScript($CWD/clear_IAGL_cache.py)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="action" type="button"/>
+				</setting>
+				<setting help="" id="iagl_hidden_bool_warn_size" label="Display Size Warning" type="boolean">
+					<level>4</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="iagl_hidden_bool_tou" label="Agree to Terms of Use" type="boolean">
+					<level>4</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="iagl_hidden_bool_warn_retroarch_sys_dir" label="No System Dir Defined" type="boolean">
+					<level>4</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+<!-- 				<setting help="" id="iagl_hidden_int_max_download_threads" label="Download Threads" type="integer">
+					<level>4</level>
+					<default>5</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">false</condition>
+						</dependency>
+					</dependencies>
+				</setting> -->
+			</group>
+		</category>
+	</section>
+</settings>

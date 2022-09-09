@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.1.5">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.1.6">
   <requires>
     
     <import addon="script.module.requests" version="2.19.1" />
@@ -778,8 +778,10 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.1.5 [20220907]:
-- Improve gogo scraping and playback
+Changelog 0.1.6 [20220908]:
+- Goganime improve search
+- Remove references to seren
+- Gogoanime - do proper search to get slug
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">

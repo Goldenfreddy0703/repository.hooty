@@ -124,13 +124,12 @@ class TRAKTAPI:
         return all_results
 
     def get_trakt_id(self, name):
+        name = re.sub(r'(?i)(?:season)?\s\d+$', '', name)
         url = 'search/show?query=%s&genres=anime&extended=full' % urllib_parse.quote(name)
         result = database.get(self._json_request, 4, url)
 
         if not result:
-            name = re.sub(r'(?i)(?:season)?\s\d+', '', name)
             name = name.replace('?', '')
-
             roman = r'(X{1,3}(IX|IV|V?I{0,3})|X{0,3}(IX|I?V|V?I{1,3}))$'
             name = re.sub(roman, '', name)
             url = 'search/show?query=%s&genres=anime&extended=full' % urllib_parse.quote(name)
@@ -170,11 +169,10 @@ class TRAKTAPI:
                 kodi_meta.update(meta)
                 database.update_kodi_meta(anilist_id, kodi_meta)
             else:
-                try:
-                    kodi_meta['fanart'] = TMDBAPI().showFanart(meta_ids)['fanart']
+                fanart = TMDBAPI().showFanart(meta_ids)
+                if fanart:
+                    kodi_meta['fanart'] = fanart.get('fanart')
                     database.update_kodi_meta(anilist_id, kodi_meta)
-                except:
-                    pass
 
     def get_trakt_seasons(self, anilist_id, meta_ids, kodi_meta, db_correction):
         _ = self._add_fanart(anilist_id, meta_ids, kodi_meta)

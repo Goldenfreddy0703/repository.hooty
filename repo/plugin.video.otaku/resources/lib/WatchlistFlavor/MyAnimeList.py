@@ -64,7 +64,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         next_page = page + 1
         name = "Next Page (%d)" % (next_page)
         offset = (re.compile("offset=(.+?)&").findall(hasNextPage))[0]
-        return self._parse_view({'name': name, 'url': base_url % (offset, next_page), 'image': 'next.png', 'plot': None})
+        return self._parse_view({'name': name, 'url': base_url % (offset, next_page), 'image': 'next.png', 'plot': None, 'fanart': 'next.png'})
 
     def watchlist(self):
         return self._process_watchlist_view('', "watchlist_page/%d", page=1)
@@ -99,6 +99,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
 
     def get_watchlist_status(self, status, next_up, offset=0, page=1):
         fields = [
+            'alternative_titles',
             'list_status',
             'num_episodes',
             'synopsis',
@@ -166,10 +167,10 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         except:
             pass
 
-        try:
-            info['title'] = res['node']['title']
-        except:
-            pass
+        title = res['node'].get('title')
+        if self._title_lang == 'english':
+            title = res['node'].get('alternative_titles').get('en') or title
+        info['title'] = title
 
         try:
             info['duration'] = res['node']['average_episode_duration']
@@ -211,7 +212,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         info['mediatype'] = 'tvshow'
 
         base = {
-            "name": '%s - %s/%s' % (res['node']["title"], res['list_status']["num_episodes_watched"], res['node']["num_episodes"]),
+            "name": '%s - %s/%s' % (title, res['list_status']["num_episodes_watched"], res['node']["num_episodes"]),
             "url": "watchlist_to_ep/%s//%s" % (res['node']['id'], res['list_status']["num_episodes_watched"]),
             "image": res['node']['main_picture'].get('large', res['node']['main_picture']['medium']),
             "plot": info,
@@ -229,7 +230,10 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         progress = res['list_status']["num_episodes_watched"]
         next_up = progress + 1
         episode_count = res['node']["num_episodes"]
-        title = '%s - %s/%s' % (res['node']["title"], next_up, episode_count)
+        base_title = res['node'].get('title')
+        if self._title_lang == 'english':
+            base_title = res['node'].get('alternative_titles').get('en') or base_title
+        title = '%s - %s/%s' % (base_title, next_up, episode_count)
         poster = image = res['node']['main_picture'].get('large', res['node']['main_picture']['medium'])
         plot = None
 

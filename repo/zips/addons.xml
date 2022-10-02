@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.5">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.6">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -776,8 +776,9 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.2.5 [20220930]:
-- Improve meta scraping
+Changelog 0.2.6 [20221002]:
+- Fixed NextUp
+- Fixed missing clearlogo and background
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">

@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.7">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.8">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -776,8 +776,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.2.7 [20221003]:
-- Dont use trakt for anime split seasons
+Changelog 0.2.8 [20221004]:
+- Improve episode thumbnails when simkl is used
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">

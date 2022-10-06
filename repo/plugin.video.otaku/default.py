@@ -135,6 +135,10 @@ def WIPE_ADDON_DATA(payload, params):
     dialog = control.yesno_dialog(control.lang(30010), control.lang(30025))
     return control.clear_settings(dialog)
 
+@route('change_log')
+def CHANGE_LOG(payload, params):
+    from resources.lib.ui import control
+    return control.getChangeLog()
 
 @route('animes/*')
 def ANIMES_PAGE(payload, params):
@@ -434,6 +438,7 @@ def RESCRAPE_PLAY(payload, params):
 @route('tools')
 def TOOLS_MENU(payload, params):
     TOOLS_ITEMS = [
+        (control.lang(30019), "change_log", 'changelog.png'),
         (control.lang(30020), "settings", 'open settings menu.png'),
         (control.lang(30021), "clear_cache", 'clear cache.png'),
         (control.lang(30022), "clear_torrent_cache", 'clear local torrent cache.png'),

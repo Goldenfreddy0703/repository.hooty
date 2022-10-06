@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.9">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.10">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -776,10 +776,10 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.2.9 [20221006]:
-- Added New Setting to change Content Format for Menu Items
-- Added Changelog Menu in Tools
-- Added textview window and base dialog window for changelog
+Changelog 0.2.10 [20221006]:
+- Fix error when no thumbs available
+- Fix preferred audio selection
+- Improve episode meta collection for running series
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">

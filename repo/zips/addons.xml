@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.11">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.12">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -776,8 +776,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.2.11 [20221006]:
-- Fix error when no show_meta available
+Changelog 0.2.12 [20221007]:
+- Spy x family nyaa fix
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.1" name="Seren" provider-name="Nixgates">
@@ -1506,7 +1506,7 @@ Changelog 0.2.11 [20221006]:
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="script.otaku.themepak" version="0.0.2" name="Otaku Themepak" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.themepak" version="0.0.3" name="Otaku Themepak" provider-name="TeamOtaku">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>

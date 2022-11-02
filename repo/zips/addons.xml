@@ -751,7 +751,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.30">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.2.31">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -759,7 +759,7 @@ Initial release
     <import addon="script.module.six" version="1.15.0" />
     <import addon="script.module.kodi-six" version="0.1.3" />
     <import addon="context.otaku" version="0.0.6" />
-    <import addon="script.otaku.themepak" version="0.0.4" />
+    <import addon="script.otaku.themepak" version="0.0.5" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -776,8 +776,12 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.2.30 [20221031]:
-- Enable touch actions for Source Select, Intro Skip, and Play Next
+Changelog 0.2.31 [20221102]:
+- Added Shortcut Settings Category
+- Added Completed This Year
+- Added Completed This Season
+- Added Two New Icons 
+- Fixed typo for the Voted Menu Items
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="2.2.2" name="Seren" provider-name="Nixgates">
@@ -1512,7 +1516,7 @@ Changelog 0.2.30 [20221031]:
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="script.otaku.themepak" version="0.0.4" name="Otaku Themepak" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.themepak" version="0.0.5" name="Otaku Themepak" provider-name="TeamOtaku">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>

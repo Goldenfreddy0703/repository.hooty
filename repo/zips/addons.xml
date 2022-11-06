@@ -780,7 +780,7 @@ Changelog 0.2.33 [20221105]:
 - Context menu entry to add to watchlist and remove from watchlist
     </news>
   </extension>
-</addon><addon id="plugin.video.seren" version="2.2.2" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="2.2.3" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="script.module.future" version="0.17.1" />
@@ -843,6 +843,10 @@ Changelog 0.2.33 [20221105]:
             <screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
         </assets>
         <news>
+            Changelog 2.2.3
+            [BUG] Fix Trakt Scrobbling and Playing Next
+            [FEATURE] Update pytz to 2022.6
+
             Changelog 2.2.2
             [BUG] Trakt scrobbling hitting rate limiter
             [BUG] Improve onWake and sleeping service calls
@@ -1864,7 +1868,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.5.38">
+</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.6.3">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />

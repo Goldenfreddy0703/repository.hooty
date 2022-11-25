@@ -1,0 +1,60 @@
+[submodule "repo/skin.arctic.horizon.2"]
+	path = repo/skin.arctic.horizon.2
+	url = https://github.com/jurialmunkey/skin.arctic.horizon.2.git
+[submodule "repo/script.skinvariables"]
+	path = repo/script.skinvariables
+	url = https://github.com/jurialmunkey/script.skinvariables.git
+[submodule "repo/script.texturemaker"]
+	path = repo/script.texturemaker
+	url = https://github.com/jurialmunkey/script.texturemaker.git
+[submodule "repo/plugin.video.themoviedb.helper"]
+	path = repo/plugin.video.themoviedb.helper
+	url = https://github.com/jurialmunkey/plugin.video.themoviedb.helper.git
+[submodule "repo/script.module.tmdbhelper"]
+	path = repo/script.module.tmdbhelper
+	url = https://github.com/jurialmunkey/script.module.tmdbhelper.git
+[submodule "repo/context.themoviedb.helper"]
+	path = repo/context.themoviedb.helper
+	url = https://github.com/jurialmunkey/context.themoviedb.helper.git
+[submodule "repo/plugin.video.seren"]
+	path = repo/plugin.video.seren
+	url = https://github.com/nixgates/plugin.video.seren.git
+[submodule "repo/context.seren"]
+	path = repo/context.seren
+	url = https://github.com/SerenKodi/context.seren.git
+[submodule "repo/plugin.video.kaito.beta"]
+	path = repo/plugin.video.kaito.beta
+	url = https://github.com/Goldenfreddy0703/plugin.video.kaito.beta.git
+[submodule "repo/context.kaito"]
+	path = repo/context.kaito
+	url = https://github.com/Goldenfreddy0703/context.kaito.git
+[submodule "repo/plugin.audio.ytmusic.exp"]
+	path = repo/plugin.audio.ytmusic.exp
+	url = https://github.com/Goldenfreddy0703/plugin.audio.ytmusic.exp.git
+[submodule "repo/plugin.program.iagl"]
+	path = repo/plugin.program.iagl
+	url = https://github.com/zach-morris/plugin.program.iagl.git
+[submodule "repo/plugin.program.retrobiostool"]
+	path = repo/plugin.program.retrobiostool
+	url = https://github.com/zach-morris/plugin.program.retrobiostool.git
+[submodule "repo/script.module.archive_tool"]
+	path = repo/script.module.archive_tool
+	url = https://github.com/zach-morris/script.module.archive_tool.git
+[submodule "repo/plugin.program.openwizard"]
+	path = repo/plugin.program.openwizard
+	url = https://github.com/a4k-openproject/plugin.program.openwizard.git
+[submodule "repo/Otaku"]
+	path = repo/Otaku
+	url = https://github.com/Goldenfreddy0703/Otaku.git
+[submodule "repo/a4kSubtitles"]
+	path = repo/a4kSubtitles
+	url = https://github.com/a4k-openproject/a4kSubtitles.git
+[submodule "repo/service.subtitles.a4ksubtitles"]
+	path = repo/service.subtitles.a4ksubtitles
+	url = https://github.com/a4k-openproject/a4kSubtitles.git
+[submodule "repo/plugin.program.opendevtools"]
+	path = repo/plugin.program.opendevtools
+	url = https://github.com/drinfernoo/plugin.program.opendevtools.git
+[submodule "repo/script.service.sponsorblock"]
+	path = repo/script.service.sponsorblock
+	url = https://github.com/siku2/script.service.sponsorblock.git

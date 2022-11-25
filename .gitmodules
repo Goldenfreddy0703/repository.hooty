@@ -58,3 +58,6 @@
 [submodule "repo/script.service.sponsorblock"]
 	path = repo/script.service.sponsorblock
 	url = https://github.com/siku2/script.service.sponsorblock.git
+[submodule "repo/resource.font.robotocjksc"]
+	path = repo/resource.font.robotocjksc
+	url = https://github.com/jurialmunkey/resource.font.robotocjksc.git

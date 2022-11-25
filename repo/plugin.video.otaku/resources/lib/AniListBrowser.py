@@ -1,14 +1,15 @@
-import itertools
-import time
-import datetime
 import ast
+import datetime
+import itertools
 import json
-import random
-from functools import partial
-from resources.lib.ui import utils, database, client, get_meta, control
-from resources.lib.ui.divide_flavors import div_flavor
 import pickle
+import random
+import time
+from functools import partial
+
 import six
+from resources.lib.ui import client, control, database, get_meta, utils
+from resources.lib.ui.divide_flavors import div_flavor
 
 
 class AniListBrowser():
@@ -114,6 +115,22 @@ class AniListBrowser():
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_year/%d", page)
 
+    def get_completed_this_year(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC"
+        }
+
+        if self.format_in_type:
+            variables['format'] = [self.format_in_type.upper()]
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_year/%d", page)
+
     def get_upcoming_next_year(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
         variables = {
@@ -176,6 +193,23 @@ class AniListBrowser():
 
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_season/%d", page)
+
+    def get_completed_this_season(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'season': season,
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC"
+        }
+
+        if self.format_in_type:
+            variables['format'] = [self.format_in_type.upper()]
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_season/%d", page)
 
     def get_upcoming_next_season(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
@@ -296,6 +330,20 @@ class AniListBrowser():
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_year_movie/%d", page)
 
+    def get_completed_this_year_movie(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC",
+            'format': "MOVIE"
+        }
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_year_movie/%d", page)
+
     def get_upcoming_next_year_movie(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
         variables = {
@@ -351,6 +399,21 @@ class AniListBrowser():
 
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_season_movie/%d", page)
+
+    def get_completed_this_season_movie(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'season': season,
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC",
+            'format': "MOVIE"
+        }
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_season_movie/%d", page)
 
     def get_upcoming_next_season_movie(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
@@ -461,6 +524,20 @@ class AniListBrowser():
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_year_tv/%d", page)
 
+    def get_completed_this_year_tv(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC",
+            'format': "TV"
+        }
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_year_tv/%d", page)
+
     def get_upcoming_next_year_tv(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
         variables = {
@@ -516,6 +593,21 @@ class AniListBrowser():
 
         voted = database.get(self.get_base_res, 0.125, variables, page)
         return self._process_anilist_view(voted, "anilist_voted_this_season_tv/%d", page)
+
+    def get_completed_this_season_tv(self, page=1, format_in=''):
+        season, year = self.get_season_year()
+        variables = {
+            'page': page,
+            'type': "ANIME",
+            'season': season,
+            'year': str(year) + '%',
+            'status': "FINISHED",
+            'sort': "POPULARITY_DESC",
+            'format': "TV"
+        }
+
+        completed = database.get(self.get_base_res, 0.125, variables, page)
+        return self._process_anilist_view(completed, "anilist_completed_this_season_tv/%d", page)
 
     def get_upcoming_next_season_tv(self, page=1, format_in=''):
         season, year = self.get_season_year('next')
@@ -612,7 +704,8 @@ class AniListBrowser():
             'page': page,
             'search': query,
             'sort': "SEARCH_MATCH",
-            'type': "ANIME"
+            'type': "ANIME",
+            'isAdult': control.getSetting('search.adult') == "true"
         }
 
         search = database.get(self.get_search_res, 0.125, variables, page)
@@ -1609,3 +1702,21 @@ class AniListBrowser():
 
     def get_genres_page(self, genre_string, tag_string, page):
         return self._genres_payload(ast.literal_eval(genre_string), ast.literal_eval(tag_string), page)
+
+    def update_trakt_id(self, anilist_id):
+        slug = control.keyboard('Enter Trakt Slug[CR]example, to-your-eternity')
+        if slug:
+            from resources.lib.indexers.trakt import TRAKTAPI
+            from resources.lib.ui.get_meta import update_meta
+            show = database.get_show(anilist_id)
+            kodi_meta = pickle.loads(show.get('kodi_meta'))
+            mtype = 'movies' if kodi_meta.get('format') == 'MOVIE' else 'tv'
+            if kodi_meta.get('format') == 'ONA' and kodi_meta.get('episodes') == 1:
+                mtype = 'movies'
+            slug_type = 'shows' if mtype == 'tv' else mtype
+            meta_ids = TRAKTAPI().get_ids_by_slug(slug, slug_type)
+            update_meta(anilist_id, meta_ids, mtype)
+            database.remove_season(anilist_id)
+            database.remove_episodes(anilist_id)
+            control.refresh()
+        return

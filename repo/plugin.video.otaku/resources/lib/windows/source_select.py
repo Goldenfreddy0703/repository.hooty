@@ -26,16 +26,25 @@ class SourceSelect(BaseWindow):
         if episode:
             anime_init = browser.OtakuBrowser().get_anime_init(actionArgs.get('anilist_id'), filter_lang=None)
             episode = int(episode)
-            seasonNum = anime_init[0][episode - 1].get('info').get('season')
-            episodeNum = anime_init[0][episode - 1].get('info').get('episode')
+            try:
+                seasonNum = anime_init[0][episode - 1].get('info').get('season')
+            except IndexError:
+                seasonNum = '1'
+            try:
+                episodeNum = anime_init[0][episode - 1].get('info').get('episode')
+            except IndexError:
+                episodeNum = '1'
             self.setProperty('item.info.season', str(seasonNum))
             self.setProperty('item.info.episode', str(episodeNum))
-            self.setProperty('item.art.poster', anime_init[0][episode - 1].get('image').get('poster'))
-            self.setProperty('item.art.thumb', anime_init[0][episode - 1].get('image').get('thumb'))
-            self.setProperty('item.art.fanart', anime_init[0][episode - 1].get('image').get('fanart'))
-            self.setProperty('item.info.title', anime_init[0][episode - 1].get('info').get('title'))
-            self.setProperty('item.info.aired', anime_init[0][episode - 1].get('info').get('aired'))
-            self.setProperty('item.info.plot', anime_init[0][episode - 1].get('info').get('plot'))
+            try:
+                self.setProperty('item.art.poster', anime_init[0][episode - 1].get('image').get('poster'))
+                self.setProperty('item.art.thumb', anime_init[0][episode - 1].get('image').get('thumb'))
+                self.setProperty('item.art.fanart', anime_init[0][episode - 1].get('image').get('fanart'))
+                self.setProperty('item.info.title', anime_init[0][episode - 1].get('info').get('title'))
+                self.setProperty('item.info.aired', anime_init[0][episode - 1].get('info').get('aired'))
+                self.setProperty('item.info.plot', anime_init[0][episode - 1].get('info').get('plot'))
+            except IndexError:
+                pass
             try:
                 year, month, day = anime_init[0][episode - 1].get('info').get('aired', '0000-00-00').split('-')
             except:
@@ -88,11 +97,11 @@ class SourceSelect(BaseWindow):
         if (time.time() - self.last_action) < .5:
             return
 
-        if actionID == 7 and self.getFocusId() == 1000:
+        if actionID in [7, 401, 100] and self.getFocusId() == 1000:
             self.position = self.display_list.getSelectedPosition()
             self.resolve_item()
 
-        if actionID == 92 or id == 10:
+        if actionID in [92, 10, 411]:
             self.stream_link = False
             self.close()
 
@@ -101,7 +110,7 @@ class SourceSelect(BaseWindow):
     def onAction(self, action):
         actionID = action.getId()
 
-        if actionID in [7, 92, 10]:
+        if actionID in [7, 92, 10, 401, 411, 100]:
             self.handle_action(actionID)
 
     def info_list_to_sorted_dict(self, info_list):

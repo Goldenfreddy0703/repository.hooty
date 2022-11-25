@@ -1,3 +1,28 @@
+Changelog 0.2.35 [20221121]:
+-  New Context menu: trakt correction
+
+Changelog 0.2.35 [20221108]:
+-  Improve alldebrid cache check
+
+Changelog 0.2.34 [20221107]:
+- Fixes error on mal watchlist playback
+
+Changelog 0.2.33 [20221105]:
+- Context menu entry to add to watchlist and remove from watchlist
+
+Changelog 0.2.32 [20221102]:
+- Fixed an icon typo
+
+Changelog 0.2.31 [20221102]:
+- Added Shortcut Settings Category
+- Added Completed This Year
+- Added Completed This Season
+- Added Two New Icons 
+- Fixed typo for the Voted Menu Items
+
+Changelog 0.2.30 [20221031]:
+- Enable touch actions for Source Select, Intro Skip, and Play Next
+
 Changelog 0.2.29 [20221031]:
 - Added Debrid-Link support
 

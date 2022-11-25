@@ -365,10 +365,9 @@ class sources(BrowserBase):
 
     def _get_movie_sources_backup(self, anilist_id, episode='1'):
         show = self._get_request("https://kimetsu-title.firebaseio.com/%s.json" % anilist_id)
-
+        show = json.loads(show)
         if not show:
             return []
-        show = json.loads(show)
 
         if 'general_title' in show:
             query = show['general_title']
@@ -424,14 +423,14 @@ class TorrentCacheCheck:
             return
 
         cache_check = api.check_hash([i['hash'] for i in torrent_list])
-
         if not cache_check:
             return
 
         cache_list = []
+        cached_items = [m.get('hash') for m in cache_check if m.get('instant') is True]
 
-        for idx, i in enumerate(torrent_list):
-            if cache_check['magnets'][idx]['instant'] is True:
+        for i in torrent_list:
+            if i['hash'] in cached_items:
                 i['debrid_provider'] = 'all_debrid'
                 cache_list.append(i)
 

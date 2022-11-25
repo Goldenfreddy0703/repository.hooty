@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="resource.images.ytmusicicons.black" name="YT [COLOR red]Music[/COLOR] EXP Icons - Black" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0"/>
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">YT [COLOR red]Music[/COLOR] EXP Icons</summary>
+		<description lang="en">Icons for YT [COLOR red]Music[/COLOR] EXP</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon>

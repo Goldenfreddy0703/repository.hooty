@@ -1331,6 +1331,36 @@ Changelog 0.2.35 [20221121]:
             <icon>icon.png</icon>
         </assets>
     </extension>
+</addon><addon id="resource.images.exuaryicons.white" name="Exuary Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="exuaryicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Exuary Icons</summary>
+		<description lang="en">Icons for Exuary</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.fenicons.white" name="Fen Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="fenicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Fen Icons</summary>
+		<description lang="en">Icons for Fen</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.png</fanart>
+		</assets>
+	</extension>
 </addon><addon id="resource.images.newsonicons.coloured" name="NewsOn Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="newsonicons" />
 	<requires>
@@ -1339,6 +1369,21 @@ Changelog 0.2.35 [20221121]:
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">NewsOn Icons</summary>
 		<description lang="en">Icons for NewsOn</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.openmetaicons.white" name="OpenMeta Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="openmetaicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">OpenMeta Icons</summary>
+		<description lang="en">Icons for OpenMeta</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>
@@ -1414,6 +1459,36 @@ Changelog 0.2.35 [20221121]:
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">TheMovieDb Helper Icons</summary>
 		<description lang="en">Icons for TheMovieDb Helper</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.twitchicons.coloured" name="Twitch Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="twitchicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Twitch Icons</summary>
+		<description lang="en">Icons for Twitch</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.twitchicons.white" name="Twitch Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="twtichicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Twitch Icons</summary>
+		<description lang="en">Icons for Twitch</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>
@@ -1847,7 +1922,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.7.8">
+</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.7.9">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />

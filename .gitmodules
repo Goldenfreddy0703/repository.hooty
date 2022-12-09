@@ -61,3 +61,7 @@
 [submodule "repo/resource.font.robotocjksc"]
 	path = repo/resource.font.robotocjksc
 	url = https://github.com/jurialmunkey/resource.font.robotocjksc.git
+[submodule "matrix/plugin.video.themoviedb.helper"]
+	path = matrix/plugin.video.themoviedb.helper
+	url = https://github.com/jurialmunkey/plugin.video.themoviedb.helper.git
+	branch = matrix

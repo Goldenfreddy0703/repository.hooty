@@ -1187,7 +1187,7 @@ Changelog 0.2.35 [20221121]:
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.0.32~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.0.33~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />

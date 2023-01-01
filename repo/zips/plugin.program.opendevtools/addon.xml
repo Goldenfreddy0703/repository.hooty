@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.5.5" provider-name="drinfernoo">
+<addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.6.0" provider-name="drinfernoo">
 	<requires>
 		<import addon="script.module.dateutil"/>
 		<import addon="script.module.pil"/>
@@ -20,6 +20,11 @@
 			<fanart>fanart.png</fanart>
 		</assets>
 		<news>
+1.6.0
+ - Support plugins in repo subfolders
+ - Fix choosing commit when only one branch exists
+ - Cleanup orphaned files after update
+ - Reload add-on localizations if changed during update
 1.5.5
  - Add release automation via GitHub Actions
 1.5.4

@@ -317,7 +317,7 @@ Changelog 0.0.6:
       <screenshot>support/media/screen6.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.5.5" provider-name="drinfernoo">
+</addon><addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.6.0" provider-name="drinfernoo">
 	<requires>
 		<import addon="script.module.dateutil" />
 		<import addon="script.module.pil" />
@@ -338,6 +338,11 @@ Changelog 0.0.6:
 			<fanart>fanart.png</fanart>
 		</assets>
 		<news>
+1.6.0
+ - Support plugins in repo subfolders
+ - Fix choosing commit when only one branch exists
+ - Cleanup orphaned files after update
+ - Reload add-on localizations if changed during update
 1.5.5
  - Add release automation via GitHub Actions
 1.5.4
@@ -1339,7 +1344,7 @@ Changelog 0.2.35 [20221121]:
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.0.37~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.0.42~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1999,13 +2004,13 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.7.16">
+</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.7.21">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />
         <import addon="script.skinvariables" version="1.0.0" />
         <import addon="script.texturemaker" version="0.2.8" />
-        <import addon="plugin.video.themoviedb.helper" version="5.0.21" />
+        <import addon="plugin.video.themoviedb.helper" version="5.0.40" />
         <import addon="resource.images.weathericons.white" version="0.0.1" />
         <import addon="resource.images.studios.coloured" version="0.0.1" />
         <import addon="resource.font.robotocjksc" version="0.0.1" />

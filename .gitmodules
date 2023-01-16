@@ -68,3 +68,7 @@
 [submodule "repo/script.module.infotagger"]
 	path = repo/script.module.infotagger
 	url = https://github.com/jurialmunkey/script.module.infotagger.git
+[submodule "nexus/plugin.video.themoviedb.helper"]
+	path = nexus/plugin.video.themoviedb.helper
+	url = https://github.com/jurialmunkey/plugin.video.themoviedb.helper.git
+	branch = nexus

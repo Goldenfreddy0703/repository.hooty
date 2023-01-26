@@ -651,6 +651,30 @@ msgctxt "#40417"
 msgid "Hide Sub Sources"
 msgstr ""
 
+msgctxt "#40418"
+msgid "Set Country Of Origin"
+msgstr ""
+
+msgctxt "#40419"
+msgid "Country"
+msgstr ""
+
+msgctxt "#40420"
+msgid "Japan"
+msgstr ""
+
+msgctxt "#40421"
+msgid "South Korea"
+msgstr ""
+
+msgctxt "#40422"
+msgid "China"
+msgstr ""
+
+msgctxt "#40423"
+msgid "Taiwan"
+msgstr ""
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

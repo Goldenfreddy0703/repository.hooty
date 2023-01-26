@@ -32,9 +32,10 @@
 	<!-- Provider -->
 	<category label="40226">
 		<setting id="provider.nyaa" type="bool" label="Nyaa Alt" default="false" />
-		<setting id="provider.gogo" type="bool" label="Gogo" default="true" />
 		<setting id="provider.animix" type="bool" label="Animix" default="true" />
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />
+		<setting id="provider.gogo" type="bool" label="Gogo" default="true" />
+		<setting id="provider.zoro" type="bool" label="Zoro" default="true" />
 	</category>
 
 	<!-- Playback -->
@@ -72,6 +73,7 @@
 		<setting id="general.maxResolution" type="enum" label="40328" values="4k|1080p|720p|NA" default="0" />
 		<setting id="general.disable265" type="bool" label="40329" default="false" />
 		<setting id="general.hidedub" type="bool" label="40330" default="false" />
+		<setting id="general.hidesub" type="bool" label="40417" default="false" />
 		<setting type="sep" />
 		<!-- Source Sorting -->
 		<setting type="lsep" label="40331"/>

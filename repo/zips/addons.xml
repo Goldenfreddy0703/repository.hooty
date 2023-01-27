@@ -1456,7 +1456,7 @@ Changelog 0.3.6 [20230126]:
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.otakuv2icons.coloured" name="Otaku Icons V2- Coloured" version="0.0.2" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.otakuv2icons.coloured" name="Otaku Icons V2- Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="otakuv2icons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

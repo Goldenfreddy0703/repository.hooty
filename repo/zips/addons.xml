@@ -786,7 +786,7 @@ Initial release
     </assets>
     <news>
 Changelog 0.3.22 [20230210]:
-- Use InfoTagVideo for Kodi 20+ 
+- Use InfoTagVideo for Kodi 20 
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

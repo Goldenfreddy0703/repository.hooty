@@ -1,0 +1,319 @@
+Changelog 0.3.22 [20230211]:
+- Use InfoTagVideo for Kodi 20
+
+Changelog 0.3.21 [20230209]:
+- Added New Setting "Enable Automatic Subtitles for Dub Streams"
+
+Changelog 0.3.20 [20230208]:
+- Made dumb mistake with Next Up
+
+Changelog 0.3.19 [20230208]:
+- Subtitles turn on automatically for subs and off for dubs
+
+Changelog 0.3.18 [20230208]:
+- Fixed a small bug that is hardcoded
+
+Changelog 0.3.17 [20230207]:
+- Added New Setting "Show Changelog every update" 
+
+Changelog 0.3.16 [20230207]:
+- Fixed Preferred Audio Stream for torrents
+
+Changelog 0.3.15 [20230206]:
+- Brought back "Separate Subs and Dubs" 
+
+Changelog 0.3.14 [20230204]:
+- Improved the changelog with a news section
+
+Changelog 0.3.13 [20230204]:
+-  Clear cache, torrent cache and display changelog when addon is updated
+
+Changelog 0.3.12 [20230204]:
+- Fix lang error
+
+Changelog 0.3.11 [20230204]:
+- Fix source select not showing anime titles
+
+Changelog 0.3.10 [20230202]:
+- Added New Setting "Timeout for finding sources" for General Playback
+
+Changelog 0.3.9 [20230202]:
+- Added New Setting "Preferred Source" for Preferences
+- Added New Setting "Set Delay in Seconds Before Showing Dialog" for Skip Intro Dialog
+- Removed "Seperate Subs and Dubs" 
+- Removed "Set content types"
+- Removed "Hide Dub/Sub"
+- Removed "Season Correction" 
+- Removed "Find Similar" 
+
+Changelog 0.3.8 [20230130]:
+- Added animix search fallback
+- Handle error when anilist title is null
+
+Changelog 0.3.7 [20230128]:
+- Record season number for the episodes
+
+Changelog 0.3.6 [20230126]:
+- Added Set Country Of Origin
+
+Changelog 0.3.5 [20230126]:
+- Fixed Hide Sub Sources Setting
+
+Changelog 0.3.4 [20230126]:
+- Added Hide Sub Sources Option
+- Add Zoro dub sources
+
+Changelog 0.3.3 [20230125]:
+- Populate episodes table in databse with air_dates 
+
+Changelog 0.3.2 [20230124]:
+- Fixed Episode Airedates in Next Up
+
+Changelog 0.3.1 [20230123]:
+- Remove all incorrect use of tabs
+- Fix missing icons
+- Fixed Search and Genres
+
+Changelog 0.3.0 [20230123]:
+- Made Episode Meta Very Consistant
+- Made Artwork Very Consistant
+- Added New Embeds
+- Added Consumet Api
+- Added Extra Menu Settings
+- Added Last Year Menu Items
+- Added Last Season Menu Items
+- Added Categorie Menu Items
+- Big Thanks to the Consumet Team and to everyone for helping us make this release possible. 
+
+Changelog 0.2.39 [20230121]:
+- Added missing headers on login and watchlist requests
+
+Changelog 0.2.38 [20230108]:
+- Animix bugfix
+
+Changelog 0.2.37 [20230104]:
+- Use alternate Animix site
+
+Changelog 0.2.36 [20221121]:
+- New Context menu: trakt correction
+
+Changelog 0.2.35 [20221108]:
+- Improve alldebrid cache check
+
+Changelog 0.2.34 [20221107]:
+- Fixes error on mal watchlist playback
+
+Changelog 0.2.33 [20221105]:
+- Context menu entry to add to watchlist and remove from watchlist
+
+Changelog 0.2.32 [20221102]:
+- Fixed an icon typo
+
+Changelog 0.2.31 [20221102]:
+- Added Shortcut Settings Category
+- Added Completed This Year
+- Added Completed This Season
+- Added Two New Icons 
+- Fixed typo for the Voted Menu Items
+
+Changelog 0.2.30 [20221031]:
+- Enable touch actions for Source Select, Intro Skip, and Play Next
+
+Changelog 0.2.29 [20221031]:
+- Added Debrid-Link support
+
+Changelog 0.2.28 [20221023]:
+- Get embeds from Animix
+
+Changelog 0.2.27 [20221020]:
+- Fix trakt rescrape issue
+
+Changelog 0.2.26 [20221020]:
+- Add option to enable/disable embeds
+- Improved Nyaa a little
+- Added Animix scraper
+
+Changelog 0.2.25 [20221018]:
+- Improved Episode meta
+
+Changelog 0.2.24 [20221017]:
+- Improved trakt search
+
+Changelog 0.2.23 [20221016]:
+- Fix dependency issues
+
+Changelog 0.2.22 [20221016]:
+- Fix MAL errors related to missing meta for shows
+
+Changelog 0.2.21 [20221015]:
+- Improved gogo
+
+Changelog 0.2.20 [20221015]:
+- Fix title not showing in next playing window 
+
+Changelog 0.2.19 [20221014]:
+- Fix Stein's Gate 0 Issue
+
+Changelog 0.2.18 [20221013]:
+- Fix for empty Kitsu lists
+- Quickfix for Strings
+
+Changelog 0.2.17 [20221012]:
+- Kodi Leia compatibilty fix
+
+Changelog 0.2.16 [20221011]:
+- Added Movies and TV Shows Category so that its easier
+- Added Trending This Year
+- Added Popular This Year
+- Added Voted This Year
+- Added Upcoming Next Year
+- Added Options to disable Menu Items
+- Added two new icons: Movies.png and TV Shows.png
+- Fix ratings display bug in source select
+- Use clearart if available in get sources window
+
+Changelog 0.2.15 [20221008]:
+- Fix encoding errors on Kodi Leia
+
+Changelog 0.2.14 [20221008]:
+- Fix 'Enable Tertiary Dub Sort Preference' 
+- Fix Movie meta in sourceselect screen
+
+Changelog 0.2.13 [20221007]:
+- Fix movie source select issue
+
+Changelog 0.2.12 [20221007]:
+- Spy x family nyaa fix
+
+Changelog 0.2.11 [20221006]:
+- Fix error when no show_meta available
+
+Changelog 0.2.10 [20221006]:
+- Fix error when no thumbs available
+- Fix preferred audio selection
+- Improve episode meta collection for running series
+
+Changelog 0.2.9 [20221006]:
+- Added New Setting to change Content Format for Menu Items
+- Added Changelog Menu in Tools
+- Added textview window and base dialog window for changelog
+
+Changelog 0.2.8 [20221004]:
+- Improve episode thumbnails when simkl is used
+
+Changelog 0.2.7 [20221003]:
+- Dont use trakt for anime split seasons
+
+Changelog 0.2.6 [20221002]:
+- Fixed NextUp
+- Fixed missing clearlogo and background
+
+Changelog 0.2.5 [20220930]:
+- Improve meta scraping
+
+Changelog 0.2.4 [20220928]:
+- Add mulitple backgrounds, banner, clearlogo 
+
+Changelog 0.2.3 [20220926]:
+- Improve scraping on long titles
+
+Changelog 0.2.2 [20220926]:
+- Fix English language in Anilist & MAL Watchlists
+- Fix nextpage icon in AH2 landscape view
+- Fix posters getting replaced with landscape images
+- Improve trakt search
+- Gogo search fix for certain titles
+
+Changelog 0.2.1 [20220924]:
+- Enhance meta by including fanart.tv
+- Movie playback bug fix
+
+Changelog 0.2.0 [20220922]:
+- Fixed Gogoanime
+- Added Embed Quality (EQ)
+- Used urllib instead of requests
+- Added New Menu Items
+- Added New Art
+- Removed items without art
+- Improved Last Watched
+- Better results from Trakt
+- Add rating and meta for Kitsu watchlists
+
+Changelog 0.1.8 [20220909]:
+- Fix embedder info
+
+Changelog 0.1.7 [20220909]:
+- Display embedder name in sources
+
+Changelog 0.1.6 [20220908]:
+- Goganime improve search
+- Remove references to seren
+- Gogoanime - do proper search to get slug
+
+Changelog 0.1.5 [20220907]:
+- Improve gogo scraping and playback
+
+Changelog 0.1.4 [20220905]:
+- Add rating and meta for MAL watchlists
+
+Changelog 0.1.3 [20220904]:
+- Add meta to anilist watchlist flavour
+- Fix headshots not showing even when available
+
+Changelog 0.1.1 [20220824]:
+- Quick Fix for the Anilist login
+
+Changelog 0.1.1 [20220823]:
+- Add info meta for episodes
+- Add search plugin path for AH2 skin
+plugin://plugin.video.otaku/search_results/?query=
+
+Changelog 0.1.0 [20220820]:
+- Matrix Compatible
+- Fix Alldebrid access
+
+Changelog 0.0.8:
+- Fixed movies not working in AniList watchlist
+- Fixed scrape and rescrape running twice
+- Updated anime season for upcoming and trending menu items
+
+Changelog 0.0.7:
+- Improved cloud inspection
+- Adjusted 'Next Up'
+- Adjusted 'Rebuild Database'
+- Fixed gogo embed
+- Fixed new episodes not being added
+
+Changelog 0.0.6:
+- Added Premiumize and Real-Debrid cloud inspection
+- Added setting 'Seperate Dubs and Subs' to seperate anime into sub and dub list items if dub is available (test flight)
+- Added instruction dialog for MAL/AniList auth for linux os
+- Adjusted set titles to romaji/english
+- Adjusted Tertiary Dub filter
+- Improved 'Next Up'
+- Improved season torrent pack scraping
+
+Changelog 0.0.5:
+- Fixed bug
+
+Changelog 0.0.4:
+- Fixed bug
+
+Changelog 0.0.3:
+- Added Rescrape Item option to episode context menu
+- Added setting 'Title Language' to set titles to romaji/english
+- Added 'Airing Dubbed Anime' menu item
+- Added 'Next Up' to watchlist menu items
+- Adjusted content types of items
+- Adjusted MAL/AniList auth for linux os
+- Improved season torrent pack handling
+
+Changelog 0.0.2:
+- Added premiumize support
+- Improved handling of episodes/seasons retrieval
+- Improved nyaa search
+- Added 'episodes' content type to set menu content type setting
+- Added menu content type to be applied to watchlist landing page
+
+Changelog 0.0.1
+- Initial Release

@@ -1,0 +1,71 @@
+# XBMC Media Center language file
+msgid ""
+msgstr ""
+
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+# Categories
+msgctxt "#33001"
+msgid "General"
+msgstr ""
+
+msgctxt "#33002"
+msgid "Services"
+msgstr ""
+
+msgctxt "#33003"
+msgid "Accounts"
+msgstr ""
+
+# General
+msgctxt "#33101"
+msgid "Request timeout"
+msgstr ""
+
+msgctxt "#33102"
+msgid "Results limit"
+msgstr ""
+
+msgctxt "#33103"
+msgid "Auto search"
+msgstr ""
+
+msgctxt "#33104"
+msgid "Auto download first subtitle silently"
+msgstr ""
+
+msgctxt "#33105"
+msgid "Auto detect subs encoding"
+msgstr ""
+
+# Services
+msgctxt "#33201"
+msgid "OpenSubtitles"
+msgstr ""
+
+msgctxt "#33202"
+msgid "BSPlayer"
+msgstr ""
+
+msgctxt "#33203"
+msgid "Podnadpisi"
+msgstr ""
+
+msgctxt "#33205"
+msgid "Subscene"
+msgstr ""
+
+msgctxt "#33206"
+msgid "Addic7ed"
+msgstr ""
+
+# Labels
+msgctxt "#33301"
+msgid "Username (Optional)"
+msgstr ""
+
+msgctxt "#33302"
+msgid "Password (Optional)"
+msgstr ""

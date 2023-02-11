@@ -1367,39 +1367,6 @@ Changelog 0.3.22 [20230211]:
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="repository.hooty" name="Hooty's Repository" version="1.0" provider-name="Goldenfreddy0703">
-    <extension point="xbmc.addon.repository" name="Hooty's Repository">
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/repo/zips/</datadir>
-        </dir>
-        <dir minversion="18.0.0" maxversion="18.9.9">
-            <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/leia/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/leia/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/leia/zips/</datadir>
-        </dir>
-        <dir minversion="19.0.0">
-            <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/matrix/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/matrix/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/matrix/zips/</datadir>
-        </dir>
-        <dir minversion="20.0.0">
-            <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/nexus/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/nexus/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/Goldenfreddy0703/repository.hooty/master/nexus/zips/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Hooty's Repository</summary>
-        <description>A repository for maintained releases of addons</description>
-        <disclaimer />
-        <platform>all</platform>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
 </addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.1" provider-name="jurialmunkey">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
@@ -1437,6 +1404,21 @@ Changelog 0.3.22 [20230211]:
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="resource.images.fenicons.white" name="Fen Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="fenicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Fen Icons</summary>
+		<description lang="en">Icons for Fen</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.png</fanart>
+		</assets>
+	</extension>
 </addon><addon id="resource.images.newsonicons.coloured" name="NewsOn Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="newsonicons" />
 	<requires>
@@ -1445,6 +1427,21 @@ Changelog 0.3.22 [20230211]:
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">NewsOn Icons</summary>
 		<description lang="en">Icons for NewsOn</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.openmetaicons.white" name="OpenMeta Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="openmetaicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">OpenMeta Icons</summary>
+		<description lang="en">Icons for OpenMeta</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>
@@ -1482,6 +1479,36 @@ Changelog 0.3.22 [20230211]:
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="resource.images.serenicons.coloured" name="Seren Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="serenicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Seren Icons</summary>
+		<description lang="en">Icons for Seren</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>ico-seren-2.jpg</icon>
+			<fanart>fanart-seren-2.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.serenicons.white" name="Seren Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="serenicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Seren Icons</summary>
+		<description lang="en">Icons for Seren</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>ico-seren-2.png</icon>
+			<fanart>fanart-seren-2.jpg</fanart>
+		</assets>
+	</extension>
 </addon><addon id="resource.images.serenv2icons.white" name="Seren Icons V2- White" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="serenv2icons" />
 	<requires>
@@ -1495,6 +1522,21 @@ Changelog 0.3.22 [20230211]:
 		<assets>
 			<icon>ico-seren-3.png</icon>
 			<fanart>fanart-seren-3.png</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.tmdbgenreicons.coloured" name="TheMovieDb Helper Genre Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="tmdbgenreicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">TheMovieDb Helper Genre Icons</summary>
+		<description lang="en">Icons for TheMovieDb Helper</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
 </addon><addon id="resource.images.tmdbicons.coloured" name="TheMovieDb Helper Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
@@ -1557,7 +1599,37 @@ Changelog 0.3.22 [20230211]:
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="resource.images.ytmusicicons.black" name="YT [COLOR red]Music[/COLOR] EXP Icons - Black" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">YT [COLOR red]Music[/COLOR] EXP Icons</summary>
+		<description lang="en">Icons for YT [COLOR red]Music[/COLOR] EXP</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
 </addon><addon id="resource.images.ytmusicicons.coloured" name="YT [COLOR red]Music[/COLOR] EXP Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">YT [COLOR red]Music[/COLOR] EXP Icons</summary>
+		<description lang="en">Icons for YT [COLOR red]Music[/COLOR] EXP</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.ytmusicicons.white" name="YT [COLOR red]Music[/COLOR] EXP Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

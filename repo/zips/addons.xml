@@ -761,7 +761,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.23">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.24">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -786,8 +786,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.23 [20230212]:
-- Added Special Setting "Filter Subs and Dubs"
+Changelog 0.3.24 [20230213]:
+- Fixed a few small bugs
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

@@ -1,7 +1,10 @@
+Changelog 0.3.25 [20230214]:
+- Fixed sub and dub skin bug
+
 Changelog 0.3.24 [20230213]:
 - Fixed a few small bugs
 
-hangelog 0.3.23 [20230212]:
+Changelog 0.3.23 [20230212]:
 - Added Special Setting "Filter Subs and Dubs"
 
 Changelog 0.3.22 [20230211]:

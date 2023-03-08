@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="context.otaku" version="0.0.8" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+<addon id="context.otaku" version="0.0.9" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
     <!-- <import addon="xbmc.python" version="2.24.0" /> -->
   </requires>
@@ -13,8 +13,12 @@
         <label>Source Select</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
-      <item library="findSimilar.py">
-        <label>Find Similar</label>
+      <item library="findRecommendations.py">
+        <label>Find Recommendations</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="findRelations.py">
+        <label>Find Relations</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
       <item library="watchlistLogout.py">
@@ -38,7 +42,7 @@
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.0.6:
+Changelog 0.0.9:
 - Initial release
     </news>
   </extension>

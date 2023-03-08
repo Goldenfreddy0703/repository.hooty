@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="0.0.8" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="0.0.9" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
     
   </requires>
@@ -66,8 +66,12 @@ Changelog 0.0.1:
         <label>Source Select</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
-      <item library="findSimilar.py">
-        <label>Find Similar</label>
+      <item library="findRecommendations.py">
+        <label>Find Recommendations</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="findRelations.py">
+        <label>Find Relations</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
       <item library="watchlistLogout.py">
@@ -91,7 +95,7 @@ Changelog 0.0.1:
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.0.6:
+Changelog 0.0.9:
 - Initial release
     </news>
   </extension>
@@ -765,14 +769,14 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.42">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.43">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
     <import addon="script.module.inputstreamhelper" version="0.3.3" />
     <import addon="script.module.six" version="1.15.0" />
     <import addon="script.module.kodi-six" version="0.1.3" />
-    <import addon="context.otaku" version="0.0.8" />
+    <import addon="context.otaku" version="0.0.9" />
     <import addon="script.otaku.themepak" version="0.0.7" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
@@ -790,8 +794,10 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.42 [20230305]:
-- re-added "Find Similar" to the context menu
+Changelog 0.3.43 [20230308]:
+- Added Context Menu "Find Recommendations"
+- Added Context Menu "Find Relations"
+- Renamed "Find Similar"
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

@@ -2142,14 +2142,22 @@ class AniListBrowser():
         search = database.get(self.get_search_res, 0.125, variables, page)
         return self._process_anilist_view(search, "search/%s/%%d" % query, page)
 
-    def get_recommendation(self, anilist_id, page=1):
+    def get_recommendations(self, anilist_id, page=1):
         variables = {
             'page': page,
             'id': anilist_id
         }
 
-        recommendation = database.get(self.get_recommendations_res, 0.125, variables, page)
-        return self._process_recommendation_view(recommendation, "anichart_popular/%d", page)
+        recommendations = database.get(self.get_recommendations_res, 0.125, variables, page)
+        return self._process_recommendations_view(recommendations, "find_recommendations/%d", page)
+
+    def get_relations(self, anilist_id):
+        variables = {
+            'id': anilist_id
+        }
+
+        relations = database.get(self.get_relations_res, 0.125, variables)
+        return self._process_relations_view(relations, "find_relations/%d")
 
     def get_anilist(self, mal_id):
         variables = {
@@ -2428,9 +2436,9 @@ class AniListBrowser():
                   mediaRecommendation {
                     id
                     title {
+                      userPreferred
                       romaji
                       english
-                      native
                     }
                     genres
                     averageScore
@@ -2496,6 +2504,85 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Media']['recommendations']
+        return json_res
+
+    def get_relations_res(self, variables):
+        query = '''
+        query ($id: Int) {
+          Media(id: $id, type: ANIME) {
+            relations {
+              edges {
+                relationType
+                node {
+                  id
+                  title {
+                    userPreferred
+                    romaji
+                    english
+                  }
+                  genres
+                  averageScore
+                  description(asHtml: false)
+                  coverImage {
+                    extraLarge
+                  }
+                  bannerImage
+                  startDate {
+                    year
+                    month
+                    day
+                  }
+                  format
+                  episodes
+                  duration
+                  status
+                  studios {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                  trailer {
+                    id
+                    site
+                  }
+                  characters (perPage: 10) {
+                    edges {
+                      node {
+                        name {
+                          full
+                          native
+                          userPreferred
+                        }
+                      }
+                      voiceActors(language: JAPANESE) {
+                        id
+                        name {
+                          full
+                          native
+                          userPreferred
+                        }
+                        image {
+                          large
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        '''
+
+        result = client.request(self._URL, post={'query': query, 'variables': variables}, jpost=True)
+        results = json.loads(result)
+
+        if "errors" in results.keys():
+            return
+
+        json_res = results['data']['Media']['relations']
         return json_res
 
     def get_anilist_res(self, variables):
@@ -2670,20 +2757,34 @@ class AniListBrowser():
         return all_results
 
     @div_flavor
-    def _process_recommendation_view(self, json_res, base_plugin_url, page, dub=False):
+    def _process_recommendations_view(self, json_res, base_plugin_url, page, dub=False):
         hasNextPage = json_res['pageInfo']['hasNextPage']
-        res = [edge['node']['mediaRecommendation'] for edge in json_res['edges']]   
+        res = [edge['node']['mediaRecommendation'] for edge in json_res['edges']]
 
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub)
         else:
-            mapfunc = self._base_anilist_view   
+            mapfunc = self._base_anilist_view
 
+        _ = get_meta.collect_meta(res)
         all_results = list(map(mapfunc, res))
-        all_results = list(itertools.chain(*all_results))   
+        all_results = list(itertools.chain(*all_results))
 
         all_results += self._handle_paging(hasNextPage, base_plugin_url, page)
-        return all_results  
+        return all_results
+
+    def _process_relations_view(self, json_res, base_plugin_url, dub=False):
+        res = [edge['node'] for edge in json_res['edges'] if edge['relationType'] != 'ADAPTATION']
+
+        if dub:
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub)
+        else:
+            mapfunc = self._base_anilist_view
+
+        all_results = list(map(mapfunc, res))
+        all_results = list(itertools.chain(*all_results))
+
+        return all_results
 
     def _process_mal_to_anilist(self, res):
         # titles = self._get_titles(res)

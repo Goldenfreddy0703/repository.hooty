@@ -769,7 +769,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.46">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.47">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -795,10 +795,11 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.46 [20230309]:
-- Added connection to the tile in find relation and linting
-- Added some fixes
-- Fixed Skip Outro
+Changelog 0.3.47 [20230310]:
+- Made Nya Alt easier for Verizon Users
+- Added New Setting "Preferred Subtitle Language"
+- Renamed "Preferred Audio Stream"
+- Renamed "Preferred Stream Source"
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

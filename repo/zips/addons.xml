@@ -769,7 +769,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.50">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.51">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -795,9 +795,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.50 [20230313]:
-- Added New Setting "Dialog Theme"
-- Added 2 New Themes for Skip Intro, Playing Next Dialog
+Changelog 0.3.51 [20230314]:
+- Fixed a major bug with the Playing Next Dialog
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

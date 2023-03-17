@@ -254,7 +254,7 @@ Changelog 0.0.9:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta12" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta13" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -267,9 +267,10 @@ Changelog 0.0.9:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta12 (2022-11-20)
-- Fix errors caused by the introduction of album IDs in song data
-- Fix an error causing the artist in playlist songs to be displayed as -???-
+1.0~beta13 (2023-03-16)
+- Update ytmusicapi to version `0.25.0` to restore library and playlist functionality.
+- Refresh playlist after deleting a song from the playlist.
+- Fix error when attempting to display an empty playlist.
     </news>
     <assets>
       <icon>resources/icon.png</icon>

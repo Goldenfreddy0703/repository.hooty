@@ -1,7 +1,7 @@
 import threading
 import time
 
-from resources.lib.pages import animixplay, debrid_cloudfiles, nineanime, gogoanime, gogohd, nyaa, animepahe, zoro
+from resources.lib.pages import animixplay, debrid_cloudfiles, nineanime, gogoanime, gogohd, enime, nyaa, animepahe, zoro
 from resources.lib.ui import control
 from resources.lib.windows.get_sources_window import \
     GetSources as DisplayWindow
@@ -40,7 +40,7 @@ class Sources(DisplayWindow):
         self.embedSources = []
         self.hosterSources = []
         self.cloud_files = []
-        self.remainingProviders = ['nyaa', '9anime', 'gogo', 'gogohd', 'animix', 'animepahe', 'zoro']
+        self.remainingProviders = ['nyaa', '9anime', 'gogo', 'gogohd', 'enime', 'animix', 'animepahe', 'zoro']
         self.allTorrents = {}
         self.allTorrents_len = 0
         self.hosterDomains = {}
@@ -68,6 +68,7 @@ class Sources(DisplayWindow):
         self.nyaaSources = []
         self.gogoSources = []
         self.gogohdSources = []
+        self.enimeSources = []
         self.nineSources = []
         self.animixplaySources = []
         self.animepaheSources = []
@@ -111,6 +112,12 @@ class Sources(DisplayWindow):
                 threading.Thread(target=self.gogohd_worker, args=(anilist_id, episode, get_backup, rescrape)))
         else:
             self.remainingProviders.remove('gogohd')
+
+        if control.getSetting('provider.enime') == 'true':
+            self.threads.append(
+                threading.Thread(target=self.enime_worker, args=(anilist_id, episode, get_backup, rescrape)))
+        else:
+            self.remainingProviders.remove('enime')
 
         if control.getSetting('provider.animix') == 'true':
             self.threads.append(
@@ -197,6 +204,12 @@ class Sources(DisplayWindow):
             self.gogohdSources = gogohd.sources().get_sources(anilist_id, episode, get_backup)
             self.embedSources += self.gogohdSources
         self.remainingProviders.remove('gogohd')
+
+    def enime_worker(self, anilist_id, episode, get_backup, rescrape):
+        if not rescrape:
+            self.enimeSources = enime.sources().get_sources(anilist_id, episode, get_backup)
+            self.embedSources += self.enimeSources
+        self.remainingProviders.remove('enime')
 
     def nine_worker(self, anilist_id, episode, get_backup, rescrape):
         if not rescrape:
@@ -311,11 +324,15 @@ class Sources(DisplayWindow):
         prioritize_dualaudio = False
         prioritize_multisubs = False
         prioritize_batches = False
+        prioritize_season = False
+        prioritize_part = False
 
         if control.getSetting('general.sortsources') == '0':  # Torrents selected
             prioritize_dualaudio = control.getSetting('general.prioritize_dualaudio') == 'true'
             prioritize_multisubs = control.getSetting('general.prioritize_multisubs') == 'true'
             prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
+            prioritize_season = control.getSetting('general.prioritize_season') == 'true'
+            prioritize_part = control.getSetting('general.prioritize_part') == 'true'
 
         debrid_priorities = self.debrid_priority()
 
@@ -356,6 +373,34 @@ class Sources(DisplayWindow):
                         if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
                             sortedList.append(torrent)
                     for torrent in torrent_list_no_batches:
+                        if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
+                            sortedList.append(torrent)
+                for file in embed_list:
+                    if file['quality'] == resolution:
+                        sortedList.append(file)
+        elif prioritize_season:
+            torrent_list_season = [i for i in torrent_list if 'SEASON' in i['info']]
+            torrent_list_no_season = [i for i in torrent_list if 'SEASON' not in i['info']]
+            for resolution in resolutions:
+                for debrid in self.debrid_priority():
+                    for torrent in torrent_list_season:
+                        if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
+                            sortedList.append(torrent)
+                    for torrent in torrent_list_no_season:
+                        if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
+                            sortedList.append(torrent)
+                for file in embed_list:
+                    if file['quality'] == resolution:
+                        sortedList.append(file)
+        elif prioritize_part:
+            torrent_list_part = [i for i in torrent_list if 'PART' in i['info']]
+            torrent_list_no_part = [i for i in torrent_list if 'PART' not in i['info']]
+            for resolution in resolutions:
+                for debrid in self.debrid_priority():
+                    for torrent in torrent_list_part:
+                        if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
+                            sortedList.append(torrent)
+                    for torrent in torrent_list_no_part:
                         if debrid['slug'] == torrent['debrid_provider'] and torrent['quality'] == resolution:
                             sortedList.append(torrent)
                 for file in embed_list:

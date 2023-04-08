@@ -769,7 +769,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.61">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.62">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -795,13 +795,9 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.61 [20230407]:
-- Fixed Ratelimiting
-- Fixed Zoro
-- Improved Gogohd
-- Update gogo url 
-- Added quality for 9anime embeds
-- Updated gogoembed extractor
+Changelog 0.3.62 [20230407]:
+- Improved Priority Settings
+- Allow MultiSelect Priority Settings
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

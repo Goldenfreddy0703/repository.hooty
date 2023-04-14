@@ -769,7 +769,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.64">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.65">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -795,8 +795,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.64 [20230412]:
-- Added New Setting "Set Streaming Site"
+Changelog 0.3.65 [20230414]:
+- Handle animix dub stream site being down
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

@@ -28,10 +28,11 @@ class CONSUMETAPI:
                 4,
                 url,
                 error=True,
-                output='extended'
+                output='extended',
+                timeout=10
             )
             data = {}
-            if int(response[1]) < 300:
+            if response and int(response[1]) < 300:
                 data = json.loads(response[0])
                 if 'ratelimited' in data.get('message', ''):
                     database.remove(
@@ -44,6 +45,8 @@ class CONSUMETAPI:
                     retries -= 1
                 else:
                     ratelimited = False
+            else:
+                ratelimited = False
         return data
 
     def _parse_episode_view(self, res, show_id, show_meta, season, poster, fanart, eps_watched, update_time):
@@ -164,7 +167,7 @@ class CONSUMETAPI:
             eurl = self.episodesUrl.format(anilist_id, provider)
         else:
             eurl = self.episodesUrl2.format(anilist_id, provider)
-        if provider in ['gogoanime', '9anime']:
+        if provider in ['gogoanime', '9anime', 'animesaturn']:
             eurl += '&{0}=true'.format(lang)
         episodes = self._json_request(eurl).get('episodes')
         if episodes:
@@ -173,7 +176,7 @@ class CONSUMETAPI:
             episode_id = [x.get('id') for x in episodes if x.get('number') == int(episode)][0]
             if provider == 'zoro' and lang == 'dub':
                 episode_id = episode_id.replace('$sub', '$dub')
-            surl = self.streamUrl if provider in ['animepahe', 'gogoanime', '9anime'] else self.streamUrl2
+            surl = self.streamUrl if provider in ['animepahe', 'animesaturn', 'gogoanime', '9anime'] else self.streamUrl2
             sources = self._json_request(surl.format(provider, episode_id))
 
         return sources

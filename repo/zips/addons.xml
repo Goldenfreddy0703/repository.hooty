@@ -1346,7 +1346,7 @@ Changelog 0.3.75 [20230520]:
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.1.11~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.1.14~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1777,7 +1777,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="1.1.0" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="1.1.1" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.jurialmunkey" version="0.1.0" />

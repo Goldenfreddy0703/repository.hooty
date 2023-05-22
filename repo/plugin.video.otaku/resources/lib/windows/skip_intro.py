@@ -25,7 +25,6 @@ class SkipIntro(BaseWindow):
             self.skip_time = int(control.getSetting('skipintro.time'))
             # Convert duration setting to seconds
             self.close_durration = int(control.getSetting('skipintro.duration')) * 60
-            self.skipintro_aniskip_enable = control.getSetting('skipintro.aniskip.enable') == 'false'
             self.smartplay_skipintrodialog = control.getSetting('smartplay.skipintrodialog') == 'true'
 
             self.closed = False
@@ -34,15 +33,9 @@ class SkipIntro(BaseWindow):
 
             self.current_time = None
             self.total_time = self.player.getTotalTime()
-            self.skipintro_delay_time = int(control.getSetting('skipintro.delay'))
-
-            self.skipintro_start_skip_time = None
-            self.skipintro_end_skip_time = None
-
         except:
-            # import traceback
-            # traceback.print_exc()
-            pass
+            import traceback
+            traceback.print_exc()
 
     def onInit(self):
         self.background_tasks()
@@ -51,9 +44,6 @@ class SkipIntro(BaseWindow):
         return ((int(self.player.getTotalTime()) - int(self.player.getTime())) / float(self.duration)) * 100
 
     def background_tasks(self):
-        self.skipintro_start_skip_time = int(control.getSetting('skipintro.start.skip.time'))
-        self.skipintro_end_skip_time = int(control.getSetting('skipintro.end.skip.time'))
-
         try:
             # try:
             #     progress_bar = self.getControl(3014)
@@ -62,16 +52,9 @@ class SkipIntro(BaseWindow):
             self.current_time = int(self.player.getTime())
             while int(self.total_time) - int(self.current_time) > 2 and not self.closed and self.playing_file == self.player.getPlayingFile():
                 self.current_time = int(self.player.getTime())
-                if self.current_time > self.skipintro_end_skip_time:
-                    self.close()
 
-                elif self.current_time > self.close_durration + self.skipintro_delay_time > 0 and self.skipintro_end_skip_time == 9999:
+                if self.current_time > self.close_durration > 0:
                     self.close()
-
-                elif self.smartplay_skipintrodialog:
-                    if self.skipintro_aniskip_enable:
-                        if self.close_durration == 0:
-                            self.close()
 
                 xbmc.sleep(500)
                 # if progress_bar is not None:
@@ -84,6 +67,7 @@ class SkipIntro(BaseWindow):
         except:
             import traceback
             traceback.print_exc()
+            pass
 
     def doModal(self):
         try:
@@ -106,10 +90,7 @@ class SkipIntro(BaseWindow):
 
         if control_id == 3001:
             self.actioned = True
-            if self.skipintro_end_skip_time == 9999:
-                self.player.seekTime(int(self.player.getTime()) + self.skip_time)
-            else:
-                self.player.seekTime(self.skipintro_end_skip_time)
+            self.player.seekTime(self.player.getTime() + self.skip_time)
             self.close()
         if control_id == 3002:
             self.actioned = True

@@ -3,7 +3,7 @@ import sys
 from kodi_six import xbmc, xbmcgui, xbmcplugin
 from resources.lib.ui import client, control, utils, database
 from six.moves import urllib_parse
-from resources.lib.indexers import Aniskip
+from resources.lib.indexers import aniskip
 
 try:
     HANDLE = int(sys.argv[1])
@@ -78,7 +78,7 @@ class watchlistPlayer(xbmc.Player):
 
         if self.skipintro_aniskip_enable:
             mal_id = database.get_show(anilist_id)['mal_id']
-            skipintro_aniskip_res = Aniskip.get_skip_times(mal_id, episode, 'op')
+            skipintro_aniskip_res = aniskip.get_skip_times(mal_id, episode, 'op')
 
             if skipintro_aniskip_res:
                 skip_times = skipintro_aniskip_res['results'][0]['interval']
@@ -87,7 +87,7 @@ class watchlistPlayer(xbmc.Player):
 
         if self.skipoutro_aniskip_enable:
             mal_id = database.get_show(anilist_id)['mal_id']
-            skipoutro_aniskip_res = Aniskip.get_skip_times(mal_id, episode, 'ed')
+            skipoutro_aniskip_res = aniskip.get_skip_times(mal_id, episode, 'ed')
 
             if skipoutro_aniskip_res:
                 skip_times = skipoutro_aniskip_res['results'][0]['interval']
@@ -206,15 +206,25 @@ class watchlistPlayer(xbmc.Player):
                     subtitle_int = subtitle_lang.index(preferred_subtitle)
                     self.setSubtitleStream(subtitle_int)
                 except ValueError:
-                    pass
+                    # Handle the ValueError by setting subtitle_int to 0 (first available subtitle stream)
+                    subtitle_int = 0
+
+                    self.setSubtitleStream(subtitle_int)
 
         # Audio Preferences
         audio_lang = self.getAvailableAudioStreams()
         if len(audio_lang) > 1:
             audios = ['jpn', 'eng']
             preferred_audio = audios[int(control.getSetting('general.audio'))]
-            audio_int = audio_lang.index(preferred_audio)
+
+            try:
+                audio_int = audio_lang.index(preferred_audio)
+            except ValueError:
+                # Handle the ValueError by setting audio_int to 0 (play the first audio stream)
+                audio_int = 0
+
             self.setAudioStream(audio_int)
+
             if preferred_audio == "eng":
                 self.showSubtitles(False)
             else:

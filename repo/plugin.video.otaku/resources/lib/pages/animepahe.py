@@ -53,11 +53,17 @@ class sources(BrowserBase):
 
     def _process_ap(self, slug, title, episode):
         sources = []
+        e_num = int(episode)
+        big_series = e_num > 30
+        page = 1
+        if big_series:
+            page += int(e_num / 30)
+
         params = {
             'm': 'release',
             'id': slug,
             'sort': 'episode_asc',
-            'page': 1
+            'page': page
         }
         headers = {'Referer': self._BASE_URL}
         r = database.get(
@@ -68,9 +74,11 @@ class sources(BrowserBase):
             headers=headers,
             XHR=True
         )
-        items = json.loads(r).get('data')
-        e_num = int(episode)
-        if items[0].get('episode') > 1:
+        r = json.loads(r)
+        items = r.get('data')
+        items = sorted(items, key=lambda x: x.get('episode'))
+
+        if items[0].get('episode') > 1 and not big_series:
             e_num = e_num + items[0].get('episode') - 1
 
         items = [x for x in items if x.get('episode') == e_num]

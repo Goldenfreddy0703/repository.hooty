@@ -156,9 +156,12 @@ class CONSUMETAPI:
 
     def get_episodes(self, anilist_id, filter_lang):
         show_meta = database.get_show_meta(anilist_id)
-        meta_ids = pickle.loads(show_meta.get('meta_ids'))
         kodi_meta = pickle.loads(database.get_show(anilist_id).get('kodi_meta'))
-        kodi_meta.update(pickle.loads(show_meta.get('art')))
+        if show_meta:
+            kodi_meta.update(pickle.loads(show_meta.get('art')))
+            meta_ids = pickle.loads(show_meta.get('meta_ids'))
+        else:
+            meta_ids = {}
         fanart = kodi_meta.get('fanart')
         poster = kodi_meta.get('poster')
         eps_watched = kodi_meta.get('eps_watched')

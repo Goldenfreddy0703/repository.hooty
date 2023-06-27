@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="context.otaku" version="0.0.9" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+<addon id="context.otaku" version="0.0.10" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
     <!-- <import addon="xbmc.python" version="2.24.0" /> -->
   </requires>
@@ -19,6 +19,10 @@
       </item>
       <item library="findRelations.py">
         <label>Find Relations</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="getWatchOrder.py">
+        <label>Get Watch Order</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
       <item library="watchlistLogout.py">
@@ -42,7 +46,7 @@
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.0.9:
+Changelog 0.0.10:
 - Initial release
     </news>
   </extension>

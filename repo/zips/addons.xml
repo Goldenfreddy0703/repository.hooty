@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="0.0.9" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="0.0.10" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
     
   </requires>
@@ -72,6 +72,10 @@ Changelog 0.0.1:
       </item>
       <item library="findRelations.py">
         <label>Find Relations</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
+      <item library="getWatchOrder.py">
+        <label>Get Watch Order</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
       <item library="watchlistLogout.py">
@@ -95,7 +99,7 @@ Changelog 0.0.1:
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.0.9:
+Changelog 0.0.10:
 - Initial release
     </news>
   </extension>
@@ -770,14 +774,14 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.83">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.84">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
     <import addon="script.module.inputstreamhelper" version="0.3.3" />
     <import addon="script.module.six" version="1.15.0" />
     <import addon="script.module.kodi-six" version="0.1.3" />
-    <import addon="context.otaku" version="0.0.9" />
+    <import addon="context.otaku" version="0.0.10" />
     <import addon="script.otaku.themepak" version="0.0.7" />
     
   </requires>
@@ -797,8 +801,10 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.83 [20230625]:
-- No code changes, linting only
+Changelog 0.3.84 [20230627]:
+- Added Chiaki to get watch order
+- Added New Context menu "Get Watch Order"
+- Huge thanks to @Pahiro for adding this.
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

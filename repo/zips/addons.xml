@@ -774,7 +774,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.84">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.85">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -801,10 +801,10 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.84 [20230627]:
-- Added Chiaki to get watch order
-- Added New Context menu "Get Watch Order"
-- Huge thanks to @Pahiro for adding this.
+Changelog 0.3.85 [20230630]:
+- Fix Animix Scraper
+- Fix Gogo Scraper
+- linting Changes
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

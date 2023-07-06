@@ -63,3 +63,9 @@
 [submodule "repo/script.service.sponsorblock"]
 	path = repo/script.service.sponsorblock
 	url = https://github.com/siku2/script.service.sponsorblock.git
+[submodule "repo/script.module.jurialmunkey"]
+	path = repo/script.module.jurialmunkey
+	url = https://github.com/jurialmunkey/script.module.jurialmunkey.git
+[submodule "repo/script.wikipedia"]
+	path = repo/script.wikipedia
+	url = https://github.com/jurialmunkey/script.wikipedia.git

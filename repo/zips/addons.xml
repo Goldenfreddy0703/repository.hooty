@@ -258,7 +258,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta15" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta16" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -272,9 +272,8 @@ Changelog 0.0.10:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta15 (2023-06-10)
-- Update to pytube version 15.0.0
-- Fix a dump in extract.py which apparently only occurs in a kodi environment.
+1.0~beta16 (2023-07-06)
+- Apply fix to PyTube cipher.py from PyTube Pull Request #1680.
     </news>
     <assets>
       <icon>resources/icon.png</icon>
@@ -1352,7 +1351,7 @@ Changelog 0.3.86 [20230701]:
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.1.20~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.1.22~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1820,6 +1819,22 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
   <summary lang="en_GB">Texture Maker helps skinners build gradient based textures</summary>
   <description lang="en_GB">Texture Maker helps skinners build gradient based textures</description>
   <disclaimer lang="en_GB">For skinners</disclaimer>
+  <license>GPL-3.0-or-later</license>
+  <assets>
+    <icon>icon.png</icon>
+    <fanart>fanart.jpg</fanart>
+  </assets>
+</extension>
+</addon><addon id="script.wikipedia" version="0.0.5" name="Wikipedia" provider-name="jurialmunkey">
+<requires>
+  <import addon="xbmc.python" version="3.0.0" />
+  <import addon="script.module.beautifulsoup4" version="4.9.3" />
+  <import addon="script.module.jurialmunkey" version="0.1.1" />
+</requires>
+<extension point="xbmc.python.script" library="resources/script.py" />
+<extension point="xbmc.addon.metadata">
+  <summary lang="en_GB">Access Wikipedia via Kodi</summary>
+  <description lang="en_GB">Access Wikipedia via Kodi</description>
   <license>GPL-3.0-or-later</license>
   <assets>
     <icon>icon.png</icon>

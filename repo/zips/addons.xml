@@ -773,7 +773,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.89">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.90">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -800,9 +800,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.89 [20230712]:
-- Added Aniwatch scraper
-- Removed Animesaturn references 
+Changelog 0.3.90 [20230713]:
+- Improved Aniwatch search with romaji titles
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

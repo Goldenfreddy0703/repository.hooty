@@ -773,7 +773,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.97">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.3.98">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -801,14 +801,8 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
     <news>
-Changelog 0.3.97 [20230725]:
-- Removed Uncategorized Menus
-- Made Category Menus for Movies and TV Shows
-- Added Movie Search For Movies
-- Added TV Search For TV Shows
-- Added Movie Genres for Movies
-- Added TV Genres For TV Shows
-- Changed alot of Menu Settings
+Changelog 0.3.98 [20230729]:
+- Added Clean Cache On Update Setting
     </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

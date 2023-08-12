@@ -1,6 +1,6 @@
 __metaclass__ = type
 
-import os
+# import os
 import pickle
 from resources.lib.ui import control, database
 import random
@@ -18,12 +18,10 @@ class BaseWindow(control.xmlWindow):
         control.closeBusyDialog()
         self.canceled = False
         self._title_lang = self._get_title_lang(control.getSetting("general.titlelanguage"))
-        self.setProperty('texture.white', os.path.join(control.IMAGES_PATH, 'white.png'))
         self.setProperty('otaku.logo', control.OTAKU_LOGO_PATH)
         self.setProperty('otaku.fanart', control.OTAKU_FANART_PATH)
         self.setProperty('settings.color', 'deepskyblue')
-        self.setProperty('test.pattern', os.path.join(control.IMAGES_PATH, 'test_pattern.png'))
-        self.setProperty('skin.dir', control.ADDON_PATH)
+        # self.setProperty('test.pattern', os.path.join(control.IMAGES_PATH, 'test_pattern.png'))
 
         if actionArgs is None:
             return
@@ -45,18 +43,15 @@ class BaseWindow(control.xmlWindow):
             thumb = random.choice(thumb)
 
         fanart = self.item_information.get('fanart')
-        if isinstance(fanart, list):
-            if control.getSetting('scraping.fanart') == 'true':
-                fanart = control.OTAKU_FANART_PATH
-            else:
-                fanart = random.choice(fanart)
-
         clearlogo = self.item_information.get('clearlogo', control.OTAKU_LOGO2_PATH)
-        if clearlogo and isinstance(clearlogo, list):
-            if control.getSetting('scraping.clearlogo') == 'true':
-                clearlogo = control.OTAKU_LOGO2_PATH
-            else:
-                clearlogo = random.choice(clearlogo)
+
+        if not actionArgs.get('playnext') and not fanart:
+            fanart = control.OTAKU_FANART_PATH
+
+        if isinstance(fanart, list):
+            fanart = control.OTAKU_FANART_PATH if control.getSetting('scraping.fanart') == 'true' else random.choice(fanart)
+        if isinstance(clearlogo, list):
+            clearlogo = control.OTAKU_LOGO2_PATH if control.getSetting('scraping.clearlogo') == 'true' else random.choice(clearlogo)
 
         self.setProperty('item.art.thumb', thumb if thumb else fanart)
         self.setProperty('item.art.poster', self.item_information.get('poster'))

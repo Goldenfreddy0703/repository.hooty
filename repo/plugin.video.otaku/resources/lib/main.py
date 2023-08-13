@@ -1832,10 +1832,11 @@ def DELETE_ANIME_DATABASE(payload, params):
     if len(payload_list) == 3:
         path, mal_id, episode_num = payload_list
         anilist_id = None
-    else:
+    elif len(payload_list) == 4:
         path, anilist_id, mal_id, filter_lang = payload_list
-        mal_id = None
-
+    else:
+        path, mal_id = payload_list
+        anilist_id = params.get('anilist_id')
     if not anilist_id:
         try:
             show_meta = database.get_show_mal(mal_id)
@@ -1846,10 +1847,17 @@ def DELETE_ANIME_DATABASE(payload, params):
             show_meta = _ANILIST_BROWSER.get_mal_to_anilist(mal_id)
             anilist_id = show_meta['anilist_id']
             title_user = pickle.loads(show_meta['kodi_meta'])['title_userPreferred']
+    else:
+        show_meta = database.get_show(anilist_id)
+        try:
+            title_user = pickle.loads(show_meta['kodi_meta'])['title_userPreferred']
+        except TypeError:
+            control.notify("Not in Database")
+            return
 
     database.remove_episodes(anilist_id)
     database.remove_season(anilist_id)
-    control.ok_dialog(control.ADDON_NAME, 'Removed "%s" from database' % title_user)
+    control.notify('Removed "%s" from database' % title_user)
 
 # @route('tmdb_helper')
 # def TMDB_HELPER(payload, params):

@@ -773,7 +773,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.8">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.9">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -800,13 +800,6 @@ Initial release
       <icon>icon.png</icon>
       <fanart>fanart.jpg</fanart>
     </assets>
-    <news>
-Changelog 0.4.8 [20230811]:
-- Fixed Artwork Bug
-- Fixed Airdates
-- Improved Aniwatch search
-- Made a couple of File Changes
-    </news>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">
     <requires>

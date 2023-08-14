@@ -58,8 +58,8 @@
 		<setting id="provider.nyaaalt" type="bool" label="Nyaa Alt (For Verizon Users)" default="false" enable="eq(-1,false)" />
 		<setting id="provider.animetosho" type="bool" label="Anime Tosho" default="true" />
 
-		<!-- Embeds -->
-		<setting type="lsep" label="40223" />
+		<!-- English Embeds -->
+		<setting type="lsep" label="40504" />
 		<setting type="sep"/>
 		<setting id="provider.animix" type="bool" label="Animix" default="true" />
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />
@@ -68,6 +68,11 @@
 		<setting id="provider.gogohd" type="bool" label="Gogo HD" default="true" />
 		<setting id="provider.nineanime" type="bool" label="9Anime" default="true" />
 		<setting id="provider.zoro" type="bool" label="Zoro" default="true" />
+
+		<!-- Portugese Embeds -->
+		<setting type="lsep" label="40505" />
+		<setting type="sep"/>
+		<setting id="provider.animess" type="bool" label="Otaku Animes" default="true" />
 	</category>
 
 	<!-- Playback -->

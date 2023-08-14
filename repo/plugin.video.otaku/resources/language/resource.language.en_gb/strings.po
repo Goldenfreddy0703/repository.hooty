@@ -1003,6 +1003,14 @@ msgctxt "#40503"
 msgid "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some instability![/COLOR]"
 msgstr ""
 
+msgctxt "#40504"
+msgid "English Embeds"
+msgstr ""
+
+msgctxt "#40505"
+msgid "Portuguese Embeds"
+msgstr ""
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"
@@ -1157,7 +1165,7 @@ msgid "All Time Voted"
 msgstr ""
 
 msgctxt "#50050"
-msgid "Mainmenu Customization"
+msgid "Mainmenu Customize"
 msgstr ""
 
 msgctxt "#50051"
@@ -1173,7 +1181,7 @@ msgid "TV Show Menu Items"
 msgstr ""
 
 msgctxt "#50054"
-msgid "Submenu Customization"
+msgid "Submenu Customize"
 msgstr ""
 
 msgctxt "#50055"

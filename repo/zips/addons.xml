@@ -1348,13 +1348,13 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.1.31~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.1.34~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
-  <import addon="script.module.jurialmunkey" version="0.1.5" />
+  <import addon="script.module.jurialmunkey" version="0.1.7" />
   <import addon="script.module.infotagger" version="0.0.5" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />
 </requires>
@@ -1838,7 +1838,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.3.0" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.5.0" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -1863,6 +1863,12 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
             <screenshot>screenshot-03.png</screenshot>
         </assets>
         <news>
+[v3.5.0]:
+  * URI decode result names
+
+[v3.4.0]:
+  * Improve results ordering
+
 [v3.3.0]:
   * Improve Subscene support
 

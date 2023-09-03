@@ -1720,7 +1720,7 @@ Initial release
       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="script.otaku.themepak" version="0.0.9" name="Otaku Themepak" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.themepak" version="0.0.10" name="Otaku Themepak" provider-name="TeamOtaku">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>

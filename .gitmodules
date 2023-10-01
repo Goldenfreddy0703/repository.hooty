@@ -69,3 +69,6 @@
 [submodule "repo/script.wikipedia"]
 	path = repo/script.wikipedia
 	url = https://github.com/jurialmunkey/script.wikipedia.git
+[submodule "repo/resource.images.arctic.waves"]
+	path = repo/resource.images.arctic.waves
+	url = https://github.com/drinfernoo/resource.images.arctic.waves.git

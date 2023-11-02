@@ -1,3 +1,7 @@
+Changelog 0.4.40 [20231102]:
+- Fixed Cloud scraping issues
+- Updated Mapping Database
+
 Changelog 0.4.39 [20231018]:
 - Fixed Episode Thumbnails
 - Fixed Playing Next not working on some embeds

@@ -1,3 +1,8 @@
+Changelog 0.4.41 [20231103]:
+- Added Tmdb Helper Player Support
+- Added Autoplay Last Selected Source for Batch Sources
+- fixed 'Play Now' in Aniskip Outro
+
 Changelog 0.4.40 [20231102]:
 - Fixed Cloud scraping issues
 - Updated Mapping Database

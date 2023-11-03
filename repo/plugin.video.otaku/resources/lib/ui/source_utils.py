@@ -487,10 +487,12 @@ def filter_single_episode(episode, release_title):
 
 
 def user_select(files, dict_key):
-    from kodi_six import xbmcgui
-    idx = xbmcgui.Dialog().select('Select File', [i[dict_key].rsplit('/')[-1] for i in files])
-    files = [files[idx]]
-    return files
+    idx = control.select_dialog('Select File', [i[dict_key].rsplit('/')[-1] for i in files])
+    if idx == -1:
+        file = [{'path': ''}]
+    else:
+        file = [files[idx]]
+    return file
 
 
 def get_embedhost(url):

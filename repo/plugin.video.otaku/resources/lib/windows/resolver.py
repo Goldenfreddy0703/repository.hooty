@@ -20,7 +20,7 @@ sys.path.append(control.dataPath)
 
 class Resolver(BaseWindow):
 
-    def __init__(self, xml_file, location=None, actionArgs=None):
+    def __init__(self, xml_file, location=None, actionArgs=None, source_select=False):
         try:
             super(Resolver, self).__init__(xml_file, location, actionArgs=actionArgs)
         except:
@@ -34,21 +34,26 @@ class Resolver(BaseWindow):
         self.resolvers = {'all_debrid': all_debrid.AllDebrid,
                           'debrid_link': debrid_link.DebridLink,
                           'premiumize': premiumize.Premiumize,
-                          'real_debrid': real_debrid.RealDebrid}
+                          'real_debrid': real_debrid.RealDebrid
+        }
+        self.source_select = source_select
 
     def onInit(self):
         self.resolve(self.sources, self.args, self.pack_select)
 
     def resolve(self, sources, args, pack_select=False):
+
+        # last played source move to top of list
+        if len(sources) > 1 and not self.source_select:
+            last_played = control.getSetting('last_played_source')
+            for index, source in enumerate(sources):
+                if str(source['release_title']) == last_played:
+                    sources.insert(0, sources.pop(index))
+                    break
         try:
-
-            stream_link = None
-            loop_count = 0
             # Begin resolving links
-
             for i in sources:
                 debrid_provider = i.get('debrid_provider', 'None').replace('_', ' ')
-                loop_count += 1
                 try:
                     if self.is_canceled():
                         self.close()
@@ -119,7 +124,6 @@ class Resolver(BaseWindow):
             import traceback
             traceback.print_exc()
             self.close()
-            return
 
     def resolve_source(self, api, source):
         stream_link = None
@@ -135,7 +139,6 @@ class Resolver(BaseWindow):
         except:
             import traceback
             traceback.print_exc()
-            pass
         return stream_link
 
     def doModal(self, sources, args, pack_select):
@@ -165,10 +168,9 @@ class Resolver(BaseWindow):
         else:
             self.resolve(sources, args, pack_select)
 
+        control.setSetting('last_played_source', str(self.sources[0]['release_title']))
         if not self.canceled:
             return self.return_data
-        else:
-            return None
 
     def is_canceled(self):
         if not self.silent:
@@ -185,7 +187,6 @@ class Resolver(BaseWindow):
     def setBackground(self, url):
         if not self.silent:
             self.background.setImage(url)
-        pass
 
     def close(self):
         if not self.silent:

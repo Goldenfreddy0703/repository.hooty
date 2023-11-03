@@ -1,14 +1,7 @@
-A Major Update: Watchlist Recode
-Warning - Favorites From Watchlist will not work.
-Warning - Make sure to Rebuild Database
-Hey everyone, sorry its been while and we have been super busy making this update and we have finally completed it. We have recoded the whole watchlist and added simkl watchlist so that users will have a much better experience with it. We added a watchlist manager where you can manage all your watchlist easily without going to the website. It will be a lot less buggy and very stable for everyone. This is all thanks to the Simkl Team, Otaku Team, Anify Team, and Our Contributors. Special Thanks to Joezito for doing the whole recode and Special Thanks for Gujal for converting his code to be fully compatable with Python 2. 
+A Long Awaited Feature: TMDB Player Support
 
-Here is a little summary of what we did this month:
-- Recoded Watchlist
-- Added a Watchlist Manger
-- Added Simkl Watchlist
-- Improved Episode Meta
-- Improved and gave Genres a new look
-- Added 2 New Settings and Customization
-- Added Support for Subtitle Addons
-- Most Bug Fixes
+Hey everyone, for people that have been asking for tmdb player support, we have finally added it and we are so happy to have it added!!!
+
+Tmdb Player Support may not give you perfect results all the time but it is way better then are previous Tmdb Players from Kaito in the past. We hope you all enjoy and we hope you all are satisfied.
+
+Thank you to everyone who has worked on tmdb player support and huge thank you to @Gujal00 and @CheapCyborg for making this possible!!!

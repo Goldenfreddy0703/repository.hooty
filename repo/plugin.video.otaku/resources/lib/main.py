@@ -2451,76 +2451,35 @@ def DELETE_ANIME_DATABASE(payload, params):
     database.remove_season(anilist_id)
     control.notify('Removed "%s" from database' % title_user)
 
-# @route('tmdb_helper')
-# def TMDB_HELPER(payload, params):
-#    from resources.lib.indexers.anilist import AnilistAPI
-#    from resources.lib.indexers.trakt import TRAKTAPI
-#    trakt_show_name = params['title']
-#    source_select = params['sourceselect']
-#    action_args = ast.literal_eval(params.get('actionArgs'))
-#    media_type = action_args['item_type']
-#    trakt_id = action_args['trakt_id']
-#    season = action_args.get('season', None)
-#    episode = action_args.get('episode', 1)
-#    if not trakt_show_name:
-#        trakt_show = TRAKTAPI().get_trakt_show(trakt_id, media_type)
-#        trakt_show_name = trakt_show['title']
-#    if not media_type == 'movie':
-#        if int(season) > 1 and not trakt_show_name.lower() == 'one piece' and not trakt_show_name.lower() == 'case closed':
-#            trakt_show_name += " season " + str(season)
-#    if 'attack on titan' == trakt_show_name.lower():
-#        if int(season) == 4:
-#            if int(episode) <= 16:
-#                trakt_show_name = 'attack on titan final season'
-#            elif int(episode) <= 28:
-#                trakt_show_name = 'attack on titan final season part 2'
-#            elif int(episode) > 28:
-#                trakt_show_name = 'attack on titan final season part 3'
-#    params = {}
-#    params['dict_key'] = ('data', 'Page', 'media')
-#    params['query_path'] = 'search/anime'
-#    params['variables'] = {'page': 1,
-#                           'search': trakt_show_name,
-#                           'sort': 'SEARCH_MATCH',
-#                           'type': 'ANIME'}
-#    result, page = AnilistAPI().post_json(AnilistAPI._URL, **params)
-#    top_result = result[0]
-#    if not top_result['anilist_object']['info']['mediatype'] == media_type:
-#        for x in result:
-#            if x['anilist_object']['info']['mediatype'] == media_type:
-#                top_result = x
-#                break
-#    if media_type == 'movie':
-#        pars = {}
-#        pars['action_args'] = {'anilist_id': top_result['anilist_id'], 'mediatype': media_type}
-#        if source_select == 'true':
-#            pars['source_select'] = 'true'
-#        PLAY_MOVIE('', pars)
-#    else:
-#        if "part" in top_result['anilist_object']['info']['title'].lower() and not 'attack on titan' == trakt_show_name:
-#            if xbmcgui.Dialog().yesno('Anime Season', "Is this season split into parts AND is this episode in the second part?"):
-#                params['variables']['search'] = trakt_show_name + " part 2"
-#                params['dict_key'] = ('data', 'Page', 'media')
-#                params['query_path'] = 'search/anime'
-#                refetched_anilist, op = AnilistAPI().post_json(AnilistAPI._URL, **params)
-#                pars = {}
-#                pars['action_args'] = {'anilist_id': refetched_anilist[0]['anilist_id'], 'episode': episode, 'mediatype': media_type}
-#                if source_select == 'true':
-#                    pars['source_select'] = 'true'
-#                _BROWSER.get_sources('', pars)
-#
-#            else:
-#                pars = {}
-#                pars['action_args'] = {'anilist_id': top_result['anilist_id'], 'episode': episode, 'mediatype': media_type}
-#                if source_select == 'true':
-#                    pars['source_select'] = 'true'
-#                _BROWSER.get_sources('', pars)
-#        else:
-#            pars = {}
-#            if source_select == 'true':
-#                pars['source_select'] = 'true'
-#            pars['action_args'] = {'anilist_id': top_result['anilist_id'], 'episode': episode, 'mediatype': media_type}
-#            _BROWSER.get_sources('', pars)
+
+@route('tmdb_helper')
+def TMDB_HELPER(payload, params):
+    from resources.lib.indexers.tmdb2anime import TMDB2ANIME
+    import ast
+    action_args = params.pop('actionArgs')
+
+    if isinstance(action_args, str):
+        action_args = ast.literal_eval(action_args)
+
+    media_type = action_args['item_type']
+    source_select = params.pop('source_select') == 'true'
+    params.update({'source_select': source_select})
+    if media_type == 'movie':
+        anime_ids = database.get_mapping(tmdb_id=action_args['tmdb_id'])
+        if not anime_ids.get('anilist_id'):
+            anime_ids = TMDB2ANIME().get_ids(action_args['tmdb_id'])
+        if anime_ids.get('anilist_id'):
+            playload = '{0}/{1}/'.format(anime_ids.get('anilist_id'), anime_ids.get('mal_id'))
+            PLAY_MOVIE(playload, params)
+        else:
+            control.notify('No Anilist ID Found, Might be a special or not in database')
+    else:
+        anime_ids = TMDB2ANIME().get_ids(action_args['tmdb_id'], action_args['season'])
+        if anime_ids.get('anilist_id'):
+            playload = '{0}/{1}/'.format(anime_ids.get('anilist_id'), action_args['episode'])
+            PLAY(playload, params)
+        else:
+            control.notify('No Anilist ID Found, Might be a special or not in database')
 
 
 @route('tools')

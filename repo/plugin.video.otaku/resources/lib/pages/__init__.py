@@ -153,11 +153,11 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('animelatino')
 
-        self.threads.append(
-            threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape)))
+        cloud_thread = threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape))
 
         for i in self.threads:
             i.start()
+        cloud_thread.start()
 
         timeout = 60 if rescrape else int(control.getSetting('general.timeout'))
         start_time = time.perf_counter() if control.PY3 else time.time()
@@ -193,16 +193,17 @@ class Sources(DisplayWindow):
             runtime = (time.perf_counter() if control.PY3 else time.time()) - start_time
             self.progress = runtime / timeout * 100
 
+        # make sure cloud sources thread finishes before moving on
+        cloud_thread.join()
+
         if len(self.torrentCacheSources) + len(self.embedSources) + len(self.cloud_files) == 0:
             self.return_data = []
             self.close()
             return
-
         sourcesList = self.sortSources(self.torrentCacheSources, self.embedSources, filter_lang, media_type, duration)
         self.return_data = sourcesList
         self.close()
         # control.log('Sorted sources :\n {0}'.format(sourcesList), 'info')
-        return
 
     def nyaa_worker(self, query, anilist_id, episode, status, media_type, rescrape):
         self.nyaaSources = nyaa.sources().get_sources(query, anilist_id, episode, status, media_type, rescrape)

@@ -246,7 +246,6 @@ class RealDebrid:
             import traceback
             traceback.print_exc()
             self.deleteTorrent(cached_torrent['id'])
-            return None
 
     def resolve_single_magnet(self, hash_, magnet, episode=''):
         try:
@@ -269,9 +268,7 @@ class RealDebrid:
                 elif len(selected_files) >= 5:
                     try:
                         best_match = source_utils.get_best_match('path', [i[1] for i in selected_files], episode)
-
                         file_index = [i[0] for i in selected_files if i[1]['path'] == best_match['path']][0]
-
                         link = files['links'][file_index]
                         stream_link = self.resolve_hoster(link)
                     except:
@@ -287,4 +284,3 @@ class RealDebrid:
         except:
             import traceback
             traceback.print_exc()
-            return None

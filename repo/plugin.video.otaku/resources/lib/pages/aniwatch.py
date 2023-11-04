@@ -19,6 +19,7 @@ class sources(BrowserBase):
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
+        keyword = title
 
         srcs = ['sub', 'dub']
         if control.getSetting('general.source') == 'Sub':
@@ -26,8 +27,12 @@ class sources(BrowserBase):
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
 
+        if kodi_meta.get('start_date'):
+            year = kodi_meta.get('start_date').split('-')[0]
+            keyword += ' {0}'.format(year)
+
         headers = {'Referer': self._BASE_URL}
-        params = {'keyword': title}
+        params = {'keyword': keyword}
         res = database.get(
             self._get_request,
             8,

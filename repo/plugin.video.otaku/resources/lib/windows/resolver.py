@@ -5,7 +5,7 @@ import sys
 from kodi_six import xbmc
 from resources.lib.debrid import (all_debrid, debrid_link, premiumize,
                                   real_debrid)
-from resources.lib.ui import control
+from resources.lib.ui import control, source_utils
 from resources.lib.windows.base_window import BaseWindow
 
 try:
@@ -125,20 +125,22 @@ class Resolver(BaseWindow):
             traceback.print_exc()
             self.close()
 
-    def resolve_source(self, api, source):
+    @staticmethod
+    def resolve_source(api, source):
         stream_link = None
         api = api()
         hash_ = source['hash']
-        magnet = 'magnet:?xt=urn:btih:' + hash_
-        try:
-
-            if source['type'] == 'torrent':
-                stream_link = api.resolve_single_magnet(hash_, magnet, source['episode_re'])
-            elif source['type'] == 'cloud' or source['type'] == 'hoster':
-                stream_link = api.resolve_hoster(hash_)
-        except:
-            import traceback
-            traceback.print_exc()
+        magnet = 'magnet:?xt=urn:btih:%s' % hash_
+        if source['type'] == 'torrent':
+            stream_link = api.resolve_single_magnet(hash_, magnet, source['episode_re'])
+        elif source['type'] == 'cloud' or source['type'] == 'hoster':
+            if source['torrent_files']:
+                best_math = source_utils.get_best_match('path', source['torrent_files'], source['episode'])
+                for f_index, torrent_file in enumerate(source['torrent_files']):
+                    if torrent_file['path'] == best_math['path']:
+                        hash_ = source['torrent_info']['links'][f_index]
+                        break
+            stream_link = api.resolve_hoster(hash_)
         return stream_link
 
     def doModal(self, sources, args, pack_select):

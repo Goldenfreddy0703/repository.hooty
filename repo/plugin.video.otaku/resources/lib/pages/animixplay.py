@@ -1,5 +1,4 @@
 import itertools
-import json
 import pickle
 import re
 from functools import partial
@@ -11,7 +10,7 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://animixplay.fun/'
+    _BASE_URL = 'https://animixplay.best/'
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -24,50 +23,30 @@ class sources(BrowserBase):
         r = database.get(
             client.request,
             8,
-            self._BASE_URL + 'api/lsearch',
-            post={'qfast': title},
+            self._BASE_URL + 'search',
+            params={'keyword': title},
             headers=headers
         )
-        r = json.loads(r).get('result')
-
-        if len(r) == 0:
-            if ' Cour ' in title:
-                ntitle = title.replace(' Cour ', ' Part ')
-            elif ' Part ' in title:
-                ntitle = title.replace(' Part ', ' Cour ')
-            else:
-                return []
-            r = database.get(
-                client.request,
-                8,
-                self._BASE_URL + 'api/lsearch',
-                post={'qfast': ntitle},
-                headers=headers
-            )
-            r = json.loads(r).get('result')
 
         soup = BeautifulSoup(r, 'html.parser')
-        items = soup.find_all('a')
+        items = soup.find_all('div', {'class': re.compile('^post')})
         slugs = []
-        if items:
-            if len(items) == 1:
-                slugs = [items[0].get('href')]
-            else:
-                slugs = [
-                    item.get('href')
-                    for item in items
-                    if (item.get('title').lower() + '  ').startswith(title.lower() + '  ')
-                ]
 
+        for item in items:
+            ititle = item.find('h5')
+            if ititle:
+                ititle = ititle.text.strip()
+                if (ititle.lower() + '  ').startswith(title.lower() + '  '):
+                    slugs.append(item.find('a').get('href'))
         if not slugs:
             if len(items) > 1:
-                slugs = [items[0].get('href')]
-            else:
-                return []
-        slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
-        mapfunc = partial(self._process_animixplay, title=title, episode=episode)
-        all_results = list(map(mapfunc, slugs))
-        all_results = list(itertools.chain(*all_results))
+                slugs = [items[0].find('a').get('href')]
+        all_results = []
+        if slugs:
+            slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
+            mapfunc = partial(self._process_animixplay, title=title, episode=episode)
+            all_results = list(map(mapfunc, slugs))
+            all_results = list(itertools.chain(*all_results))
         return all_results
 
     def _process_animixplay(self, slug, title, episode):

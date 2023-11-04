@@ -1,3 +1,7 @@
+Changelog 0.4.42 [20231104]:
+- Improved Search for Animixplay
+- Fixed Scrapper for Aniwatch
+
 Changelog 0.4.41 [20231103]:
 - Added Tmdb Helper Player Support
 - Added Autoplay Last Selected Source for Batch Sources

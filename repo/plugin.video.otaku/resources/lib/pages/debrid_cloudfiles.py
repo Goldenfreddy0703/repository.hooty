@@ -1,6 +1,6 @@
 import re
 import json
-from resources.lib.ui import source_utils, client
+from resources.lib.ui import source_utils, client, control
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.debrid import real_debrid, premiumize
 import threading
@@ -48,23 +48,44 @@ class sources(BrowserBase):
             if not any(source_utils.is_file_ext_valid(tor_file['path'].lower()) for tor_file in torrent_files):
                 continue
 
-            best_match = source_utils.get_best_match('path', torrent_files, episode)
-            for f_index, torrent_file in enumerate(torrent_files):
-                if torrent_file['path'] == best_match['path']:
-                    self.cloud_files.append(
-                        {
-                            'quality': source_utils.getQuality(torrent['filename']),
-                            'lang': source_utils.getAudio_lang(torrent['filename']),
-                            'hash': torrent_info['links'][f_index],
-                            'provider': 'Cloud',
-                            'type': 'cloud',
-                            'release_title': torrent['filename'],
-                            'info': source_utils.getInfo(torrent['filename']),
-                            'debrid_provider': 'real_debrid',
-                            'size': self._get_size(torrent_file['bytes'])
-                        }
-                    )
-                    break
+            if control.getSetting('general.manual.select') != 'true':
+                best_math = source_utils.get_best_match('path', torrent_files, episode)
+                for f_index, torrent_file in enumerate(torrent_files):
+                    if torrent_file['path'] == best_math['path']:
+                        self.cloud_files.append(
+                            {
+                                'quality': source_utils.getQuality(torrent['filename']),
+                                'lang': source_utils.getAudio_lang(torrent['filename']),
+                                'hash': torrent_info['links'][f_index],
+                                'provider': 'Cloud',
+                                'type': 'cloud',
+                                'release_title': torrent_file['path'][1:],
+                                'info': source_utils.getInfo(torrent['filename']),
+                                'debrid_provider': 'real_debrid',
+                                'size': self._get_size(torrent_file['bytes']),
+                                'torrent_files': None
+                            }
+                        )
+                        break
+            else:
+                self.cloud_files.append(
+                    {
+                        'quality': source_utils.getQuality(torrent['filename']),
+                        'lang': source_utils.getAudio_lang(torrent['filename']),
+                        'hash': torrent_info['links'],
+                        'provider': 'Cloud',
+                        'type': 'cloud',
+                        'release_title': torrent['filename'],
+                        'info': source_utils.getInfo(torrent['filename']),
+                        'debrid_provider': 'real_debrid',
+                        'size': self._get_size(torrent['bytes']),
+                        'torrent': torrent,
+                        'torrent_files': torrent_files,
+                        'torrent_info': torrent_info,
+                        'episode': episode
+                    }
+                )
+
 
     def premiumize_cloud_inspection(self, query, episode):
         cloud_items = premiumize.Premiumize().list_folder('')

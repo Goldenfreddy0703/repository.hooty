@@ -2458,7 +2458,7 @@ def TMDB_HELPER(payload, params):
     import ast
     action_args = params.pop('actionArgs')
 
-    if isinstance(action_args, str):
+    if isinstance(action_args, six.string_types):
         action_args = ast.literal_eval(action_args)
 
     media_type = action_args['item_type']

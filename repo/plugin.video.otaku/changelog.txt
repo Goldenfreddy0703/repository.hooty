@@ -1,3 +1,8 @@
+Changelog 0.4.44 [20231109]:
+- Fix Aniwatch scraper
+- Fix Otaku Animess scraper
+- Added py2 compatibility for tmdbhelper route
+
 Changelog 0.4.43 [20231104]:
 - RD Cloud Fixes
 

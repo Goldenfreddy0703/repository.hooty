@@ -11,8 +11,8 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 class sources(BrowserBase):
     _BASE_URL = 'https://aniwatch.to/'
-    keyurl = 'https://raw.githubusercontent.com/enimax-anime/key/e6/key.txt'
-    keyhints = [[53, 59], [71, 78], [119, 126], [143, 150]]
+    keyurl = 'https://raw.githubusercontent.com/Claudemirovsky/keys/e1/key'
+    keyhints = [[106, 7], [109, 6], [137, 7], [147, 7]]
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -142,7 +142,10 @@ class sources(BrowserBase):
                             subs = res.get('tracks')
                             if subs:
                                 subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
-                            slink = self._process_link(res.get('sources'))
+                            if res.get('encrypted'):
+                                slink = self._process_link(res.get('sources'))
+                            else:
+                                slink = res.get('sources')[0].get('file')
                             if not slink:
                                 continue
                             res = self._get_request(slink, headers=headers)
@@ -177,18 +180,21 @@ class sources(BrowserBase):
     def _process_link(self, sources):
         r = database.get(
             self._get_request,
-            4,
+            0.2,
             self.keyurl
         )
         keyhints = json.loads(r) or self.keyhints
-        key = ''
-        orig_src = sources
         try:
-            for start, end in keyhints:
-                key += orig_src[start:end]
-                sources = sources.replace(orig_src[start:end], '')
-            if 'file' not in sources:
-                sources = json.loads(jscrypto.decode(sources, key))
+            key = ''
+            orig_src = sources
+            y = 0
+            for m, p in keyhints:
+                f = m + y
+                x = f + p
+                key += orig_src[f:x]
+                sources = sources.replace(orig_src[f:x], '')
+                y += p
+            sources = json.loads(jscrypto.decode(sources, key))
             return sources[0].get('file')
         except:
             database.remove(

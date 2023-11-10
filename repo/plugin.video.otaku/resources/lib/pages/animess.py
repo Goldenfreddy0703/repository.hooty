@@ -84,6 +84,11 @@ class sources(BrowserBase):
         if e_id:
             html = self._get_request(e_id[0], headers=headers)
             slink = re.search(r'<source\s*src="([^"]+)', html)
+            if not slink:
+                elink = re.search(r'<div\s*id="Link".+?href="([^"]+)', html, re.DOTALL)
+                if elink:
+                    html = self._get_request(elink.group(1), headers=headers)
+                    slink = re.search(r'''file:\s*['"]([^'"]+)''', html)
             if slink:
                 source = {
                     'release_title': '{0} - Ep {1}'.format(title, episode),

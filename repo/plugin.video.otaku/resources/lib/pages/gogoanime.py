@@ -5,8 +5,9 @@ import re
 from functools import partial
 
 from bs4 import BeautifulSoup
-from resources.lib.ui import database, source_utils, utils
+from resources.lib.ui import database, source_utils
 from resources.lib.ui.BrowserBase import BrowserBase
+from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
@@ -17,22 +18,15 @@ class sources(BrowserBase):
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
-        headers = {'Referer': self._BASE_URL}
-        params = {'keyword': title,
-                  'id': -1,
-                  'link_web': self._BASE_URL}
-        r = database.get(
-            self._get_request,
-            8,
-            'https://ajax.gogo-load.com/site/loadAjaxSearch',
-            data=params,
-            headers=headers
-        )
-        r = json.loads(r).get('content')
 
-        if not r and ':' in title:
-            title = title.split(':')[0]
-            params.update({'keyword': title})
+        slugs = MALSYNC().get_slugs(anilist_id=anilist_id, site='Gogoanime')
+        if not slugs:
+            headers = {'Referer': self._BASE_URL}
+            params = {
+                'keyword': title,
+                'id': -1,
+                'link_web': self._BASE_URL
+            }
             r = database.get(
                 self._get_request,
                 8,
@@ -42,25 +36,37 @@ class sources(BrowserBase):
             )
             r = json.loads(r).get('content')
 
-        soup = BeautifulSoup(r, 'html.parser')
-        items = soup.find_all('div', {'class': 'list_search_ajax'})
-        if len(items) == 1:
-            slugs = [items[0].find('a').get('href').split('/')[-1]]
-        else:
-            slugs = [
-                item.find('a').get('href').split('/')[-1]
-                for item in items
-                if ((item.a.text.strip() + '  ').lower()).startswith((title + '  ').lower())
-                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (Dub)  ').lower())
-                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV)  ').lower())
-                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV) (Dub)  ').lower())
-                or ((item.a.text.strip().replace(' - ', ' ') + '  ').lower()).startswith((title + '  ').lower())
-                or (item.a.text.strip().replace(':', ' ') + '   ').startswith(title + '   ')
-            ]
-        if not slugs:
-            slugs = database.get(get_backup, 168, anilist_id, 'Gogoanime')
+            if not r and ':' in title:
+                title = title.split(':')[0]
+                params.update({'keyword': title})
+                r = database.get(
+                    self._get_request,
+                    8,
+                    'https://ajax.gogo-load.com/site/loadAjaxSearch',
+                    data=params,
+                    headers=headers
+                )
+                r = json.loads(r).get('content')
+
+            soup = BeautifulSoup(r, 'html.parser')
+            items = soup.find_all('div', {'class': 'list_search_ajax'})
+            if len(items) == 1:
+                slugs = [items[0].find('a').get('href').split('/')[-1]]
+            else:
+                slugs = [
+                    item.find('a').get('href').split('/')[-1]
+                    for item in items
+                    if ((item.a.text.strip() + '  ').lower()).startswith((title + '  ').lower())
+                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (Dub)  ').lower())
+                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV)  ').lower())
+                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV) (Dub)  ').lower())
+                    or ((item.a.text.strip().replace(' - ', ' ') + '  ').lower()).startswith((title + '  ').lower())
+                    or (item.a.text.strip().replace(':', ' ') + '   ').startswith(title + '   ')
+                ]
             if not slugs:
-                return []
+                slugs = database.get(get_backup, 168, anilist_id, 'Gogoanime')
+                if not slugs:
+                    return []
         slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
         mapfunc = partial(self._process_gogo, show_id=anilist_id, episode=episode)
         all_results = list(map(mapfunc, slugs))
@@ -68,6 +74,8 @@ class sources(BrowserBase):
         return all_results
 
     def _process_gogo(self, slug, show_id, episode):
+        if slug.startswith('http'):
+            slug = slug.split('/')[-1]
         url = "{0}{1}-episode-{2}".format(self._BASE_URL, slug, episode)
         headers = {'Referer': self._BASE_URL}
         title = (slug.replace('-', ' ')).title() + '  Episode-{0}'.format(episode)
@@ -122,6 +130,8 @@ class sources(BrowserBase):
                 type_ = 'embed'
             elif server == 'filelions':
                 type_ = 'embed'
+            elif server == 'yourupload':
+                type_ = 'embed'
 
             if not type_:
                 continue
@@ -140,29 +150,3 @@ class sources(BrowserBase):
             sources.append(source)
 
         return sources
-
-    def get_latest(self):
-        url = 'https://ajax.gogocdn.net/ajax/page-recent-release.html?page=1&type=1'
-        return self._process_latest_view(url)
-
-    def get_latest_dub(self):
-        url = 'https://ajax.gogocdn.net/ajax/page-recent-release.html?page=1&type=2'
-        return self._process_latest_view(url)
-
-    def _process_latest_view(self, url):
-        result = self._send_request(url)
-        soup = BeautifulSoup(result, 'html.parser')
-        animes = soup.find_all('div', {'class': 'img'})
-        all_results = list(map(self._parse_latest_view, animes))
-        return all_results
-
-    def _parse_latest_view(self, res):
-        res = res.a
-        info = {}
-        slug, episode = (res['href'][1:]).rsplit('-episode-')
-        url = '%s/%s' % (slug, episode)
-        name = '%s - Ep. %s' % (res['title'], episode)
-        image = res.img['src']
-        info['title'] = name
-        info['mediatype'] = 'tvshow'
-        return utils.allocate_item(name, "play_gogo/" + str(url), False, image, info)

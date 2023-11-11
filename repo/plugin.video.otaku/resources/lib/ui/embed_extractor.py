@@ -6,7 +6,6 @@ import string
 import time
 
 import six
-from bs4 import BeautifulSoup
 from resources.lib.ui import client, control, jsunpack
 from resources.lib.ui.pyaes import AESModeOfOperationCBC, Decrypter, Encrypter
 from six.moves import urllib_error, urllib_parse
@@ -107,10 +106,13 @@ def __check_video(url):
     return url
 
 
-def __extract_rapidvideo(url, page_content, referer=None):
-    soup = BeautifulSoup(page_content, 'html.parser')
-    results = [(x['label'], x['src']) for x in soup.select('source')]
-    return results
+def __extract_yourupload(url, page_content, referer=None):
+    r = re.search(r"jwplayerOptions\s*=\s*{\s*file:\s*'([^']+)", page_content)
+    headers = {'User-Agent': _EDGE_UA,
+               'Referer': url}
+    if r:
+        return r.group(1) + __append_headers(headers)
+    return
 
 
 def __extract_mp4upload(url, page_content, referer=None):
@@ -201,31 +203,6 @@ def __extract_dood(url, page_content, referer=None):
     return
 
 
-def __extract_streamlare(url, page_content, referer=None):
-    pattern = r'(?://|\.)((?:streamlare|sl(?:maxed|tube|watch))\.(?:com?|org))/(?:e|v)/([0-9A-Za-z]+)'
-    host, media_id = re.findall(pattern, url)[0]
-    headers = {'User-Agent': _EDGE_UA, 'Referer': url}
-    api_durl = 'https://{0}/api/video/download/get'.format(host)
-    api_surl = 'https://{0}/api/video/stream/get'.format(host)
-    data = {'id': media_id}
-    html = json.loads(client.request(api_surl, XHR=True, headers=headers, post=data, jpost=True))
-    result = html.get('result', {})
-    source = result.get('file') \
-        or result.get('Original', {}).get('file') \
-        or result.get(list(result.keys())[0], {}).get('file')
-    if not source:
-        html = client.request(api_durl, XHR=True, headers=headers, post=data, jpost=True)
-        source = json.loads(html).get('result', {}).get('Original', {}).get('url')
-
-    if source:
-        if '?token=' in source:
-            t = client.request(source, redirect=False, headers=headers, output='extended')
-            if t:
-                source = t[2].get('Location')
-        return source + __append_headers(headers)
-    return
-
-
 def __extract_streamtape(url, page_content, referer=None):
     src = re.findall(r'''ById\('.+?=\s*(["']//[^;<]+)''', page_content)
     if src:
@@ -253,20 +230,6 @@ def __extract_streamwish(url, page_content, referer=None):
     if r:
         return r.group(1)
     return
-
-
-def __extract_xstreamcdn(url, data):
-    res = client.request(url, post=data)
-    try:
-        res = json.loads(res)['data']
-    except:
-        return
-    if res == 'Video not found or has been removed':
-        return
-    stream_file = res[-1]['file']
-    r = client.request(stream_file, redirect=False, output='extended')
-    stream_link = (r[2]['Location']).replace('https', 'http')
-    return stream_link
 
 
 def __extract_goload(url, page_content, referer=None):
@@ -353,11 +316,21 @@ __register_extractor(["https://www.mp4upload.com/",
 __register_extractor(["https://kwik.cx/"],
                      __extract_kwik)
 
+__register_extractor(["https://www.yourupload.com/"],
+                     __extract_yourupload)
+
 __register_extractor(["https://mixdrop.co/",
                       "https://mixdrop.to/",
                       "https://mixdrop.sx/",
                       "https://mixdrop.bz/",
                       "https://mixdrop.ch/",
+                      "https://mixdrop.ag/",
+                      "https://mixdrop.gl/",
+                      "https://mixdrop.club/",
+                      "https://mixdrop.vc/",
+                      "https://mixdroop.bz/",
+                      "https://mixdroop.co/",
+                      "https://mixdrp.to/",
                       "https://mixdrp.co/"],
                      __extract_mixdrop)
 
@@ -385,33 +358,6 @@ __register_extractor(["https://gogo-stream.com",
                       "https://gotaku1.com/",
                       "https://goone.pro"],
                      __extract_goload)
-
-__register_extractor(["https://streamlare.com/",
-                      "https://slmaxed.com/",
-                      "https://sltube.org/",
-                      "https://slwatch.co/"],
-                     __extract_streamlare)
-
-__register_extractor(["https://www.xstreamcdn.com/v/",
-                      "https://gcloud.live/v/",
-                      "https://www.fembed.com/v/",
-                      "https://www.novelplanet.me/v/",
-                      "https://fcdn.stream/v/",
-                      "https://embedsito.com",
-                      "https://fplayer.info",
-                      "https://fembed-hd.com",
-                      "https://fembed9hd.com"],
-                     __extract_xstreamcdn,
-                     lambda x: x.replace('/v/', '/api/source/'),
-                     [{'d': 'www.xstreamcdn.com'},
-                      {'d': 'gcloud.live'},
-                      {'d': 'www.fembed.com'},
-                      {'d': 'www.novelplanet.me'},
-                      {'d': 'fcdn.stream'},
-                      {'d': 'embedsito.com'},
-                      {'d': 'fplayer.info'},
-                      {'d': 'fembed-hd.com'},
-                      {'d': 'fembed9hd.com'}])
 
 __register_extractor(["https://streamtape.com/e/"],
                      __extract_streamtape)

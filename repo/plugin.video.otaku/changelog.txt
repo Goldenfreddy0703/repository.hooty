@@ -1,3 +1,7 @@
+Changelog 0.4.45 [20231110]:
+- Added MALSync Api
+- Use MALSync Api for Aniwatch and Gogo
+
 Changelog 0.4.44 [20231109]:
 - Fix Aniwatch scraper
 - Fix Otaku Animess scraper

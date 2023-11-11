@@ -7,6 +7,7 @@ from six.moves import urllib_parse
 from resources.lib.ui import control, database
 from resources.lib.ui.jscrypto import jscrypto
 from resources.lib.ui.BrowserBase import BrowserBase
+from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
@@ -21,51 +22,54 @@ class sources(BrowserBase):
         title = self._clean_title(title)
         keyword = title
 
+        all_results = []
         srcs = ['sub', 'dub']
         if control.getSetting('general.source') == 'Sub':
             srcs.remove('dub')
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
 
-        if kodi_meta.get('start_date'):
-            year = kodi_meta.get('start_date').split('-')[0]
-            keyword += ' {0}'.format(year)
+        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='Zoro')
+        if not items:
+            if kodi_meta.get('start_date'):
+                year = kodi_meta.get('start_date').split('-')[0]
+                keyword += ' {0}'.format(year)
 
-        headers = {'Referer': self._BASE_URL}
-        params = {'keyword': keyword}
-        res = database.get(
-            self._get_request,
-            8,
-            self._BASE_URL + 'search',
-            data=params,
-            headers=headers
-        )
+            headers = {'Referer': self._BASE_URL}
+            params = {'keyword': keyword}
+            res = database.get(
+                self._get_request,
+                8,
+                self._BASE_URL + 'search',
+                data=params,
+                headers=headers
+            )
 
-        mlink = SoupStrainer('div', {'class': 'flw-item'})
-        mdiv = BeautifulSoup(res, "html.parser", parse_only=mlink)
-        sdivs = mdiv.find_all('h3')
-        sitems = []
-        for sdiv in sdivs:
-            try:
-                slug = sdiv.find('a').get('href').split('?')[0]
-                stitle = sdiv.find('a').get('data-jname')
-                sitems.append({'title': stitle, 'slug': slug})
-            except AttributeError:
-                pass
+            mlink = SoupStrainer('div', {'class': 'flw-item'})
+            mdiv = BeautifulSoup(res, "html.parser", parse_only=mlink)
+            sdivs = mdiv.find_all('h3')
+            sitems = []
+            for sdiv in sdivs:
+                try:
+                    slug = sdiv.find('a').get('href').split('?')[0]
+                    stitle = sdiv.find('a').get('data-jname')
+                    sitems.append({'title': stitle, 'slug': slug})
+                except AttributeError:
+                    pass
 
-        all_results = []
-        if sitems:
-            if title[-1].isdigit():
-                items = [x.get('slug') for x in sitems if title.lower() in x.get('title').lower()]
-            else:
-                items = [x.get('slug') for x in sitems if (title.lower() + '  ') in (x.get('title').lower() + '  ')]
-            if not items and ':' in title:
-                title = title.split(':')[0]
-                items = [x.get('slug') for x in sitems if (title.lower() + '  ') in (x.get('title').lower() + '  ')]
+            if sitems:
+                if title[-1].isdigit():
+                    items = [x.get('slug') for x in sitems if title.lower() in x.get('title').lower()]
+                else:
+                    items = [x.get('slug') for x in sitems if (title.lower() + '  ') in (x.get('title').lower() + '  ')]
+                if not items and ':' in title:
+                    title = title.split(':')[0]
+                    items = [x.get('slug') for x in sitems if (title.lower() + '  ') in (x.get('title').lower() + '  ')]
 
-            if items:
-                slug = items[0]
-                all_results = self._process_aw(slug, title=title, episode=episode, langs=srcs)
+        if items:
+            slug = items[0]
+            all_results = self._process_aw(slug, title=title, episode=episode, langs=srcs)
+
         return all_results
 
     def _process_aw(self, slug, title, episode, langs):

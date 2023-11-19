@@ -241,6 +241,14 @@ class AniListWLF(WatchlistFlavorBase):
             info['plot'] = desc
 
         try:
+            if res.get('trailer').get('site') == 'youtube':
+                info['trailer'] = 'plugin://plugin.video.youtube/play/?video_id={0}'.format(res.get('trailer').get('id'))
+            else:
+                info['trailer'] = 'plugin://plugin.video.dailymotion_com/?url={0}&mode=playVideo'.format(res.get('trailer').get('id'))
+        except:
+            pass
+
+        try:
             start_date = res.get('startDate')
             info['aired'] = '{}-{:02}-{:02}'.format(start_date['year'], start_date['month'], start_date['day'])
         except TypeError:

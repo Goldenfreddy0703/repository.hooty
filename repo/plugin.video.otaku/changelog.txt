@@ -1,3 +1,8 @@
+Changelog 0.4.46 [20231121]:
+- Added Local Mappings to Watchlist
+- Set Armkai as Fallback for Mappings
+- Added trailers if available to Anilist Watchlists
+
 Changelog 0.4.45 [20231110]:
 - Added MALSync Api
 - Use MALSync Api for Aniwatch and Gogo

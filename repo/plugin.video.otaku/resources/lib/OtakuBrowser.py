@@ -61,9 +61,17 @@ class OtakuBrowser(BrowserBase):
 
     @staticmethod
     def get_mal_id(anilist_id):
-        arm_resp = client.request("https://armkai.vercel.app/api/search?type=anilist&id={}".format(anilist_id))
-        arm_resp = json.loads(arm_resp)
-        mal_id = arm_resp["mal"]
+        anime_ids = database.get_mapping(anilist_id=anilist_id)
+        if anime_ids.get('mal_id'):
+            mal_id = anime_ids.get('mal_id')
+        else:
+            params = {
+                'type': "anilist",
+                "id": anilist_id
+            }
+            arm_resp = database.get(client.request, 4, 'https://armkai.vercel.app/api/search', params=params)
+            arm_resp = json.loads(arm_resp)
+            mal_id = arm_resp["mal"]
         return mal_id
 
     def get_anime_init(self, anilist_id, filter_lang=None):

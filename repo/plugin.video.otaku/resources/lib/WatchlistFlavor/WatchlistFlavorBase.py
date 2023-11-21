@@ -83,13 +83,17 @@ class WatchlistFlavorBase:
 
     @staticmethod
     def _get_flavor_id(anilist_id, flavor):
-        params = {
-            'type': "anilist",
-            "id": anilist_id
-        }
-        r = database.get(client.request, 4, 'https://armkai.vercel.app/api/search', params=params)
-        res = json.loads(r)
-        flavor_id = res.get(flavor[:-3])
+        anime_ids = database.get_mapping(anilist_id=anilist_id)
+        if anime_ids.get(flavor):
+            flavor_id = anime_ids.get(flavor)
+        else:
+            params = {
+                'type': "anilist",
+                "id": anilist_id
+            }
+            r = database.get(client.request, 4, 'https://armkai.vercel.app/api/search', params=params)
+            res = json.loads(r)
+            flavor_id = res.get(flavor[:-3])
         database.add_mapping_id(anilist_id, flavor, flavor_id)
         return flavor_id
 

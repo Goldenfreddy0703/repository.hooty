@@ -19,6 +19,12 @@
 		<setting id="divflavors.bool" label="40428" type="bool" default="false"/>
 		<setting id="divflavors.menu" type="labelenum" subsetting="true" label="40429" values="Sub|Dub|Both" default="Sub" visible="eq(-1,true)"/>
 		<setting id="sep"/>
+		<setting id="contentyear.bool" label="40517" type="bool" default="false"/>
+		<setting id="contentyear.menu" type="number" subsetting="true" label="40518" visible="eq(-1,true)"/>
+		<setting id="sep"/>
+		<setting id="contentseason.bool" label="40519" type="bool" default="false"/>
+		<setting id="contentseason.menu" type="enum" subsetting="true" label="40520" lvalues="40521|40522|40523|40524" default="0" visible="eq(-1,true)"/>
+		<setting id="sep"/>
 		<setting id="contentformat.bool" label="40391" type="bool" default="false"/>
 		<setting id="contentformat.menu" type="enum" subsetting="true" label="40392" lvalues="40393|40394|40395|40396|40397|40398|40399" default="0" visible="eq(-1,true)"/>
 		<setting id="sep"/>

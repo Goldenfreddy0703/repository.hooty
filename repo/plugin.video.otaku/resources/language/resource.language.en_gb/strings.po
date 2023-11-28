@@ -1055,6 +1055,38 @@ msgctxt "#40516"
 msgid "Hide Unaired Episodes"
 msgstr ""
 
+msgctxt "#40517"
+msgid "Set Content Year"
+msgstr ""
+
+msgctxt "#40518"
+msgid "Year"
+msgstr ""
+
+msgctxt "#40519"
+msgid "Set Content Season"
+msgstr ""
+
+msgctxt "#40520"
+msgid "Season"
+msgstr ""
+
+msgctxt "#40521"
+msgid "Winter"
+msgstr ""
+
+msgctxt "#40522"
+msgid "Spring"
+msgstr ""
+
+msgctxt "#40523"
+msgid "Summer"
+msgstr ""
+
+msgctxt "#40524"
+msgid "Fall"
+msgstr ""
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

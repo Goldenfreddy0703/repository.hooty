@@ -19,6 +19,15 @@ class AniListBrowser():
 
     def __init__(self, title_key=None):
         self._TITLE_LANG = control.title_lang(title_key) if title_key else "userPreferred"
+        if control.getSetting('contentyear.bool') == "true":
+            self.year_type = control.getSetting('contentyear.menu')
+        else:
+            self.year_type = ''
+        if control.getSetting('contentseason.bool') == "true":
+            seasons = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
+            self.season_type = seasons[int(control.getSetting('contentseason.menu'))]
+        else:
+            self.season_type = ''
         if control.getSetting('contentformat.bool') == "true":
             formats = ['TV', 'MOVIE', 'TV_SHORT', 'SPECIAL', 'OVA', 'ONA', 'MUSIC']
             self.format_in_type = formats[int(control.getSetting('contentformat.menu'))]
@@ -49,21 +58,35 @@ class AniListBrowser():
 
     def get_season_year(self, period='current'):
         date = datetime.datetime.today()
-        year = date.year
         month = date.month
         seasons = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
+
+        if self.year_type and self.year_type != '' and self.year_type != 0:
+            try:
+                year = int(self.year_type)
+            except ValueError:
+                raise ValueError("Invalid year. Year must be an integer.")
+        else:
+            year = date.year
+
+        if self.season_type and self.season_type != '':
+            if self.season_type not in seasons:
+                raise ValueError("Invalid season. Season must be one of 'WINTER', 'SPRING', 'SUMMER', 'FALL'")
+            season = self.season_type
+        else:
+            season = seasons[int((month - 1) / 3)]
+
         if period == "next":
-            season = seasons[int((month - 1) / 3 + 1) % 4]
+            season = seasons[(seasons.index(season) + 1) % 4]
             if season == 'WINTER':
                 year += 1
         elif period == "last":
-            season = seasons[int((month - 1) / 3 - 1) % 4] if month > 3 else 'FALL'
+            season = seasons[(seasons.index(season) - 1) % 4]
             if season == 'FALL':
                 year -= 1
-        else:
-            season = seasons[int((month - 1) / 3)]
-        return [season, year]
 
+        return [season, year]
+    
     def get_airing_calendar(self, page=1, format_in=''):
         dbargs = {"otaku_reload": control.getGlobalProp("calendarRefresh")}
         control.setGlobalProp("calendarRefresh", False)

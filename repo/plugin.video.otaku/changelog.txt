@@ -1,3 +1,7 @@
+Changelog 0.4.47 [20231128]:
+- Added New Setting to change Content Year for Menu Items
+- Added New Setting to change Content Season for Menu Items
+
 Changelog 0.4.46 [20231121]:
 - Added Local Mappings to Watchlist
 - Set Armkai as Fallback for Mappings

@@ -1,3 +1,6 @@
+Changelog 0.4.49 [20231202]:
+- Updated Mapping Database
+
 Changelog 0.4.48 [20231130]:
 - Cleaned up manual year, season in settings
 

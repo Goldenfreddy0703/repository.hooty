@@ -1,3 +1,6 @@
+Changelog 0.4.50 [20231213]:
+- Added Arctic Fuze Next Dialog Theme
+
 Changelog 0.4.49 [20231202]:
 - Updated Mapping Database
 

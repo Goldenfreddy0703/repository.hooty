@@ -410,7 +410,7 @@ class PlayerDialogs(xbmc.Player):
     def _show_playing_next(self):
         from resources.lib.windows.playing_next import PlayingNext
         selected_theme = int(control.getSetting('general.dialog'))
-        themes = ['playing_next_default.xml', 'playing_next_ah2.xml', 'playing_next_auramod.xml']
+        themes = ['playing_next_default.xml', 'playing_next_ah2.xml', 'playing_next_auramod.xml', 'playing_next_af.xml']
         selected_theme = themes[selected_theme]
         PlayingNext(*(selected_theme, control.ADDON_PATH),
                     actionArgs=self._get_next_item_args()).doModal()
@@ -419,7 +419,7 @@ class PlayerDialogs(xbmc.Player):
     def _show_skip_intro():
         from resources.lib.windows.skip_intro import SkipIntro
         selected_theme = int(control.getSetting('general.dialog'))
-        themes = ['skip_intro_default.xml', 'skip_intro_ah2.xml', 'skip_intro_auramod.xml']
+        themes = ['skip_intro_default.xml', 'skip_intro_ah2.xml', 'skip_intro_auramod.xml', 'skip_intro_af.xml']
         selected_theme = themes[selected_theme]
         SkipIntro(*(selected_theme, control.ADDON_PATH),
                   actionArgs={'item_type': 'skip_intro'}).doModal()
@@ -427,7 +427,7 @@ class PlayerDialogs(xbmc.Player):
     def _show_skip_intro_aniskip(self):
         from resources.lib.windows.skip_intro_aniskip import SkipIntro
         selected_theme = int(control.getSetting('general.dialog'))
-        themes = ['skip_intro_default.xml', 'skip_intro_ah2.xml', 'skip_intro_auramod.xml']
+        themes = ['skip_intro_default.xml', 'skip_intro_ah2.xml', 'skip_intro_auramod.xml', 'skip_intro_af.xml']
         selected_theme = themes[selected_theme]
         SkipIntro(*(selected_theme, control.ADDON_PATH),
                   actionArgs={'item_type': 'skip_intro_aniskip'}).doModal()
@@ -435,7 +435,7 @@ class PlayerDialogs(xbmc.Player):
     def _show_skip_outro_aniskip(self):
         from resources.lib.windows.skip_outro_aniskip import SkipOutro
         selected_theme = int(control.getSetting('general.dialog'))
-        themes = ['skip_outro_default.xml', 'skip_outro_ah2.xml', 'skip_outro_auramod.xml']
+        themes = ['skip_outro_default.xml', 'skip_outro_ah2.xml', 'skip_outro_auramod.xml', 'skip_outro_af.xml']
         selected_theme = themes[selected_theme]
         SkipOutro(*(selected_theme, control.ADDON_PATH),
                   actionArgs=self._get_next_item_args()).doModal()

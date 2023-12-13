@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol always="true">3001</defaultcontrol>
+    <onload>Dialog.Close(fullscreeninfo,true)</onload>
+    <onload>Dialog.Close(videoosd,true)</onload>
+    <include>Animation_FadeIn</include>
+    <controls>
+        <control type="image">
+            <height>400</height>
+            <texture>common/dim-top-bezier.png</texture>
+        </control>
+        <control type="group">
+            <include>Dimension_UpNext</include>
+            <control type="group">
+                <right>view_menu</right>
+                <control type="grouplist">
+                    <top>860</top>
+                    <width>200</width>
+                    <orientation>horizontal</orientation>
+                    <itemgap>40</itemgap>
+                    <right>-40</right>
+                    <include content="OSD_Button">
+                        <param name="icon">special://skin/extras/icons/play2.png</param>
+                        <param name="visible">true</param>
+                        <param name="id">3001</param>
+                        <param name="groupid">5012</param>
+                        <param name="horizontal">true</param>
+                        <param name="itemgap">40</param>
+                    </include>
+                    <include content="OSD_Button">
+                        <param name="icon">special://skin/extras/icons/xmark.png</param>
+                        <param name="visible">true</param>
+                        <param name="id">3002</param>
+                        <param name="groupid">5013</param>
+                        <param name="horizontal">true</param>
+                        <param name="itemgap">40</param>
+                    </include>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

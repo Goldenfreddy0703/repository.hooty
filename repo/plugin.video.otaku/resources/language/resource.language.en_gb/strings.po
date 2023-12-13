@@ -1087,6 +1087,10 @@ msgctxt "#40524"
 msgid "Fall"
 msgstr ""
 
+msgctxt "#40526"
+msgid "Arctic Fuse"
+msgstr ""
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

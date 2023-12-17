@@ -225,7 +225,7 @@ class SimklWLF(WatchlistFlavorBase):
 
         base = {
             "name": title,
-            "url": 'watchlist_to_ep/{0}/{1}'.format(anilist_id, res["watched_episodes_count"]),
+            "url": 'watchlist_to_ep/{0}/{1}/{2}/{3}'.format(anilist_id, mal_id, kitsu_id, res["watched_episodes_count"]),
             "image": image,
             "info": info,
             "fanart": image,

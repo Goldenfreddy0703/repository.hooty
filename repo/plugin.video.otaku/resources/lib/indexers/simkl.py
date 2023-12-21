@@ -93,7 +93,7 @@ class SIMKLAPI:
         season = result.get('season') if result else '1'
 
         sync_data = SyncUrl().get_anime_data(anilist_id, 'Anilist')
-        s_id = utils.get_season(sync_data[0])
+        s_id = utils.get_season(sync_data[0]) if sync_data else None
         season = s_id[0] if s_id else 1
 
         season = int(season)

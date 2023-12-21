@@ -78,8 +78,10 @@
 		<setting type="lsep" label="40505" />
 		<setting type="sep"/>
 		<setting id="provider.animix" type="bool" label="Animix" default="true" />
+		<setting id="provider.animixalt" type="bool" subsetting="true" label="Animix Alt" default="false" visible="eq(-1,true)"/>
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />
 		<setting id="provider.gogo" type="bool" label="Gogo" default="true" />
+		<setting id="provider.gogoalt" type="bool" subsetting="true" label="Gogo Alt" default="false" visible="eq(-1,true)"/>
 		<setting id="provider.nineanime" type="bool" label="Aniwave" default="true" />
 
 		<!-- Portugese Sub & Dub Embeds -->

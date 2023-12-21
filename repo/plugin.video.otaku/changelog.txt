@@ -1,3 +1,8 @@
+Changelog 0.4.52 [20231220]:
+- Added Gogo and Animix Alt Embeds
+- Added Fallbacks to api stuff
+- Fixed Episode Meta Bugs
+
 Changelog 0.4.51 [20231217]:
 - Fixed Simkl next up url
 

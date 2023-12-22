@@ -2,7 +2,7 @@
 import base64
 
 import six
-from resources.lib.ui import client, control
+from resources.lib.ui import client
 from six.moves import urllib_parse
 
 

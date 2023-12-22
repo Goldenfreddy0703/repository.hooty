@@ -10,9 +10,7 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 
 class sources(BrowserBase):
-    def __init__(self):
-        BrowserBase.__init__(self)
-        self._BASE_URL = 'https://animixplay.fun/' if control.getSetting('provider.animixalt') == 'true' else 'https://animixplay.best/'
+    _BASE_URL = 'https://animixplay.fun/' if control.getSetting('provider.animixalt') == 'true' else 'https://animixplay.best/'
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -79,10 +77,14 @@ class sources(BrowserBase):
                 if ep_not_found:
                     return sources
 
+            csrf_token = re.search(r'name="csrf-token"\s*content="([^"]+)', s)
+            if csrf_token:
+                csrf_token = csrf_token.group(1)
+            else:
+                return sources
             mlink = SoupStrainer('div', {'class': re.compile('sv_container$')})
             mdiv = BeautifulSoup(s, "html.parser", parse_only=mlink)
             mitems = mdiv.find_all('li')
-            csrf_token = re.findall(r'name="csrf-token"\s*content="([^"]+)', s)[0]
             for mitem in mitems:
                 if not any(x in mitem.text for x in ['FSD', 'YTB', 'EGA']):
                     type_ = 'direct'

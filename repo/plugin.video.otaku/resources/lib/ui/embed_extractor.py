@@ -190,7 +190,7 @@ def __extract_dood(url, page_content, referer=None):
         t = string.ascii_letters + string.digits
         return pdata + ''.join([random.choice(t) for _ in range(10)])
 
-    pattern = r'(?://|\.)(dood(?:stream)?\.(?:com?|watch|to|s[ho]|cx|la|w[sf]|pm))/(?:d|e)/([0-9a-zA-Z]+)'
+    pattern = r'(?://|\.)((?:do*ds?(?:tream)?|ds2(?:play|video))\.(?:com?|watch|to|s[ho]|cx|la|w[sf]|pm|re|yt|stream|pro))/(?:d|e)/([0-9a-zA-Z]+)'
     match = re.search(r'''dsplayer\.hotkeys[^']+'([^']+).+?function\s*makePlay.+?return[^?]+([^"]+)''', page_content, re.DOTALL)
     if match:
         host, media_id = re.findall(pattern, url)[0]
@@ -249,7 +249,7 @@ def __extract_goload(url, page_content, referer=None):
         decrypted += decrypter.feed()
         return six.ensure_str(decrypted)
 
-    pattern = r'(?://|\.)((?:gogo-(?:play|stream)|streamani|goload|gogohd|vidstreaming|gembedhd|playgo1|anihdplay|playtaku|gotaku1|goone)\.' \
+    pattern = r'(?://|\.)((?:gogo-(?:play|stream)|streamani|go(?:load|one|gohd)|vidstreaming|gembedhd|playgo1|anihdplay|(?:play|emb|go)taku1?)\.' \
               r'(?:io|pro|net|com|cc|online))/(?:streaming|embed(?:plus)?|ajax|load)(?:\.php)?\?id=([a-zA-Z0-9-]+)'
     r = re.search(r'crypto-js\.js.+?data-value="([^"]+)', page_content)
     if r:
@@ -339,13 +339,28 @@ __register_extractor(["https://ok.ru/",
                      __extract_okru)
 
 __register_extractor(["https://dood.wf/",
-                      "https://dood.pm/"],
+                      "https://dood.pm/",
+                      "https://dood.cx/",
+                      "https://dood.la/",
+                      "https://dood.ws/",
+                      "https://dood.so/",
+                      "https://dood.to/",
+                      "https://dood.sh/",
+                      "https://dood.re/",
+                      "https://dood.yt/",
+                      "https://dood.stream/",
+                      "https://dood.watch/",
+                      "https://doods.pro/",
+                      "https://dooood.com/",
+                      "https://doodstream.com/",
+                      "https://ds2play.com/",
+                      "https://ds2video.com/"],
                      __extract_dood)
 
-__register_extractor(["https://gogo-stream.com",
-                      "https://gogo-play.net",
-                      "https://streamani.net",
-                      "https://goload.one"
+__register_extractor(["https://gogo-stream.com/",
+                      "https://gogo-play.net/",
+                      "https://streamani.net/",
+                      "https://goload.one/"
                       "https://goload.io/",
                       "https://goload.pro/",
                       "https://gogohd.net/",
@@ -356,7 +371,8 @@ __register_extractor(["https://gogo-stream.com",
                       "https://playtaku.net/",
                       "https://playtaku.online/",
                       "https://gotaku1.com/",
-                      "https://goone.pro"],
+                      "https://goone.pro/",
+                      "https://embtaku.pro/"],
                      __extract_goload)
 
 __register_extractor(["https://streamtape.com/e/"],

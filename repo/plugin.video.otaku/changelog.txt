@@ -1,3 +1,6 @@
+Changelog 0.4.54 [20231225]:
+- Embed extractor updated
+
 Changelog 0.4.53 [20231222]:
 - Added new patterns for gogo and dood embeds
 

@@ -95,7 +95,7 @@ class Sources(DisplayWindow):
         duration = args['duration']
 
         if control.real_debrid_enabled() or control.all_debrid_enabled() or control.debrid_link_enabled() or control.premiumize_enabled():
-            if control.getSetting('provider.nyaa') == 'true' or control.getSetting('provider.nyaaalt') == 'true':
+            if control.getSetting('provider.nyaa') == 'true':
                 self.threads.append(
                     threading.Thread(target=self.nyaa_worker, args=(query, anilist_id, episode, status, media_type, rescrape)))
             else:

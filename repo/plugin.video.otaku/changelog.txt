@@ -1,3 +1,6 @@
+Changelog 0.4.55[20231225]:
+- Fixes for Xbox
+
 Changelog 0.4.54 [20231225]:
 - Embed extractor updated
 

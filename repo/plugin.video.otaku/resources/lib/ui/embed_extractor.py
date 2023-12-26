@@ -134,18 +134,14 @@ def __extract_vidplay(url, page_content, referer=None):
         for r in range(256):
             u = key[r % len(key)]
             x = (x + y[r] + (u if isinstance(u, int) else ord(u))) % 256
-            t = y[r]
-            y[r] = y[x]
-            y[x] = t
+            y[r], y[x] = y[x], y[r]
 
         s = 0
         x = 0
         for r in range(len(data)):
             s = (s + 1) % 256
             x = (x + y[s]) % 256
-            t = y[s]
-            y[s] = y[x]
-            y[x] = t
+            y[s], y[x] = y[x], y[s]
             ct += chr((data[r] if isinstance(data[r], int) else ord(data[r])) ^ y[(y[s] + y[x]) % 256])
 
         if encode:

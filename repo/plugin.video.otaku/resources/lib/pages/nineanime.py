@@ -6,7 +6,6 @@ import re
 import six
 
 from bs4 import BeautifulSoup, SoupStrainer
-from Cryptodome.Cipher import ARC4
 from six.moves import urllib_parse
 from resources.lib.ui import control, database
 from resources.lib.ui.BrowserBase import BrowserBase
@@ -146,6 +145,27 @@ class sources(BrowserBase):
         return sources
 
     @staticmethod
+    def arc4(key, data):
+        l_key = len(key)
+        S = [i for i in range(256)]
+        j = 0
+        out = bytearray()
+        app = out.append
+
+        for i in range(256):
+            j = (j + S[i] + key[i % l_key]) % 256
+            S[i], S[j] = S[j], S[i]
+
+        i = j = 0
+        for c in data:
+            i = (i + 1) % 256
+            j = (j + S[i]) % 256
+            S[i], S[j] = S[j], S[i]
+            app(c ^ S[(S[i] + S[j]) % 256])
+
+        return out
+
+    @staticmethod
     def vrf_shift(t, offset=CHAR_SUBST_OFFSETS):
         o = ''
         for s in range(len(t)):
@@ -153,16 +173,15 @@ class sources(BrowserBase):
         return o
 
     def generate_vrf(self, content_id, key=EKEY):
-        vrf = ARC4.new(six.ensure_binary(key)).encrypt(six.b(urllib_parse.quote(content_id)))
-        vrf = six.ensure_str(base64.urlsafe_b64encode(vrf))
-        vrf = six.ensure_str(base64.b64encode(six.b(vrf)))
+        vrf = self.arc4(six.b(key), six.b(urllib_parse.quote(content_id)))
+        vrf = base64.urlsafe_b64encode(vrf)
+        vrf = six.ensure_str(base64.b64encode(vrf))
         vrf = self.vrf_shift(vrf)
         vrf = six.ensure_str(base64.b64encode(six.b(vrf)))
         vrf = codecs.encode(vrf, 'rot_13')
         return vrf.replace('/', '_').replace('+', '-')
 
-    @staticmethod
-    def decrypt_vrf(text, key=DKEY):
-        data = ARC4.new(six.ensure_binary(key)).decrypt(base64.urlsafe_b64decode(six.b(text)))
-        data = urllib_parse.unquote(six.ensure_str(data))
+    def decrypt_vrf(self, text, key=DKEY):
+        data = self.arc4(six.b(key), base64.urlsafe_b64decode(six.b(text)))
+        data = urllib_parse.unquote(data.decode())
         return data

@@ -1,3 +1,6 @@
+Changelog 0.4.56[20231228]:
+- Small Fix with Skip Intro for AF
+
 Changelog 0.4.55[20231225]:
 - Fixes for Xbox
 

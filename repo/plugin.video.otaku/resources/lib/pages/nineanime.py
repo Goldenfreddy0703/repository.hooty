@@ -57,7 +57,8 @@ class sources(BrowserBase):
             if not r:
                 return all_results
 
-            r = BeautifulSoup(json.loads(r).get('html'), "html.parser")
+            r = json.loads(r)
+            r = BeautifulSoup(r.get('html') or r.get('result', {}).get('html'), "html.parser")
             sitems = r.find_all('a', {'class': 'item'})
             if sitems:
                 if title[-1].isdigit():

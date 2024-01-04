@@ -1,3 +1,7 @@
+Changelog 0.4.57[20240103]:
+- Added French Sub/Dub Embeds Category
+- Added Neko-Sama Provider
+
 Changelog 0.4.56[20231228]:
 - Small Fix with Skip Intro for AF
 

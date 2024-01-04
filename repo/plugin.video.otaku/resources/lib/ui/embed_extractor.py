@@ -149,9 +149,15 @@ def __extract_vidplay(url, page_content, referer=None):
 
         return ct
 
+    def cache_duration():
+        from datetime import datetime
+        cmin = datetime.now().minute
+        duration = round((60 - cmin) / 60, 2)
+        return duration
+
     def encode_id(id_):
         keys = database.get(
-            client.request, 0.2,
+            client.request, cache_duration(),
             'https://raw.githubusercontent.com/Claudemirovsky/worstsource-keys/keys/keys.json'
         )
         k1, k2 = json.loads(keys)
@@ -234,6 +240,21 @@ def __extract_embedrise(url, page_content, referer=None):
         headers = {'User-Agent': _EDGE_UA,
                    'Referer': url}
         return surl + __append_headers(headers)
+    return
+
+
+def __extract_fusevideo(url, page_content, referer=None):
+    r = re.findall(r'<script\s*src="([^"]+)', page_content)
+    if r:
+        jurl = r[-1]
+        js = client.request(jurl, referer=url)
+        match = re.search(r'n\s*=\s*atob\("([^"]+)', js)
+        if match:
+            jd = base64.b64decode(match.group(1)).decode('utf-8')
+            surl = re.search(r'":"(http[^"]+)', jd)
+            if surl:
+                headers = {'User-Agent': _EDGE_UA, 'Referer': url, 'Accept-Language': 'en'}
+                return surl.group(1).replace('\\/', '/') + __append_headers(headers)
     return
 
 
@@ -458,3 +479,7 @@ __register_extractor(["https://streamwish.com",
                       "https://dlions.pro",
                       "https://mlions.pro"],
                      __extract_streamwish)
+
+__register_extractor(["https://fusevideo.net/e/",
+                      "https://fusevideo.io/e/"],
+                     __extract_fusevideo)

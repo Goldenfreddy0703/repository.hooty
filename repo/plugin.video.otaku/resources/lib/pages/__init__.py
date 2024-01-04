@@ -2,7 +2,7 @@ import threading
 import time
 
 from resources.lib.pages import nyaa, animetosho, animixplay, debrid_cloudfiles, \
-    nineanime, gogoanime, animepahe, aniwatch, animess, animelatino
+    nineanime, gogoanime, animepahe, aniwatch, animess, animelatino, animecat
 from resources.lib.ui import control
 from resources.lib.windows.get_sources_window import GetSources as DisplayWindow
 
@@ -42,8 +42,9 @@ class Sources(DisplayWindow):
         self.hosterSources = []
         self.cloud_files = []
         self.remainingProviders = [
-            'nyaa', 'animetosho', 'Aniwave', 'gogo', 'animix',
-            'animepahe', 'aniwatch', 'otakuanimes', 'animelatino'
+            'nyaa', 'animetosho', 'aniwave', 'gogo', 'animix',
+            'animepahe', 'aniwatch', 'otakuanimes', 'animelatino',
+            'nekosama'
         ]
         self.allTorrents = {}
         self.allTorrents_len = 0
@@ -78,6 +79,7 @@ class Sources(DisplayWindow):
         self.aniwatchSources = []
         self.animessSources = []
         self.animelatinoSources = []
+        self.animecatSources = []
         self.threads = []
         self.usercloudSources = []
         self.terminate_on_cloud = control.getSetting('general.terminate.oncloud') == 'true'
@@ -121,7 +123,7 @@ class Sources(DisplayWindow):
             self.threads.append(
                 threading.Thread(target=self.nine_worker, args=(anilist_id, episode, get_backup, rescrape)))
         else:
-            self.remainingProviders.remove('Aniwave')
+            self.remainingProviders.remove('aniwave')
 
         if control.getSetting('provider.animix') == 'true':
             self.threads.append(
@@ -152,6 +154,15 @@ class Sources(DisplayWindow):
                 threading.Thread(target=self.animelatino_worker, args=(anilist_id, episode, get_backup, rescrape,)))
         else:
             self.remainingProviders.remove('animelatino')
+
+        if control.getSetting('provider.animecat') == 'true':
+            self.threads.append(
+                threading.Thread(target=self.animecat_worker, args=(anilist_id, episode, get_backup, rescrape,)))
+        else:
+            self.remainingProviders.remove('nekosama')
+
+        self.threads.append(
+            threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape)))
 
         cloud_thread = threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape))
 
@@ -204,6 +215,7 @@ class Sources(DisplayWindow):
         self.return_data = sourcesList
         self.close()
         # control.log('Sorted sources :\n {0}'.format(sourcesList), 'info')
+        return
 
     def nyaa_worker(self, query, anilist_id, episode, status, media_type, rescrape):
         self.nyaaSources = nyaa.sources().get_sources(query, anilist_id, episode, status, media_type, rescrape)
@@ -225,7 +237,7 @@ class Sources(DisplayWindow):
         if not rescrape:
             self.nineSources = nineanime.sources().get_sources(anilist_id, episode, get_backup)
             self.embedSources += self.nineSources
-        self.remainingProviders.remove('Aniwave')
+        self.remainingProviders.remove('aniwave')
 
     def animixplay_worker(self, anilist_id, episode, get_backup, rescrape):
         if not rescrape:
@@ -254,6 +266,11 @@ class Sources(DisplayWindow):
         self.animelatinoSources = animelatino.sources().get_sources(anilist_id, episode, get_backup)
         self.embedSources += self.animelatinoSources
         self.remainingProviders.remove('animelatino')
+
+    def animecat_worker(self, anilist_id, episode, get_backup, rescrape):
+        self.animecatSources = animecat.sources().get_sources(anilist_id, episode, get_backup)
+        self.embedSources += self.animecatSources
+        self.remainingProviders.remove('nekosama')
 
     def user_cloud_inspection(self, query, anilist_id, episode, media_type, rescrape):
         self.remainingProviders.append('Cloud Inspection')

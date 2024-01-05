@@ -152,7 +152,7 @@ def __extract_vidplay(url, page_content, referer=None):
     def cache_duration():
         from datetime import datetime
         cmin = datetime.now().minute
-        duration = round((60 - cmin) / 60, 2)
+        duration = round((60 - 59 if cmin == 0 else cmin) / 60, 2)
         return duration
 
     def encode_id(id_):

@@ -146,6 +146,11 @@ class sources(BrowserBase):
                             subs = res.get('tracks')
                             if subs:
                                 subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
+                            skip = {}
+                            if res.get('intro'):
+                                skip.update({'intro': res.get('intro')})
+                            if res.get('outro'):
+                                skip.update({'outro': res.get('outro')})
                             if res.get('encrypted'):
                                 slink = self._process_link(res.get('sources'))
                             else:
@@ -176,7 +181,8 @@ class sources(BrowserBase):
                                     'size': 'NA',
                                     'info': ['DUB' if lang == 'dub' else 'SUB', 'Server ' + eserver_id],
                                     'lang': 2 if lang == 'dub' else 0,
-                                    'subs': subs
+                                    'subs': subs,
+                                    'skip': skip
                                 }
                                 sources.append(source)
         return sources

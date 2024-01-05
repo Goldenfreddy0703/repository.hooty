@@ -3,8 +3,7 @@
 import sys
 
 from kodi_six import xbmc
-from resources.lib.debrid import (all_debrid, debrid_link, premiumize,
-                                  real_debrid)
+from resources.lib.debrid import all_debrid, debrid_link, premiumize, real_debrid
 from resources.lib.ui import control, source_utils
 from resources.lib.windows.base_window import BaseWindow
 
@@ -31,10 +30,11 @@ class Resolver(BaseWindow):
         self.silent = False
 
         self.pack_select = None
-        self.resolvers = {'all_debrid': all_debrid.AllDebrid,
-                          'debrid_link': debrid_link.DebridLink,
-                          'premiumize': premiumize.Premiumize,
-                          'real_debrid': real_debrid.RealDebrid
+        self.resolvers = {
+            'all_debrid': all_debrid.AllDebrid,
+            'debrid_link': debrid_link.DebridLink,
+            'premiumize': premiumize.Premiumize,
+            'real_debrid': real_debrid.RealDebrid
         }
         self.source_select = source_select
 
@@ -97,8 +97,12 @@ class Resolver(BaseWindow):
                             continue
                         else:
                             self.return_data = stream_link
-                            if i.get('subs'):
-                                self.return_data = (stream_link, i.get('subs'))
+                            if i.get('subs') or i.get('skip'):
+                                self.return_data = {'url': stream_link}
+                                if i.get('subs'):
+                                    self.return_data.update({'subs': i.get('subs')})
+                                if i.get('skip'):
+                                    self.return_data.update({'skip': i.get('skip')})
                             self.close()
                             return
 
@@ -110,6 +114,12 @@ class Resolver(BaseWindow):
                             continue
                         else:
                             self.return_data = stream_link
+                            if i.get('subs') or i.get('skip'):
+                                self.return_data = {'url': stream_link}
+                                if i.get('subs'):
+                                    self.return_data.update({'subs': i.get('subs')})
+                                if i.get('skip'):
+                                    self.return_data.update({'skip': i.get('skip')})
                             self.close()
                             return
 

@@ -131,6 +131,16 @@ class sources(BrowserBase):
                     resp = json.loads(r).get('result')
                     slink = self.decrypt_vrf(resp.get('url'))
 
+                    skip = {}
+                    if resp.get('skip_data'):
+                        skip_data = json.loads(self.decrypt_vrf(resp.get('skip_data')))
+                        intro = skip_data.get('intro')
+                        if intro:
+                            skip.update({'intro': {'start': intro[0], 'end': intro[1]}})
+                        outro = skip_data.get('outro')
+                        if outro:
+                            skip.update({'outro': {'start': outro[0], 'end': outro[1]}})
+
                     source = {
                         'release_title': '{0} - Ep {1}'.format(title, episode),
                         'hash': slink,
@@ -141,6 +151,7 @@ class sources(BrowserBase):
                         'size': 'NA',
                         'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
                         'lang': 2 if lang == 'dub' else 0,
+                        'skip': skip
                     }
                     sources.append(source)
         return sources

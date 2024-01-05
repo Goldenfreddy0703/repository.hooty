@@ -47,7 +47,10 @@ class Resolver(BaseWindow):
         if len(sources) > 1 and not self.source_select:
             last_played = control.getSetting('last_played_source')
             for index, source in enumerate(sources):
-                if str(source['release_title']) == last_played:
+                if source['type'] == 'embed' and str(source['provider']) + " ".join(map(str, source['info'])) == last_played:
+                    sources.insert(0, sources.pop(index))
+                    break
+                elif str(source['release_title']) == last_played:
                     sources.insert(0, sources.pop(index))
                     break
         try:
@@ -61,9 +64,9 @@ class Resolver(BaseWindow):
 
                     self.setProperty('release_title', str(i['release_title']))
                     self.setProperty('debrid_provider', debrid_provider)
-                    self.setProperty('source_provider', i['provider'])
+                    self.setProperty('source_provider', str(i['provider']))
                     self.setProperty('source_resolution', i['quality'])
-                    self.setProperty('source_info', " ".join(i['info']))
+                    self.setProperty('source_info', " ".join(map(str, i['info'])))
                     self.setProperty('source_type', i['type'])
 
                     if i['type'] == 'torrent':
@@ -166,9 +169,9 @@ class Resolver(BaseWindow):
         self.pack_select = pack_select
         self.setProperty('release_title', str(self.sources[0]['release_title']))
         self.setProperty('debrid_provider', self.sources[0].get('debrid_provider', 'None').replace('_', ' '))
-        self.setProperty('source_provider', self.sources[0]['provider'])
+        self.setProperty('source_provider', str(self.sources[0]['provider']))
         self.setProperty('source_resolution', self.sources[0]['quality'])
-        self.setProperty('source_info', " ".join(self.sources[0]['info']))
+        self.setProperty('source_info', " ".join(map(str, self.sources[0]['info'])))
         self.setProperty('source_type', self.sources[0]['type'])
         self.setProperty('source_size', self.sources[0]['size'])
 
@@ -180,7 +183,11 @@ class Resolver(BaseWindow):
         else:
             self.resolve(sources, args, pack_select)
 
-        control.setSetting('last_played_source', str(self.sources[0]['release_title']))
+        if self.sources[0]['type'] == 'embed':
+            control.setSetting('last_played_source', str(self.sources[0]['provider']) + " ".join(map(str, self.sources[0]['info'])))
+        else:
+            control.setSetting('last_played_source', str(self.sources[0]['release_title']))
+
         if not self.canceled:
             return self.return_data
 

@@ -263,7 +263,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta18" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta21" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -277,17 +277,11 @@ Changelog 0.0.10:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta18 (2023-09-29)
-- Apply an improved fix to PyTube parser.py from https://github.com/sluggish-yard/pytube-saguaro/pull/5/commits/e91d5281c06cb7236c66053c3ce5561e647598a6
-- Update ytmusicapi to version `1.2.1`
-- Enable OAuth login into ytmusicapi
-- Add 'Home' menu item to YtMusic Library menu
-- Add experimental 'Charts' menu item to YtMusic Library menu (songs don't work yet)
-- Show more detailed song information
-- Add albumart to songs in playlist when adding entire albums / singles
-- Add context menu items 'Play' / 'Play next' / 'Add to queue' to songs
-- Add option to turn off colored titles (for headless operation of Kodi)
-- Add wrapper class around YtMusic Library results exposing a uniform interface for results obtained from internal storage and from different API calls
+1.0~beta21 (2023-12-16)
+- Fix a bug causing loading of playlists to fail for playlists without setVideoId (e.g. recap)
+- Fix loading of uploaded songs into library
+- Differentiate between log levels
+- Switch to new settings format
     </news>
     <assets>
       <icon>resources/icon.png</icon>
@@ -322,6 +316,8 @@ Changelog 0.0.10:
     <description lang="pt_BR">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
     <summary lang="pt_PT">Internet Archive Game Launcher</summary>
     <description lang="pt_PT">Internet Archive Game Launcher (IAGL) é um addon gratuito para Kodi que explora e executa jogos disponíveis na Internet</description>
+    <summary lang="sk_SK">Internet Archive Game Launcher</summary>
+    <description lang="sk_SK">Internet Archive Game Launcher (IAGL) je zdarma poskytovaný doplnok pre Kodi umožňujúci prechádzanie a spúšťanie hier z internetu</description>
     <license>CC BY-SA 4.0, GNU GENERAL PUBLIC LICENSE Version 2.0</license>
     <forum>https://forum.kodi.tv/showthread.php?tid=231339</forum>
     <source>https://github.com/zach-morris/plugin.program.iagl</source>
@@ -1362,13 +1358,13 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.1.39~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.14~nexus" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
-  <import addon="script.module.jurialmunkey" version="0.1.7" />
+  <import addon="script.module.jurialmunkey" version="0.1.14" />
   <import addon="script.module.infotagger" version="0.0.5" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />
 </requires>
@@ -1491,21 +1487,6 @@ Initial release
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">OpenMeta Icons</summary>
 		<description lang="en">Icons for OpenMeta</description>
-		<platform>all</platform>
-		<license>CC-BY-SA-3.0</license>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
-</addon><addon id="resource.images.otakuv2icons.coloured" name="Otaku Icons V2- Coloured" version="0.0.2" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="otakuv2icons" />
-	<requires>
-		<import addon="kodi.resource" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Otaku Icons</summary>
-		<description lang="en">Icons for Otaku</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>
@@ -1709,7 +1690,7 @@ Initial release
     </assets>
     <license>GNU GENERAL PUBLIC LICENSE V3</license>
   </extension>
-</addon><addon id="script.module.infotagger" name="InfoTagger" provider-name="jurialmunkey" version="0.0.7">
+</addon><addon id="script.module.infotagger" name="InfoTagger" provider-name="jurialmunkey" version="0.0.8">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -1726,7 +1707,7 @@ Initial release
     </assets>
   </extension>
 
-</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.1.8">
+</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.1.17">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.requests" version="2.9.1" />
@@ -1738,19 +1719,6 @@ Initial release
     <website>https://github.com/jurialmunkey/script.module.jurialmunkey</website>
     <assets>
       <icon>icon.png</icon>
-    </assets>
-  </extension>
-</addon><addon id="script.module.tmdbhelper" name="TMDbHelper Common" provider-name="jurialmunkey" version="0.0.8">
-  <extension point="xbmc.python.module" library="resources/modules" />
-  <extension point="xbmc.addon.metadata">
-    <description lang="en">Common code required by TMDbHelper and other related jurialmunkey add-ons</description>
-    <reuselanguageinvoker>false</reuselanguageinvoker>
-    <license />
-    <language />
-    <website />
-    <assets>
-      <icon>icon.png</icon>
-      <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
 </addon><addon id="script.otaku.mappings" version="24.01.0" name="Otaku Mappings" provider-name="TeamOtaku">
@@ -1813,7 +1781,8 @@ Users submit when a sponsor happens and the add-on automatically skips sponsors 
 - Add option to reduce all skips by some time (#30)
 - Ignore segments that do not fit into reduce skips setting (#31)
 - Reset existing playback when new video starts playing (#32)
-- Support for Kodi's Invidious plugin
+- Support for Kodi's Invidious plugin (#45)
+- Add option to only skip if longer than minimum duration
         </news>
 
         <summary lang="de">Überspringe Sponsoren, betteln um Abonnenten und mehr in YouTube Videos</summary>
@@ -1832,13 +1801,16 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="1.1.1" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.1" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
-  <import addon="script.module.jurialmunkey" version="0.1.0" />
+  <import addon="script.module.jurialmunkey" version="0.1.17" />
+  <import addon="script.module.infotagger" version="0.0.5" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />
-<extension point="xbmc.python.pluginsource" library="plugin.py" />
+<extension point="xbmc.python.pluginsource" library="plugin.py">
+  <provides>video</provides>
+</extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="en_GB">Skin Variables helps skinners to construct variables and expressions for multiple containers and listitems using a template</summary>
   <summary lang="fr_FR">Skin Variables aide les skinners à créer des variables et des expressions pour plusieurs conteneurs et listes à l'aide d'un modèle</summary>
@@ -1852,10 +1824,11 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.texturemaker" version="0.2.9" name="Texture Maker" provider-name="jurialmunkey">
+</addon><addon id="script.texturemaker" version="0.2.10" name="Texture Maker" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.pil" version="1.1.7" />
+  <import addon="script.module.jurialmunkey" version="0.1.9" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />
 <extension point="xbmc.python.pluginsource" library="plugin.py">
@@ -1871,7 +1844,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.wikipedia" version="0.0.5" name="Wikipedia" provider-name="jurialmunkey">
+</addon><addon id="script.wikipedia" version="0.0.6" name="Wikipedia" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />
@@ -2162,7 +2135,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.26">
+</addon><addon id="skin.arctic.horizon.2" name="Arctic Horizon 2" provider-name="jurialmunkey" version="0.8.27">
     <requires>
         <import addon="xbmc.gui" version="5.15.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />

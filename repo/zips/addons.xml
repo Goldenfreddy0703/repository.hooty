@@ -263,7 +263,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta21" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta22" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -277,11 +277,9 @@ Changelog 0.0.10:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta21 (2023-12-16)
-- Fix a bug causing loading of playlists to fail for playlists without setVideoId (e.g. recap)
-- Fix loading of uploaded songs into library
-- Differentiate between log levels
-- Switch to new settings format
+1.0~beta22 (2024-01-08)
+- Fix a bug when loading a song with no artist id (e.g. from search)
+- Fix a bug when playing playlists containing ytmusic songs and songs from other sources
     </news>
     <assets>
       <icon>resources/icon.png</icon>

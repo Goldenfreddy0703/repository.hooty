@@ -72,3 +72,7 @@
 [submodule "repo/resource.images.arctic.waves"]
 	path = repo/resource.images.arctic.waves
 	url = https://github.com/drinfernoo/resource.images.arctic.waves.git
+[submodule "nexus/skin.arctic.fuse"]
+	path = nexus/skin.arctic.fuse
+	url = https://github.com/jurialmunkey/skin.arctic.fuse.git
+	branch = nexus

@@ -263,7 +263,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta22" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta23" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />

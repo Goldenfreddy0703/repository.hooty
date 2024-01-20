@@ -1099,6 +1099,10 @@ msgctxt "#40526"
 msgid "Arctic Fuse"
 msgstr ""
 
+msgctxt "#40527"
+msgid "Italian Sub/Dub Embeds"
+msgstr ""
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

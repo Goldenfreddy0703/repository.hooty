@@ -13,12 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.4.2\n"
 
-# #####MAIN MENU DIRECTORY#######
+######MAIN MENU DIRECTORY#######
 msgctxt "#30000"
 msgid "Last Watched: "
 msgstr "Dernier visionnage: "
 
-# #####TOOLS & SEARCH DIRECTORY#######
+######TOOLS & SEARCH DIRECTORY#######
 msgctxt "#30027"
 msgid "View Changelog"
 msgstr "Voir l'historique des modifications"
@@ -51,7 +51,7 @@ msgctxt "#30026"
 msgid "Rebuild Database"
 msgstr "Reconstruction de la base de données"
 
-# #####DEBRID DIRECTORY#######
+######DEBRID DIRECTORY#######
 msgctxt "#30100"
 msgid "Open this link in a browser: {}"
 msgstr "Ouvrir ce lien dans un navigateur : {}"
@@ -1099,7 +1099,11 @@ msgctxt "#40526"
 msgid "Arctic Fuse"
 msgstr "Arctic Fuse"
 
-# #####MAIN Category DIRECTORY#######
+msgctxt "#40527"
+msgid "Italian Sub/Dub Embeds"
+msgstr "Italien Sub/Dub Intégrés"
+
+######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"
 msgstr "Calendrier de diffusion des films d'animation"

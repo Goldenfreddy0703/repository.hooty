@@ -2,7 +2,7 @@ import threading
 import time
 
 from resources.lib.pages import nyaa, animetosho, animixplay, debrid_cloudfiles, \
-    nineanime, gogoanime, animepahe, aniwatch, animess, animelatino, animecat
+    nineanime, gogoanime, animepahe, aniwatch, animess, animelatino, animecat, aniplay
 from resources.lib.ui import control
 from resources.lib.windows.get_sources_window import GetSources as DisplayWindow
 
@@ -44,7 +44,7 @@ class Sources(DisplayWindow):
         self.remainingProviders = [
             'nyaa', 'animetosho', 'aniwave', 'gogo', 'animix',
             'animepahe', 'aniwatch', 'otakuanimes', 'animelatino',
-            'nekosama'
+            'nekosama', 'aniplay'
         ]
         self.allTorrents = {}
         self.allTorrents_len = 0
@@ -80,6 +80,7 @@ class Sources(DisplayWindow):
         self.animessSources = []
         self.animelatinoSources = []
         self.animecatSources = []
+        self.aniplaySources = []
         self.threads = []
         self.usercloudSources = []
         self.terminate_on_cloud = control.getSetting('general.terminate.oncloud') == 'true'
@@ -160,6 +161,12 @@ class Sources(DisplayWindow):
                 threading.Thread(target=self.animecat_worker, args=(anilist_id, episode, get_backup, rescrape,)))
         else:
             self.remainingProviders.remove('nekosama')
+
+        if control.getSetting('provider.aniplay') == 'true':
+            self.threads.append(
+                threading.Thread(target=self.aniplay_worker, args=(anilist_id, episode, get_backup, rescrape,)))
+        else:
+            self.remainingProviders.remove('aniplay')
 
         self.threads.append(
             threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape)))
@@ -271,6 +278,11 @@ class Sources(DisplayWindow):
         self.animecatSources = animecat.sources().get_sources(anilist_id, episode, get_backup)
         self.embedSources += self.animecatSources
         self.remainingProviders.remove('nekosama')
+
+    def aniplay_worker(self, anilist_id, episode, get_backup, rescrape):
+        self.aniplaySources = aniplay.sources().get_sources(anilist_id, episode, get_backup)
+        self.embedSources += self.aniplaySources
+        self.remainingProviders.remove('aniplay')
 
     def user_cloud_inspection(self, query, anilist_id, episode, media_type, rescrape):
         self.remainingProviders.append('Cloud Inspection')

@@ -1,3 +1,8 @@
+Changelog 0.4.64[20240120]:
+- Added Italian Sub/Dub Embeds Category
+- Added Aniplay Provider
+- Fixed Extractor
+
 Changelog 0.4.63[20240119]:
 - Updated embed extractor 
 
@@ -13,7 +18,7 @@ Changelog 0.4.61[20240108]:
 - Set Aniskip Defaults to True
 
 Changelog 0.4.60[20240108]:
-- Fixed extractor
+- Fixed Extractor
 
 Changelog 0.4.59[20240105]:
 - Added Autoplay Last Selected Source for Embed Sources

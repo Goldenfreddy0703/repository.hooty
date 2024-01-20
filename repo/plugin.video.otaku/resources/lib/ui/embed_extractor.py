@@ -156,9 +156,11 @@ def __extract_vidplay(url, page_content, referer=None):
         return duration
 
     def encode_id(id_):
+        # kurl = 'https://raw.githubusercontent.com/Claudemirovsky/worstsource-keys/keys/keys.json'
+        kurl = 'https://raw.githubusercontent.com/Ciarands/worstsource-keys/keys/keys.json'
         keys = database.get(
             client.request, cache_duration(),
-            'https://raw.githubusercontent.com/Claudemirovsky/worstsource-keys/keys/keys.json'
+            kurl
         )
         k1, k2 = json.loads(keys)
         v = dex(k1, id_, False)

@@ -1,3 +1,8 @@
+Changelog 0.4.65[20240120]:
+- Small Fix for Aniplay Provider
+- linting Changes
+- Finished Arabic Translations 
+
 Changelog 0.4.64[20240120]:
 - Added Italian Sub/Dub Embeds Category
 - Added Aniplay Provider

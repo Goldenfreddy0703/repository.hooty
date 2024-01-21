@@ -271,7 +271,7 @@
 		<setting id="simkl.enabled" label="40511" type="bool" default="false"/>
 		<setting id="simkl.username" type="text" subsetting="true" label="40350" default="" enable="false" visible="eq(-1,true)"/>
 		<setting id="simkl.login" type="action" subsetting="true" label="40352" option="close" action="RunPlugin(plugin://plugin.video.otaku/watchlist_login/simkl)" visible="eq(-2,true)"/>
-		<setting id="simkl.sort" type="labelenum" subsetting="true" label="40354" values="Last Updated|Anime Title|User Rating" default="Last Updated" visible="eq(-3,true)"/>
+		<setting id="simkl.sort" type="labelenum" subsetting="true" label="40354" values="Last Updated|Last Added|Anime Title|User Rating" default="Last Added" visible="eq(-3,true)"/>
 	</category>
 
 	<!-- Main Menu Customization -->

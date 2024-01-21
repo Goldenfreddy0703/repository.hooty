@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Last-Translator: taiseer999\n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: ar_SA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,7 +87,7 @@ msgstr "تم مسح الذاكرة بنجاح"
 
 msgctxt "#30202"
 msgid "Local Result Cache Successfully Cleared"
-msgstr ""
+msgstr "تم مسح ذاكرة التخزين المؤقت للنتيجة المحلية بنجاح"
 
 msgctxt "#30203"
 msgid "[COLOR red]WARNING[/COLOR]\nThis will reset all meta information, are you sure?"
@@ -357,7 +357,7 @@ msgstr "اولوية ريل ديبرد"
 
 msgctxt "#40340"
 msgid "AllDebrid"
-msgstr ""
+msgstr "AllDebrid"
 
 msgctxt "#40341"
 msgid "Enable AllDebrid..."
@@ -477,27 +477,27 @@ msgstr "لغة العنوان"
 
 msgctxt "#40370"
 msgid "Romaji (Shingeki no Kyojin)"
-msgstr ""
+msgstr "روماجي (شينجيكي نو كيوجين)"
 
 msgctxt "#40371"
 msgid "English (Attack on Titan)"
-msgstr ""
+msgstr "الإنجليزية (الهجوم على تيتان)"
 
 msgctxt "#40372"
 msgid "Inspect Cloud Files on Scrape"
-msgstr ""
+msgstr "فحص الملفات السحابية على سكراب"
 
 msgctxt "#40373"
 msgid "Language Invoker Options"
-msgstr ""
+msgstr "خيارات استدعاء اللغة"
 
 msgctxt "#40374"
 msgid "Re-Use Language Invoker Status"
-msgstr ""
+msgstr "إعادة استخدام حالة مستحضر اللغة"
 
 msgctxt "#40375"
 msgid "Toggle Re-Use Language Invoker"
-msgstr ""
+msgstr "تبديل إعادة استخدام مستحضر اللغة"
 
 msgctxt "#40376"
 msgid "Auto close dialog"
@@ -509,19 +509,19 @@ msgstr "الوقت ثواني قبل الاغلاق"
 
 msgctxt "#40378"
 msgid "Enable Gogo Scraping"
-msgstr ""
+msgstr "تمكين Gogo كشط"
 
 msgctxt "#40379"
 msgid "Enable Source Scraping"
-msgstr ""
+msgstr "تمكين تجريف المصدر"
 
 msgctxt "#40380"
 msgid "Enable Season Parsing (Disable if Performance Issues)"
-msgstr ""
+msgstr "تمكين تحليل الموسم (تعطيله في حالة وجود مشكلات في الأداء)"
 
 msgctxt "#40381"
 msgid "Enable Season Part Scraping"
-msgstr ""
+msgstr "تمكين تجريف جزء الموسم"
 
 msgctxt "#40382"
 msgid "Manual Watchlist Update"
@@ -585,51 +585,15 @@ msgstr "خاص"
 
 msgctxt "#40397"
 msgid "OVA"
-msgstr ""
+msgstr "OVA"
 
 msgctxt "#40398"
 msgid "ONA"
-msgstr ""
+msgstr "ONA"
 
 msgctxt "#40399"
 msgid "MUSIC"
 msgstr "موسيقى"
-
-msgctxt "#40400"
-msgid ""
-msgstr ""
-
-msgctxt "#40401"
-msgid ""
-msgstr ""
-
-msgctxt "#40402"
-msgid ""
-msgstr ""
-
-msgctxt "#40403"
-msgid ""
-msgstr ""
-
-msgctxt "#40404"
-msgid ""
-msgstr ""
-
-msgctxt "#40405"
-msgid ""
-msgstr ""
-
-msgctxt "#40406"
-msgid ""
-msgstr ""
-
-msgctxt "#40407"
-msgid ""
-msgstr ""
-
-msgctxt "#40408"
-msgid ""
-msgstr ""
 
 msgctxt "#40409"
 msgid "Search Filter"
@@ -637,27 +601,27 @@ msgstr "تخصيص البخث"
 
 msgctxt "#40410"
 msgid "Enable searching mature titles only"
-msgstr ""
+msgstr "تمكين البحث في العناوين المخصصة للبالغين فقط"
 
 msgctxt "#40411"
 msgid "Debrid-Link"
-msgstr ""
+msgstr "Debrid-Link"
 
 msgctxt "#40412"
 msgid "Enable Debrid-Link..."
-msgstr ""
+msgstr "يُمكَِن Debrid-Link..."
 
 msgctxt "#40413"
 msgid "Debrid-Link Username"
-msgstr ""
+msgstr "Debrid-Link اسم المستخدم"
 
 msgctxt "#40414"
 msgid "Authorize Debrid-Link..."
-msgstr ""
+msgstr "يأذن Debrid-Link..."
 
 msgctxt "#40415"
 msgid "Debrid-Link Priority"
-msgstr ""
+msgstr "Debrid-Link أولوية"
 
 msgctxt "#40416"
 msgid "Maintenance"
@@ -721,19 +685,19 @@ msgstr "الوقت المخصص للحوار للظهور"
 
 msgctxt "#40431"
 msgid "Enable Aniskip [COLOR yellow]BETA[/COLOR]"
-msgstr ""
+msgstr "يُمكَِن Aniskip [COLOR yellow]BETA[/COLOR]"
 
 msgctxt "#40432"
 msgid "Offset for Aniskip (seconds)"
-msgstr ""
+msgstr "إزاحة ل Aniskip (ثواني)"
 
 msgctxt "#40433"
 msgid "Disable Scraping Screen Fanart"
-msgstr ""
+msgstr "تعطيل كشط الشاشة Fanart"
 
 msgctxt "#40434"
 msgid "Disable Scraping Screen Clearlogo"
-msgstr ""
+msgstr "تعطيل كشط الشاشة Clearlogo"
 
 msgctxt "#40435"
 msgid "Preferred Subtitle Language"
@@ -825,11 +789,11 @@ msgstr "الافتراضي"
 
 msgctxt "#40457"
 msgid "Arctic Horizon 2"
-msgstr ""
+msgstr "Arctic Horizon 2"
 
 msgctxt "#40458"
 msgid "AuraMod"
-msgstr ""
+msgstr "AuraMod"
 
 msgctxt "#40459"
 msgid "Preferred Playlist Size"
@@ -853,11 +817,11 @@ msgstr "اعطاء الاولية للمصادر التى تحوي عدة لغا
 
 msgctxt "#40464"
 msgid "Prioritize Batch Sources"
-msgstr ""
+msgstr "تحديد أولويات مصادر الدفعة"
 
 msgctxt "#40465"
 msgid "Prioritized Source Sorting"
-msgstr ""
+msgstr "فرز المصدر حسب الأولوية"
 
 msgctxt "#40466"
 msgid "Set Items Per Page"
@@ -897,27 +861,27 @@ msgstr "متقدم"
 
 msgctxt "#40475"
 msgid "Manual Episode Meta Api Override"
-msgstr ""
+msgstr "تجاوز الحلقة اليدوية لـ Meta Api"
 
 msgctxt "#40476"
 msgid "Api"
-msgstr ""
+msgstr "Api"
 
 msgctxt "#40477"
 msgid "Consumet Self-Hosting"
-msgstr ""
+msgstr "Consumet Self-Hosting"
 
 msgctxt "#40478"
 msgid "Enable Consumet Self-Hosting"
-msgstr ""
+msgstr "تمكين Consumet Self-Hosting"
 
 msgctxt "#40479"
 msgid "Self-Host Url"
-msgstr ""
+msgstr "Self-Host Url"
 
 msgctxt "#40480"
 msgid "Hosting Instructions"
-msgstr ""
+msgstr "تعليمات الاستضافة"
 
 msgctxt "#40481"
 msgid "Manual File Selection"
@@ -925,7 +889,7 @@ msgstr "اختيار يدوي للملف"
 
 msgctxt "#40482"
 msgid "Enable Manual File Selection for Batch Torrents"
-msgstr ""
+msgstr "تمكين التحديد اليدوي للملفات لملفات Batch Torrents"
 
 msgctxt "#40483"
 msgid "Smart Episode Scrolling (Only works in List View )"
@@ -981,7 +945,7 @@ msgstr "استخدم لغة الترجمة من اعدادت اللغة  لكو�
 
 msgctxt "#40496"
 msgid "Terminate on Cloud Sources"
-msgstr "Terminate on Cloud Sources"
+msgstr "إنهاء عند مصادر السحابة"
 
 msgctxt "#40497"
 msgid "Off"
@@ -993,23 +957,23 @@ msgstr "سرعة النت"
 
 msgctxt "#40499"
 msgid "Hard Limit"
-msgstr "Hard Limit"
+msgstr "الحد الصعب"
 
 msgctxt "#40500"
 msgid "Hide BATCH Items"
-msgstr "Hide BATCH Items"
+msgstr "إخفاء عناصر الدفعة"
 
 msgctxt "#40501"
 msgid "Show Delete from Database in Context Menu"
-msgstr "Show Delete from Database in Context Menu"
+msgstr "إظهار الحذف من قاعدة البيانات في قائمة السياق"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
-msgstr "Re-Use Language Invoker"
+msgstr "إعادة استخدام لغة Invoker"
 
 msgctxt "#40503"
 msgid "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some instability![/COLOR]"
-msgstr "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some instability![/COLOR]"
+msgstr "تبديل إعادة استخدام اللغة Invoker:    [COLOR red]سرعات أعلى ولكن بعض عدم الاستقرار![/COLOR]"
 
 msgctxt "#40504"
 msgid "Universal Sub Embeds (Will Be Based By Region)"
@@ -1101,7 +1065,7 @@ msgstr "Arctic Fuse"
 
 msgctxt "#40527"
 msgid "Italian Sub/Dub Embeds"
-msgstr "Incorporações de Sub/Dub Italiano"
+msgstr "تضمينات فرعية/دبلجة إيطالية"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"

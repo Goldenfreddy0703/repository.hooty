@@ -491,7 +491,17 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
     if subs:
         utils.del_subs()
         subtitles = []
-        language = xbmc.getLanguage(xbmc.ENGLISH_NAME).split(' ')[0].lower()
+        if control.getSetting('provider.aniwatch_region') == 'false':
+            languages = [
+                "none", "english", "japanese", "spanish", "french", "german",
+                "italian", "dutch", "russian", "portuguese", "korean", "chinese",
+                "arabic", "hindi", "turkish", "polish", "swedish", "norwegian",
+                "danish", "finnish"
+            ]
+            preferred_language_setting = int(control.getSetting('general.subtitles'))
+            language = languages[preferred_language_setting].split(' ')[0].lower()
+        else:
+            language = xbmc.getLanguage(xbmc.ENGLISH_NAME).split(' ')[0].lower()
         subtitles = [utils.get_sub(x.get('url'), x.get('lang')) for x in subs if language in x.get('lang').lower()]
         if not subtitles:
             subtitles = [utils.get_sub(x.get('url'), x.get('lang')) for x in subs if 'english' in x.get('lang').lower()]

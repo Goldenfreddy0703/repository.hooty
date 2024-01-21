@@ -976,8 +976,8 @@ msgid "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some inst
 msgstr "Basculer Réutilisation de l'invocateur de langue :    [COLOR red]Des vitesses plus rapides mais une certaine instabilité ![/COLOR]"
 
 msgctxt "#40504"
-msgid "Universal Sub Embeds (Will Be Based By Region)"
-msgstr "Embases universelles (en fonction de la région)"
+msgid "Universal Sub Embeds"
+msgstr "Sous-intégrations universelles"
 
 msgctxt "#40505"
 msgid "English Sub/Dub Embeds"

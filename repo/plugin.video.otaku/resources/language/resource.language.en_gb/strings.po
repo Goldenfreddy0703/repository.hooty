@@ -976,7 +976,7 @@ msgid "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some inst
 msgstr ""
 
 msgctxt "#40504"
-msgid "Universal Sub Embeds (Will Be Based By Region)"
+msgid "Universal Sub Embeds"
 msgstr ""
 
 msgctxt "#40505"

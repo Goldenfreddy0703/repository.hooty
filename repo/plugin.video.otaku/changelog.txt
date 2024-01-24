@@ -1,3 +1,7 @@
+Changelog 0.4.68[20240123]:
+- Updated Embed Extractor 
+- Update strings.po for all languages
+
 Changelog 0.4.67[20240121]:
 - Added New Sort Order for Simkl Watchlist
 - Last Added is default Sort Method for Simkl

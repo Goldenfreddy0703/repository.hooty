@@ -477,11 +477,11 @@ msgstr "Idioma do título"
 
 msgctxt "#40370"
 msgid "Romaji (Shingeki no Kyojin)"
-msgstr "Romaji (Shingeki no Kyojin)"
+msgstr ""
 
 msgctxt "#40371"
 msgid "English (Attack on Titan)"
-msgstr "Inglês (Attack on Titan)"
+msgstr ""
 
 msgctxt "#40372"
 msgid "Inspect Cloud Files on Scrape"
@@ -1012,7 +1012,7 @@ msgid "Context Menu Customization"
 msgstr "Personalização do menu de contexto"
 
 msgctxt "#40513"
-msgid "Show Marked as Watched [COLOR blue](Watchlist)[/COLOR] in Context Menu"
+msgid "Show 'Marked as Watched [COLOR blue](Watchlist)[/COLOR]' in Context Menu"
 msgstr "Mostrar marcado como assistido (opção para lista assistir)"
 
 msgctxt "#40514"

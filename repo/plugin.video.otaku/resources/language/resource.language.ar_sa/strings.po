@@ -481,11 +481,11 @@ msgstr "روماجي (شينجيكي نو كيوجين)"
 
 msgctxt "#40371"
 msgid "English (Attack on Titan)"
-msgstr "الإنجليزية (الهجوم على تيتان)"
+msgstr ""
 
 msgctxt "#40372"
 msgid "Inspect Cloud Files on Scrape"
-msgstr "فحص الملفات السحابية على سكراب"
+msgstr ""
 
 msgctxt "#40373"
 msgid "Language Invoker Options"

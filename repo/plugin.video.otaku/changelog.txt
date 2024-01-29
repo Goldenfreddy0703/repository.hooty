@@ -1,3 +1,8 @@
+Changelog 0.4.69[20240129]:
+- Added Remove from History Context Menu
+- Recoded the Search Functionality
+- New skin Search Paths
+
 Changelog 0.4.68[20240123]:
 - Updated Embed Extractor 
 - Update strings.po for all languages

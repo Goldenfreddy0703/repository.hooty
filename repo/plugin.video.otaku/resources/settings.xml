@@ -305,7 +305,7 @@
 		<setting id="upcoming_movie" label="50008" type="bool" default="true"/>
 		<setting id="anilist_top_100_anime_movie" label="50009" type="bool" default="true"/>
 		<setting id="genres_movie" label="50010" type="bool" default="true" visible="false"/>
-		<setting id="search_history_movie" label="50011" type="bool" default="true" visible="false"/>
+		<setting id="search_history/movie" label="50011" type="bool" default="true" visible="false"/>
 
 		<!-- TV Show Menu Items -->
 		<setting type="lsep" label="50053"/>
@@ -319,7 +319,7 @@
 		<setting id="upcoming_tv" label="50008" type="bool" default="true"/>
 		<setting id="anilist_top_100_anime_tv" label="50009" type="bool" default="true"/>
 		<setting id="genres_tv" label="50010" type="bool" default="true" visible="false"/>
-		<setting id="search_history_tv" label="50011" type="bool" default="true" visible="false"/>
+		<setting id="search_history/show" label="50011" type="bool" default="true" visible="false"/>
 	</category>
 
 	<!-- Submenu Customization -->

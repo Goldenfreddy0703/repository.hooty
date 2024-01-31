@@ -528,6 +528,7 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
 
 @hook_mimetype('application/dash+xml')
 def _DASH_HOOK(item):
+    stream_url = item.getPath()
     import inputstreamhelper
     is_helper = inputstreamhelper.Helper('mpd')
     if is_helper.check_inputstream():
@@ -535,7 +536,13 @@ def _DASH_HOOK(item):
             item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
         else:
             item.setProperty('inputstream', is_helper.inputstream_addon)
-        item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
+        if control._kodiver < 20.9:
+            item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
+        if '|' in stream_url:
+            stream_url, headers = stream_url.split('|')
+            item.setProperty('inputstream.adaptive.stream_headers', headers)
+            if control._kodiver > 19.8:
+                item.setProperty('inputstream.adaptive.manifest_headers', headers)
         item.setContentLookup(False)
     else:
         raise Exception("InputStream Adaptive is not supported.")
@@ -548,12 +555,18 @@ def _HLS_HOOK(item):
     stream_url = item.getPath()
     import inputstreamhelper
     is_helper = inputstreamhelper.Helper('hls')
-    if '|' not in stream_url and is_helper.check_inputstream():
+    if is_helper.check_inputstream():
         if control._kodiver < 19:
             item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
         else:
             item.setProperty('inputstream', is_helper.inputstream_addon)
-        item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+        if control._kodiver < 20.9:
+            item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+        if '|' in stream_url:
+            stream_url, headers = stream_url.split('|')
+            item.setProperty('inputstream.adaptive.stream_headers', headers)
+            if control._kodiver > 19.8:
+                item.setProperty('inputstream.adaptive.manifest_headers', headers)
     item.setProperty('MimeType', 'application/vnd.apple.mpegurl')
     item.setMimeType('application/vnd.apple.mpegstream_url')
     item.setContentLookup(False)

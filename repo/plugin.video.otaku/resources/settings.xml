@@ -88,22 +88,22 @@
 		<!-- Portugese Sub & Dub Embeds -->
 		<setting type="lsep" label="40506" />
 		<setting type="sep"/>
-		<setting id="provider.animess" type="bool" label="Otaku Animes" default="true" />
+		<setting id="provider.animess" type="bool" label="Otaku Animes" default="false" />
 
 		<!-- Spanish Sub & Dub Embeds -->
 		<setting type="lsep" label="40508" />
 		<setting type="sep"/>
-		<setting id="provider.animelatino" type="bool" label="Anime Latino HD" default="true" />
+		<setting id="provider.animelatino" type="bool" label="Anime Latino HD" default="false" />
 
 		<!-- French Sub & Dub Embeds -->
 		<setting type="lsep" label="40509" />
 		<setting type="sep"/>
-		<setting id="provider.animecat" type="bool" label="Neko-Sama" default="true" />
+		<setting id="provider.animecat" type="bool" label="Neko-Sama" default="false" />
 
 		<!-- Italian Sub & Dub Embeds -->
 		<setting type="lsep" label="40527" />
 		<setting type="sep"/>
-		<setting id="provider.aniplay" type="bool" label="Aniplay" default="true" />
+		<setting id="provider.aniplay" type="bool" label="Aniplay" default="false" />
 	</category>
 
 	<!-- Playback -->

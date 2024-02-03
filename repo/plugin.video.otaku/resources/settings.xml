@@ -83,7 +83,7 @@
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />
 		<setting id="provider.gogo" type="bool" label="Gogo" default="true" />
 		<setting id="provider.gogoalt" type="bool" subsetting="true" label="Gogo Alt" default="false" visible="eq(-1,true)"/>
-		<setting id="provider.nineanime" type="bool" label="Aniwave" default="true" />
+		<setting id="provider.aniwave" type="bool" label="Aniwave" default="true" />
 
 		<!-- Portugese Sub & Dub Embeds -->
 		<setting type="lsep" label="40506" />

@@ -2,7 +2,7 @@ import threading
 import time
 
 from resources.lib.pages import nyaa, animetosho, animixplay, debrid_cloudfiles, \
-    nineanime, gogoanime, animepahe, aniwatch, animess, animelatino, animecat, aniplay
+    aniwave, gogoanime, animepahe, aniwatch, animess, animelatino, animecat, aniplay
 from resources.lib.ui import control
 from resources.lib.windows.get_sources_window import GetSources as DisplayWindow
 
@@ -73,7 +73,7 @@ class Sources(DisplayWindow):
         self.nyaaSources = []
         self.animetoshoSources = []
         self.gogoSources = []
-        self.nineSources = []
+        self.aniwaveSources = []
         self.animixplaySources = []
         self.animepaheSources = []
         self.aniwatchSources = []
@@ -120,9 +120,9 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('gogo')
 
-        if control.getSetting('provider.nineanime') == 'true':
+        if control.getSetting('provider.aniwave') == 'true':
             self.threads.append(
-                threading.Thread(target=self.nine_worker, args=(anilist_id, episode, get_backup, rescrape)))
+                threading.Thread(target=self.aniwave_worker, args=(anilist_id, episode, get_backup, rescrape)))
         else:
             self.remainingProviders.remove('aniwave')
 
@@ -240,10 +240,10 @@ class Sources(DisplayWindow):
             self.embedSources += self.gogoSources
         self.remainingProviders.remove('gogo')
 
-    def nine_worker(self, anilist_id, episode, get_backup, rescrape):
+    def aniwave_worker(self, anilist_id, episode, get_backup, rescrape):
         if not rescrape:
-            self.nineSources = nineanime.sources().get_sources(anilist_id, episode, get_backup)
-            self.embedSources += self.nineSources
+            self.aniwaveSources = aniwave.sources().get_sources(anilist_id, episode, get_backup)
+            self.embedSources += self.aniwaveSources
         self.remainingProviders.remove('aniwave')
 
     def animixplay_worker(self, anilist_id, episode, get_backup, rescrape):

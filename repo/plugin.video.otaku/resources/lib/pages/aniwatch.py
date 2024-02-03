@@ -104,7 +104,7 @@ class sources(BrowserBase):
                 for src in srcs:
                     edata_id = src.get('data-id')
                     edata_name = src.text.strip().lower()
-                    if edata_name in ['megacloud', 'vidstreaming', 'streamtape']:
+                    if edata_name in ['megacloud', 'streamtape']:  # 'vidstreaming'
                         params = {'id': edata_id}
                         r = self._get_request(
                             self._BASE_URL + 'ajax/v2/episode/sources',

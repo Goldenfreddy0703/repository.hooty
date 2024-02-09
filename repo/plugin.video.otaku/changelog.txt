@@ -1,3 +1,6 @@
+Changelog 0.4.74[20240208]:
+- Added FlareSolverr Support
+
 Changelog 0.4.73[20240203]:
 - Block VidStream on Aniwatch
 - Made Animepahe fail gracefully

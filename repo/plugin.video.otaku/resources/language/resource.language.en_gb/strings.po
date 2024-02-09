@@ -76,6 +76,22 @@ msgctxt "#30105"
 msgid "Authentication with Real-Debrid has failed, please try again"
 msgstr ""
 
+msgctxt "#30121"
+msgid "Cloudflare Solver"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Enable Flaresolverr"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Flaresolverr url"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Flaresolverr Timeout"
+msgstr ""
+
 ######DATABASE.PY######
 msgctxt "#30200"
 msgid "Cache"

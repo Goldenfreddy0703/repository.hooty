@@ -1,5 +1,9 @@
+Changelog 0.4.76[20240210]:
+- Fix RD Auth
+- Updated Translations
+
 Changelog 0.4.75[20240209]:
-- Removed FlareSolverr Support due to bugs
+- Small Bug Fixes
 
 Changelog 0.4.74[20240208]:
 - Added FlareSolverr Support

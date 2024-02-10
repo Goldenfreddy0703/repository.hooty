@@ -1,3 +1,6 @@
+Changelog 0.4.75[20240209]:
+- Removed FlareSolverr Support due to bugs
+
 Changelog 0.4.74[20240208]:
 - Added FlareSolverr Support
 

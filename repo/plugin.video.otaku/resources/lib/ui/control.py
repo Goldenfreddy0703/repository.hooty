@@ -23,7 +23,6 @@ PY3 = sys.version_info[0] == 3
 TRANSLATEPATH = xbmc.translatePath if PY2 else xbmcvfs.translatePath
 LOGINFO = xbmc.LOGNOTICE if PY2 else xbmc.LOGINFO
 INPUT_ALPHANUM = xbmcgui.INPUT_ALPHANUM
-pathExists = xbmcvfs.exists
 dataPath = TRANSLATEPATH(addonInfo('profile'))
 ADDON_PATH = __settings__.getAddonInfo('path')
 mappingPath = TRANSLATEPATH(xbmcaddon.Addon('script.otaku.mappings').getAddonInfo('path'))

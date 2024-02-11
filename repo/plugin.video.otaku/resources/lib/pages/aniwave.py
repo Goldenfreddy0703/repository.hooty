@@ -120,40 +120,41 @@ class sources(BrowserBase):
                 for src in srcs:
                     edata_id = src.get('data-link-id')
                     edata_name = src.text
-                    vrf = self.generate_vrf(edata_id)
-                    params = {'vrf': vrf}
-                    r = self._get_request(
-                        '{0}ajax/server/{1}'.format(self._BASE_URL, edata_id),
-                        data=params,
-                        headers=headers,
-                        XHR=True
-                    )
-                    resp = json.loads(r).get('result')
-                    slink = self.decrypt_vrf(resp.get('url'))
+                    if edata_name.lower() in control.enabled_embeds():
+                        vrf = self.generate_vrf(edata_id)
+                        params = {'vrf': vrf}
+                        r = self._get_request(
+                            '{0}ajax/server/{1}'.format(self._BASE_URL, edata_id),
+                            data=params,
+                            headers=headers,
+                            XHR=True
+                        )
+                        resp = json.loads(r).get('result')
+                        slink = self.decrypt_vrf(resp.get('url'))
 
-                    skip = {}
-                    if resp.get('skip_data'):
-                        skip_data = json.loads(self.decrypt_vrf(resp.get('skip_data')))
-                        intro = skip_data.get('intro')
-                        if intro:
-                            skip.update({'intro': {'start': intro[0], 'end': intro[1]}})
-                        outro = skip_data.get('outro')
-                        if outro:
-                            skip.update({'outro': {'start': outro[0], 'end': outro[1]}})
+                        skip = {}
+                        if resp.get('skip_data'):
+                            skip_data = json.loads(self.decrypt_vrf(resp.get('skip_data')))
+                            intro = skip_data.get('intro')
+                            if intro:
+                                skip.update({'intro': {'start': intro[0], 'end': intro[1]}})
+                            outro = skip_data.get('outro')
+                            if outro:
+                                skip.update({'outro': {'start': outro[0], 'end': outro[1]}})
 
-                    source = {
-                        'release_title': '{0} - Ep {1}'.format(title, episode),
-                        'hash': slink,
-                        'type': 'embed',
-                        'quality': 'EQ',
-                        'debrid_provider': '',
-                        'provider': 'aniwave',
-                        'size': 'NA',
-                        'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
-                        'lang': 2 if lang == 'dub' else 0,
-                        'skip': skip
-                    }
-                    sources.append(source)
+                        source = {
+                            'release_title': '{0} - Ep {1}'.format(title, episode),
+                            'hash': slink,
+                            'type': 'embed',
+                            'quality': 'EQ',
+                            'debrid_provider': '',
+                            'provider': 'aniwave',
+                            'size': 'NA',
+                            'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
+                            'lang': 2 if lang == 'dub' else 0,
+                            'skip': skip
+                        }
+                        sources.append(source)
         return sources
 
     @staticmethod

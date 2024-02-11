@@ -270,7 +270,7 @@ def request(
                         if cf_cookie is None:
                             control.log('%s has an unsolvable Cloudflare challenge.' % (netloc))
                             if not error:
-                                return ''
+                                return '{}'
                         _headers['Cookie'] = cf_cookie
                         _headers['User-Agent'] = cf_ua
                         req = urllib_request.Request(url, data=post)
@@ -279,7 +279,7 @@ def request(
                     else:
                         control.log('%s has a Cloudflare challenge.' % (netloc))
                         if not error:
-                            return ''
+                            return '{}'
             elif output == '':
                 control.log('Request-HTTPError (%s): %s' % (response.code, url))
                 if not error:
@@ -580,7 +580,9 @@ class cfcookie:
                     self.cookie = cookie
                     self.ua = soln.get('userAgent')
                 else:
-                    control.log('%s returned an error. Could not collect tokens.' % netloc)
+                    control.log('%s returned %s. Could not collect tokens.' % (netloc, repr(resp)))
+        else:
+            control.log('%s returned %s.' % (netloc, repr(resp)))
 
 
 def byteify(data, ignore_dicts=False):

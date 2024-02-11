@@ -60,7 +60,9 @@ OTAKU_FANART_PATH = "%s/fanart.jpg" % ADDON_PATH
 menuItem = xbmcgui.ListItem
 execute = xbmc.executebuiltin
 progressDialog = xbmcgui.DialogProgress()
-
+ALL_EMBEDS = ['doodstream', 'filelions', 'filemoon', 'iga', 'kwik', 'megacloud',
+              'mp4upload', 'mycloud', 'streamtape', 'streamwish', 'vidcdn',
+              'vidplay', 'vidstreaming', 'yourupload', 'zto']
 playList = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
 player = xbmc.Player
 
@@ -552,6 +554,14 @@ def title_lang(title_key):
 
 def hide_unaired(content_type):
     return getSetting('general.unaired.episodes') == 'true' and content_type == 'episodes'
+
+
+def enabled_embeds():
+    embeds = ALL_EMBEDS
+    for embed in ALL_EMBEDS:
+        if __settings__.getSetting('embed.%s' % embed) == 'false':
+            embeds.remove(embed)
+    return embeds
 
 
 # ### for testing ###

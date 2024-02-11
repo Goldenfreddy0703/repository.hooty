@@ -781,7 +781,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.76">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.77">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />

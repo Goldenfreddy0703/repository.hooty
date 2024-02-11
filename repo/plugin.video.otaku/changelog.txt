@@ -1,3 +1,6 @@
+Changelog 0.4.77[20240210]:
+- Fixed AF Dialog Theme Bugs
+
 Changelog 0.4.76[20240210]:
 - Fix RD Auth
 - Updated Translations

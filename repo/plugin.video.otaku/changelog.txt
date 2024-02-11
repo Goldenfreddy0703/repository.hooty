@@ -1,3 +1,9 @@
+Changelog 0.4.78[20240211]:
+- Added Embeds Category
+- Added options to disable specific embeds
+- Small Setting Label Changes
+- Changed Animess Domain
+
 Changelog 0.4.77[20240210]:
 - Fixed AF Dialog Theme Bugs
 

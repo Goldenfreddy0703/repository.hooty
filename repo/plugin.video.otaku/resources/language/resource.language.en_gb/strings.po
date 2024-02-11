@@ -836,7 +836,7 @@ msgid "Prioritize Batch Sources"
 msgstr ""
 
 msgctxt "#40465"
-msgid "Prioritized Source Sorting"
+msgid "Prioritized Source Sorting & Filtering"
 msgstr ""
 
 msgctxt "#40466"
@@ -1081,6 +1081,14 @@ msgstr ""
 
 msgctxt "#40527"
 msgid "Italian Sub/Dub Embeds"
+msgstr ""
+
+msgctxt "#40528"
+msgid "Providers"
+msgstr ""
+
+msgctxt "#40529"
+msgid "Embeds"
 msgstr ""
 
 ######MAIN Category DIRECTORY#######

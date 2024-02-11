@@ -60,14 +60,14 @@
 		-->
 	</category>
 
-	<!-- Provider -->
-	<category label="40226">
+	<!-- Providers -->
+	<category label="40528">
 		<!-- Torrents -->
 		<setting type="lsep" label="40221" />
 		<setting type="sep"/>
+		<setting id="provider.animetosho" type="bool" label="Anime Tosho" default="true" />
 		<setting id="provider.nyaa" type="bool" label="Nyaa" default="true" />
 		<setting id="provider.nyaaalt" type="bool" subsetting="true" label="Nyaa Alt (For Verizon Users)" default="false" visible="eq(-1,true)" />
-		<setting id="provider.animetosho" type="bool" label="Anime Tosho" default="true" />
 
 		<!-- Universal Sub Embeds -->
 		<setting type="lsep" label="40504" />
@@ -78,12 +78,12 @@
 		<!-- English Sub & Dub Embeds -->
 		<setting type="lsep" label="40505" />
 		<setting type="sep"/>
+		<setting id="provider.aniwave" type="bool" label="Aniwave" default="true" />
 		<setting id="provider.animix" type="bool" label="Animix" default="true" />
 		<setting id="provider.animixalt" type="bool" subsetting="true" label="Animix Alt" default="false" visible="eq(-1,true)"/>
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />
 		<setting id="provider.gogo" type="bool" label="Gogo" default="true" />
 		<setting id="provider.gogoalt" type="bool" subsetting="true" label="Gogo Alt" default="false" visible="eq(-1,true)"/>
-		<setting id="provider.aniwave" type="bool" label="Aniwave" default="true" />
 
 		<!-- Portugese Sub & Dub Embeds -->
 		<setting type="lsep" label="40506" />
@@ -106,6 +106,25 @@
 		<setting id="provider.aniplay" type="bool" label="Aniplay" default="false" />
 	</category>
 
+	<!-- Embeds -->
+	<category label="40529">
+		<setting id="embed.doodstream" type="bool" label="DoodStream" default="true" />
+		<setting id="embed.filelions" type="bool" label="FileLions" default="true" />
+		<setting id="embed.filemoon" type="bool" label="Filemoon" default="true" />
+		<setting id="embed.iga" type="bool" label="IGA" default="true" />
+		<setting id="embed.kwik" type="bool" label="Kwik" default="true" />
+		<setting id="embed.megacloud" type="bool" label="MegaCloud" default="true" />
+		<setting id="embed.mp4upload" type="bool" label="Mp4upload" default="true" />
+		<setting id="embed.mycloud" type="bool" label="MyCloud" default="true" />
+		<setting id="embed.streamtape" type="bool" label="Streamtape" default="true" />
+		<setting id="embed.streamwish" type="bool" label="StreamWish" default="true" />
+		<setting id="embed.vidcdn" type="bool" label="VidCDN" default="true" />
+		<setting id="embed.vidplay" type="bool" label="Vidplay" default="true" />
+		<setting id="embed.vidstreaming" type="bool" label="VidStreaming" default="false" />
+		<setting id="embed.yourupload" type="bool" label="YourUpload" default="true" />
+		<setting id="embed.zto" type="bool" label="ZTO" default="true" />
+	</category>
+
 	<!-- Playback -->
 	<category label="40307">
 		<!-- General -->
@@ -113,7 +132,7 @@
 		<setting id="general.playstyle.movie" type="enum" label="40308" lvalues="40310|40311" default="0" />
 		<setting id="general.playstyle.episode" type="enum" label="40309" lvalues="40310|40311" default="0" />
 		<setting id="general.autotrynext" type="bool" label="40312" default="true" />
-		<setting id="general.timeout" type="slider" label="40425" option="int" range="1, 60" default="10" />
+		<setting id="general.timeout" type="slider" label="40425" option="int" range="30,30,180" default="30" />
 		<setting id="general.terminate.oncloud" type="bool" label="40496" default="true" />
 
 		<!-- Preferences -->

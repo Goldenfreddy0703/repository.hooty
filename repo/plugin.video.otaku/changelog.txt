@@ -1,3 +1,6 @@
+Changelog 0.4.79[20240212]:
+- fix resolver error due to empty meta
+
 Changelog 0.4.78[20240211]:
 - Added Embeds Category
 - Added options to disable specific embeds

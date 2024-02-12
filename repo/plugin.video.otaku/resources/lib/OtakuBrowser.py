@@ -107,7 +107,7 @@ class OtakuBrowser(BrowserBase):
         show = database.get_show(anilist_id)
         kodi_meta = pickle.loads(show['kodi_meta'])
         show_meta = database.get_show_meta(anilist_id)
-        if show_meta.get('art'):
+        if show_meta and show_meta.get('art'):
             show_art = pickle.loads(show_meta.get('art'))
         else:
             show_art = {}

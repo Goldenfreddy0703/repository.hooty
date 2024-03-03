@@ -11,7 +11,7 @@ from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://aniwatch.to/'
+    _BASE_URL = 'https://aniwatchtv.to/'
     js_file = 'https://megacloud.tv/js/player/a/prod/e1-player.min.js'
 
     def get_sources(self, anilist_id, episode, get_backup):

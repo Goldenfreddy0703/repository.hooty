@@ -11,7 +11,7 @@ from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://aniwatchtv.to/'
+    _BASE_URL = 'https://hianime.to/'
     js_file = 'https://megacloud.tv/js/player/a/prod/e1-player.min.js'
 
     def get_sources(self, anilist_id, episode, get_backup):
@@ -98,7 +98,7 @@ class sources(BrowserBase):
             )
             eres = json.loads(r).get('html')
             for lang in langs:
-                elink = SoupStrainer('div', {'class': re.compile('servers-{0}$'.format(lang))})
+                elink = SoupStrainer('div', {'data-type': lang})
                 sdiv = BeautifulSoup(eres, "html.parser", parse_only=elink)
                 srcs = sdiv.find_all('div', {'class': 'item'})
                 for src in srcs:
@@ -120,7 +120,7 @@ class sources(BrowserBase):
                                 'type': 'embed',
                                 'quality': 'EQ',
                                 'debrid_provider': '',
-                                'provider': 'aniwatch',
+                                'provider': 'h!anime',
                                 'size': 'NA',
                                 'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
                                 'lang': 2 if lang == 'dub' else 0,
@@ -175,7 +175,7 @@ class sources(BrowserBase):
                                     'type': 'direct',
                                     'quality': quality,
                                     'debrid_provider': '',
-                                    'provider': 'aniwatch',
+                                    'provider': 'h!anime',
                                     'size': 'NA',
                                     'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
                                     'lang': 2 if lang == 'dub' else 0,

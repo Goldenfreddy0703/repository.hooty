@@ -60,9 +60,9 @@ OTAKU_FANART_PATH = "%s/fanart.jpg" % ADDON_PATH
 menuItem = xbmcgui.ListItem
 execute = xbmc.executebuiltin
 progressDialog = xbmcgui.DialogProgress()
-ALL_EMBEDS = ['doodstream', 'filelions', 'filemoon', 'iga', 'kwik', 'megacloud',
+ALL_EMBEDS = ['doodstream', 'filelions', 'filemoon', 'iga', 'kwik', 'hd-2',
               'mp4upload', 'mycloud', 'streamtape', 'streamwish', 'vidcdn',
-              'vidplay', 'vidstreaming', 'yourupload', 'zto']
+              'vidplay', 'hd-1', 'yourupload', 'zto']
 playList = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
 player = xbmc.Player
 

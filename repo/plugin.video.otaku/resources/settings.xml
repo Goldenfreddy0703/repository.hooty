@@ -72,8 +72,8 @@
 		<!-- Universal Sub Embeds -->
 		<setting type="lsep" label="40504" />
 		<setting type="sep"/>
-		<setting id="provider.aniwatch" type="bool" label="Aniwatch" default="true" />
-		<setting id="provider.aniwatch_region" type="bool" subsetting="true" label="Region Subtitles (Will Override Subtitle Settings)" default="false" visible="eq(-1,true)" />
+		<setting id="provider.hianime" type="bool" label="H!Anime" default="true" />
+		<setting id="provider.hianime_region" type="bool" subsetting="true" label="Region Subtitles (Will Override Subtitle Settings)" default="false" visible="eq(-1,true)" />
 
 		<!-- English Sub & Dub Embeds -->
 		<setting type="lsep" label="40505" />
@@ -111,16 +111,16 @@
 		<setting id="embed.doodstream" type="bool" label="DoodStream" default="true" />
 		<setting id="embed.filelions" type="bool" label="FileLions" default="true" />
 		<setting id="embed.filemoon" type="bool" label="Filemoon" default="true" />
+		<setting id="embed.hd-1" type="bool" label="HD-1" default="false" />
+		<setting id="embed.hd-2" type="bool" label="HD-2" default="true" />
 		<setting id="embed.iga" type="bool" label="IGA" default="true" />
 		<setting id="embed.kwik" type="bool" label="Kwik" default="true" />
-		<setting id="embed.megacloud" type="bool" label="MegaCloud" default="true" />
 		<setting id="embed.mp4upload" type="bool" label="Mp4upload" default="true" />
 		<setting id="embed.mycloud" type="bool" label="MyCloud" default="true" />
 		<setting id="embed.streamtape" type="bool" label="Streamtape" default="true" />
 		<setting id="embed.streamwish" type="bool" label="StreamWish" default="true" />
 		<setting id="embed.vidcdn" type="bool" label="VidCDN" default="true" />
 		<setting id="embed.vidplay" type="bool" label="Vidplay" default="true" />
-		<setting id="embed.vidstreaming" type="bool" label="VidStreaming" default="false" />
 		<setting id="embed.yourupload" type="bool" label="YourUpload" default="true" />
 		<setting id="embed.zto" type="bool" label="ZTO" default="true" />
 	</category>

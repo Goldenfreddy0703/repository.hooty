@@ -491,7 +491,7 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
     if subs:
         utils.del_subs()
         subtitles = []
-        if control.getSetting('provider.aniwatch_region') == 'false':
+        if control.getSetting('provider.hianime_region') == 'false':
             languages = [
                 "none", "english", "japanese", "spanish", "french", "german",
                 "italian", "dutch", "russian", "portuguese", "korean", "chinese",

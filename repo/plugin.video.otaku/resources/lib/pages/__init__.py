@@ -2,7 +2,7 @@ import threading
 import time
 
 from resources.lib.pages import nyaa, animetosho, animixplay, debrid_cloudfiles, \
-    aniwave, gogoanime, animepahe, aniwatch, animess, animelatino, animecat, aniplay
+    aniwave, gogoanime, animepahe, hianime, animess, animelatino, animecat, aniplay
 from resources.lib.ui import control
 from resources.lib.windows.get_sources_window import GetSources as DisplayWindow
 
@@ -43,7 +43,7 @@ class Sources(DisplayWindow):
         self.cloud_files = []
         self.remainingProviders = [
             'nyaa', 'animetosho', 'aniwave', 'gogo', 'animix',
-            'animepahe', 'aniwatch', 'otakuanimes', 'animelatino',
+            'animepahe', 'h!anime', 'otakuanimes', 'animelatino',
             'nekosama', 'aniplay'
         ]
         self.allTorrents = {}
@@ -76,7 +76,7 @@ class Sources(DisplayWindow):
         self.aniwaveSources = []
         self.animixplaySources = []
         self.animepaheSources = []
-        self.aniwatchSources = []
+        self.hianimeSources = []
         self.animessSources = []
         self.animelatinoSources = []
         self.animecatSources = []
@@ -138,11 +138,11 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('animepahe')
 
-        if control.getSetting('provider.aniwatch') == 'true':
+        if control.getSetting('provider.hianime') == 'true':
             self.threads.append(
-                threading.Thread(target=self.aniwatch_worker, args=(anilist_id, episode, get_backup, rescrape,)))
+                threading.Thread(target=self.hianime_worker, args=(anilist_id, episode, get_backup, rescrape,)))
         else:
-            self.remainingProviders.remove('aniwatch')
+            self.remainingProviders.remove('h!anime')
 
         if control.getSetting('provider.animess') == 'true':
             self.threads.append(
@@ -258,11 +258,11 @@ class Sources(DisplayWindow):
             self.embedSources += self.animepaheSources
         self.remainingProviders.remove('animepahe')
 
-    def aniwatch_worker(self, anilist_id, episode, get_backup, rescrape):
+    def hianime_worker(self, anilist_id, episode, get_backup, rescrape):
         if not rescrape:
-            self.aniwatchSources = aniwatch.sources().get_sources(anilist_id, episode, get_backup)
-            self.embedSources += self.aniwatchSources
-        self.remainingProviders.remove('aniwatch')
+            self.hianimeSources = hianime.sources().get_sources(anilist_id, episode, get_backup)
+            self.embedSources += self.hianimeSources
+        self.remainingProviders.remove('h!anime')
 
     def animess_worker(self, anilist_id, episode, get_backup, rescrape):
         self.animessSources = animess.sources().get_sources(anilist_id, episode, get_backup)

@@ -1,3 +1,6 @@
+Changelog 0.4.85[20240303]:
+- Temporary fix for Aniwatch
+
 Changelog 0.4.84[20240225]:
 - Fixed Animix to ignore special episodes
 

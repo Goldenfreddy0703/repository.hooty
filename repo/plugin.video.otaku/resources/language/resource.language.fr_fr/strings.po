@@ -1095,6 +1095,46 @@ msgctxt "#40530"
 msgid "Disable connection error notifications?"
 msgstr "Désactiver les notifications d'erreur de connexion?"
 
+msgctxt "#40531"
+msgid "Source Filtering by Release Title"
+msgstr "Filtrage des sources par titre de sortie"
+
+msgctxt "#40532"
+msgid "Filter Selection"
+msgstr "Sélection du filtre"
+
+msgctxt "#40533"
+msgid "Release Title Filter 1"
+msgstr "Filtre de titre de sortie 1"
+
+msgctxt "#40534"
+msgid "Release Title Filter 2"
+msgstr "Filtre de titre de sortie 2"
+
+msgctxt "#40535"
+msgid "Release Title Filter 3"
+msgstr "Filtre de titre de sortie 3"
+
+msgctxt "#40536"
+msgid "Release Title Filter 4"
+msgstr "Filtre de titre de sortie 4"
+
+msgctxt "#40537"
+msgid "Release Title Filter 5"
+msgstr "Filtre de titre de sortie 5"
+
+msgctxt "#40538"
+msgid "Filter Logic for Multiple Filters"
+msgstr "Logique de filtre pour plusieurs filtres"
+
+msgctxt "#40539"
+msgid "AND"
+msgstr "ET"
+
+msgctxt "#40540"
+msgid "OR"
+msgstr "OU"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

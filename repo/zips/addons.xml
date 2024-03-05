@@ -263,7 +263,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta24" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta25" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -277,11 +277,8 @@ Changelog 0.0.10:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta24 (2024-03-04)
-- Update ytmusicapi to version `1.5.4`
-- Fix a bug in displaying album information
-- Enable adding and removing of playlists from library
-- Add an experimental feature to display playlists and episodes in search results
+1.0~beta25 (2024-03-05)
+- Quick fix preventing the 'Home' list from failing if it contains sections YTMusicAPI cannot yet parse correctly (such as 'Keep Listening' and 'Your Shows') by filtering out sections with empty or invalid content
     </news>
     <assets>
       <icon>resources/icon.png</icon>

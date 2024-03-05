@@ -1095,6 +1095,46 @@ msgctxt "#40530"
 msgid "Disable connection error notifications?"
 msgstr "تعطيل إشعارات أخطاء الاتصال؟"
 
+msgctxt "#40531"
+msgid "Source Filtering by Release Title"
+msgstr "تصفية المصدر حسب عنوان الإصدار"
+
+msgctxt "#40532"
+msgid "Filter Selection"
+msgstr "تحديد التصفية"
+
+msgctxt "#40533"
+msgid "Release Title Filter 1"
+msgstr "تصفية عنوان الإصدار 1"
+
+msgctxt "#40534"
+msgid "Release Title Filter 2"
+msgstr "تصفية عنوان الإصدار 2"
+
+msgctxt "#40535"
+msgid "Release Title Filter 3"
+msgstr "تصفية عنوان الإصدار 3"
+
+msgctxt "#40536"
+msgid "Release Title Filter 4"
+msgstr "تصفية عنوان الإصدار 4"
+
+msgctxt "#40537"
+msgid "Release Title Filter 5"
+msgstr "تصفية عنوان الإصدار 5"
+
+msgctxt "#40538"
+msgid "Filter Logic for Multiple Filters"
+msgstr "منطق التصفية للتصفيات المتعددة"
+
+msgctxt "#40539"
+msgid "AND"
+msgstr "و"
+
+msgctxt "#40540"
+msgid "OR"
+msgstr "أو"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

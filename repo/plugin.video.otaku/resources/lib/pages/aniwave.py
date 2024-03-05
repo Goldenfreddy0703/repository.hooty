@@ -13,7 +13,7 @@ from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://aniwave.to/'
+    _BASE_URL = 'https://aniwave.vc/' if control.getSetting('provider.aniwavealt') == 'true' else 'https://aniwave.to/'
     EKEY = 'ysJhV6U27FVIjjuk'
     DKEY = 'hlPeNwkncH0fq9so'
     CHAR_SUBST_OFFSETS = (-3, 3, -4, 2, -2, 5, 4, 5)

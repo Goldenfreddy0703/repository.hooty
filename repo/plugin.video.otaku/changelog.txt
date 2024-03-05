@@ -1,3 +1,8 @@
+Changelog 0.4.87[20240305]:
+- Add Feature to filter by release title
+- Gogo Domain Fixes
+- Added Aniwave Alt Setting
+
 Changelog 0.4.86[20240303]:
 - Changed Aniwatch to H!anime
 

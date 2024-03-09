@@ -1135,6 +1135,10 @@ msgctxt "#40540"
 msgid "OR"
 msgstr "OU"
 
+msgctxt "#40541"
+msgid "Replace Anilist Posters with Mal Posters"
+msgstr "Substituir pôsteres do Anilist por pôsteres do Mal"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

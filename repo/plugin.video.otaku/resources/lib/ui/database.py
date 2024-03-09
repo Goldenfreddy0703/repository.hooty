@@ -352,6 +352,22 @@ def get_mapping(anilist_id='', mal_id='', kitsu_id='', tmdb_id=''):
     return mapping
 
 
+def get_mal_picture(anilist_id):
+    control.mappingDB_lock.acquire()
+    conn = db.connect(control.mappingDB, timeout=60.0)
+    conn.row_factory = _dict_factory
+    conn.execute("PRAGMA FOREIGN_KEYS = 1")
+    cursor = conn.cursor()
+    mapping = {}
+    if anilist_id:
+        db_query = 'SELECT mal_picture FROM anime WHERE anilist_id = ?'
+        cursor.execute(db_query, (anilist_id,))
+        mapping = cursor.fetchone()
+        cursor.close()
+    control.try_release_lock(control.mappingDB_lock)
+    return mapping
+
+
 def _update_show(anilist_id, mal_id, kodi_meta, last_updated=''):
     control.anilistSyncDB_lock.acquire()
     cursor = _get_cursor()

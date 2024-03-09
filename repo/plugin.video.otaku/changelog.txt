@@ -1,3 +1,8 @@
+Changelog 0.4.88[20240308]:
+- Added the ability to change Anilist Posters to Mal Posters
+- Added Anidb Database Mappings
+- Added Mal Picture Urls to Database
+
 Changelog 0.4.87[20240305]:
 - Add Feature to filter by release title
 - Gogo Domain Fixes

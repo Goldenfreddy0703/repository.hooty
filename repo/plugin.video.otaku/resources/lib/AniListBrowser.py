@@ -3811,6 +3811,19 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Page']
+
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in json_res['ANIME']:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+
         return json_res
 
     def get_genre_res(self, variables, page=1):
@@ -3907,6 +3920,19 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Page']
+
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in json_res['ANIME']:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+
         return json_res
 
     def get_search_res(self, variables, page=1):
@@ -3999,6 +4025,19 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Page']
+
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in json_res['ANIME']:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+
         return json_res
 
     def get_recommendations_res(self, variables, page=1):
@@ -4085,6 +4124,20 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Media']['recommendations']
+        
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for recommendation in json_res['edges']:
+                    anime = recommendation['node']['mediaRecommendation']
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+
         return json_res
 
     def get_relations_res(self, variables):
@@ -4164,6 +4217,20 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Media']['relations']
+
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for relation in json_res['edges']:
+                    anime = relation['node']
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+            
         return json_res
 
     def get_anilist_res(self, variables):
@@ -4230,7 +4297,6 @@ class AniListBrowser():
             }
         }
         '''
-
         result = client.request(self._URL, post={'query': query, 'variables': variables}, jpost=True)
         results = json.loads(result)
 
@@ -4860,6 +4926,18 @@ class AniListBrowser():
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
 
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in anime_res:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+  
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:
@@ -5043,6 +5121,18 @@ class AniListBrowser():
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
 
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in anime_res:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+  
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:
@@ -5226,6 +5316,18 @@ class AniListBrowser():
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
 
+        if control.getSetting('general.malposters') == 'true':
+            try:
+                for anime in anime_res:
+                    anilist_id = anime['id']
+                    mal_picture = database.get_mal_picture(anilist_id)
+                    if mal_picture and 'mal_picture' in mal_picture:
+                        mal_picture_url = mal_picture['mal_picture']
+                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                        anime['coverImage']['extraLarge'] = mal_picture_url
+            except Exception:
+                pass
+  
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:

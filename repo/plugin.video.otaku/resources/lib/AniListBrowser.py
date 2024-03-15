@@ -1,15 +1,16 @@
 import ast
+import copy
 import datetime
 import itertools
 import json
 import pickle
 import random
-import time
-from functools import partial
-
+import re
 import six
-import copy
+import time
 
+from bs4 import BeautifulSoup
+from functools import partial
 from resources.lib.ui import client, control, database, get_meta, utils
 from resources.lib.ui.divide_flavors import div_flavor
 
@@ -3619,23 +3620,35 @@ class AniListBrowser():
 
         relations = database.get(self.get_relations_res, 4, variables)
         return self._process_relations_view(relations, "find_relations/%d")
-
+    
     def get_watch_order(self, mal_id):
-        from resources.lib.indexers import chiaki
-        chiaki_list = chiaki.get_watch_order_list(mal_id)
+        url = 'https://chiaki.site/?/tools/watch_order/id/{}'.format(mal_id)
+        response = client.request(url)
+        soup = BeautifulSoup(response, 'html.parser')
+
+        # Find the element with the desired information
+        anime_info = soup.find('tr', {'data-id': str(mal_id)})
+
         watch_order_list = []
-        for anime in chiaki_list:
-            variables = anime['url'].split("/")[1:]
-            idmal = int(variables[3])
-            variables = {
-                'idMal': idmal
-            }
+        if anime_info is not None:
+            # Find all 'a' tags in the entire page with href attributes that match the desired URL pattern
+            mal_links = soup.find_all('a', href=re.compile(r'https://myanimelist\.net/anime/\d+'))
 
-            anilist_item = database.get(self.get_anilist_res_with_mal_id, 4, variables)
-            if anilist_item is not None:
-                watch_order_list.append(anilist_item)
+            # Extract the MAL IDs from these tags
+            mal_ids = [re.search(r'\d+', link['href']).group() for link in mal_links]
 
-        return self._process_watch_order_view(watch_order_list, "watch_order/%d")
+            watch_order_list = []
+            for idmal in mal_ids:
+                variables = {
+                    'idMal': int(idmal),
+                    'type': "ANIME"
+                }
+
+                anilist_item = database.get(self.get_anilist_res_with_mal_id, 4, variables)
+                if anilist_item is not None:
+                    watch_order_list.append(anilist_item)
+
+            return self._process_watch_order_view(watch_order_list, "watch_order/%d")
 
     def get_mal_to_anilist(self, mal_id):
         variables = {
@@ -3817,9 +3830,8 @@ class AniListBrowser():
                 for anime in json_res['ANIME']:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -3926,9 +3938,8 @@ class AniListBrowser():
                 for anime in json_res['ANIME']:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4031,9 +4042,8 @@ class AniListBrowser():
                 for anime in json_res['ANIME']:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4131,9 +4141,8 @@ class AniListBrowser():
                     anime = recommendation['node']['mediaRecommendation']
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4224,9 +4233,8 @@ class AniListBrowser():
                     anime = relation['node']
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4931,9 +4939,8 @@ class AniListBrowser():
                 for anime in anime_res:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -5126,9 +5133,8 @@ class AniListBrowser():
                 for anime in anime_res:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -5321,9 +5327,8 @@ class AniListBrowser():
                 for anime in anime_res:
                     anilist_id = anime['id']
                     mal_picture = database.get_mal_picture(anilist_id)
-                    if mal_picture and 'mal_picture' in mal_picture:
-                        mal_picture_url = mal_picture['mal_picture']
-                        mal_picture_url = mal_picture_url.rsplit('.', 1)[0] + 'l.' + mal_picture_url.rsplit('.', 1)[1]
+                    if mal_picture:
+                        mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass

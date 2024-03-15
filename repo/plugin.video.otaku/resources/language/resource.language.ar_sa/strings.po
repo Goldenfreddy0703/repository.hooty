@@ -78,19 +78,19 @@ msgstr "لم يتم توثيق حساب الريل ديبرد الرجاء ال�
 
 msgctxt "#30121"
 msgid "Cloudflare & DDoS-GUARD Solver"
-msgstr ""
+msgstr "حل Cloudflare & DDoS-GUARD"
 
 msgctxt "#30122"
 msgid "Enable FlareSolverr"
-msgstr ""
+msgstr "تمكين FlareSolverr"
 
 msgctxt "#30123"
 msgid "FlareSolverr url"
-msgstr ""
+msgstr "رابط FlareSolverr"
 
 msgctxt "#30124"
 msgid "FlareSolverr Timeout"
-msgstr ""
+msgstr "مهلة FlareSolverr"
 
 ######DATABASE.PY######
 msgctxt "#30200"
@@ -493,7 +493,7 @@ msgstr "لغة العنوان"
 
 msgctxt "#40370"
 msgid "Romaji (Shingeki no Kyojin)"
-msgstr "روماجي (شينجيكي نو كيوجين)"
+msgstr ""
 
 msgctxt "#40371"
 msgid "English (Attack on Titan)"
@@ -501,7 +501,7 @@ msgstr ""
 
 msgctxt "#40372"
 msgid "Inspect Cloud Files on Scrape"
-msgstr ""
+msgstr "فحص ملفات السحابة أثناء الكشط"
 
 msgctxt "#40373"
 msgid "Language Invoker Options"
@@ -837,7 +837,7 @@ msgstr "تحديد أولويات مصادر الدفعة"
 
 msgctxt "#40465"
 msgid "Prioritized Source Sorting & Filtering"
-msgstr ""
+msgstr "ترتيب وتصفية المصادر المفضلة"
 
 msgctxt "#40466"
 msgid "Set Items Per Page"

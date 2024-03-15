@@ -1,7 +1,3 @@
-Important: Search Paths have changed. 
+Exciting News: Tmdb Player Support Returns!
 
-Hey everyone, we recently recoded the search functionality and gave you guys the option to remove a search from your history using the context menu. 
-
-For People who are using Otaku Search Paths for there skin. Please use the update paths in the github pinned issues link.
-
-Sorry for the inconvenience, Thank you 
+Hello everyone, we're thrilled to announce a significant update that addresses numerous issues and reinstates Tmdb Player and Watchlist Context Menu functionality. For more details, please refer to our latest changelog. We hope you enjoy our latest update.

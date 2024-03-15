@@ -1,3 +1,16 @@
+Changelog 0.4.89[20240315]:
+- Recoded and Fixed and Improved Tmdb Player Support
+- Recoded and Fixed the Anime Filter to show updated anime
+- Fixed Watch Order not finding Franchises
+- Fixed Mal Posters due to database problems
+- Added Italian Translations
+- Added Turkish Translations
+- Added German Translations
+- Added IMDB Database Mappings
+- Added Mal Dubs Database Mappings
+- Added TVDB ID and TVDB Season Database Mappings
+- Added Media Type Database Mappings
+
 Changelog 0.4.88[20240308]:
 - Added the ability to change Anilist Posters to Mal Posters
 - Added Anidb Database Mappings

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Last-Translator: Ludovik35\n"
+"Last-Translator: Goldenfreddy0703\n"
 "Language-Team: \n"
-"Language: fr_FR\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,127 +16,127 @@ msgstr ""
 ######MAIN MENU DIRECTORY#######
 msgctxt "#30000"
 msgid "Last Watched: "
-msgstr "Dernier visionnage: "
+msgstr "Zuletzt gesehen:"
 
 ######TOOLS & SEARCH DIRECTORY#######
 msgctxt "#30027"
 msgid "View Changelog"
-msgstr "Voir l'historique des modifications"
+msgstr "Änderungsprotokoll anzeigen"
 
 msgctxt "#30020"
 msgid "Open Settings Menu"
-msgstr "Ouvrir le menu des paramètres"
+msgstr "Einstellungsmenü öffnen"
 
 msgctxt "#30021"
 msgid "Clear Cache"
-msgstr "Vider le cache"
+msgstr "Cache löschen"
 
 msgctxt "#30022"
 msgid "Clear Local Torrent Cache"
-msgstr "Effacer le cache local des torrents"
+msgstr "Lokalen Torrent-Cache löschen"
 
 msgctxt "#30023"
 msgid "Clear Search History"
-msgstr "Effacer l'historique des recherches"
+msgstr "Suchverlauf löschen"
 
 msgctxt "#30024"
 msgid "Wipe Addon Data"
-msgstr "Effacer les données de l'extension"
+msgstr "Addon-Daten löschen"
 
 msgctxt "#30025"
 msgid "This will completely clear your addon settings. Are you sure you want to do this?"
-msgstr "Cela effacera complètement les paramètres de votre extension. Êtes-vous sûr de vouloir faire cela ?"
+msgstr "Dies löscht alle Addon-Einstellungen vollständig. Sind Sie sicher, dass Sie dies tun möchten?"
 
 msgctxt "#30026"
 msgid "Rebuild Database"
-msgstr "Reconstruction de la base de données"
+msgstr "Datenbank neu erstellen"
 
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"
 msgid "Open this link in a browser: {}"
-msgstr "Ouvrir ce lien dans un navigateur : {}"
+msgstr "Öffnen Sie diesen Link in einem Browser: {}"
 
 msgctxt "#30101"
 msgid "Enter the code: {}"
-msgstr "Entrez le code : {}"
+msgstr "Geben Sie den Code ein: {}"
 
 msgctxt "#30102"
 msgid "This code has been copied to your clipboard"
-msgstr "Ce code a été copié dans votre presse-papiers"
+msgstr "Dieser Code wurde in die Zwischenablage kopiert"
 
 msgctxt "#30103"
 msgid "Authentication is completed"
-msgstr "L'authentification est terminée"
+msgstr "Die Authentifizierung ist abgeschlossen"
 
 msgctxt "#30104"
 msgid "Please Note\nYou appear to have authorized a non-premium account and will not be able to play items using this account"
-msgstr "Veuillez noter\nVous semblez avoir autorisé un compte non premium et vous ne pourrez pas lire les éléments avec ce compte"
+msgstr "Bitte beachten Sie\nSie haben anscheinend ein nicht-premium Konto autorisiert und können mit diesem Konto keine Elemente abspielen"
 
 msgctxt "#30105"
 msgid "Authentication with Real-Debrid has failed, please try again"
-msgstr "L'authentification avec Real-Debrid a échoué, veuillez réessayer"
+msgstr "Die Authentifizierung mit Real-Debrid ist fehlgeschlagen, bitte versuchen Sie es erneut"
 
 msgctxt "#30121"
 msgid "Cloudflare & DDoS-GUARD Solver"
-msgstr "Résolveur Cloudflare & DDoS-GUARD"
+msgstr "Cloudflare & DDoS-GUARD Solver"
 
 msgctxt "#30122"
 msgid "Enable FlareSolverr"
-msgstr "Activer FlareSolverr"
+msgstr "FlareSolverr aktivieren"
 
 msgctxt "#30123"
 msgid "FlareSolverr url"
-msgstr "URL FlareSolverr"
+msgstr "FlareSolverr-URL"
 
 msgctxt "#30124"
 msgid "FlareSolverr Timeout"
-msgstr "Délai d'attente FlareSolverr"
+msgstr "FlareSolverr-Timeout"
 
-# #####DATABASE.PY######
+######DATABASE.PY######
 msgctxt "#30200"
 msgid "Cache"
 msgstr "Cache"
 
 msgctxt "#30201"
 msgid "All Cache Successfully Cleared"
-msgstr "Tous les caches ont été vidés avec succès"
+msgstr "Alle Caches erfolgreich gelöscht"
 
 msgctxt "#30202"
 msgid "Local Result Cache Successfully Cleared"
-msgstr "Le cache des résultats locaux a été vidé avec succès"
+msgstr "Lokaler Ergebnis-Cache erfolgreich gelöscht"
 
 msgctxt "#30203"
 msgid "[COLOR red]WARNING[/COLOR]\nThis will reset all meta information, are you sure?"
-msgstr "[COLOR red]ATTENTION[/COLOR]\nCela réinitialisera toutes les métadonnées. Êtes-vous sûr ?"
+msgstr "[COLOR red]WARNUNG[/COLOR]\nDies setzt alle Metainformationen zurück, sind Sie sicher?"
 
 msgctxt "#30204"
 msgid "Database"
-msgstr "Base de données"
+msgstr "Datenbank"
 
 msgctxt "#30205"
 msgid "Metadata Database Successfully Cleared"
-msgstr "La base de données des métadonnées a été effacée avec succès"
+msgstr "Metadaten-Datenbank erfolgreich gelöscht"
 
-# #####SKINS DIRECTORY######
+######SKINS DIRECTORY######
 msgctxt "#40100"
 msgid "[B]Open this link in a browser: [COLOR deepskyblue]https://armkai.vercel.app/api/mal[/COLOR][/B]"
-msgstr "[B]Ouvrez ce lien dans un navigateur : [COLOR deepskyblue]https://armkai.vercel.app/api/mal[/COLOR][/B]"
+msgstr "[B]Öffnen Sie diesen Link in einem Browser: [COLOR deepskyblue]https://armkai.vercel.app/api/mal[/COLOR][/B]"
 
 msgctxt "#40101"
 msgid "[B]After authorizing, MAL will redirect to its homepage. Copy & paste the redirect url (e.g. url [COLOR deepskyblue]https://myanimelist.net/?code=...[/COLOR]) below.[/B]"
-msgstr "[B]Après autorisation, MAL vous redirigera vers sa page d'accueil. Copiez et collez l'url de redirection (par exemple l'url [COLOR deepskyblue]https://myanimelist.net/?code=...[/COLOR]) ci-dessous.[/B]"
+msgstr "[B]Nach der Autorisierung wird MAL auf seine Homepage umgeleitet. Kopieren und fügen Sie die Weiterleitungs-URL (z.B. URL [COLOR deepskyblue]https://myanimelist.net/?code=...[/COLOR]) unten ein.[/B]"
 
 msgctxt "#40105"
 msgid "[B]Open this link in a browser: [COLOR deepskyblue]https://armkai.vercel.app/api/anilist[/COLOR][/B]"
-msgstr "[B]Ouvrez ce lien dans un navigateur : [COLOR deepskyblue]https://armkai.vercel.app/api/anilist[/COLOR][/B]"
+msgstr "[B]Öffnen Sie diesen Link in einem Browser: [COLOR deepskyblue]https://armkai.vercel.app/api/anilist[/COLOR][/B]"
 
 msgctxt "#40106"
 msgid "[B]After authorizing, copy & paste the token below.[/B]"
-msgstr "[B]Après autorisation, copiez et collez le jeton ci-dessous[/B]"
+msgstr "[B]Nach der Autorisierung kopieren und fügen Sie den Token unten ein.[/B]"
 
 msgctxt "#40110"
 msgid "[B]*Note: If using addon on Amazon Fire TV Stick/Android TV Box, you can copy & paste text using a Kodi remote app like [COLOR limegreen]Kore[/COLOR] or [COLOR limegreen]Yatse[/COLOR][/B]"
-msgstr "[B]*Note : Si vous utilisez l'addon sur Amazon Fire TV Stick/Android TV Box, vous pouvez copier et coller le texte en utilisant une application de télécommande Kodi comme [COLOR limegreen]Kore[/COLOR] ou [COLOR limegreen]Yatse[/COLOR][/B]"
+msgstr "[B]*Hinweis: Wenn Sie das Addon auf einem Amazon Fire TV Stick/Android TV Box verwenden, können Sie Text mit einer Kodi-Fernbedienungs-App wie [COLOR limegreen]Kore[/COLOR] oder [COLOR limegreen]Yatse[/COLOR] kopieren und einfügen[/B]"
 
 msgctxt "#40221"
 msgid "Torrents"
@@ -144,31 +144,31 @@ msgstr "Torrents"
 
 msgctxt "#40222"
 msgid "Cached"
-msgstr "En cache"
+msgstr "Gecached"
 
 msgctxt "#40223"
 msgid "Embeds"
-msgstr "Incorporés"
+msgstr "Einbettungen"
 
 msgctxt "#40224"
 msgid "Cloudfiles"
-msgstr "Fichiers en ligne"
+msgstr "Cloud-Dateien"
 
 msgctxt "#40225"
 msgid "Remaining providers"
-msgstr "Fournisseurs restants"
+msgstr "Verbleibende Anbieter"
 
 msgctxt "#40226"
 msgid "Provider"
-msgstr "Fournisseur"
+msgstr "Anbieter"
 
 msgctxt "#40227"
 msgid "Source"
-msgstr "Source"
+msgstr "Quelle"
 
 msgctxt "#40228"
 msgid "Resolution"
-msgstr "Résolution"
+msgstr "Auflösung"
 
 msgctxt "#40229"
 msgid "Info"
@@ -176,128 +176,128 @@ msgstr "Info"
 
 msgctxt "#40230"
 msgid "Year"
-msgstr "Année"
+msgstr "Jahr"
 
 msgctxt "#40231"
 msgid "Rating"
-msgstr "Évaluation"
+msgstr "Bewertung"
 
 msgctxt "#40232"
 msgid "Aired"
-msgstr "Diffusé"
+msgstr "Ausgestrahlt"
 
 msgctxt "#40233"
 msgid "Debrid"
-msgstr "Débridement"
+msgstr "Debrid"
 
 msgctxt "#40234"
 msgid "Size"
-msgstr "Taille"
+msgstr "Größe"
 
 msgctxt "#40235"
 msgid "Provider"
-msgstr "Fournisseur"
+msgstr "Anbieter"
 
 msgctxt "#40236"
 msgid "Source type"
-msgstr "Type de source"
+msgstr "Quellentyp"
 
 msgctxt "#40237"
 msgid "Resolution"
-msgstr "Résolution"
+msgstr "Auflösung"
 
 msgctxt "#40238"
 msgid "Info"
-msgstr "Informations"
+msgstr "Info"
 
-# #####SETTINGS.XML VALUES######
+######SETTINGS.XML VALUES######
 msgctxt "#40300"
 msgid "General"
-msgstr "Général"
+msgstr "Allgemein"
 
 msgctxt "#40301"
 msgid "Enable search history"
-msgstr "Activer l'historique des recherches"
+msgstr "Suchverlauf aktivieren"
 
 msgctxt "#40302"
 msgid "Content Customization"
-msgstr "Personnalisation du contenu"
+msgstr "Inhaltsanpassung"
 
 msgctxt "#40303"
 msgid "Set view types"
-msgstr "Définir les types de vue"
+msgstr "Ansichtstypen festlegen"
 
 msgctxt "#40304"
 msgid "Menu view type"
-msgstr "Type d'affichage du menu"
+msgstr "Menü-Ansichtstyp"
 
 msgctxt "#40305"
 msgid "addons"
-msgstr "extension"
+msgstr "Addons"
 
 msgctxt "#40306"
 msgid "tvshows"
-msgstr "séries TV"
+msgstr "TV-Serien"
 
 msgctxt "#40307"
 msgid "Playback"
-msgstr "Lecture"
+msgstr "Wiedergabe"
 
 msgctxt "#40308"
 msgid "Movie Play Style"
-msgstr "Style de jeu du film"
+msgstr "Film-Wiedergabestil"
 
 msgctxt "#40309"
 msgid "Episode Play Style"
-msgstr "Style de jeu de l'épisode"
+msgstr "Episoden-Wiedergabestil"
 
 msgctxt "#40310"
 msgid "Auto Play"
-msgstr "Lecture automatique"
+msgstr "Automatische Wiedergabe"
 
 msgctxt "#40311"
 msgid "Source Select"
-msgstr "Sélection de la source"
+msgstr "Quellenauswahl"
 
 msgctxt "#40312"
 msgid "Auto try next link on resolve failure (Source Select)"
-msgstr "Essai automatique du lien suivant en cas d'échec de la résolution (Sélection de la source)"
+msgstr "Automatisch den nächsten Link versuchen, wenn die Auflösung fehlschlägt (Quellenauswahl)"
 
 msgctxt "#40313"
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Einstellungen"
 
 msgctxt "#40314"
 msgid "Preferred Audio Playback (Dual Audio)"
-msgstr "Lecture audio préférée (Dual Audio)"
+msgstr "Bevorzugte Audiowiedergabe (Dual-Audio)"
 
 msgctxt "#40315"
 msgid "Japanese"
-msgstr "Japonais"
+msgstr "Japanisch"
 
 msgctxt "#40316"
 msgid "English"
-msgstr "Anglais"
+msgstr "Englisch"
 
 msgctxt "#40317"
 msgid "Playing Next Dialog"
-msgstr "Boite de dialogue Lecture suivante"
+msgstr "Dialog für die nächste Wiedergabe"
 
 msgctxt "#40318"
 msgid "Enable Playing Next Dialog"
-msgstr "Activer la boite de dialogue lecture suivante"
+msgstr "Dialog für die nächste Wiedergabe aktivieren"
 
 msgctxt "#40319"
 msgid "Minimum Seconds Left Before Showing Dialog"
-msgstr "Nombre minimum de secondes restantes avant l'affichage de la boîte de dialogue"
+msgstr "Mindestanzahl an Sekunden, bevor der Dialog angezeigt wird"
 
 msgctxt "#40320"
 msgid "Default Action if Nothing Selected"
-msgstr "Action par défaut si rien n'est sélectionné"
+msgstr "Standardaktion, wenn nichts ausgewählt ist"
 
 msgctxt "#40321"
 msgid "Play"
-msgstr "Lecture"
+msgstr "Abspielen"
 
 msgctxt "#40322"
 msgid "Pause"
@@ -305,51 +305,51 @@ msgstr "Pause"
 
 msgctxt "#40323"
 msgid "Skip Intro Dialog"
-msgstr "Boite de dialogue Sauter intro"
+msgstr "Intro-Dialog überspringen"
 
 msgctxt "#40324"
 msgid "Enable Skip Intro Dialog"
-msgstr "Activer la boite de dialogue Sauter intro"
+msgstr "Intro-Dialog überspringen aktivieren"
 
 msgctxt "#40325"
 msgid "Seconds to skip"
-msgstr "Secondes à sauter"
+msgstr "Sekunden zum Überspringen"
 
 msgctxt "#40326"
 msgid "Sort & Filter"
-msgstr "Trier et filtrer"
+msgstr "Sortieren und Filtern"
 
 msgctxt "#40327"
 msgid "Source Filters"
-msgstr "Filtres de source"
+msgstr "Quellenfilter"
 
 msgctxt "#40328"
 msgid "Max Resolution"
-msgstr "Résolution maximale"
+msgstr "Maximale Auflösung"
 
 msgctxt "#40329"
 msgid "Hide HEVC Items"
-msgstr "Masquer les éléments HEVC"
+msgstr "HEVC-Elemente ausblenden"
 
 msgctxt "#40330"
 msgid "Preferred Source Type"
-msgstr "Type de source préférée"
+msgstr "Bevorzugter Quellentyp"
 
 msgctxt "#40331"
 msgid "Sort Sourcing"
-msgstr "Trier les sources d'approvisionnement"
+msgstr "Quellen sortieren"
 
 msgctxt "#40332"
 msgid "Sort Sources Method"
-msgstr "Méthode de tri des sources"
+msgstr "Sortiermethode für Quellen"
 
 msgctxt "#40333"
 msgid "Teritary Sort Preferences"
-msgstr "Préférences en matière de triage tertiaire"
+msgstr "Teritiäre Sortierungseinstellungen"
 
 msgctxt "#40334"
 msgid "Accounts"
-msgstr "Comptes"
+msgstr "Konten"
 
 msgctxt "#40335"
 msgid "Real-Debrid"
@@ -357,19 +357,19 @@ msgstr "Real-Debrid"
 
 msgctxt "#40336"
 msgid "Enable Real-Debrid..."
-msgstr "Activer Real-Debrid..."
+msgstr "Real-Debrid aktivieren..."
 
 msgctxt "#40337"
 msgid "Real-Debrid Username"
-msgstr "Nom d'utilisateur Real-Debrid"
+msgstr "Real-Debrid Benutzername"
 
 msgctxt "#40338"
 msgid "Authorize Real-Debrid..."
-msgstr "Authentification Real-Debrid..."
+msgstr "Real-Debrid autorisieren..."
 
 msgctxt "#40339"
 msgid "Real-Debrid Priority"
-msgstr "Priorité à la débridation réelle"
+msgstr "Real-Debrid Priorität"
 
 msgctxt "#40340"
 msgid "AllDebrid"
@@ -377,31 +377,31 @@ msgstr "AllDebrid"
 
 msgctxt "#40341"
 msgid "Enable AllDebrid..."
-msgstr "Activer AllDebrid..."
+msgstr "AllDebrid aktivieren..."
 
 msgctxt "#40342"
 msgid "AllDebrid Username"
-msgstr "AllDebrid Nom d'utilisateur"
+msgstr "AllDebrid Benutzername"
 
 msgctxt "#40343"
 msgid "Authorize AllDebrid..."
-msgstr "Authentification AllDebrid..."
+msgstr "AllDebrid autorisieren..."
 
 msgctxt "#40344"
 msgid "All-Debrid Priority"
-msgstr "Priorité à l'ensemble des débris"
+msgstr "All-Debrid Priorität"
 
 msgctxt "#40345"
 msgid "Watchlist"
-msgstr "Liste de suivi"
+msgstr "Beobachtungsliste"
 
 msgctxt "#40346"
 msgid "Update Watchlist"
-msgstr "Mise à jour de la liste de surveillance"
+msgstr "Beobachtungsliste aktualisieren"
 
 msgctxt "#40347"
 msgid "Watchlist to update"
-msgstr "Liste de surveillance à mettre à jour"
+msgstr "Zu aktualisierende Beobachtungsliste"
 
 msgctxt "#40348"
 msgid "AniList"
@@ -409,11 +409,11 @@ msgstr "AniList"
 
 msgctxt "#40349"
 msgid "Enable AniList"
-msgstr "Activer AniList"
+msgstr "AniList aktivieren"
 
 msgctxt "#40350"
 msgid "Username:"
-msgstr "Identifiant :"
+msgstr "Benutzername:"
 
 msgctxt "#40351"
 msgid "Token:"
@@ -421,15 +421,15 @@ msgstr "Token:"
 
 msgctxt "#40352"
 msgid "Click to Authorize..."
-msgstr "Cliquez pour vous authentifier..."
+msgstr "Klicken Sie hier, um zu autorisieren..."
 
 msgctxt "#40353"
 msgid "List settings..."
-msgstr "Liste des paramètres..."
+msgstr "Listeneinstellungen..."
 
 msgctxt "#40354"
 msgid "Sort by:"
-msgstr "Trier par:"
+msgstr "Sortieren nach:"
 
 msgctxt "#40355"
 msgid "Kitsu"
@@ -437,23 +437,23 @@ msgstr "Kitsu"
 
 msgctxt "#40356"
 msgid "Enable Kitsu"
-msgstr "Activer Kitsu"
+msgstr "Kitsu aktivieren"
 
 msgctxt "#40357"
 msgid "Email:"
-msgstr "Email :"
+msgstr "E-Mail:"
 
 msgctxt "#40358"
 msgid "Password:"
-msgstr "Mot de passe :"
+msgstr "Passwort:"
 
 msgctxt "#40359"
 msgid "Click to Login..."
-msgstr "Cliquez pour vous connecter..."
+msgstr "Klicken Sie hier, um sich anzumelden..."
 
 msgctxt "#40360"
 msgid "How titles will be displayed:"
-msgstr "Comment les titres seront affichés :"
+msgstr "Wie Titel angezeigt werden:"
 
 msgctxt "#40361"
 msgid "MyAnimeList"
@@ -461,7 +461,7 @@ msgstr "MyAnimeList"
 
 msgctxt "#40362"
 msgid "Enable MyAnimeList"
-msgstr "Activer MyAnimeList"
+msgstr "MyAnimeList aktivieren"
 
 msgctxt "#40363"
 msgid "Premiumize"
@@ -469,27 +469,27 @@ msgstr "Premiumize"
 
 msgctxt "#40364"
 msgid "Enable Premiumize..."
-msgstr "Activer Premiumize..."
+msgstr "Premiumize aktivieren..."
 
 msgctxt "#40365"
 msgid "Premiumize Username"
-msgstr "Premiumize Nom d'utilisateur"
+msgstr "Premiumize Benutzername"
 
 msgctxt "#40366"
 msgid "Authorize Premiumize..."
-msgstr "Authentification Premiumiser..."
+msgstr "Premiumize autorisieren..."
 
 msgctxt "#40367"
 msgid "Premiumize Priority"
-msgstr "Priorité de Premiumize"
+msgstr "Premiumize Priorität"
 
 msgctxt "#40368"
 msgid "episodes"
-msgstr "épisodes"
+msgstr "Episoden"
 
 msgctxt "#40369"
 msgid "Title Language"
-msgstr "Langue du titre"
+msgstr "Titelsprache"
 
 msgctxt "#40370"
 msgid "Romaji (Shingeki no Kyojin)"
@@ -501,83 +501,83 @@ msgstr ""
 
 msgctxt "#40372"
 msgid "Inspect Cloud Files on Scrape"
-msgstr "Inspecter les fichiers en ligne sur Scrape"
+msgstr "Cloud-Dateien bei Scrape überprüfen"
 
 msgctxt "#40373"
 msgid "Language Invoker Options"
-msgstr "Options de l'invocateur de langue"
+msgstr "Sprachaufrufoptionen"
 
 msgctxt "#40374"
 msgid "Re-Use Language Invoker Status"
-msgstr "Réutilisation du statut de l'invocateur de langue"
+msgstr "Sprachaufrufstatus wiederverwenden"
 
 msgctxt "#40375"
 msgid "Toggle Re-Use Language Invoker"
-msgstr "Basculer Réutilisation du statut de l'invocateur de langue"
+msgstr "Sprachaufruf umschalten"
 
 msgctxt "#40376"
 msgid "Auto close dialog"
-msgstr "Fermeture automatique de la boîte de dialogue"
+msgstr "Dialog automatisch schließen"
 
 msgctxt "#40377"
 msgid "Seconds before closing"
-msgstr "Secondes avant la fermeture"
+msgstr "Sekunden vor dem Schließen"
 
 msgctxt "#40378"
 msgid "Enable Gogo Scraping"
-msgstr "Activer Gogo Scraping"
+msgstr "Gogo Scraping aktivieren"
 
 msgctxt "#40379"
 msgid "Enable Source Scraping"
-msgstr "Activer le Source Scraping"
+msgstr "Quell-Scraping aktivieren"
 
 msgctxt "#40380"
 msgid "Enable Season Parsing (Disable if Performance Issues)"
-msgstr "Activer l'analyse des saisons (désactiver en cas de problèmes de performance)"
+msgstr "Staffel-Analyse aktivieren (bei Leistungsproblemen deaktivieren)"
 
 msgctxt "#40381"
 msgid "Enable Season Part Scraping"
-msgstr "Activer la récupération des pièces de saison"
+msgstr "Staffelteil-Scraping aktivieren"
 
 msgctxt "#40382"
 msgid "Manual Watchlist Update"
-msgstr "Mise à jour manuelle de la liste de suivi"
+msgstr "Manuelles Aktualisieren der Beobachtungsliste"
 
 msgctxt "#40383"
 msgid "seconds"
-msgstr "secondes"
+msgstr "Sekunden"
 
 msgctxt "#40384"
 msgid "Playing in"
-msgstr "Lecture en cours"
+msgstr "Wiedergabe in"
 
 msgctxt "#40385"
 msgid "Next Up"
-msgstr "Prochain"
+msgstr "Als nächstes"
 
 msgctxt "#40386"
 msgid "Play now"
-msgstr "Lire maintenant"
+msgstr "Jetzt abspielen"
 
 msgctxt "#40387"
 msgid "Search Subs For Language Other Than English"
-msgstr "Rechercher des sous-titres pour une langue autre que l'anglais"
+msgstr "Untertitel in anderen Sprachen als Englisch suchen"
 
 msgctxt "#40388"
 msgid "Icon Theme"
-msgstr "Thème de l’icône"
+msgstr "Symbolthema"
 
 msgctxt "#40389"
 msgid "Coloured"
-msgstr "Coloré"
+msgstr "Farbig"
 
 msgctxt "#40390"
 msgid "White"
-msgstr "Blanc"
+msgstr "Weiß"
 
 msgctxt "#40391"
 msgid "Set Content Format"
-msgstr "Définir le format du contenu"
+msgstr "Inhaltsformat festlegen"
 
 msgctxt "#40392"
 msgid "Format"
@@ -593,11 +593,11 @@ msgstr "FILM"
 
 msgctxt "#40395"
 msgid "TV_SHORT"
-msgstr "TV_SHORT"
+msgstr "TV-KURZ"
 
 msgctxt "#40396"
 msgid "SPECIAL"
-msgstr "SPÉCIAL"
+msgstr "SPEZIAL"
 
 msgctxt "#40397"
 msgid "OVA"
@@ -609,15 +609,15 @@ msgstr "ONA"
 
 msgctxt "#40399"
 msgid "MUSIC"
-msgstr "MUSIQUE"
+msgstr "MUSIK"
 
 msgctxt "#40409"
 msgid "Search Filter"
-msgstr "Filtre de recherche"
+msgstr "Suchfilter"
 
 msgctxt "#40410"
 msgid "Enable searching mature titles only"
-msgstr "Permettre la recherche de titres adultes uniquement"
+msgstr "Nur nach Titeln für Erwachsene suchen"
 
 msgctxt "#40411"
 msgid "Debrid-Link"
@@ -625,47 +625,47 @@ msgstr "Debrid-Link"
 
 msgctxt "#40412"
 msgid "Enable Debrid-Link..."
-msgstr "Activer Debrid-Link..."
+msgstr "Debrid-Link aktivieren..."
 
 msgctxt "#40413"
 msgid "Debrid-Link Username"
-msgstr "Debrid-Link Nom d'utilisateur"
+msgstr "Debrid-Link Benutzername"
 
 msgctxt "#40414"
 msgid "Authorize Debrid-Link..."
-msgstr "Authentification Debrid-Link..."
+msgstr "Debrid-Link autorisieren..."
 
 msgctxt "#40415"
 msgid "Debrid-Link Priority"
-msgstr "Priorité au débridage et à la liaison"
+msgstr "Debrid-Link Priorität"
 
 msgctxt "#40416"
 msgid "Maintenance"
-msgstr "Maintenance"
+msgstr "Wartung"
 
 msgctxt "#40417"
 msgid "Hide Sub Sources"
-msgstr "Cacher les sources de sous-titre"
+msgstr "Untertitelquellen ausblenden"
 
 msgctxt "#40418"
 msgid "Set Country Of Origin"
-msgstr "Set Pays d'origine"
+msgstr "Herkunftsland festlegen"
 
 msgctxt "#40419"
 msgid "Country"
-msgstr "Pays"
+msgstr "Land"
 
 msgctxt "#40420"
 msgid "Japan"
-msgstr "Japon"
+msgstr "Japan"
 
 msgctxt "#40421"
 msgid "South Korea"
-msgstr "Corée du Sud"
+msgstr "Südkorea"
 
 msgctxt "#40422"
 msgid "China"
-msgstr "Chine"
+msgstr "China"
 
 msgctxt "#40423"
 msgid "Taiwan"
@@ -673,99 +673,99 @@ msgstr "Taiwan"
 
 msgctxt "#40424"
 msgid "Set Delay in Seconds Before Showing Dialog"
-msgstr "Définir le délai en secondes avant l'affichage de la boîte de dialogue"
+msgstr "Verzögerung in Sekunden vor dem Anzeigen des Dialogs festlegen"
 
 msgctxt "#40425"
 msgid "Timeout for finding sources (seconds)"
-msgstr "Délai de recherche des sources (secondes)"
+msgstr "Timeout für das Suchen von Quellen (Sekunden)"
 
 msgctxt "#40426"
 msgid "Show Changelog every update"
-msgstr "Afficher le journal des modifications à chaque mise à jour"
+msgstr "Changelog bei jedem Update anzeigen"
 
 msgctxt "#40427"
 msgid "Enable Automatic Subtitles for Dub Streams"
-msgstr "Activer les sous-titres automatiques pour les flux de doublage"
+msgstr "Automatische Untertitel für Dub-Streams aktivieren"
 
 msgctxt "#40428"
 msgid "Set Anime Filter"
-msgstr "Définir le filtre d'animation"
+msgstr "Anime-Filter festlegen"
 
 msgctxt "#40429"
 msgid "Filter"
-msgstr "Filtre"
+msgstr "Filter"
 
 msgctxt "#40430"
 msgid "Duration of how long the Dialog will appear"
-msgstr "Durée d'affichage de la boîte de dialogue"
+msgstr "Dauer, wie lange der Dialog angezeigt wird"
 
 msgctxt "#40431"
 msgid "Enable Aniskip [COLOR yellow]BETA[/COLOR]"
-msgstr "Activer Aniskip [COLOR yellow]BETA[/COLOR]"
+msgstr "Aniskip aktivieren [COLOR yellow]BETA[/COLOR]"
 
 msgctxt "#40432"
 msgid "Offset for Aniskip (seconds)"
-msgstr "Décalage pour Aniskip (secondes)"
+msgstr "Offset für Aniskip (Sekunden)"
 
 msgctxt "#40433"
 msgid "Disable Scraping Screen Fanart"
-msgstr "Désactiver l'écran de récupération de Fanart"
+msgstr "Scraping von Fanart auf dem Bildschirm deaktivieren"
 
 msgctxt "#40434"
 msgid "Disable Scraping Screen Clearlogo"
-msgstr "Désactiver l'écran de récupération de Clearlogo"
+msgstr "Scraping von Clearlogo auf dem Bildschirm deaktivieren"
 
 msgctxt "#40435"
 msgid "Preferred Subtitle Language"
-msgstr "Langue de sous-titrage préférée"
+msgstr "Bevorzugte Untertitelsprache"
 
 msgctxt "#40436"
 msgid "English"
-msgstr "Anglais"
+msgstr "Englisch"
 
 msgctxt "#40437"
 msgid "Japanese"
-msgstr "Japonais"
+msgstr "Japanisch"
 
 msgctxt "#40438"
 msgid "Spanish"
-msgstr "Espagnol"
+msgstr "Spanisch"
 
 msgctxt "#40439"
 msgid "French"
-msgstr "Français"
+msgstr "Französisch"
 
 msgctxt "#40440"
 msgid "German"
-msgstr "Allemand"
+msgstr "Deutsch"
 
 msgctxt "#40441"
 msgid "Italian"
-msgstr "Italien"
+msgstr "Italienisch"
 
 msgctxt "#40442"
 msgid "Dutch"
-msgstr "Néerlandais"
+msgstr "Niederländisch"
 
 msgctxt "#40443"
 msgid "Russian"
-msgstr "Russe"
+msgstr "Russisch"
 
 msgctxt "#40444"
 msgid "Portuguese"
-msgstr "Portugais"
+msgstr "Portugiesisch"
 
 msgctxt "#40445"
 msgid "Korean"
-msgstr "Coréen"
+msgstr "Koreanisch"
 
 msgctxt "#40446"
 msgid "Chinese"
-msgstr "Chinois"
+msgstr "Chinesisch"
 
 msgctxt "#40447"
 msgid "Arabic"
-msgstr "Arabe"
+msgstr "Arabisch"
 
 msgctxt "#40448"
 msgid "Hindi"
@@ -773,35 +773,35 @@ msgstr "Hindi"
 
 msgctxt "#40449"
 msgid "Turkish"
-msgstr "Turc"
+msgstr "Türkisch"
 
 msgctxt "#40450"
 msgid "Polish"
-msgstr "Polonais"
+msgstr "Polnisch"
 
 msgctxt "#40451"
 msgid "Swedish"
-msgstr "Suédois"
+msgstr "Schwedisch"
 
 msgctxt "#40452"
 msgid "Norwegian"
-msgstr "Norvégien"
+msgstr "Norwegisch"
 
 msgctxt "#40453"
 msgid "Danish"
-msgstr "Danois"
+msgstr "Dänisch"
 
 msgctxt "#40454"
 msgid "Finnish"
-msgstr "Finnois"
+msgstr "Finnisch"
 
 msgctxt "#40455"
 msgid "Dialog Theme (Use only if you're on the skin)"
-msgstr "Thème de la boîte de dialogue (à n'utiliser que si vous êtes sur l'habillage)"
+msgstr "Dialogthema (nur verwenden, wenn Sie das Skin verwenden)"
 
 msgctxt "#40456"
 msgid "Default"
-msgstr "Par défaut"
+msgstr "Standard"
 
 msgctxt "#40457"
 msgid "Arctic Horizon 2"
@@ -813,207 +813,207 @@ msgstr "AuraMod"
 
 msgctxt "#40459"
 msgid "Preferred Playlist Size"
-msgstr "Taille préférée de la liste de lecture"
+msgstr "Bevorzugte Wiedergabelisten-Größe"
 
 msgctxt "#40460"
 msgid "Enable Automatic Outro Skip"
-msgstr "Activer le saut automatique de l'outro"
+msgstr "Automatisches Überspringen des Outros aktivieren"
 
 msgctxt "#40461"
 msgid "Enable Automatic Intro Skip"
-msgstr "Activer le saut automatique de l'intro"
+msgstr "Automatisches Überspringen des Intros aktivieren"
 
 msgctxt "#40462"
 msgid "Prioritize Dual-Audio Sources"
-msgstr "Prioriser les sources Dual-Audio"
+msgstr "Dual-Audio-Quellen priorisieren"
 
 msgctxt "#40463"
 msgid "Prioritize Multisubs Sources"
-msgstr "Prioriser les sources Multi-sous-titres"
+msgstr "Multisubs-Quellen priorisieren"
 
 msgctxt "#40464"
 msgid "Prioritize Batch Sources"
-msgstr "Prioriser les sources de lots"
+msgstr "Batch-Quellen priorisieren"
 
 msgctxt "#40465"
 msgid "Prioritized Source Sorting & Filtering"
-msgstr "Tri et filtrage des sources prioritaires"
+msgstr "Priorisierte Quellensortierung und -filterung"
 
 msgctxt "#40466"
 msgid "Set Items Per Page"
-msgstr "Définir les éléments par page"
+msgstr "Anzahl der Elemente pro Seite festlegen"
 
 msgctxt "#40467"
 msgid "Items"
-msgstr "Eléments"
+msgstr "Elemente"
 
 msgctxt "#40468"
 msgid "Prioritize By Season"
-msgstr "Prioriser par saison"
+msgstr "Nach Staffel priorisieren"
 
 msgctxt "#40469"
 msgid "Season Number"
-msgstr "Numéro de la saison"
+msgstr "Staffelnummer"
 
 msgctxt "#40470"
 msgid "Prioritize By Part"
-msgstr "Prioriser par partie"
+msgstr "Nach Teil priorisieren"
 
 msgctxt "#40471"
 msgid "Part Number"
-msgstr "Numéro de la partie"
+msgstr "Teilnummer"
 
 msgctxt "#40472"
 msgid "Set Streaming Site"
-msgstr "Définir le site de streaming"
+msgstr "Streaming-Website festlegen"
 
 msgctxt "#40473"
 msgid "Site"
-msgstr "Site"
+msgstr "Website"
 
 msgctxt "#40474"
 msgid "Advanced"
-msgstr "Avancé"
+msgstr "Erweitert"
 
 msgctxt "#40475"
 msgid "Manual Episode Meta Api Override"
-msgstr "Annulation manuelle des donnés de l'épisode issues de l'API"
+msgstr "Manuelle Episode Meta Api-Überschreibung"
 
 msgctxt "#40476"
 msgid "Api"
-msgstr "API"
+msgstr "Api"
 
 msgctxt "#40477"
 msgid "Consumet Self-Hosting"
-msgstr "Auto-hébergement de Consumet"
+msgstr "Self-Hosting nutzen"
 
 msgctxt "#40478"
 msgid "Enable Consumet Self-Hosting"
-msgstr "Activer l'auto-hébergement de Consumet"
+msgstr "Self-Hosting aktivieren"
 
 msgctxt "#40479"
 msgid "Self-Host Url"
-msgstr "Url de l'auto-hébergeur"
+msgstr "Self-Host-URL"
 
 msgctxt "#40480"
 msgid "Hosting Instructions"
-msgstr "Instructions pour l'hébergement"
+msgstr "Hosting-Anweisungen"
 
 msgctxt "#40481"
 msgid "Manual File Selection"
-msgstr "Sélection manuelle des fichiers"
+msgstr "Manuelle Dateiauswahl"
 
 msgctxt "#40482"
 msgid "Enable Manual File Selection for Batch Torrents"
-msgstr "Activer la sélection manuelle de fichiers pour les torrents par lots"
+msgstr "Manuelle Dateiauswahl für Batch-Torrents aktivieren"
 
 msgctxt "#40483"
 msgid "Smart Episode Scrolling (Only works in List View )"
-msgstr "Défilement intelligent des épisodes (ne fonctionne qu'en mode liste)"
+msgstr "Intelligentes Scrollen der Episoden (funktioniert nur in der Listenansicht)"
 
 msgctxt "#40484"
 msgid "Artwork Customization"
-msgstr "Personnalisation des illustrations"
+msgstr "Anpassung der Artwork"
 
 msgctxt "#40485"
 msgid "General Customization"
-msgstr "Personnalisation générale"
+msgstr "Allgemeine Anpassung"
 
 msgctxt "#40486"
 msgid "Hide Episode Info and Plot"
-msgstr "Cacher l'épisode et l'intrigue"
+msgstr "Episodeninformationen und Handlung verbergen"
 
 msgctxt "#40487"
 msgid "Smart Scroll Wait Time"
-msgstr "Temps d'attente du défilement intelligent"
+msgstr "Wartezeit für intelligentes Scrollen"
 
 msgctxt "#40488"
 msgid "Clean Cache On Update"
-msgstr "Nettoyer le cache lors de la mise à jour"
+msgstr "Cache bei Aktualisierung bereinigen"
 
 msgctxt "#40489"
 msgid "Source Filtering by Size"
-msgstr "Filtrage des sources par taille"
+msgstr "Quellenfilterung nach Größe"
 
 msgctxt "#40490"
 msgid "Internet Speed (Mbps)"
-msgstr "Débit internet (Mbps)"
+msgstr "Internetgeschwindigkeit (Mbps)"
 
 msgctxt "#40491"
 msgid "Movie Max Size (GB)"
-msgstr "Taille maximale du film (Go)"
+msgstr "Maximale Filmgröße (GB)"
 
 msgctxt "#40492"
 msgid "Movie Min Size (GB)"
-msgstr "Taille minimale du film (Go)"
+msgstr "Minimale Filmgröße (GB)"
 
 msgctxt "#40493"
 msgid "Episode Max Size (GB)"
-msgstr "Taille maximale de l'épisode (GB)"
+msgstr "Maximale Episodengröße (GB)"
 
 msgctxt "#40494"
 msgid "Episode Min Size (GB)"
-msgstr "Taille minimale de l'épisode (GB)"
+msgstr "Minimale Episodengröße (GB)"
 
 msgctxt "#40495"
 msgid "Use Kodi's Preferred Language Settings"
-msgstr "Utiliser les paramètres de langue préférés de Kodi"
+msgstr "Kodi's bevorzugte Spracheinstellungen verwenden"
 
 msgctxt "#40496"
 msgid "Terminate on Cloud Sources"
-msgstr "Terminer sur les sources en ligne"
+msgstr "Beenden bei Cloud-Quellen"
 
 msgctxt "#40497"
 msgid "Off"
-msgstr "Désactivé"
+msgstr "Aus"
 
 msgctxt "#40498"
 msgid "Internet Speed"
-msgstr "Vitesse de l'Internet"
+msgstr "Internetgeschwindigkeit"
 
 msgctxt "#40499"
 msgid "Hard Limit"
-msgstr "Limite stricte"
+msgstr "Harte Grenze"
 
 msgctxt "#40500"
 msgid "Hide BATCH Items"
-msgstr "Masquer les éléments LOTS"
+msgstr "BATCH-Elemente ausblenden"
 
 msgctxt "#40501"
 msgid "Show Delete from Database in Context Menu"
-msgstr "Afficher Supprimer de la base de données dans le menu contextuel"
+msgstr "Löschen aus der Datenbank im Kontextmenü anzeigen"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
-msgstr "Réutilisation de l'invocateur de langue"
+msgstr "Sprachaufrufer wiederverwenden"
 
 msgctxt "#40503"
 msgid "Toggle Re-Use Language Invoker:    [COLOR red]Faster speeds but some instability![/COLOR]"
-msgstr "Basculer Réutilisation de l'invocateur de langue :    [COLOR red]Des vitesses plus rapides mais une certaine instabilité ![/COLOR]"
+msgstr "Sprachaufrufer umschalten:    [COLOR red]Schnellere Geschwindigkeiten, aber einige Instabilität![/COLOR]"
 
 msgctxt "#40504"
 msgid "Universal Sub Embeds"
-msgstr "Sous-intégrations universelles"
+msgstr "Universelle Untertitel-Einbettungen"
 
 msgctxt "#40505"
 msgid "English Sub/Dub Embeds"
-msgstr "Sous-titres Anglais intégrés"
+msgstr "Englische Untertitel-/Synchronisationseinbettungen"
 
 msgctxt "#40506"
 msgid "Portuguese Sub/Dub Embeds"
-msgstr "Sous-titres Portugais intégrés"
+msgstr "Portugiesische Untertitel-/Synchronisationseinbettungen"
 
 msgctxt "#40507"
 msgid "None"
-msgstr "Aucun"
+msgstr "Keine"
 
 msgctxt "#40508"
 msgid "Spanish Sub/Dub Embeds"
-msgstr "Sous-titres Espagnol intégrés"
+msgstr "Spanische Untertitel-/Synchronisationseinbettungen"
 
 msgctxt "#40509"
 msgid "French Sub/Dub Embeds"
-msgstr "Sous-titres Français intégrés"
+msgstr "Französische Untertitel-/Synchronisationseinbettungen"
 
 msgctxt "#40510"
 msgid "Simkl"
@@ -1021,372 +1021,372 @@ msgstr "Simkl"
 
 msgctxt "#40511"
 msgid "Enable Simkl"
-msgstr "Activer Simkl"
+msgstr "Simkl aktivieren"
 
 msgctxt "#40512"
 msgid "Context Menu Customization"
-msgstr "Personnalisation du menu contextuel"
+msgstr "Anpassung des Kontextmenüs"
 
 msgctxt "#40513"
 msgid "Show 'Marked as Watched [COLOR blue](Watchlist)[/COLOR]' in Context Menu"
-msgstr "Afficher 'Marqué comme surveillé [COLOR blue](Watchlist)[/COLOR]' dans le menu contextuel"
+msgstr "Zeige 'Als gesehen markiert [COLOR blue](Watchlist)[/COLOR]' im Kontextmenü"
 
 msgctxt "#40514"
 msgid "Set Percent to Mark as Watched"
-msgstr "Définir le pourcentage à marquer comme regardé"
+msgstr "Prozentsatz zum Markieren als gesehen festlegen"
 
 msgctxt "#40515"
 msgid "NOTE: Next up Dialog will not begin until this percentage is met"
-msgstr "REMARQUE : la boîte de dialogue Next-Up ne commencera pas tant que ce pourcentage ne sera pas atteint"
+msgstr "HINWEIS: Der Dialog 'Als nächstes' wird erst gestartet, wenn dieser Prozentsatz erreicht ist"
 
 msgctxt "#40516"
 msgid "Hide Unaired Episodes"
-msgstr "Cacher les épisodes non diffusés"
+msgstr "Nicht ausgestrahlte Episoden ausblenden"
 
 msgctxt "#40517"
 msgid "Set Content Year"
-msgstr "Définir l'année du contenu"
+msgstr "Jahr des Inhalts festlegen"
 
 msgctxt "#40518"
 msgid "Year"
-msgstr "Année"
+msgstr "Jahr"
 
 msgctxt "#40519"
 msgid "Set Content Season"
-msgstr "Définir le contenu Saison"
+msgstr "Staffel des Inhalts festlegen"
 
 msgctxt "#40520"
 msgid "Season"
-msgstr "Saison"
+msgstr "Staffel"
 
 msgctxt "#40521"
 msgid "Winter"
-msgstr "Hiver"
+msgstr "Winter"
 
 msgctxt "#40522"
 msgid "Spring"
-msgstr "Printemps"
+msgstr "Frühling"
 
 msgctxt "#40523"
 msgid "Summer"
-msgstr "Été"
+msgstr "Sommer"
 
 msgctxt "#40524"
 msgid "Fall"
-msgstr "Chute"
+msgstr "Herbst"
 
 msgctxt "#40526"
 msgid "Arctic Fuse"
-msgstr "Arctic Fuse"
+msgstr "Arktische Sicherung"
 
 msgctxt "#40527"
 msgid "Italian Sub/Dub Embeds"
-msgstr "Italien Sub/Dub Intégrés"
+msgstr "Italienische Untertitel-/Synchronisationseinbettungen"
 
 msgctxt "#40528"
 msgid "Providers"
-msgstr "Fournisseurs"
+msgstr "Anbieter"
 
 msgctxt "#40529"
 msgid "Embeds"
-msgstr "Intégrations"
+msgstr "Einbettungen"
 
 msgctxt "#40530"
 msgid "Disable connection error notifications?"
-msgstr "Désactiver les notifications d'erreur de connexion?"
+msgstr "Verbindungsfehlerbenachrichtigungen deaktivieren?"
 
 msgctxt "#40531"
 msgid "Source Filtering by Release Title"
-msgstr "Filtrage des sources par titre de sortie"
+msgstr "Quellenfilterung nach Veröffentlichungstitel"
 
 msgctxt "#40532"
 msgid "Filter Selection"
-msgstr "Sélection du filtre"
+msgstr "Filterauswahl"
 
 msgctxt "#40533"
 msgid "Release Title Filter 1"
-msgstr "Filtre de titre de sortie 1"
+msgstr "Veröffentlichungstitel-Filter 1"
 
 msgctxt "#40534"
 msgid "Release Title Filter 2"
-msgstr "Filtre de titre de sortie 2"
+msgstr "Veröffentlichungstitel-Filter 2"
 
 msgctxt "#40535"
 msgid "Release Title Filter 3"
-msgstr "Filtre de titre de sortie 3"
+msgstr "Veröffentlichungstitel-Filter 3"
 
 msgctxt "#40536"
 msgid "Release Title Filter 4"
-msgstr "Filtre de titre de sortie 4"
+msgstr "Veröffentlichungstitel-Filter 4"
 
 msgctxt "#40537"
 msgid "Release Title Filter 5"
-msgstr "Filtre de titre de sortie 5"
+msgstr "Veröffentlichungstitel-Filter 5"
 
 msgctxt "#40538"
 msgid "Filter Logic for Multiple Filters"
-msgstr "Logique de filtre pour plusieurs filtres"
+msgstr "Filterlogik für mehrere Filter"
 
 msgctxt "#40539"
 msgid "AND"
-msgstr "ET"
+msgstr "UND"
 
 msgctxt "#40540"
 msgid "OR"
-msgstr "OU"
+msgstr "ODER"
 
 msgctxt "#40541"
 msgid "Replace Anilist Posters with Mal Posters"
-msgstr "Remplacer les affiches Anilist par les affiches Mal"
+msgstr "Ersetze Anilist-Poster durch Mal-Poster"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"
-msgstr "Calendrier de diffusion des films d'animation"
+msgstr "Ausstrahlungskalender für Anime"
 
 msgctxt "#50001"
 msgid "Airing Anime"
-msgstr "Diffusion d'un film d'animation"
+msgstr "Ausstrahlung von Anime"
 
 msgctxt "#50002"
 msgid "Movies"
-msgstr "Films"
+msgstr "Filme"
 
 msgctxt "#50003"
 msgid "TV Shows"
-msgstr "Séries"
+msgstr "TV-Serien"
 
 msgctxt "#50004"
 msgid "Trending"
-msgstr "Tendance"
+msgstr "Trend"
 
 msgctxt "#50005"
 msgid "Popular"
-msgstr "Populaire"
+msgstr "Beliebt"
 
 msgctxt "#50006"
 msgid "Voted"
-msgstr "Voté"
+msgstr "Abgestimmt"
 
 msgctxt "#50007"
 msgid "Completed"
-msgstr "Terminé"
+msgstr "Abgeschlossen"
 
 msgctxt "#50008"
 msgid "Upcoming"
-msgstr "À venir"
+msgstr "Kommend"
 
 msgctxt "#50009"
 msgid "Top 100 Anime"
-msgstr "Top 100 Film d'animation"
+msgstr "Top 100 Anime"
 
 msgctxt "#50010"
 msgid "Genres & Tags"
-msgstr "Genres & Etiquettes"
+msgstr "Genres & Tags"
 
 msgctxt "#50011"
 msgid "Search"
-msgstr "Rechercher"
+msgstr "Suche"
 
 msgctxt "#50012"
 msgid "Tools"
-msgstr "Outils"
+msgstr "Werkzeuge"
 
 msgctxt "#50013"
 msgid "Trending Last year"
-msgstr "Tendance L'année dernière"
+msgstr "Trend des letzten Jahres"
 
 msgctxt "#50014"
 msgid "Popular Last year"
-msgstr "Populaire L'année dernière"
+msgstr "Beliebt im letzten Jahr"
 
 msgctxt "#50015"
 msgid "Voted Last year"
-msgstr "Voté l'année dernière"
+msgstr "Abgestimmt im letzten Jahr"
 
 msgctxt "#50016"
 msgid "Completed Last year"
-msgstr "Achevé l'année dernière"
+msgstr "Abgeschlossen im letzten Jahr"
 
 msgctxt "#50017"
 msgid "Upcoming Last year"
-msgstr "A venir L'année dernière"
+msgstr "Kommend im letzten Jahr"
 
 msgctxt "#50018"
 msgid "Trending This year"
-msgstr "En vogue cette année"
+msgstr "Trend dieses Jahr"
 
 msgctxt "#50019"
 msgid "Popular This year"
-msgstr "Populaire cette année"
+msgstr "Beliebt dieses Jahr"
 
 msgctxt "#50020"
 msgid "Voted This year"
-msgstr "Voté cette année"
+msgstr "Abgestimmt dieses Jahr"
 
 msgctxt "#50021"
 msgid "Completed This year"
-msgstr "Achevé cette année"
+msgstr "Abgeschlossen dieses Jahr"
 
 msgctxt "#50022"
 msgid "Upcoming This year"
-msgstr "A venir Cette année"
+msgstr "Kommend dieses Jahr"
 
 msgctxt "#50023"
 msgid "Upcoming Next year"
-msgstr "A venir L'année prochaine"
+msgstr "Kommend nächstes Jahr"
 
 msgctxt "#50024"
 msgid "Trending Last Season"
-msgstr "Les tendances de la saison dernière"
+msgstr "Trend der letzten Saison"
 
 msgctxt "#50025"
 msgid "Popular Last Season"
-msgstr "Populaire la saison dernière"
+msgstr "Beliebt in der letzten Saison"
 
 msgctxt "#50026"
 msgid "Voted Last Season"
-msgstr "Voté la saison dernière"
+msgstr "Abgestimmt in der letzten Saison"
 
 msgctxt "#50027"
 msgid "Completed Last Season"
-msgstr "Terminé la saison dernière"
+msgstr "Abgeschlossen in der letzten Saison"
 
 msgctxt "#50028"
 msgid "Upcoming Last Season"
-msgstr "Prochaine saison"
+msgstr "Kommend in der letzten Saison"
 
 msgctxt "#50029"
 msgid "Trending This Season"
-msgstr "Les tendances de la saison"
+msgstr "Trend dieser Saison"
 
 msgctxt "#50030"
 msgid "Popular This Season"
-msgstr "Populaire cette saison"
+msgstr "Beliebt diese Saison"
 
 msgctxt "#50031"
 msgid "Voted This Season"
-msgstr "A voté cette saison"
+msgstr "Abgestimmt diese Saison"
 
 msgctxt "#50032"
 msgid "Completed This Season"
-msgstr "Terminé cette saison"
+msgstr "Abgeschlossen diese Saison"
 
 msgctxt "#50033"
 msgid "Upcoming This Season"
-msgstr "A venir cette saison"
+msgstr "Kommend diese Saison"
 
 msgctxt "#50034"
 msgid "Upcoming Next Season"
-msgstr "Prochaine saison"
+msgstr "Kommend nächste Saison"
 
 msgctxt "#50035"
 msgid "All Time Trending"
-msgstr "Tendances de toujours"
+msgstr "Trend aller Zeiten"
 
 msgctxt "#50036"
 msgid "All Time Popular"
-msgstr "Populaire de tous les temps"
+msgstr "Beliebt aller Zeiten"
 
 msgctxt "#50037"
 msgid "All Time Voted"
-msgstr "Tous les temps votés"
+msgstr "Abgestimmt aller Zeiten"
 
 msgctxt "#50050"
 msgid "Mainmenu Customize"
-msgstr "Menu principal Personnaliser"
+msgstr "Hauptmenü anpassen"
 
 msgctxt "#50051"
 msgid "Main Menu Items"
-msgstr "Éléments du menu principal"
+msgstr "Hauptmenüpunkte"
 
 msgctxt "#50052"
 msgid "Movie Menu Items"
-msgstr "Éléments du menu cinéma"
+msgstr "Filmmenüpunkte"
 
 msgctxt "#50053"
 msgid "TV Show Menu Items"
-msgstr "Éléments du menu TV Show"
+msgstr "TV-Serien-Menüpunkte"
 
 msgctxt "#50054"
 msgid "Submenu Customize"
-msgstr "Sous-menu Personnaliser"
+msgstr "Untermenü anpassen"
 
 msgctxt "#50055"
 msgid "Main Menu - Trending Items"
-msgstr "Menu principal - Articles à la mode"
+msgstr "Hauptmenü - Trendpunkte"
 
 msgctxt "#50056"
 msgid "Main Menu - Popular Items"
-msgstr "Menu principal - Articles populaires"
+msgstr "Hauptmenü - Beliebte Punkte"
 
 msgctxt "#50057"
 msgid "Main Menu - Voted Items"
-msgstr "Menu principal - Points votés"
+msgstr "Hauptmenü - Abgestimmte Punkte"
 
 msgctxt "#50058"
 msgid "Main Menu - Completed Items"
-msgstr "Menu principal - Éléments terminés"
+msgstr "Hauptmenü - Abgeschlossene Punkte"
 
 msgctxt "#50059"
 msgid "Main Menu - Upcoming Items"
-msgstr "Menu principal - Articles à venir"
+msgstr "Hauptmenü - Kommende Punkte"
 
 msgctxt "#50060"
 msgid "Movies - Trending Items"
-msgstr "Films - Articles à la mode"
+msgstr "Filme - Trendpunkte"
 
 msgctxt "#50061"
 msgid "Movies - Popular Items"
-msgstr "Films - Articles populaires"
+msgstr "Filme - Beliebte Punkte"
 
 msgctxt "#50062"
 msgid "Movies - Voted Items"
-msgstr "Cinéma - Points votés"
+msgstr "Filme - Abgestimmte Punkte"
 
 msgctxt "#50063"
 msgid "Movies - Completed Items"
-msgstr "Films - Articles terminés"
+msgstr "Filme - Abgeschlossene Punkte"
 
 msgctxt "#50064"
 msgid "Movies - Upcoming Items"
-msgstr "Films - Prochains événements"
+msgstr "Filme - Kommende Punkte"
 
 msgctxt "#50065"
 msgid "TV Shows - Trending Items"
-msgstr "TV Shows - Trending Items"
+msgstr "TV-Serien - Trendpunkte"
 
 msgctxt "#50066"
 msgid "TV Shows - Popular Items"
-msgstr "TV Shows - Articles populaires"
+msgstr "TV-Serien - Beliebte Punkte"
 
 msgctxt "#50067"
 msgid "TV Shows - Voted Items"
-msgstr "TV Shows - Éléments votés"
+msgstr "TV-Serien - Abgestimmte Punkte"
 
 msgctxt "#50068"
 msgid "TV Shows - Completed Items"
-msgstr "TV Shows - Articles terminés"
+msgstr "TV-Serien - Abgeschlossene Punkte"
 
 msgctxt "#50069"
 msgid "TV Shows - Upcoming Items"
-msgstr "Spectacles télévisés - Prochains articles"
+msgstr "TV-Serien - Kommende Punkte"
 
 msgctxt "#50070"
 msgid "Search Both"
-msgstr "Rechercher les deux"
+msgstr "Beide suchen"
 
 msgctxt "#50071"
 msgid "Search Movies"
-msgstr "Rechercher films"
+msgstr "Filme suchen"
 
 msgctxt "#50072"
 msgid "Search TV Shows"
-msgstr "Rechercher parmi les Séries"
+msgstr "TV-Serien suchen"
 
 msgctxt "#50073"
 msgid "Multi Select..."
-msgstr "Multi Select..."
+msgstr "Mehrfachauswahl..."
 
 msgctxt "#50074"
 msgid "Action"
@@ -1394,15 +1394,15 @@ msgstr "Action"
 
 msgctxt "#50075"
 msgid "Adventure"
-msgstr "Aventure"
+msgstr "Abenteuer"
 
 msgctxt "#50076"
 msgid "Comedy"
-msgstr "Comédie"
+msgstr "Komödie"
 
 msgctxt "#50077"
 msgid "Drama"
-msgstr "Drame"
+msgstr "Drama"
 
 msgctxt "#50078"
 msgid "Ecchi"
@@ -1410,7 +1410,7 @@ msgstr "Ecchi"
 
 msgctxt "#50079"
 msgid "Fantasy"
-msgstr "Fantaisie"
+msgstr "Fantasy"
 
 msgctxt "#50080"
 msgid "Hentai"
@@ -1418,7 +1418,7 @@ msgstr "Hentai"
 
 msgctxt "#50081"
 msgid "Horror"
-msgstr "Horreur"
+msgstr "Horror"
 
 msgctxt "#50082"
 msgid "Shoujo"
@@ -1430,35 +1430,35 @@ msgstr "Mecha"
 
 msgctxt "#50084"
 msgid "Music"
-msgstr "Musique"
+msgstr "Musik"
 
 msgctxt "#50085"
 msgid "Mystery"
-msgstr "Enquête"
+msgstr "Mystery"
 
 msgctxt "#50086"
 msgid "Psychological"
-msgstr "Psychologique"
+msgstr "Psychologisch"
 
 msgctxt "#50087"
 msgid "Romance"
-msgstr "Roman"
+msgstr "Romantik"
 
 msgctxt "#50088"
 msgid "Sci-Fi"
-msgstr "Science-fiction"
+msgstr "Sci-Fi"
 
 msgctxt "#50089"
 msgid "Slice of Life"
-msgstr "Tranche de vie"
+msgstr "Slice of Life"
 
 msgctxt "#50090"
 msgid "Sports"
-msgstr "Sports"
+msgstr "Sport"
 
 msgctxt "#50091"
 msgid "Supernatural"
-msgstr "Surnaturel"
+msgstr "Übernatürlich"
 
 msgctxt "#50092"
 msgid "Thriller"
@@ -1466,16 +1466,16 @@ msgstr "Thriller"
 
 msgctxt "#50093"
 msgid "Genremenu Customize"
-msgstr "Personnaliser le menu Genre"
+msgstr "Genre-Menü anpassen"
 
 msgctxt "#50094"
 msgid "Main Menu - Genre Items"
-msgstr "Menu principal - Éléments de genre"
+msgstr "Hauptmenü - Genre-Punkte"
 
 msgctxt "#50095"
 msgid "Movies - Genre Items"
-msgstr "Films - Articles de genre"
+msgstr "Filme - Genre-Punkte"
 
 msgctxt "#50096"
 msgid "TV Shows - Genre Items"
-msgstr "Spectacles télévisés - Articles de genre"
+msgstr "TV-Serien - Genre-Punkte"

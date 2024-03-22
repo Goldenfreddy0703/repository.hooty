@@ -51,6 +51,10 @@
 		<setting id="scraping.fanart" type="bool" label="40433" default="false" />
 		<setting id="scraping.clearlogo" type="bool" label="40434" default="false" />
 
+		<!-- Miscellaneous -->
+		<setting type="lsep" label="40542"/>
+		<setting id="download.location" label="40543" type="folder" default="" />
+
 		<!--
 		<setting id="contenttype.seasons" type="labelenum" label="- Seasons content type" values="seasons|tvshows" default="tvshows" visible="eq(-2,true)"/>
 		<setting id="contenttype.episodes" type="labelenum" label="- Episodes content type" values="episodes|tvshows" default="tvshows" visible="eq(-3,true)"/>
@@ -127,15 +131,32 @@
 		<setting id="embed.zto" type="bool" label="ZTO" default="true" />
 	</category>
 
+	<!-- Scraping -->
+	<category label="40544">
+		<!-- General -->
+		<setting type="lsep" label="40300"/>
+		<setting id="general.autotrynext" type="bool" label="40312" default="true" />
+		<setting id="general.timeout" type="slider" label="40425" option="int" range="10,10,180" default="30" />
+		<setting id="general.terminate.oncloud" type="bool" label="40496" default="true" />
+
+		<!-- Cloud Scraping -->
+		<setting type="lsep" label="40545"/>
+		<setting id="premiumize.cloudInspection" type="bool" label="40547" default="false" />
+		<setting id="rd.cloudInspection" type="bool" label="40548" default="false" />
+		
+		<!-- Local Scraping -->
+		<!--
+		<setting type="lsep" label="40546"/>
+		<setting id="scraping.localInspection" type="bool" label="40549" default="false" />
+		-->
+	</category>
+
 	<!-- Playback -->
 	<category label="40307">
 		<!-- General -->
 		<setting type="lsep" label="40300" />
 		<setting id="general.playstyle.movie" type="enum" label="40308" lvalues="40310|40311" default="0" />
 		<setting id="general.playstyle.episode" type="enum" label="40309" lvalues="40310|40311" default="0" />
-		<setting id="general.autotrynext" type="bool" label="40312" default="true" />
-		<setting id="general.timeout" type="slider" label="40425" option="int" range="30,30,180" default="30" />
-		<setting id="general.terminate.oncloud" type="bool" label="40496" default="true" />
 
 		<!-- Preferences -->
 		<setting type="lsep" label="40313" />

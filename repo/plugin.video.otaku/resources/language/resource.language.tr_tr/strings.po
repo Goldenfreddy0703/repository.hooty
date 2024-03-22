@@ -1139,6 +1139,38 @@ msgctxt "#40541"
 msgid "Replace Anilist Posters with Mal Posters"
 msgstr "Anilist Posterlerini Mal Posterleriyle Değiştir"
 
+msgctxt "#40542"
+msgid "Miscellaneous"
+msgstr "Çeşitli"
+
+msgctxt "#40543"
+msgid "Download Location"
+msgstr "İndirme Konumu"
+
+msgctxt "#40544"
+msgid "Scraping"
+msgstr "Veri Kazıma"
+
+msgctxt "#40545"
+msgid "Cloud Scraping"
+msgstr "Bulut Veri Kazıma"
+
+msgctxt "#40546"
+msgid "Local Scraping"
+msgstr "Yerel Veri Kazıma"
+
+msgctxt "#40547"
+msgid "Scrape Real-Debrid Cloud"
+msgstr "Real-Debrid Bulutunu Kazı"
+
+msgctxt "#40548"
+msgid "Scrape Premiumize Cloud"
+msgstr "Premiumize Bulutunu Kazı"
+
+msgctxt "#40549"
+msgid "Scrape Local Content"
+msgstr "Yerel İçeriği Kazı"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

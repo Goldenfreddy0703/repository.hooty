@@ -1139,6 +1139,38 @@ msgctxt "#40541"
 msgid "Replace Anilist Posters with Mal Posters"
 msgstr "Sostituisci i poster di Anilist con i poster di Mal"
 
+msgctxt "#40542"
+msgid "Miscellaneous"
+msgstr "Varie"
+
+msgctxt "#40543"
+msgid "Download Location"
+msgstr "Posizione di download"
+
+msgctxt "#40544"
+msgid "Scraping"
+msgstr "Scraping"
+
+msgctxt "#40545"
+msgid "Cloud Scraping"
+msgstr "Scraping cloud"
+
+msgctxt "#40546"
+msgid "Local Scraping"
+msgstr "Scraping locale"
+
+msgctxt "#40547"
+msgid "Scrape Real-Debrid Cloud"
+msgstr "Scraping cloud Real-Debrid"
+
+msgctxt "#40548"
+msgid "Scrape Premiumize Cloud"
+msgstr "Scraping cloud Premiumize"
+
+msgctxt "#40549"
+msgid "Scrape Local Content"
+msgstr "Scraping contenuto locale"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

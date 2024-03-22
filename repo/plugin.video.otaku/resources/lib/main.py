@@ -2334,6 +2334,21 @@ def TOGGLE_LANGUAGE_INVOKER(payload, params):
     return control.toggle_reuselanguageinvoker()
 
 
+@route('download/*')
+def DOWNLOAD(payload, params):
+    none, type_, anilist_id, episode, filter_lang = payload.rsplit("/")
+    sources = _BROWSER.get_sources(anilist_id, episode, filter_lang, 'show', download=True)
+    _mock_args = {"anilist_id": anilist_id, "episode": episode}
+
+    from resources.lib.windows.source_select import SourceSelect
+    link = SourceSelect(*('source_select.xml', control.ADDON_PATH), actionArgs=_mock_args, sources=sources).doModal()
+    from resources.lib.ui import download_manager
+
+    if not link:
+        return
+    download_manager.DownloadTask().download(link)
+
+
 @route('marked_as_watched/*')
 def MARKED_AS_WATCHED(payload, params):
     from resources.lib.WatchlistFlavor import WatchlistFlavor

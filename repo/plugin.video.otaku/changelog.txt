@@ -1,3 +1,10 @@
+Changelog 0.4.90[20240321]:
+- Added a Download Manager
+- Added a Download button in context menu
+- Added new Scrapping Category
+- Moved a few settings
+- Decreased Database Storage Size
+
 Changelog 0.4.89[20240315]:
 - Recoded and Fixed and Improved Tmdb Player Support
 - Recoded and Fixed the Anime Filter to show updated anime

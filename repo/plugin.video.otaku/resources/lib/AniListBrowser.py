@@ -3832,6 +3832,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -3940,6 +3941,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4044,6 +4046,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4143,6 +4146,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4235,6 +4239,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -4941,6 +4946,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -5135,6 +5141,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
@@ -5329,6 +5336,7 @@ class AniListBrowser():
                     mal_picture = database.get_mal_picture(anilist_id)
                     if mal_picture:
                         mal_picture_url = mal_picture.rsplit('.', 1)[0] + 'l.' + mal_picture.rsplit('.', 1)[1]
+                        mal_picture_url = 'https://cdn.myanimelist.net/images/anime/' + mal_picture_url
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass

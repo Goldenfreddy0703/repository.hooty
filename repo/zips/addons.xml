@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="0.0.12" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="0.0.13" name="otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
     
   </requires>
@@ -78,11 +78,14 @@ Changelog 0.0.1:
         <label>Get Watch Order</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
+      <item library="download.py">
+        <label>Download</label>
+        <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+      </item>
       <item library="watchlist.py">
         <label>Watchlist Manager</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,movie)]</visible>
       </item>
-
       <item library="watchlistLogout.py">
         <label>Logout</label>
         <visible>String.StartsWith(ListItem.path,plugin://plugin.video.otaku/)+[String.Contains(ListItem.folderpath,/watchlist/)]</visible>
@@ -780,7 +783,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.89">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.90">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -1733,7 +1736,7 @@ Initial release
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.otaku.mappings" version="24.03.15" name="Otaku Mappings" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.mappings" version="24.03.21" name="Otaku Mappings" provider-name="TeamOtaku">
     <extension point="xbmc.python.module" library="lib" />
 	<extension point="xbmc.addon.metadata">
         <summary>Anime ID Mappings for Otaku Addon</summary>

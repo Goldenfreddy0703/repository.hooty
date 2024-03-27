@@ -118,6 +118,7 @@ class watchlistPlayer(xbmc.Player):
         control.setSetting('addon.last_watched', self._anilist_id)
 
     def onPlayBackStopped(self):
+        control.closeAllDialogs()
         playList.clear()
 
     def onPlayBackError(self):

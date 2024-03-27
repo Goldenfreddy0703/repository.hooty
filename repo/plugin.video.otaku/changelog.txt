@@ -1,3 +1,6 @@
+Changelog 0.4.91[20240327]:
+- Fixed Small Bug with Dialogs in Playback
+
 Changelog 0.4.90[20240321]:
 - Added a Download Manager
 - Added a Download button in context menu

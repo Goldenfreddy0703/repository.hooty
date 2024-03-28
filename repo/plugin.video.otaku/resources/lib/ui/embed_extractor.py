@@ -308,6 +308,20 @@ def __extract_streamwish(url, page_content, referer=None):
     return
 
 
+def __extract_voe(url, page_content, referer=None):
+    r = re.search(r'''mp4["']:\s*["']([^"']+)''', page_content)
+    if r:
+        headers = {'User-Agent': _EDGE_UA}
+        stream_url = r.group(1) + __append_headers(headers)
+        return stream_url
+    r = re.search(r'''hls["']:\s*["']([^"']+)''', page_content)
+    if r:
+        headers = {'User-Agent': _EDGE_UA}
+        stream_url = r.group(1) + __append_headers(headers)
+        return stream_url
+    return
+
+
 def __extract_goload(url, page_content, referer=None):
     def _encrypt(msg, key, iv):
         key = six.ensure_binary(key)
@@ -390,7 +404,8 @@ __register_extractor(["https://www.mp4upload.com/",
                      __extract_mp4upload)
 
 __register_extractor(["https://vidplay.online/",
-                      "https://mcloud.bz/"],
+                      "https://mcloud.bz/",
+                      "https://a9bfed0818.nl/"],
                      __extract_vidplay)
 
 __register_extractor(["https://kwik.cx/",
@@ -487,3 +502,7 @@ __register_extractor(["https://streamwish.com",
 __register_extractor(["https://fusevideo.net/e/",
                       "https://fusevideo.io/e/"],
                      __extract_fusevideo)
+
+__register_extractor(["https://voe.sx/e/",
+                      "https://brookethoughi.com/e/"],
+                     __extract_voe)

@@ -8,7 +8,7 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 class sources(BrowserBase):
     _BASE_URL = 'https://www.animelatinohd.com/'
-    _API_URL = 'https://api.animelatinohd.com/'
+    _API_URL = 'https://web.animelatinohd.com/'
     BID = 'w51kDCy70VSuxmn7Usaie'
 
     def get_sources(self, anilist_id, episode, get_backup):
@@ -37,7 +37,10 @@ class sources(BrowserBase):
             data=params,
             headers=headers
         )
-        items = json.loads(res)
+        try:
+            items = self.al_decode(json.loads(res).get('data'))
+        except:
+            items = []
 
         if not items and ':' in title:
             title = title.split(':')[0]
@@ -49,7 +52,10 @@ class sources(BrowserBase):
                 data=params,
                 headers=headers
             )
-            items = json.loads(res)
+            try:
+                items = self.al_decode(json.loads(res).get('data'))
+            except:
+                items = []
 
         all_results = []
         if items:
@@ -80,7 +86,10 @@ class sources(BrowserBase):
             headers=headers
         )
 
-        items = json.loads(res).get('pageProps', {}).get('data', {}).get('episodes')
+        try:
+            items = self.al_decode(json.loads(res).get('pageProps').get('data')).get('episodes')
+        except:
+            items = []
         e_id = [x.get('number') for x in items if x.get('number') == int(episode)]
         if e_id:
             url = '{0}_next/data/{1}/ver/{2}/{3}.json'.format(
@@ -91,13 +100,16 @@ class sources(BrowserBase):
             )
             params.update({'number': e_id[0]})
             res = self._get_request(url, data=params, headers=headers)
-            headers.pop('x-nextjs-data')
-            items = json.loads(res).get('pageProps', {}).get('data', {}).get('players')
+            try:
+                items = self.al_decode(json.loads(res).get('pageProps').get('data')).get('players')
+            except:
+                items = []
             for item in items:
+                headers = {'Referer': self._API_URL}
                 for src in item:
                     lang = 'SUB' if src.get('languaje') == '0' else 'DUB'
                     sid = src.get('id')
-                    surl = '{0}stream/{1}'.format(self._API_URL, sid)
+                    surl = '{0}videoLink/{1}'.format(self._API_URL, self.al_encode(sid))
                     slink = self._get_redirect_url(surl, headers=headers)
                     if slink:
                         source = {
@@ -114,3 +126,36 @@ class sources(BrowserBase):
                         sources.append(source)
 
         return sources
+
+    def al_decode(self, data):
+        from resources.lib.ui import pyaes
+        tkey = 'l7z8rIhQDXIH6pl66ZEQgPkNwkDlilgdOHMMWkxkzzE='
+        t = json.loads(self._bdecode(data))
+        ct = self._bdecode(t.get('value'), True)
+        iv = self._bdecode(t.get('iv'), True)
+        key = self._bdecode(tkey, True)
+        decryptor = pyaes.Decrypter(pyaes.AESModeOfOperationCBC(key, iv))
+        ddata = decryptor.feed(ct)
+        ddata += decryptor.feed()
+        return json.loads(ddata.decode('utf-8'))
+
+    def al_encode(self, sid):
+        import os
+        import hashlib
+        import hmac
+        from resources.lib.ui import pyaes
+        tkey = 'l7z8rIhQDXIH6pl66ZEQgPkNwkDlilgdOHMMWkxkzzE='
+        key = self._bdecode(tkey, True)
+        iv = os.urandom(16)
+        encryptor = pyaes.Encrypter(pyaes.AESModeOfOperationCBC(key, iv))
+        edata = encryptor.feed(str(sid))
+        edata += encryptor.feed()
+        et = self._bencode(edata)
+        eiv = self._bencode(iv)
+        mac = hmac.new(key, msg=(eiv + et).encode(), digestmod=hashlib.sha256).hexdigest()
+        params = {
+            'iv': eiv,
+            'value': et,
+            'mac': mac
+        }
+        return self._bencode(json.dumps(params))

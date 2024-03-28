@@ -1,5 +1,4 @@
 import base64
-import codecs
 import json
 import pickle
 import re
@@ -14,9 +13,9 @@ from resources.lib.indexers.malsync import MALSYNC
 
 class sources(BrowserBase):
     _BASE_URL = 'https://aniwave.vc/' if control.getSetting('provider.aniwavealt') == 'true' else 'https://aniwave.to/'
-    EKEY = 'ysJhV6U27FVIjjuk'
-    DKEY = 'hlPeNwkncH0fq9so'
-    CHAR_SUBST_OFFSETS = (-3, 3, -4, 2, -2, 5, 4, 5)
+    EKEY = 'tGn6kIpVXBEUmqjD'
+    DKEY = 'LUyDrL4qIxtIxOGs'
+    CHAR_SUBST_OFFSETS = [-2, -4, -5, 6, 2, -3, 3, 6]
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -182,17 +181,18 @@ class sources(BrowserBase):
     def vrf_shift(t, offset=CHAR_SUBST_OFFSETS):
         o = ''
         for s in range(len(t)):
-            o += chr(ord(t[s]) + offset[s % 8])
+            o += chr(t[s] if isinstance(t[s], int) else ord(t[s]) + offset[s % 8])
         return o
 
     def generate_vrf(self, content_id, key=EKEY):
         vrf = self.arc4(six.b(key), six.b(urllib_parse.quote(content_id)))
         vrf = base64.urlsafe_b64encode(vrf)
         vrf = six.ensure_str(base64.b64encode(vrf))
+        vrf = vrf.replace('/', '_').replace('+', '-')
         vrf = self.vrf_shift(vrf)
-        vrf = six.ensure_str(base64.b64encode(six.b(vrf)))
-        vrf = codecs.encode(vrf, 'rot_13')
-        return vrf.replace('/', '_').replace('+', '-')
+        vrf = six.ensure_str(base64.b64encode(six.b(vrf[::-1])))
+        vrf = vrf.replace('/', '_').replace('+', '-')
+        return vrf
 
     def decrypt_vrf(self, text, key=DKEY):
         data = self.arc4(six.b(key), base64.urlsafe_b64decode(six.b(text)))

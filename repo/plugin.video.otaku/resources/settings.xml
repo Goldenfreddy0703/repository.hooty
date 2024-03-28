@@ -65,6 +65,46 @@
 		-->
 	</category>
 
+	<!-- Shortcuts -->
+	<category label="40416">
+		<!-- Self-Hosting -->
+		<!-- <setting type="lsep" label="40477"/> -->
+		<!-- <setting id="sep"/> -->
+		<!-- <setting id="consumet.hosting.bool" label="40478" type="bool" default="false"/> -->
+		<!-- <setting id="consumet.hosting.menu" type="text" subsetting="true" label="40479" visible="eq(-1,true)"/> -->
+		<!-- <setting id="consumet.hosting.instructions" type="action" subsetting="true" label="40480" action="RunPlugin(plugin://plugin.video.otaku/consumet_inst)" visible="eq(-2,true)"/> -->
+
+		<!-- Tools -->
+		<setting type="lsep" label="50012"/>
+		<setting id="sep"/>
+		<setting id="change_log" type="action" label="30027" action="RunPlugin(plugin://plugin.video.otaku/change_log)"/>
+		<setting id="clear_cache" type="action" label="30021" action="RunPlugin(plugin://plugin.video.otaku/clear_cache)"/>
+		<setting id="clear_torrent_cache" type="action" label="30022" action="RunPlugin(plugin://plugin.video.otaku/clear_torrent_cache)"/>
+		<setting id="clear_history" type="action" label="30023" action="RunPlugin(plugin://plugin.video.otaku/clear_all_history)"/>
+		<setting id="rebuild_database" type="action" label="30026" action="RunPlugin(plugin://plugin.video.otaku/rebuild_database)"/>
+		<setting id="wipe_addon_data" type="action" label="30024" action="RunPlugin(plugin://plugin.video.otaku/wipe_addon_data)"/>
+
+		<!-- Language Invoker -->
+		<setting type="lsep" label="40502" />
+		<setting id="sep"/>
+		<setting id="reuselanguageinvoker.status" label="Re-Use Language Invoker Status: " type="text" default="Disabled" enable="false" />
+		<setting id="reuselanguageinvoker.toggle" label="40503" type="action" option="close" action="RunPlugin(plugin://plugin.video.otaku/toggleLanguageInvoker)"/>
+
+		<!-- Cloudflare & DDoS-GUARD Solver -->
+		<setting type="lsep" label="30121" />
+		<setting id="fs_enable" type="bool" label="30122" default="false" />
+		<setting id="fs_instructions" visible="eq(-1,true)" enable="eq(-1,true)" type="action" label="40480" subsetting="true" action="RunPlugin(plugin://plugin.video.otaku/fs_inst)" />
+		<setting id="fs_url" visible="eq(-2,true)" enable="eq(-2,true)" type="text" label="30123" subsetting="true" default="http://localhost:8191/v1" />
+		<setting id="fs_timeout" visible="eq(-3,true)" enable="eq(-3,true)" type="slider" label="30124" subsetting="true" default="60" range="30,30,180" option="int" />
+
+		<!-- Overrides -->
+		<!-- <setting type="lsep" label="40474"/> -->
+		<!-- <setting id="sep"/> -->
+		<!-- <setting id="override.episode.bool" label="40475" type="bool" default="false"/> -->
+		<!-- <setting id="override.episode.menu" type="labelenum" subsetting="true" label="40476" values="Consumet|Enime|Simkl" default="0" visible="eq(-1,true)"/> -->
+		<!-- <setting id="sep"/> -->
+	</category>
+
 	<!-- Providers -->
 	<category label="40528">
 		<!-- Torrents -->
@@ -585,45 +625,5 @@
 		<setting id="anilist_genre_sports_tv" label="50090" type="bool" default="true"/>
 		<setting id="anilist_genre_supernatural_tv" label="50091" type="bool" default="true"/>
 		<setting id="anilist_genre_thriller_tv" label="50092" type="bool" default="true"/>
-	</category>
-
-	<!-- Shortcuts -->
-	<category label="40416">
-		<!-- Self-Hosting -->
-		<!-- <setting type="lsep" label="40477"/> -->
-		<!-- <setting id="sep"/> -->
-		<!-- <setting id="consumet.hosting.bool" label="40478" type="bool" default="false"/> -->
-		<!-- <setting id="consumet.hosting.menu" type="text" subsetting="true" label="40479" visible="eq(-1,true)"/> -->
-		<!-- <setting id="consumet.hosting.instructions" type="action" subsetting="true" label="40480" action="RunPlugin(plugin://plugin.video.otaku/consumet_inst)" visible="eq(-2,true)"/> -->
-
-		<!-- Tools -->
-		<setting type="lsep" label="50012"/>
-		<setting id="sep"/>
-		<setting id="change_log" type="action" label="30027" action="RunPlugin(plugin://plugin.video.otaku/change_log)"/>
-		<setting id="clear_cache" type="action" label="30021" action="RunPlugin(plugin://plugin.video.otaku/clear_cache)"/>
-		<setting id="clear_torrent_cache" type="action" label="30022" action="RunPlugin(plugin://plugin.video.otaku/clear_torrent_cache)"/>
-		<setting id="clear_history" type="action" label="30023" action="RunPlugin(plugin://plugin.video.otaku/clear_all_history)"/>
-		<setting id="rebuild_database" type="action" label="30026" action="RunPlugin(plugin://plugin.video.otaku/rebuild_database)"/>
-		<setting id="wipe_addon_data" type="action" label="30024" action="RunPlugin(plugin://plugin.video.otaku/wipe_addon_data)"/>
-
-		<!-- Language Invoker -->
-		<setting type="lsep" label="40502" />
-		<setting id="sep"/>
-		<setting id="reuselanguageinvoker.status" label="Re-Use Language Invoker Status: " type="text" default="Disabled" enable="false" />
-		<setting id="reuselanguageinvoker.toggle" label="40503" type="action" option="close" action="RunPlugin(plugin://plugin.video.otaku/toggleLanguageInvoker)"/>
-
-		<!-- Cloudflare & DDoS-GUARD Solver -->
-		<setting type="lsep" label="30121" />
-		<setting id="fs_enable" type="bool" label="30122" default="false" />
-		<setting id="fs_instructions" visible="eq(-1,true)" enable="eq(-1,true)" type="action" label="40480" subsetting="true" action="RunPlugin(plugin://plugin.video.otaku/fs_inst)" />
-		<setting id="fs_url" visible="eq(-2,true)" enable="eq(-2,true)" type="text" label="30123" subsetting="true" default="http://localhost:8191/v1" />
-		<setting id="fs_timeout" visible="eq(-3,true)" enable="eq(-3,true)" type="slider" label="30124" subsetting="true" default="60" range="30,30,180" option="int" />
-
-		<!-- Overrides -->
-		<!-- <setting type="lsep" label="40474"/> -->
-		<!-- <setting id="sep"/> -->
-		<!-- <setting id="override.episode.bool" label="40475" type="bool" default="false"/> -->
-		<!-- <setting id="override.episode.menu" type="labelenum" subsetting="true" label="40476" values="Consumet|Enime|Simkl" default="0" visible="eq(-1,true)"/> -->
-		<!-- <setting id="sep"/> -->
 	</category>
 </settings>

@@ -1,3 +1,7 @@
+Changelog 0.4.92[20240328]:
+- Moved Maintenance Category near the top
+- Fixed Anime Latino HD Spanish Embed
+
 Changelog 0.4.91[20240327]:
 - Fixed Small Bug with Dialogs in Playback
 

@@ -44,8 +44,9 @@ class BrowserBase(object):
         return six.ensure_str(base64.b64encode(six.ensure_binary(text)))
 
     @staticmethod
-    def _bdecode(text):
-        return six.ensure_str(base64.b64decode(text))
+    def _bdecode(text, binary=False):
+        dec = base64.b64decode(text)
+        return dec if binary else six.ensure_str(dec)
 
     @staticmethod
     def _get_origin(url):

@@ -1,3 +1,8 @@
+Changelog 0.4.93[20240401]:
+- Added Support for A4k Subtitles
+- Added IMDBid to playitem
+- Database Updated
+
 Changelog 0.4.92[20240328]:
 - Moved Maintenance Category near the top
 - Fixed Anime Latino HD Spanish Embed

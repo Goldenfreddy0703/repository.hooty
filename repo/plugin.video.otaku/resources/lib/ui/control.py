@@ -263,7 +263,10 @@ def _get_view_type(viewType):
 
 
 def update_listitem(li, labels):
-    cast2 = labels.pop('cast2') if isinstance(labels, dict) and 'cast2' in labels.keys() else []
+    if isinstance(labels, dict):
+        cast2 = labels.pop('cast2') if 'cast2' in labels.keys() else []
+        unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
+
     if _kodiver > 19.8 and isinstance(labels, dict):
         vtag = li.getVideoInfoTag()
         if labels.get('mediatype'):
@@ -303,16 +306,26 @@ def update_listitem(li, labels):
         if cast2:
             cast2 = [xbmc.Actor(p['name'], p['role'], cast2.index(p), p['thumbnail']) for p in cast2]
             vtag.setCast(cast2)
+        if unique_ids:
+            vtag.setUniqueIDs(unique_ids)
+            if 'imdb' in list(unique_ids.keys()):
+                vtag.setIMDBNumber(unique_ids['imdb'])
     else:
         li.setInfo(type='Video', infoLabels=labels)
         if cast2:
             li.setCast(cast2)
+        if unique_ids:
+            li.setUniqueIDs(unique_ids)
     return
 
 
-def make_listitem(name, labels):
-    li = xbmcgui.ListItem(name)
-    update_listitem(li, labels)
+def make_listitem(name='', labels=None, path=''):
+    if name:
+        li = xbmcgui.ListItem(name)
+    else:
+        li = xbmcgui.ListItem(path=path)
+    if isinstance(labels, dict):
+        update_listitem(li, labels)
     return li
 
 

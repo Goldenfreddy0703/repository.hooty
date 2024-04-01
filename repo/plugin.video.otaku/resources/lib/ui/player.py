@@ -487,7 +487,8 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
     if subs is None:
         subs = []
 
-    item = xbmcgui.ListItem(path=linkInfo['url'])
+    labels = {'unique_ids': utils.get_unique_ids(anilist_id)}
+    item = control.make_listitem(labels=labels, path=linkInfo['url'])
 
     if subs:
         utils.del_subs()

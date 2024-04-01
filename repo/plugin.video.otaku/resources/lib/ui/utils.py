@@ -1,7 +1,7 @@
 import os
 import random
 import re
-from resources.lib.ui import control, client
+from resources.lib.ui import control, client, database
 from six import StringIO, iteritems
 from kodi_six import xbmcvfs
 
@@ -119,3 +119,23 @@ def get_season(res):
         s_ids = [s[0] for s in s_ids if s and int(s[0]) < 20]
 
     return s_ids
+
+
+def get_unique_ids(anilist_id):
+    unique_ids = database.get_all_ids(anilist_id)
+
+    if 'imdb' not in list(unique_ids.keys()):
+        if unique_ids.get('tvdb'):
+            from resources.lib.indexers.tvdb import TVDBAPI
+            imdb_id = TVDBAPI().get_imdb_id(unique_ids.get('tvdb'))
+            if imdb_id:
+                unique_ids.update({'imdb': imdb_id})
+
+    if 'imdb' not in list(unique_ids.keys()):
+        if unique_ids.get('tmdb'):
+            from resources.lib.indexers.tmdb import TMDBAPI
+            imdb_id = TMDBAPI().get_imdb_id(unique_ids.get('tmdb'))
+            if imdb_id:
+                unique_ids.update({'imdb': imdb_id})
+
+    return unique_ids

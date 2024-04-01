@@ -205,3 +205,18 @@ class TMDBAPI:
                     art.update({'clearart': items})
 
         return art
+
+    def get_imdb_id(self, tmdb_id, mtype='movie'):
+        url = '{0}/{1}/external_ids'.format(mtype, tmdb_id)
+        res = self.get_request(url)
+        return res.get('imdb_id') if res else None
+
+    def get_tvdb_id(self, tmdb_id, season=0):
+        url = 'tv/{0}/season/{1}/external_ids'.format(tmdb_id, season)
+        res = self.get_request(url)
+        return res.get('tvdb_id') if res else None
+
+    def get_movie(self, tmdb_id):
+        url = 'movie/{}'.format(tmdb_id)
+        res = self.get_request(url)
+        return res

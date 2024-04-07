@@ -266,28 +266,6 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta25" provider-name="ForeverGuest">
-  <requires>
-    <import addon="xbmc.python" version="3.0.0" />
-    <import addon="script.module.requests" version="1.1.0" />
-    
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="resources/lib/addon.py">
-    <provides>audio</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
-    <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
-    <news>
-1.0~beta25 (2024-03-05)
-- Quick fix preventing the 'Home' list from failing if it contains sections YTMusicAPI cannot yet parse correctly (such as 'Keep Listening' and 'Your Shows') by filtering out sections with empty or invalid content
-    </news>
-    <assets>
-      <icon>resources/icon.png</icon>
-      <fanart>resources/fanart.png</fanart>
-    </assets>
-  </extension>
 </addon><addon id="plugin.program.iagl" name="Internet Archive Game Launcher" version="3.0.9">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
@@ -783,7 +761,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.93">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.94">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />

@@ -1,3 +1,7 @@
+Changelog 0.4.94[20240406]:
+- Add H!anime Proxies
+- Change label (provider) Proxies instead of (provider) Alt
+
 Changelog 0.4.93[20240401]:
 - Added Support for A4k Subtitles
 - Added IMDBid to playitem

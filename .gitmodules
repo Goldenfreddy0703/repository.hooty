@@ -73,3 +73,9 @@
 	path = nexus/skin.arctic.fuse
 	url = https://github.com/jurialmunkey/skin.arctic.fuse.git
 	branch = nexus
+[submodule "repo/plugin.audio.ytmusic.exp"]
+	path = repo/plugin.audio.ytmusic.exp
+	url = https://github.com/Goldenfreddy0703/plugin.audio.ytmusic.exp.git
+[submodule "repo/skin.arctic.fuse"]
+	path = repo/skin.arctic.fuse
+	url = https://github.com/jurialmunkey/skin.arctic.fuse.git

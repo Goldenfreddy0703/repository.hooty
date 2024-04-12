@@ -3620,7 +3620,7 @@ class AniListBrowser():
 
         relations = database.get(self.get_relations_res, 4, variables)
         return self._process_relations_view(relations, "find_relations/%d")
-    
+
     def get_watch_order(self, mal_id):
         url = 'https://chiaki.site/?/tools/watch_order/id/{}'.format(mal_id)
         response = client.request(url)
@@ -4137,7 +4137,7 @@ class AniListBrowser():
             return
 
         json_res = results['data']['Media']['recommendations']
-        
+
         if control.getSetting('general.malposters') == 'true':
             try:
                 for recommendation in json_res['edges']:
@@ -4243,7 +4243,7 @@ class AniListBrowser():
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
-            
+
         return json_res
 
     def get_anilist_res(self, variables):
@@ -4950,7 +4950,7 @@ class AniListBrowser():
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
-  
+
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:
@@ -5145,7 +5145,7 @@ class AniListBrowser():
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
-  
+
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:
@@ -5340,7 +5340,7 @@ class AniListBrowser():
                         anime['coverImage']['extraLarge'] = mal_picture_url
             except Exception:
                 pass
-  
+
         if dub:
             mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
         else:

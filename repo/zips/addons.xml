@@ -266,7 +266,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta25" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta26" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -279,6 +279,13 @@ Changelog 0.0.10:
     <platform>all</platform>
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
+    <news>
+1.0~beta26 (2024-04-12)
+- Add menu icons
+- Update to YTMusicAPI 1.6.0 plus various commits
+- Change from Pytube to Pytubefix 4.0.0
+- Add support for Library Podcasts and Channels
+    </news>
     <assets>
       <icon>resources/media/icon.png</icon>
       <fanart>resources/media/fanart.jpg</fanart>
@@ -2152,7 +2159,7 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, Subscene, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.6.15~omega">
+</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.6.16~omega">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinvariables" version="2.1.9" />

@@ -405,7 +405,8 @@ __register_extractor(["https://www.mp4upload.com/",
 
 __register_extractor(["https://vidplay.online/",
                       "https://mcloud.bz/",
-                      "https://a9bfed0818.nl/"],
+                      "https://a9bfed0818.nl/",
+                      "https://vid142.site/"],
                      __extract_vidplay)
 
 __register_extractor(["https://kwik.cx/",

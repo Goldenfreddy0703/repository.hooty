@@ -644,6 +644,24 @@ def get_show_mal(mal_id):
     return shows
 
 
+def get_anidb_id(anilist_id):
+    control.mappingDB_lock.acquire()
+    try:
+        conn = db.connect(control.mappingDB, timeout=60.0)
+        conn.row_factory = _dict_factory
+        conn.execute("PRAGMA FOREIGN_KEYS = 1")
+        cursor = conn.cursor()
+        mapping = None
+        if anilist_id:
+            db_query = 'SELECT anidb_id FROM anime WHERE anilist_id = ?'
+            cursor.execute(db_query, (anilist_id,))
+            mapping = cursor.fetchone()
+            cursor.close()
+    finally:
+        control.try_release_lock(control.mappingDB_lock)
+    return mapping['anidb_id'] if mapping else None
+
+
 def get_thetvdb_id(anilist_id):
     control.mappingDB_lock.acquire()
     try:
@@ -660,24 +678,6 @@ def get_thetvdb_id(anilist_id):
     finally:
         control.try_release_lock(control.mappingDB_lock)
     return mapping['thetvdb_id'] if mapping else None
-
-
-def get_imdb_id(anilist_id):
-    control.mappingDB_lock.acquire()
-    try:
-        conn = db.connect(control.mappingDB, timeout=60.0)
-        conn.row_factory = _dict_factory
-        conn.execute("PRAGMA FOREIGN_KEYS = 1")
-        cursor = conn.cursor()
-        mapping = None
-        if anilist_id:
-            db_query = 'SELECT imdb_id FROM anime WHERE anilist_id = ?'
-            cursor.execute(db_query, (anilist_id,))
-            mapping = cursor.fetchone()
-            cursor.close()
-    finally:
-        control.try_release_lock(control.mappingDB_lock)
-    return mapping['imdb_id'] if mapping else None
 
 
 def get_themoviedb_id(anilist_id):
@@ -698,7 +698,7 @@ def get_themoviedb_id(anilist_id):
     return mapping['themoviedb_id'] if mapping else None
 
 
-def get_anidb_id(anilist_id):
+def get_imdb_id(anilist_id):
     control.mappingDB_lock.acquire()
     try:
         conn = db.connect(control.mappingDB, timeout=60.0)
@@ -707,13 +707,31 @@ def get_anidb_id(anilist_id):
         cursor = conn.cursor()
         mapping = None
         if anilist_id:
-            db_query = 'SELECT anidb_id FROM anime WHERE anilist_id = ?'
+            db_query = 'SELECT imdb_id FROM anime WHERE anilist_id = ?'
             cursor.execute(db_query, (anilist_id,))
             mapping = cursor.fetchone()
             cursor.close()
     finally:
         control.try_release_lock(control.mappingDB_lock)
-    return mapping['anidb_id'] if mapping else None
+    return mapping['imdb_id'] if mapping else None
+
+
+def get_trakt_id(anilist_id):
+    control.mappingDB_lock.acquire()
+    try:
+        conn = db.connect(control.mappingDB, timeout=60.0)
+        conn.row_factory = _dict_factory
+        conn.execute("PRAGMA FOREIGN_KEYS = 1")
+        cursor = conn.cursor()
+        mapping = None
+        if anilist_id:
+            db_query = 'SELECT trakt_id FROM anime WHERE anilist_id = ?'
+            cursor.execute(db_query, (anilist_id,))
+            mapping = cursor.fetchone()
+            cursor.close()
+    finally:
+        control.try_release_lock(control.mappingDB_lock)
+    return mapping['trakt_id'] if mapping else None
 
 
 def get_all_ids(anilist_id):
@@ -738,6 +756,8 @@ def get_all_ids(anilist_id):
             all_ids.update({'anidb': str(mapping['anidb_id'])})
         if mapping['imdb_id'] is not None:
             all_ids.update({'imdb': str(mapping['imdb_id'])})
+        if mapping['trakt_id'] is not None:
+            all_ids.update({'trakt': str(mapping['trakt_id'])})
 
     return all_ids
 

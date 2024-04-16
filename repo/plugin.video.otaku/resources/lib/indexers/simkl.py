@@ -199,6 +199,7 @@ class SIMKLAPI:
             database.add_mapping_id(anilist_id, 'simkl_id', simkl_id)
         params = {
             'extended': 'full',
+            'client_id': self.ClientID
         }
         r = client.request(self.baseUrl + "anime/episodes/" + str(simkl_id), params=params)
         res = json.loads(r)

@@ -77,16 +77,36 @@ class FANARTAPI:
 
                 if res.get('clearlogo'):
                     items = []
+                    logos = []
                     for item in res.get('clearlogo'):
                         if item.get('lang') in self.lang:
-                            items.append(item.get('url'))
-                    art.update({'clearlogo': items})
+                            items.append(item)
+                        items = sorted(items, key=lambda x: int(x['id']))
+                    try:
+                        logos.append(next(x['url'] for x in items if x['lang'] == 'en'))
+                    except StopIteration:
+                        pass
+                    try:
+                        logos.append(next(x['url'] for x in items if x['lang'] == 'ja'))
+                    except StopIteration:
+                        pass
+                    art.update({'clearlogo': logos})
                 elif res.get('hdtvlogo'):
                     items = []
+                    logos = []
                     for item in res.get('hdtvlogo'):
                         if item.get('lang') in self.lang:
-                            items.append(item.get('url'))
-                    art.update({'clearlogo': items})
+                            items.append(item)
+                        items = sorted(items, key=lambda x: int(x['id']))
+                    try:
+                        logos.append(next(x['url'] for x in items if x['lang'] == 'en'))
+                    except StopIteration:
+                        pass
+                    try:
+                        logos.append(next(x['url'] for x in items if x['lang'] == 'ja'))
+                    except StopIteration:
+                        pass
+                    art.update({'clearlogo': logos})
                 elif res.get('hdmovielogo'):
                     items = []
                     for item in res.get('hdmovielogo'):

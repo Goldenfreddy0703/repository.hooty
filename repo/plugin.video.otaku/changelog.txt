@@ -1,3 +1,8 @@
+Changelog 0.4.98[20240417]:
+- Fixed a small labeling issue
+- Removed Cloud Inspection Settings in Accounts Category
+- Cloud Settings are handled in Scraping Category
+
 Changelog 0.4.97[20240415]:
 - Quick Fix with Simkl Episode Meta
 

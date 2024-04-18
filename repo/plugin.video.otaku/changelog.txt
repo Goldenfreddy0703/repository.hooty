@@ -1,3 +1,8 @@
+Changelog 0.4.99[20240418]:
+- Added ViewType Settings
+- Added a Background Download Setting
+- Fixed Download Function not handling Movies Correctly
+
 Changelog 0.4.98[20240417]:
 - Fixed a small labeling issue
 - Removed Cloud Inspection Settings in Accounts Category

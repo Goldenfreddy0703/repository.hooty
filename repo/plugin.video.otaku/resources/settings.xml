@@ -12,6 +12,15 @@
 		<setting id="general.smartscroll.wait.time" type="slider" label="40487" default="500" range="10,100,2000" option="int" visible="eq(-1,true)" />
 		<setting id="general.spoilers" type="bool" label="40486" default="false" />
 		<setting id="general.unaired.episodes" type="bool" label="40516" default="false" />
+		<setting id="sep"/>
+		<setting id="general.viewtype" type="bool" label="40550" default="false" />
+		<setting id="general.viewidswitch" type="bool" subsetting="true" label="40551" default="false" visible="eq(-1,true)" />
+		<setting id="general.addon.view" type="enum" subsetting="true" label="40552" lvalues="40456|40558|40559|40560|40561|40562|40563|40564|40565" default="0" visible="eq(-1,false) + eq(-2,true)" />
+		<setting id="general.show.view" type="enum" subsetting="true" label="40553" lvalues="40456|40558|40559|40560|40561|40562|40563|40564|40565" default="0" visible="eq(-2,false) + eq(-3,true)" />
+		<setting id="general.episode.view" type="enum" subsetting="true" label="40554" lvalues="40456|40558|40559|40560|40561|40562|40563|40564|40565" default="0" visible="eq(-3,false) + eq(-4,true)" />
+		<setting id="general.addon.view.id" type="number" subsetting="true" label="40555" default="" visible="eq(-4,true) + eq(-5,true)" />
+		<setting id="general.show.view.id" type="number" subsetting="true" label="40556" default="" visible="eq(-5,true) + eq(-6,true)" />
+		<setting id="general.episode.view.id" type="number" subsetting="true" label="40557" default="" visible="eq(-6,true) + eq(-7,true)" />
 
 		<!-- Content Customization -->
 		<setting type="lsep" label="40302"/>
@@ -54,6 +63,7 @@
 		<!-- Miscellaneous -->
 		<setting type="lsep" label="40542"/>
 		<setting id="download.location" label="40543" type="folder" default="" />
+		<setting id="download.background" type="bool" label="40566" default="false" />
 
 		<!--
 		<setting id="contenttype.seasons" type="labelenum" label="- Seasons content type" values="seasons|tvshows" default="tvshows" visible="eq(-2,true)"/>

@@ -229,6 +229,21 @@ def select_dialog(title, dialog_list):
     return xbmcgui.Dialog().select(title, dialog_list)
 
 
+def get_view_type(viewtype):
+    viewtypes = {
+        '0': 50, # Default
+        '1': 51, # Poster
+        '2': 52, # Icon Wall
+        '3': 53, # Shift
+        '4': 54, # Info Wall
+        '5': 55, # Wide List
+        '6': 500, # Wall
+        '7': 501, # Banner
+        '8': 502 # Fanart
+    }
+    return viewtypes[viewtype]
+
+
 def clear_settings(dialog):
     confirm = dialog
     if confirm == 0:
@@ -379,7 +394,7 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None):
     return xbmcplugin.addDirectoryItem(handle=HANDLE, url=u, listitem=liz, isFolder=True)
 
 
-def draw_items(video_data, contentType="tvshows", viewType=None, draw_cm=[], bulk_add=False):
+def draw_items(video_data, contentType="tvshows", draw_cm=[], bulk_add=False):
     if isinstance(video_data, tuple):
         contentType = video_data[1]
         video_data = video_data[0]
@@ -404,8 +419,23 @@ def draw_items(video_data, contentType="tvshows", viewType=None, draw_cm=[], bul
 
     xbmcplugin.endOfDirectory(HANDLE, succeeded=True, updateListing=False, cacheToDisc=True)
 
-    if viewType:
-        xbmc.executebuiltin('Container.SetViewMode(%d)' % _get_view_type(viewType))
+    if getSetting('general.viewtype') == 'true':
+        if getSetting('general.viewidswitch') == 'true':
+            # Use integer view types
+            if contentType == 'addons':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % int(getSetting('general.addon.view.id')))
+            elif contentType == 'tvshows':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % int(getSetting('general.show.view.id')))
+            elif contentType == 'episodes':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % int(getSetting('general.episode.view.id')))
+        else:
+            # Use optional view types
+            if contentType == 'addons':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('general.addon.view')))
+            elif contentType == 'tvshows':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('general.show.view')))
+            elif contentType == 'episodes':
+                xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('general.episode.view')))
 
     if contentType == "episodes" and getSetting('general.smartscroll') == 'true':
         sleep(int(getSetting('general.smartscroll.wait.time')))
@@ -577,6 +607,6 @@ def enabled_embeds():
 # ### for testing ###
 def _print(string, *args):
     for i in list(args):
-        string += ' {0}'.format(i)
-    textviewer_dialog('print', string)
+        string = '{} {}'.format(string, i)
+    textviewer_dialog('print', '{}'.format(string))
     del args, string

@@ -1171,6 +1171,74 @@ msgctxt "#40549"
 msgid "Scrape Local Content"
 msgstr "Extraire le contenu local"
 
+msgctxt "#40550"
+msgid "Force view types on menus"
+msgstr "Forcer les types de vue sur les menus"
+
+msgctxt "#40551"
+msgid "Use Custom View IDs (Advanced)"
+msgstr "Utiliser des identifiants de vue personnalisés (Avancé)"
+
+msgctxt "#40552"
+msgid "General Menu View"
+msgstr "Vue générale du menu"
+
+msgctxt "#40553"
+msgid "Anime View"
+msgstr "Vue anime"
+
+msgctxt "#40554"
+msgid "Episode View"
+msgstr "Vue épisode"
+
+msgctxt "#40555"
+msgid "General Menu View ID"
+msgstr "Identifiant de vue générale du menu"
+
+msgctxt "#40556"
+msgid "Anime View ID"
+msgstr "Identifiant de vue anime"
+
+msgctxt "#40557"
+msgid "Episode View ID"
+msgstr "Identifiant de vue épisode"
+
+msgctxt "#40558"
+msgid "Poster"
+msgstr "Affiche"
+
+msgctxt "#40559"
+msgid "Icon Wall"
+msgstr "Mur d'icônes"
+
+msgctxt "#40560"
+msgid "Shift"
+msgstr "Décalage"
+
+msgctxt "#40561"
+msgid "Info Wall"
+msgstr "Mur d'informations"
+
+msgctxt "#40562"
+msgid "Wide List"
+msgstr "Liste large"
+
+msgctxt "#40563"
+msgid "Wall"
+msgstr "Mur"
+
+msgctxt "#40564"
+msgid "Banner"
+msgstr "Bannière"
+
+msgctxt "#40565"
+msgid "Fanart"
+msgstr "Fanart"
+
+msgctxt "#40566"
+msgid "Allow Downloads in the Background"
+msgstr "Permettre les téléchargements en arrière-plan"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

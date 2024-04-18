@@ -1171,6 +1171,74 @@ msgctxt "#40549"
 msgid "Scrape Local Content"
 msgstr "Yerel İçeriği Kazı"
 
+msgctxt "#40550"
+msgid "Force view types on menus"
+msgstr "Menülerde görünüm türlerini zorla"
+
+msgctxt "#40551"
+msgid "Use Custom View IDs (Advanced)"
+msgstr "Özel Görünüm Kimlikleri Kullan (Gelişmiş)"
+
+msgctxt "#40552"
+msgid "General Menu View"
+msgstr "Genel Menü Görünümü"
+
+msgctxt "#40553"
+msgid "Anime View"
+msgstr "Anime Görünümü"
+
+msgctxt "#40554"
+msgid "Episode View"
+msgstr "Bölüm Görünümü"
+
+msgctxt "#40555"
+msgid "General Menu View ID"
+msgstr "Genel Menü Görünümü Kimliği"
+
+msgctxt "#40556"
+msgid "Anime View ID"
+msgstr "Anime Görünümü Kimliği"
+
+msgctxt "#40557"
+msgid "Episode View ID"
+msgstr "Bölüm Görünümü Kimliği"
+
+msgctxt "#40558"
+msgid "Poster"
+msgstr "Poster"
+
+msgctxt "#40559"
+msgid "Icon Wall"
+msgstr "Simge Duvarı"
+
+msgctxt "#40560"
+msgid "Shift"
+msgstr "Kaydır"
+
+msgctxt "#40561"
+msgid "Info Wall"
+msgstr "Bilgi Duvarı"
+
+msgctxt "#40562"
+msgid "Wide List"
+msgstr "Geniş Liste"
+
+msgctxt "#40563"
+msgid "Wall"
+msgstr "Duvar"
+
+msgctxt "#40564"
+msgid "Banner"
+msgstr "Afiş"
+
+msgctxt "#40565"
+msgid "Fanart"
+msgstr "Fanart"
+
+msgctxt "#40566"
+msgid "Allow Downloads in the Background"
+msgstr "Arka Planda İndirmelere İzin Ver"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

@@ -2,7 +2,7 @@ import math
 import os
 import time
 
-from kodi_six import xbmcvfs
+from kodi_six import xbmcvfs, xbmcgui
 from resources.lib.ui import control
 from six.moves import urllib_request, urllib_parse
 
@@ -71,22 +71,48 @@ class DownloadTask:
         chunks = iter(lambda: response.read(1024 * 1024 * 8), b'')
 
         control.notify("{}: Download Started".format(control.ADDON_NAME))
-        control.progressDialog.create(control.ADDON_NAME, 'Download Starting')
+        # Check the 'download.background' setting
+        if control.getSetting('download.background') == 'true':
+            # Create a background progress dialog
+            bg_dialog = xbmcgui.DialogProgressBG()
+            bg_dialog.create('Download Progress', 'Starting download...')
+        else:
+            # Create a regular progress dialog
+            control.progressDialog.create(control.ADDON_NAME, 'Download Starting')
 
         with open(self._output_path, 'wb') as f:
             for chunk in chunks:
-                if control.progressDialog.iscanceled():
-                    self._canceled = True
-                    break
+                # Check the appropriate dialog
+                if control.getSetting('download.background') == 'true':
+                    if bg_dialog.isFinished():
+                        self._canceled = True
+                        break
+                else:
+                    if control.progressDialog.iscanceled():
+                        self._canceled = True
+                        break
+        
                 if chunk:
                     f.write(chunk)
                     self._update_status(len(chunk))
-                    control.progressDialog.update(self.progress, '''
-    Progress:   {}%            eta:  {}
-    Speed:      {}                  
-    Downloaded: {}
-    filesize:   {}
-    '''.format(self.progress, self.get_remaining_time_display(), self.get_display_speed(), self.get_display_size(self.bytes_consumed), self.file_size_display))
+        
+                    # Update the appropriate progress dialog
+                    if control.getSetting('download.background') == 'true':
+                        bg_dialog.update(self.progress, 'Download Progress', 'Downloaded: {}%'.format(self.progress))
+                    else:
+                        control.progressDialog.update(self.progress, '''
+        Progress:   {}%            eta:  {}
+        Speed:      {}                  
+        Downloaded: {}
+        filesize:   {}
+        '''.format(self.progress, self.get_remaining_time_display(), self.get_display_speed(), self.get_display_size(self.bytes_consumed), self.file_size_display))
+        
+        # Close the appropriate progress dialog
+        if control.getSetting('download.background') == 'true':
+            bg_dialog.close()
+        else:
+            control.progressDialog.close()
+
         if self._canceled:
             control.progressDialog.close()
             os.remove(self._output_path)

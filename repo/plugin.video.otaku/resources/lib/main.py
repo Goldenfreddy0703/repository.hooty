@@ -2337,8 +2337,12 @@ def TOGGLE_LANGUAGE_INVOKER(payload, params):
 @route('download/*')
 def DOWNLOAD(payload, params):
     none, type_, anilist_id, episode, filter_lang = payload.rsplit("/")
-    sources = _BROWSER.get_sources(anilist_id, episode, filter_lang, 'show', download=True)
-    _mock_args = {"anilist_id": anilist_id, "episode": episode}
+    if type_ == 'play_movie':
+        sources = _BROWSER.get_sources(anilist_id, 1, None, 'movie', download=True)
+        _mock_args = {'anilist_id': anilist_id}
+    else:
+        sources = _BROWSER.get_sources(anilist_id, episode, filter_lang, 'show', download=True)
+        _mock_args = {"anilist_id": anilist_id, "episode": episode}
 
     from resources.lib.windows.source_select import SourceSelect
     link = SourceSelect(*('source_select.xml', control.ADDON_PATH), actionArgs=_mock_args, sources=sources).doModal()

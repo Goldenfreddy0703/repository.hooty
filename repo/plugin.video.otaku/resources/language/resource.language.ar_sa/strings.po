@@ -1171,6 +1171,74 @@ msgctxt "#40549"
 msgid "Scrape Local Content"
 msgstr "جمع المعلومات من المحتوى المحلي"
 
+msgctxt "#40550"
+msgid "Force view types on menus"
+msgstr "فرض أنواع العرض على القوائم"
+
+msgctxt "#40551"
+msgid "Use Custom View IDs (Advanced)"
+msgstr "استخدام معرفات العرض المخصصة (متقدم)"
+
+msgctxt "#40552"
+msgid "General Menu View"
+msgstr "عرض القائمة العامة"
+
+msgctxt "#40553"
+msgid "Anime View"
+msgstr "عرض الأنمي"
+
+msgctxt "#40554"
+msgid "Episode View"
+msgstr "عرض الحلقة"
+
+msgctxt "#40555"
+msgid "General Menu View ID"
+msgstr "معرف عرض القائمة العامة"
+
+msgctxt "#40556"
+msgid "Anime View ID"
+msgstr "معرف عرض الأنمي"
+
+msgctxt "#40557"
+msgid "Episode View ID"
+msgstr "معرف عرض الحلقة"
+
+msgctxt "#40558"
+msgid "Poster"
+msgstr "بوستر"
+
+msgctxt "#40559"
+msgid "Icon Wall"
+msgstr "جدار الأيقونات"
+
+msgctxt "#40560"
+msgid "Shift"
+msgstr "تحريك"
+
+msgctxt "#40561"
+msgid "Info Wall"
+msgstr "جدار المعلومات"
+
+msgctxt "#40562"
+msgid "Wide List"
+msgstr "قائمة واسعة"
+
+msgctxt "#40563"
+msgid "Wall"
+msgstr "جدار"
+
+msgctxt "#40564"
+msgid "Banner"
+msgstr "راية"
+
+msgctxt "#40565"
+msgid "Fanart"
+msgstr "فن الجماهير"
+
+msgctxt "#40566"
+msgid "Allow Downloads in the Background"
+msgstr "السماح بالتنزيلات في الخلفية"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

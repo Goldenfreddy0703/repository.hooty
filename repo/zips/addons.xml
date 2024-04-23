@@ -786,7 +786,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.100">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.4.101">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -812,6 +812,12 @@ Initial release
     <assets>
       <icon>icon.png</icon>
       <fanart>fanart.jpg</fanart>
+      <clearlogo>logo.png</clearlogo>
+      <poster>poster.png</poster>
+      <screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
 </addon><addon id="plugin.video.seren" version="3.0.0" name="Seren" provider-name="Nixgates">

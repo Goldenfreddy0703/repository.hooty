@@ -1,3 +1,9 @@
+Changelog 0.4.101[20240423]:
+- Made Logos and Posters for the asset list
+- Added Screenshots to the asset list
+- Added 3rd Logo Path "trans-goku-large.png"
+- Reverted previous change due to Watchlist Episode Errors
+
 Changelog 0.4.100[20240422]:
 - Have it Fail gracefully when simkl id is not available
 

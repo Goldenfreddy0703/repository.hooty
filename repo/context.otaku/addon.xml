@@ -52,6 +52,8 @@
     <assets>
       <icon>icon.png</icon>
       <fanart>fanart.jpg</fanart>
+      <clearlogo>logo.png</clearlogo>
+      <poster>poster.png</poster>
     </assets>
     <news>
 Changelog 0.0.10:

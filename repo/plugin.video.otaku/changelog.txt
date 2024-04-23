@@ -1,3 +1,6 @@
+Changelog 0.4.100[20240422]:
+- Have it Fail gracefully when simkl id is not available
+
 Changelog 0.4.99[20240418]:
 - Added ViewType Settings
 - Added a Background Download Setting

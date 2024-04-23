@@ -28,7 +28,7 @@ class sources(BrowserBase):
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
 
-        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='Zoro')
+        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='HiAnime')
         if not items:
             if kodi_meta.get('start_date'):
                 year = kodi_meta.get('start_date').split('-')[0]

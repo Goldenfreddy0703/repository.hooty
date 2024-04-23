@@ -66,11 +66,11 @@ def WATCHLIST_TO_EP(payload, params):
 
     anime_general, content_type = OtakuBrowser().get_anime_init(anilist_id)
 
-    if anime_general and control.hide_unaired(content_type) and anime_general[0].get('info').get('aired'):
+    if control.hide_unaired(content_type) and anime_general[0].get('info').get('aired'):
         anime_general = [x for x in anime_general
                          if x.get('info').get('aired')
                          and time.strptime(x.get('info').get('aired'), '%Y-%m-%d') < time.localtime()]
-        return control.draw_items(anime_general, content_type)
+    return control.draw_items(anime_general, content_type)
 
 
 @route('watchlist_context/*')

@@ -56,6 +56,7 @@ fanart_ = "%s/fanart.jpg" % ADDON_PATH
 IMAGES_PATH = os.path.join(ADDON_PATH, 'resources', 'images')
 OTAKU_LOGO_PATH = os.path.join(IMAGES_PATH, 'trans-goku.png')
 OTAKU_LOGO2_PATH = os.path.join(IMAGES_PATH, 'trans-goku-small.png')
+OTAKU_LOGO3_PATH = os.path.join(IMAGES_PATH, 'trans-goku-large.png')
 OTAKU_FANART_PATH = "%s/fanart.jpg" % ADDON_PATH
 menuItem = xbmcgui.ListItem
 execute = xbmc.executebuiltin

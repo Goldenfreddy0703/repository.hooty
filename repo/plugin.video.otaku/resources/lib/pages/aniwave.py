@@ -30,7 +30,7 @@ class sources(BrowserBase):
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
 
-        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='Aniwave')
+        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='9anime')
         if not items:
             headers = {'Referer': self._BASE_URL}
             params = {'keyword': title}

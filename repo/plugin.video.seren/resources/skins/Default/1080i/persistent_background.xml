@@ -1,0 +1,79 @@
+<window type="dialog">
+    <coordinates>
+        <left>0</left>
+        <top>0</top>
+		<width>1920</width>
+		<height>1080</height>
+    </coordinates>
+
+    <animation effect="fade" time="350">WindowOpen</animation>
+
+    <controls>
+
+		<!-- Background -->
+		<control type="group">
+			<top>0</top>
+			<left>0</left>
+			<width>1920</width>
+			<height>1080</height>
+
+			<!-- Fallback -->
+			<control type="image">
+				<texture>white.png</texture>
+				<colordiffuse>FF000000</colordiffuse>
+			</control>
+
+			<!-- Fanart -->
+			<control type="image">
+				<texture background="true">$INFO[Window().Property(item.art.fanart)]</texture>
+			</control>
+
+			<!-- Overlay -->
+			<control type="image">
+				<texture background="true">white.png</texture>
+				<colordiffuse>CC000000</colordiffuse>
+			</control>
+		</control>
+
+		<!-- Seren Logo -->
+		<control type="image">
+			<animation effect="fade" time="350">WindowOpen</animation>
+			<centerleft>50%</centerleft>
+			<bottom>80</bottom>
+			<align>center</align>
+			<aligny>center</aligny>
+			<width>335</width>
+			<aspectratio>keep</aspectratio>
+			<texture>$INFO[Window().Property(seren.logo)]</texture>
+			<visible>String.IsEqual(Window().Property(process_started),false) | String.IsEmpty(Window().Property(item.art.clearlogo))</visible>
+		</control>
+
+		<!-- Clearlogo -->
+		<control type="image">
+			<animation effect="fade" time="350" condition="String.IsEqual(Window().Property(process_started),true) + !String.IsEmpty(Window().Property(item.art.clearlogo))">Conditional</animation>
+			<centerleft>50%</centerleft>
+			<width>335</width>
+			<bottom>80</bottom>
+			<align>center</align>
+			<aligny>center</aligny>
+			<aspectratio>keep</aspectratio>
+			<texture>$INFO[Window().Property(item.art.clearlogo)]</texture>
+			<visible>String.IsEqual(Window().Property(process_started),true) + !String.IsEmpty(Window().Property(item.art.clearlogo))</visible>
+		</control>
+
+		<!-- Notification Text -->
+        <control type="label">
+			<animation effect="fade" time="350">WindowOpen</animation>
+			<animation effect="fade" time="350">VisibleChange</animation>
+            <top>210</top>
+			<centerleft>50%</centerleft>
+            <width>100%</width>
+            <font>font12</font>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>FFDDDDDD</textcolor>
+            <label>$INFO[Window().Property(notification_text)]</label>
+			<visible>!String.IsEmpty(Window().Property(notification_text))</visible>
+        </control>
+    </controls>
+</window>

@@ -1,0 +1,58 @@
+#
+msgid ""
+msgstr ""
+
+#: addon.xml:8 /resources/settings.xml:6
+msgctxt "#30000"
+msgid "Quick Resume Show"
+msgstr "Présentation rapide de l’exposition"
+
+#: addon.xml:12 /resources/settings.xml:11
+msgctxt "#30001"
+msgid "Shuffle Play"
+msgstr "Lecture aléatoire"
+
+#: addon.xml:16 /resources/settings.xml:16
+msgctxt "#30002"
+msgid "Play From Random Episode"
+msgstr "Jouer à partir d’un épisode aléatoire"
+
+#: addon.xml:20 /resources/settings.xml:21
+msgctxt "#30003"
+msgid "Rescrape Item"
+msgstr "Rescrape, élément"
+
+#: addon.xml:28 /resources/settings.xml:31
+msgctxt "#30004"
+msgid "Source Select"
+msgstr "Sélection source"
+
+#: addon.xml:32 /resources/settings.xml:36
+msgctxt "#30005"
+msgid "Find Similar"
+msgstr "Find similitude"
+
+#: addon.xml:36 /resources/settings.xml:41
+msgctxt "#30006"
+msgid "Browse Show"
+msgstr "Parcourir le spectacle"
+
+#: addon.xml:40 /resources/settings.xml:46
+msgctxt "#30007"
+msgid "Browse Season"
+msgstr "Parcourir la saison"
+
+#: addon.xml:44 /resources/settings.xml:51
+msgctxt "#30008"
+msgid "Trakt Manager"
+msgstr "Trakt Manager"
+
+#: /resources/settings.xml:5
+msgctxt "#30009"
+msgid "General"
+msgstr "Général"
+
+#: addon.xml:24 /resources/settings.xml:26
+msgctxt "#30010"
+msgid "Rescrape and Source Select"
+msgstr "Rescrape et Sélection de source"

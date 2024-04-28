@@ -161,7 +161,6 @@ class sources(BrowserBase):
         return all_results
 
     def get_sources(self, query, anilist_id, episode, status, media_type, rescrape):
-        query = str(query) + control.getSetting("torrent.query.data")
         query = self._clean_title(query)
 
         if media_type == 'movie':

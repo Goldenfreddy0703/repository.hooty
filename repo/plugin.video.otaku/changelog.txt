@@ -1,3 +1,6 @@
+Changelog 0.4.104[20240428]:
+- Reverted Scrapping Improvements
+
 Changelog 0.4.103[20240428]:
 - Scrapping Improvements
 - Changed a default setting

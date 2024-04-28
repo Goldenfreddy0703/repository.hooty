@@ -5,7 +5,7 @@ import pickle
 from functools import partial
 from bs4 import BeautifulSoup
 from resources.lib.ui.BrowserBase import BrowserBase
-from resources.lib.ui import database, source_utils, client
+from resources.lib.ui import database, source_utils, client, control
 from resources.lib import debrid
 
 
@@ -13,6 +13,7 @@ class sources(BrowserBase):
     _BASE_URL = 'https://animetosho.org'
 
     def get_sources(self, query, anilist_id, episode, status, media_type, rescrape):
+        query = str(query) + control.getSetting("torrent.query.data")
         query = self._clean_title(query)
         query = self._sphinx_clean(query)
 

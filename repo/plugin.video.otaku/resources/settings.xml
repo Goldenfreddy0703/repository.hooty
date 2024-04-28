@@ -190,6 +190,10 @@
 		<setting id="general.timeout" type="slider" label="40425" option="int" range="10,10,180" default="30" />
 		<setting id="general.terminate.oncloud" type="bool" label="40496" default="true" />
 
+		<!-- Consistant Scraping -->
+		<setting type="lsep" label="40567"/>
+		<setting id="consistent.torrentInspection" type="bool" label="40568" default="true" />
+
 		<!-- Cloud Scraping -->
 		<setting type="lsep" label="40545"/>
 		<setting id="rd.cloudInspection" type="bool" label="40547" default="false" />

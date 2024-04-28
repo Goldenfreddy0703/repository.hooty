@@ -428,6 +428,7 @@ class Sources(DisplayWindow):
         prioritize_season = False
         prioritize_part = False
         prioritize_season_or_part = False
+        prioritize_consistently = False
 
         if control.getSetting('general.sortsources') == '0':  # Torrents selected
             prioritize_dualaudio = control.getSetting('general.prioritize_dualaudio') == 'true'
@@ -435,8 +436,9 @@ class Sources(DisplayWindow):
             prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
             prioritize_season = control.getSetting('general.prioritize_season') == 'true'
             prioritize_part = control.getSetting('general.prioritize_part') == 'true'
-            prioritize_season_or_part = prioritize_season and prioritize_part
-
+            prioritize_consistently = control.getSetting('consistent.torrentInspection') == 'true'
+            prioritize_season_or_part = prioritize_season and prioritize_part or prioritize_consistently
+            
         debrid_priorities = self.debrid_priority()
 
         if prioritize_season_or_part:

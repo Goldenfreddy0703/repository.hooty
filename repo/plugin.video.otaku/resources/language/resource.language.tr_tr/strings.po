@@ -1239,6 +1239,14 @@ msgctxt "#40566"
 msgid "Allow Downloads in the Background"
 msgstr "Arka Planda İndirmelere İzin Ver"
 
+msgctxt "#40567"
+msgid "Consistent Scraping"
+msgstr "Düzenli Veri Kazıma"
+
+msgctxt "#40568"
+msgid "Scrape Torrents Consistently"
+msgstr "Torrentleri Düzenli Olarak Kazı"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

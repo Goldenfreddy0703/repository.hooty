@@ -1239,6 +1239,14 @@ msgctxt "#40566"
 msgid "Allow Downloads in the Background"
 msgstr "Permitir Downloads em Segundo Plano"
 
+msgctxt "#40567"
+msgid "Consistent Scraping"
+msgstr "Raspagem Consistente"
+
+msgctxt "#40568"
+msgid "Scrape Torrents Consistently"
+msgstr "Raspar Torrents de Forma Consistente"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

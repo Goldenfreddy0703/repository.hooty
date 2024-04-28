@@ -1237,7 +1237,15 @@ msgstr "Fanart"
 
 msgctxt "#40566"
 msgid "Allow Downloads in the Background"
-msgstr "Permettre les téléchargements en arrière-plan"
+msgstr "Autoriser les téléchargements en arrière-plan"
+
+msgctxt "#40567"
+msgid "Consistent Scraping"
+msgstr "Extraction cohérente"
+
+msgctxt "#40568"
+msgid "Scrape Torrents Consistently"
+msgstr "Extraire les torrents de manière cohérente"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"

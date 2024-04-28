@@ -1,3 +1,8 @@
+Changelog 0.4.102[20240427]:
+- Added New Consistent Scrapping Setting 
+- Added TVDB Parts in Database
+- Improved Season searching
+
 Changelog 0.4.101[20240423]:
 - Made Logos and Posters for the asset list
 - Added Screenshots to the asset list

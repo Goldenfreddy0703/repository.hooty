@@ -5,6 +5,7 @@ import time
 
 from resources.lib import pages
 from resources.lib.indexers import simkl
+from resources.lib.indexers.syncurl import SyncUrl
 from resources.lib.ui import client, control, database, utils
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.AniListBrowser import AniListBrowser
@@ -177,5 +178,25 @@ class OtakuBrowser(BrowserBase):
             'duration': kodi_meta.get('duration', -1),
             'download': download
         }
+
+        if control.getSetting("consistent.torrentInspection") == 'true':
+            sync_data = SyncUrl().get_anime_data(anilist_id, 'Anilist')
+            s_id = database.get_tvdb_season(anilist_id)
+            if not s_id:
+                s_id = utils.get_season(sync_data[0]) if sync_data else None
+            if isinstance(s_id, list) and s_id:
+                season = s_id[0]
+            elif isinstance(s_id, int):
+                season = s_id
+            else:
+                season = 1
+            control.setSetting("consistent.prioritize_season", str(season))
+
+            part = database.get_tvdb_part(anilist_id)    
+            control.setSetting("consistent.prioritize_part", str(part))
+
+            season = int(season)
+            database._update_season(anilist_id, season)
+
         sources = pages.getSourcesHelper(actionArgs)
         return sources

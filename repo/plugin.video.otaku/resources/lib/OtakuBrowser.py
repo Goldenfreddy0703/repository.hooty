@@ -199,24 +199,5 @@ class OtakuBrowser(BrowserBase):
             season = int(season)
             database._update_season(anilist_id, season)
 
-        # Initialize query as an empty string
-        query = ""
-        
-        # Get the synonyms from the Find My Anime API
-        response = client.request("https://find-my-anime.dtimur.de/api?id={}&provider=Anilist".format(anilist_id))
-        
-        # Parse the JSON response
-        data = json.loads(response)
-        
-        # Get the synonyms
-        synonyms = data[0].get('synonyms', [])
-        
-        # Add each synonym to the query
-        for synonym in synonyms:
-            query += " | (" + synonym + ")"
-
-        # Clean the query
-        control.setSetting("torrent.query.data", str(query))  
-
         sources = pages.getSourcesHelper(actionArgs)
         return sources

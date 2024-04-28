@@ -5,7 +5,6 @@ import time
 
 from resources.lib import pages
 from resources.lib.indexers import simkl
-from resources.lib.indexers.syncurl import SyncUrl
 from resources.lib.ui import client, control, database, utils
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.AniListBrowser import AniListBrowser
@@ -180,6 +179,8 @@ class OtakuBrowser(BrowserBase):
         }
 
         if control.getSetting("consistent.torrentInspection") == 'true':
+            from resources.lib.indexers.syncurl import SyncUrl
+            
             sync_data = SyncUrl().get_anime_data(anilist_id, 'Anilist')
             s_id = database.get_tvdb_season(anilist_id)
             if not s_id:
@@ -197,6 +198,25 @@ class OtakuBrowser(BrowserBase):
 
             season = int(season)
             database._update_season(anilist_id, season)
+
+        # Initialize query as an empty string
+        query = ""
+        
+        # Get the synonyms from the Find My Anime API
+        response = client.request("https://find-my-anime.dtimur.de/api?id={}&provider=Anilist".format(anilist_id))
+        
+        # Parse the JSON response
+        data = json.loads(response)
+        
+        # Get the synonyms
+        synonyms = data[0].get('synonyms', [])
+        
+        # Add each synonym to the query
+        for synonym in synonyms:
+            query += " | (" + synonym + ")"
+
+        # Clean the query
+        control.setSetting("torrent.query.data", str(query))  
 
         sources = pages.getSourcesHelper(actionArgs)
         return sources

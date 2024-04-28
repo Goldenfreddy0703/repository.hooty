@@ -192,7 +192,7 @@
 
 		<!-- Consistant Scraping -->
 		<setting type="lsep" label="40567"/>
-		<setting id="consistent.torrentInspection" type="bool" label="40568" default="true" />
+		<setting id="consistent.torrentInspection" type="bool" label="40568" default="false" />
 
 		<!-- Cloud Scraping -->
 		<setting type="lsep" label="40545"/>

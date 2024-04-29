@@ -73,3 +73,6 @@
 [submodule "repo/skin.arctic.fuse"]
 	path = repo/skin.arctic.fuse
 	url = https://github.com/jurialmunkey/skin.arctic.fuse.git
+[submodule "repo/plugin.program.autowidget"]
+	path = repo/plugin.program.autowidget
+	url = https://github.com/Goldenfreddy0703/plugin.program.autowidget.git

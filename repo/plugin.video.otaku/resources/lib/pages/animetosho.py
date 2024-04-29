@@ -34,10 +34,14 @@ class sources(BrowserBase):
             'q': query,
             'qx': 1
         }
-        if show_meta:
+        
+        anidb = database.get_anidb_id(anilist_id)
+        if anidb is None and show_meta:
             meta_ids = pickle.loads(show_meta['meta_ids'])
-            if meta_ids.get('anidb'):
-                params.update({'aids': meta_ids.get('anidb')})
+            anidb = meta_ids.get('anidb')
+        
+        if anidb:
+            params.update({'aids': anidb})
 
         html = client.request(self._BASE_URL + '/search', params=params)
         soup = BeautifulSoup(html, "html.parser")

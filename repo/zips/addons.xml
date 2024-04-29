@@ -294,7 +294,7 @@ Changelog 0.0.10:
       <fanart>resources/media/fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.autowidget" name="AutoWidget" version="CURRENT_VERSION" provider-name="drinfernoo">
+</addon><addon id="plugin.program.autowidget" name="AutoWidget" version="3.7.0" provider-name="drinfernoo">
     <requires>
         <import addon="script.module.pil" />
         <import addon="script.module.six" />

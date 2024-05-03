@@ -1,0 +1,3 @@
+Exciting News: Tmdb Player Support Returns!
+
+Hello everyone, we're thrilled to announce a significant update that addresses numerous issues and reinstates Tmdb Player and Watchlist Context Menu functionality. For more details, please refer to our latest changelog. We hope you enjoy our latest update.

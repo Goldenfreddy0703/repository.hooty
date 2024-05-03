@@ -32,7 +32,7 @@
             <colordiffuse>CC000000</colordiffuse>
         </control>
 
-        <!-- otaku Ico -->
+        <!-- Otaku Logo -->
         <control type="image" id="1001">
             <top>-150</top>
             <left>700</left>

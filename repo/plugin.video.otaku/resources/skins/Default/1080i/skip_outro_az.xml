@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <onload>Dialog.Close(fullscreeninfo,true)</onload>
+    <onload>Dialog.Close(videoosd,true)</onload>
+
+    <defaultcontrol always="true">3001</defaultcontrol>
+    <zorder>10</zorder>
+    <controls>
+
+        <control type="group">
+            <include>Animation.FadeIn.Slide</include>
+            <include>Animation.FadeOut</include>
+            <right>64</right>
+            <bottom>64</bottom>
+            <width>480</width>
+            <height>270</height>
+            <control type="label" description="text">
+                <top>-64</top>
+                <left>0</left>
+                <right>20</right>
+                <height>64</height>
+                <aligny>center</aligny>
+                <font>Small</font>
+                <label>$ADDON[plugin.video.otaku 40384]</label>
+                <textcolor>ffededed</textcolor>
+                <shadowcolor>bf000000</shadowcolor>
+            </control>
+
+            <!-- Thumb -->
+            <control type="image" description="fanart">
+                <width>100%</width>
+                <height>100%</height>
+                <fadetime>350</fadetime>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <texture diffuse="diffuse/widgetfanart_new.png">$INFO[Window.Property(item.art.thumb)]</texture>
+            </control>
+
+            <!-- Time -->
+            <control type="image" description="blackline">
+                <width>100%</width>
+                <height>64</height>
+                <bottom>0</bottom>
+                <texture colordiffuse="df000000" border="4">diffuse/blackline_nextup.png</texture>
+            </control>
+            <control type="image" description="blackline">
+                <height>94</height>
+                <width>94</width>
+                <centertop>133</centertop>
+                <centerleft>50%</centerleft>
+                <aspectratio scalediffuse="false">keep</aspectratio>
+                <texture colordiffuse="$VAR[ColorHighlight]">common/circle.png</texture>
+            </control>
+            <control type="label">
+                <description>Remaining</description>
+                <centertop>132</centertop>
+                <centerleft>50%</centerleft>
+                <width>885</width>
+                <font>TinyBold</font>
+                <align>center</align>
+                <textcolor>$VAR[ColorHighlight]</textcolor>
+                <label>$INFO[Player.TimeRemaining(sss)]</label>
+            </control>
+
+            <!-- Details -->
+            <control type="label" description="text">
+                <left>20</left>
+                <right>120</right>
+                <height>64</height>
+                <bottom>2</bottom>
+                <aligny>center</aligny>
+                <font>Small</font>
+                <label>$INFO[Window.Property(item.info.season),S,]$INFO[Window.Property(item.info.episode),E, - ]$INFO[Window.Property(item.info.title)]</label>
+                <textcolor>PanelWhite100</textcolor>
+            </control>
+
+            <!-- Play Now -->
+            <control type="button" id="3001">
+                <description>Play</description>
+                <right>120</right>
+                <bottom>8</bottom>
+                <width>48</width>
+                <height>48</height>
+                <label/>
+                <align>center</align>
+                <aligny>center</aligny>
+                <textoffsetx>0</textoffsetx>
+                <onleft>3002</onleft>
+                <onright>3003</onright>
+                <font>Null</font>
+                <textcolor>PanelWhite30</textcolor>
+                <focusedcolor>PanelWhite100</focusedcolor>
+                <texturefocus colordiffuse="$VAR[ColorHighlight]" border="5">common/box.png</texturefocus>
+                <texturenofocus colordiffuse="B3000000" border="5">common/box.png</texturenofocus>
+                <texturenofocus />
+            </control>
+            <control type="image">
+                <description>Play</description>
+                <right>128</right>
+                <bottom>16</bottom>
+                <width>32</width>
+                <height>32</height>
+                <texture>indicator/playwhite.png</texture>
+                <aspectratio>keep</aspectratio>
+                <animation effect="fade" start="100" end="50" time="0" condition="!Control.HasFocus(3001)">Conditional</animation>
+            </control>
+
+            <!-- Skip Outro -->
+            <control type="button" id="3003">
+                <description>Skip Outro</description>
+                <right>64</right>
+                <bottom>8</bottom>
+                <width>48</width>
+                <height>48</height>
+                <label/>
+                <align>center</align>
+                <aligny>center</aligny>
+                <textoffsetx>0</textoffsetx>
+                <onleft>3001</onleft>
+                <onright>3002</onright>
+                <font>Null</font>
+                <textcolor>PanelWhite30</textcolor>
+                <focusedcolor>PanelWhite100</focusedcolor>
+                <texturefocus colordiffuse="$VAR[ColorHighlight]" border="5">common/box.png</texturefocus>
+                <texturenofocus colordiffuse="B3000000" border="5">common/box.png</texturenofocus>
+                <texturenofocus />
+            </control>
+            <control type="image">
+                <description>Stop</description>
+                <right>72</right>
+                <bottom>16</bottom>
+                <width>32</width>
+                <height>32</height>
+                <texture>indicator/poster-inprogress2.png</texture>
+                <aspectratio>keep</aspectratio>
+                <animation effect="fade" start="100" end="50" time="0" condition="!Control.HasFocus(3003)">Conditional</animation>
+            </control>
+
+            <!-- Close -->
+            <control type="button" id="3002">
+                <description>Cancel</description>
+                <right>8</right>
+                <bottom>8</bottom>
+                <width>48</width>
+                <height>48</height>
+                <label/>
+                <align>center</align>
+                <aligny>center</aligny>
+                <textoffsetx>0</textoffsetx>
+                <onleft>3003</onleft>
+                <onright>3001</onright>
+                <font>Null</font>
+                <textcolor>PanelWhite30</textcolor>
+                <focusedcolor>PanelWhite100</focusedcolor>
+                <texturefocus colordiffuse="$VAR[ColorHighlight]" border="5">common/box.png</texturefocus>
+                <texturenofocus colordiffuse="B3000000" border="5">common/box.png</texturenofocus>
+                <texturenofocus />
+            </control>
+            <control type="image">
+                <description>Play</description>
+                <right>16</right>
+                <bottom>16</bottom>
+                <width>32</width>
+                <height>32</height>
+                <texture>indicator/close.png</texture>
+                <aspectratio>keep</aspectratio>
+                <animation effect="fade" start="100" end="50" time="0" condition="!Control.HasFocus(3002)">Conditional</animation>
+            </control>
+            <control type="image">
+                <texture colordiffuse="Box2" background="true" border="4" infill="false">common/box21.png</texture>
+                <visible>!Skin.HasSetting(thumbnails.white)</visible>
+            </control>
+        </control>
+    </controls>
+</window>

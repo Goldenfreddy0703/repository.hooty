@@ -193,9 +193,9 @@
 		<!-- Consistant Scraping -->
 		<setting type="lsep" label="40567"/>
 		<setting id="consistent.torrentInspection" type="bool" label="40568" default="false" />
-		<setting id="consistent.prioritize_season" type="bool" subsetting="false" label="40572" default="false" visible="eq(-1,true)" />
-		<setting id="consistent.prioritize_part" type="bool" subsetting="false" label="40573" default="false" visible="eq(-2,true)" />\
-		<setting id="consistent.prioritize_episode" type="bool" subsetting="false" label="40574" default="false" visible="eq(-3,true)" />
+		<setting id="consistent.prioritize_season" type="bool" subsetting="true" label="40572" default="false" visible="eq(-1,true)" />
+		<setting id="consistent.prioritize_part" type="bool" subsetting="true" label="40573" default="false" visible="eq(-2,true)" />\
+		<setting id="consistent.prioritize_episode" type="bool" subsetting="true" label="40574" default="false" visible="eq(-3,true)" />
 
 		<!-- Cloud Scraping -->
 		<setting type="lsep" label="40545"/>

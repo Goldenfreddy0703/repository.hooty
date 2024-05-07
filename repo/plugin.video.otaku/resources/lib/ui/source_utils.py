@@ -144,7 +144,7 @@ def getInfo(release_title):
             prioritize_part = control.getSetting('general.prioritize_part') == 'true'
             prioritize_episode = control.getSetting('general.prioritize_episode') == 'true'
 
-        if not (prioritize_dualaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode or prioritize_consistently):
+        if not (prioritize_dualaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode):
             return info
     
         from itertools import chain, combinations

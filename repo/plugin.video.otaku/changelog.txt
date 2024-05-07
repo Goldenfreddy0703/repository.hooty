@@ -1,3 +1,10 @@
+Changelog 0.4.107[20240507]:
+- Recoded The Prioritize System
+- Improved Scrapping
+- Fixed small bug with Search Results
+- Added new prioritization Setting "Prioritize By Episode"
+- Added extra consistency settings
+
 Changelog 0.4.106[20240502]:
 - Small compatibility fix
 

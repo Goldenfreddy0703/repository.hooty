@@ -38,66 +38,18 @@ def getQuality(release_title):
 def getInfo(release_title):
     info = []
     release_title = cleanTitle(release_title)
+
+    prioritize_season_value = ''
+    prioritize_part_value = ''
+    prioritize_episode_value = ''
     
-    if control.getSetting('consistent.torrentInspection') == 'false':
-        prioritize_season = control.getSetting("menu.prioritize_season")
-        prioritize_part = control.getSetting("menu.prioritize_part")
-
-    else:
-        prioritize_season = control.getSetting("consistent.prioritize_season")
-        prioritize_part = control.getSetting("consistent.prioritize_part")
-
-    # info.season
-    if any(i.format(prioritize_season) in release_title for i in ['season {}', 'season 0{}', 's{}', 's0{}']):
-        info.append('SEASON')
-
-    # info.season or dual-audio
-    if sum(i.format(prioritize_season) in release_title for i in ['season {}', 'season 0{}', 's{}', 's0{}', 'dual audio']) >= 2:
-        info.append('SEASON_OR_DUAL-AUDIO')
-
-    # info.season or multi-subs
-    if sum(i.format(prioritize_season) in release_title for i in ['season {}', 'season 0{}', 's{}', 's0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 2:
-        info.append('SEASON_OR_MULTI-SUBS')
-
-    # info.season or batch
-    if sum(i.format(prioritize_season) in release_title for i in ['season {}', 'season 0{}', 's{}', 's0{}', 'batch']) >= 2:
-        info.append('SEASON_OR_BATCH')
-
-    # info.part
-    if any(i.format(prioritize_part) in release_title for i in ['part {}', 'part 0{}', 'cour {}', 'cour 0{}']):
-        info.append('PART')
-
-    # info.part or dual-audio
-    if sum(i.format(prioritize_part) in release_title for i in ['part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'dual audio']) >= 2:
-        info.append('PART_OR_DUAL-AUDIO')
-
-    # info.part or multi-subs
-    if sum(i.format(prioritize_part) in release_title for i in ['part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 2:
-        info.append('PART_OR_MULTI-SUBS')
-
-    # info.part or batch
-    if sum(i.format(prioritize_part) in release_title for i in ['part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'batch']) >= 2:
-        info.append('PART_OR_BATCH')
-    
-    # info.season or part
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}']) >= 2:
-        info.append('SEASON_OR_PART')
-
-    # info.season or part or dual-audio
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'dual audio']) >= 3:
-        info.append('SEASON_OR_PART_OR_DUAL-AUDIO')
-
-    # info.season or part or multi-subs
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('SEASON_OR_PART_OR_MULTI-SUBS')
-
-    # info.season or part or batch
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'batch']) >= 3:
-        info.append('SEASON_OR_PART_OR_BATCH')
-
-    # info.subtitles
-    if any(i in release_title for i in ['multi-sub', 'multi sub', 'multiple subtitle']):
-        info.append('MULTI-SUBS')
+    prioritize_dualaudio = False
+    prioritize_multisubs = False
+    prioritize_batches = False
+    prioritize_season = False
+    prioritize_part = False
+    prioritize_episode = False 
+    prioritize_consistently = False
 
     # info.video
     if any(i in release_title for i in ['x264', 'x 264', 'h264', 'h 264', 'avc']):
@@ -120,8 +72,6 @@ def getInfo(release_title):
         info.append('HDR')
     if any(i in release_title for i in [' sdr ']):
         info.append('SDR')
-    if any(i in release_title for i in ['batch']):
-        info.append('BATCH')
 
     # info.audio
     if any(i in release_title for i in ['aac']):
@@ -144,200 +94,14 @@ def getInfo(release_title):
         info.append('WMA')
     if any(i in release_title for i in ['dub', 'dubbed']):
         info.append('DUB')
-    if any(i in release_title for i in ['dual audio']):
-        info.append('DUAL-AUDIO')
 
     # info.channels
     if any(i in release_title for i in ['2 0 ', '2 0ch', '2ch']):
         info.append('2.0')
-
-    # info.channels or season
-    if sum(i.format(prioritize_season) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {}', 'season 0{}', 's{}', 's0{}']) >= 2:
-        info.append('2.0_SEASON')
-
-    # info.channels or season or dual-audio
-    if sum(i.format(prioritize_season) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'dual audio']) >= 3:
-        info.append('2.0_SEASON_OR_DUAL-AUDIO')
-
-    # info.channels or season or multi-subs
-    if sum(i.format(prioritize_season) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('2.0_SEASON_OR_MULTI-SUBS')
-
-    # info.channels or season or batch
-    if sum(i.format(prioritize_season) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'batch']) >= 3:
-        info.append('2.0_SEASON_OR_BATCH')
-
-    # info.channels or part
-    if sum(i.format(prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}']) >= 2:
-        info.append('2.0_PART')
-
-    # info.channels or part or dual-audio
-    if sum(i.format(prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'dual audio']) >= 3:
-        info.append('2.0_PART_OR_DUAL-AUDIO')
-
-    # info.channels or part or multi-subs
-    if sum(i.format(prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('2.0_PART_OR_MULTI-SUBS')
-
-    # info.channels or part or batch
-    if sum(i.format(prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'batch']) >= 3:
-        info.append('2.0_PART_OR_BATCH')
-
-    # info.channels or season or part
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}']) >= 3:
-        info.append('2.0_SEASON_OR_PART')
-
-    # info.channels or season or part or dual-audio
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'dual audio']) >= 4:
-        info.append('2.0_SEASON_OR_PART_OR_DUAL-AUDIO')
-
-    # info.channels or season or part or multi-subs
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 4:
-        info.append('2.0_SEASON_OR_PART_OR_MULTI-SUBS')
-
-    # info.channels or season or part or batch
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['2 0 ', '2 0ch', '2ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'batch']) >= 4:
-        info.append('2.0_SEASON_OR_PART_OR_BATCH')
-
-    # info.channels or audio
-    if sum(i in release_title for i in ['2 0 ', '2 0ch', '2ch', 'dual audio']) >= 2:
-        info.append('2.0_DUAL-AUDIO')
-
-    # info.channels or subtitles
-    if sum(i in release_title for i in ['2 0 ', '2 0ch', '2ch', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 2:
-        info.append('2.0_MULTI-SUBS')
-
-    # info.channels or video
-    if sum(i in release_title for i in ['2 0 ', '2 0ch', '2ch', 'batch']) >= 2:
-        info.append('2.0_BATCH')
-
-    # info.channels
     if any(i in release_title for i in ['5 1 ', '5 1ch', '6ch']):
         info.append('5.1')
-
-    # info.channels or season
-    if sum(i.format(prioritize_season) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {}', 'season 0{}', 's{}', 's0{}']) >= 2:
-        info.append('5.1_SEASON')
-
-    # info.channels or season or dual-audio
-    if sum(i.format(prioritize_season) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'dual audio']) >= 3:
-        info.append('5.1_SEASON_OR_DUAL-AUDIO')
-
-    # info.channels or season or multi-subs
-    if sum(i.format(prioritize_season) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('5.1_SEASON_OR_MULTI-SUBS')
-
-    # info.channels or season or batch
-    if sum(i.format(prioritize_season) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'batch']) >= 3:
-        info.append('5.1_SEASON_OR_BATCH')
-
-    # info.channels or part
-    if sum(i.format(prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}']) >= 2:
-        info.append('5.1_PART')
-
-    # info.channels or part or dual-audio
-    if sum(i.format(prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'dual audio']) >= 3:
-        info.append('5.1_PART_OR_DUAL-AUDIO')
-
-    # info.channels or part or multi-subs
-    if sum(i.format(prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('5.1_PART_OR_MULTI-SUBS')
-
-    # info.channels or part or batch
-    if sum(i.format(prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'batch']) >= 3:
-        info.append('5.1_PART_OR_BATCH')
-
-    # info.channels or season or part
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}']) >= 3:
-        info.append('5.1_SEASON_OR_PART')
-
-    # info.channels or season or part or dual-audio
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'dual audio']) >= 4:
-        info.append('5.1_SEASON_OR_PART_OR_DUAL-AUDIO')
-
-    # info.channels or season or part or multi-subs
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 4:
-        info.append('5.1_SEASON_OR_PART_OR_MULTI-SUBS')
-
-    # info.channels or season or part or batch
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['5 1', '5 1ch', '6ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'batch']) >= 4:
-        info.append('5.1_SEASON_OR_PART_OR_BATCH')
-
-    # info.channels or audio
-    if sum(i in release_title for i in ['5 1', '5 1ch', '6ch', 'dual audio']) >= 2:
-        info.append('5.1_DUAL-AUDIO')
-
-    # info.channels or subtitles
-    if sum(i in release_title for i in ['5 1', '5 1ch', '6ch', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 2:
-        info.append('5.1_MULTI-SUBS')
-
-    # info.channels or video
-    if sum(i in release_title for i in ['5 1', '5 1ch', '6ch', 'batch']) >= 2:
-        info.append('5.1_BATCH')
-
-    # info.channels
     if any(i in release_title for i in ['7 1 ', '7 1ch', '8ch']):
         info.append('7.1')
-
-    # info.channels or season
-    if sum(i.format(prioritize_season) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {}', 'season 0{}', 's{}', 's0{}']) >= 2:
-        info.append('7.1_SEASON')
-
-    # info.channels or season or dual-audio
-    if sum(i.format(prioritize_season) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'dual audio']) >= 3:
-        info.append('7.1_SEASON_OR_DUAL-AUDIO')
-
-    # info.channels or season or multi-subs
-    if sum(i.format(prioritize_season) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('7.1_SEASON_OR_MULTI-SUBS')
-
-    # info.channels or season or batch
-    if sum(i.format(prioritize_season) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {}', 'season 0{}', 's{}', 's0{}', 'batch']) >= 3:
-        info.append('7.1_SEASON_OR_BATCH')
-
-    # info.channels or part
-    if sum(i.format(prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}']) >= 2:
-        info.append('7.1_PART')
-
-    # info.channels or part or dual-audio
-    if sum(i.format(prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'dual audio']) >= 3:
-        info.append('7.1_PART_OR_DUAL-AUDIO')
-
-    # info.channels or part or multi-subs
-    if sum(i.format(prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 3:
-        info.append('7.1_PART_OR_MULTI-SUBS')
-
-    # info.channels or part or batch
-    if sum(i.format(prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'part {}', 'part 0{}', 'cour {}', 'cour 0{}', 'batch']) >= 3:
-        info.append('7.1_PART_OR_BATCH')
-
-    # info.channels or season or part
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}']) >= 3:
-        info.append('7.1_SEASON_OR_PART')
-
-    # info.channels or season or part or dual-audio
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'dual audio']) >= 4:
-        info.append('7.1_SEASON_OR_PART_OR_DUAL-AUDIO')
-
-    # info.channels or season or part or multi-subs
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 4:
-        info.append('7.1_SEASON_OR_PART_OR_MULTI-SUBS')
-
-    # info.channels or season or part or batch
-    if sum(i.format(prioritize_season, prioritize_part) in release_title for i in ['7 1', '7 1ch', '8ch', 'season {0}', 'season 0{0}', 's{0}', 's0{0}', 'part {1}', 'part 0{1}', 'cour {1}', 'cour 0{1}', 'batch']) >= 4:
-        info.append('7.1_SEASON_OR_PART_OR_BATCH')
-
-    # info.channels or audio
-    if sum(i in release_title for i in ['7 1', '7 1ch', '8ch', 'dual audio']) >= 2:
-        info.append('7.1_DUAL-AUDIO')
-
-    # info.channels or subtitles
-    if sum(i in release_title for i in ['7 1', '7 1ch', '8ch', 'multi-sub', 'multi sub', 'multiple subtitle']) >= 2:
-        info.append('7.1_MULTI-SUBS')
-
-    # info.channels or video
-    if sum(i in release_title for i in ['7 1', '7 1ch', '8ch', 'batch']) >= 2:
-        info.append('7.1_BATCH')
 
     # info.source
     # no point at all with WEBRip vs WEB-DL cuz it's always labeled wrong with TV Shows
@@ -364,6 +128,137 @@ def getInfo(release_title):
         info.append('BLUR')
     if any(i in release_title for i in [' 3d']):
         info.append('3D')
+
+    if control.getSetting('general.sortsources') == '0':  # Torrents selected
+        prioritize_dualaudio = control.getSetting('general.prioritize_dualaudio') == 'true'
+        prioritize_multisubs = control.getSetting('general.prioritize_multisubs') == 'true'
+        prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
+        prioritize_consistently = control.getSetting('consistent.torrentInspection') == 'true'
+
+        if prioritize_consistently:
+            prioritize_season = control.getSetting('consistent.prioritize_season') == 'true'
+            prioritize_part = control.getSetting('consistent.prioritize_part') == 'true'
+            prioritize_episode = control.getSetting('consistent.prioritize_episode') == 'true'
+        else:
+            prioritize_season = control.getSetting('general.prioritize_season') == 'true'
+            prioritize_part = control.getSetting('general.prioritize_part') == 'true'
+            prioritize_episode = control.getSetting('general.prioritize_episode') == 'true'
+
+        if not (prioritize_dualaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode or prioritize_consistently):
+            return info
+    
+        from itertools import chain, combinations
+    
+        # Define the order of the keys
+        key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-SUBS', 'BATCH']
+    
+        # Define the user's selected priorities
+        selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multisubs, prioritize_batches]
+        
+        # Generate all possible combinations of the selected priorities
+        selected_combinations = list(chain(*map(lambda x: combinations([key for key, selected in zip(key_order, selected_priorities) if selected], x), range(0, len(selected_priorities)+1))))
+
+        # Initialize keyword as an empty list
+        keyword = []
+        
+        for combination in selected_combinations:
+            # Skip the empty combination
+            if not combination:
+                continue
+        
+            # Join the keys in the combination with '_OR_' and append to the keyword list
+            keyword.append('_OR_'.join(combination))
+        
+        # Keep only the last combination in the keyword list
+        keyword = [keyword[-1]] if keyword else []
+        
+        # Convert the keyword list to a string
+        keyword = ' '.join(keyword) if keyword else ''
+
+        if prioritize_consistently:
+            prioritize_season_value = control.getSetting('consistent.prioritize_season_value')
+            prioritize_part_value = control.getSetting('consistent.prioritize_part_value')
+            prioritize_episode_value = control.getSetting('consistent.prioritize_episode_value')
+        else:
+            prioritize_season_value = control.getSetting('menu.prioritize_season_value')
+            prioritize_part_value = control.getSetting('menu.prioritize_part_value')
+            prioritize_episode_value = control.getSetting('menu.prioritize_episode_value')
+
+        # Check if '_OR_' is in the keyword
+        if '_OR_' in keyword:
+            # Split the keyword into individual terms
+            terms = keyword.split('_OR_')
+            # Define the formats for each term
+            term_formats = {
+                'SEASON': ['season {}'.format(prioritize_season_value), 'season 0{}'.format(prioritize_season_value), 's{}'.format(prioritize_season_value), 's0{}'.format(prioritize_season_value)],
+                'PART': ['part {}'.format(prioritize_part_value), 'part 0{}'.format(prioritize_part_value), 'cour {}'.format(prioritize_part_value), 'cour 0{}'.format(prioritize_part_value), 'part{}'.format(prioritize_part_value), 'part0{}'.format(prioritize_part_value), 'cour{}'.format(prioritize_part_value), 'cour0{}'.format(prioritize_part_value)],
+                'EPISODE': ['episode {}'.format(prioritize_episode_value), 'episode 0{}'.format(prioritize_episode_value), 'ep {}'.format(prioritize_episode_value), 'ep 0{}'.format(prioritize_episode_value), 'episode{}'.format(prioritize_episode_value), 'episode0{}'.format(prioritize_episode_value), 'ep{}'.format(prioritize_episode_value), 'ep0{}'.format(prioritize_episode_value), 'e{}'.format(prioritize_episode_value), 'e0{}'.format(prioritize_episode_value)],
+                'DUAL-AUDIO': ['dual audio'],
+                'MULTI-SUBS': ['multi-sub', 'multi sub', 'multiple subtitle'],
+                'BATCH': ['batch']
+            }
+            # Define the variables for each term
+            term_variables = {
+                'SEASON': str(prioritize_season_value),
+                'PART': str(prioritize_part_value),
+                'EPISODE': str(prioritize_episode_value)
+            }
+
+            # Create a new dictionary that only contains the keys that are in terms
+            filtered_term_formats = {term: term_formats[term] for term in terms if term in term_formats}
+
+            # Flatten the dictionary into a list
+            flat_filtered_term_formats = [format_string for format_strings in filtered_term_formats.values() for format_string in format_strings]
+
+            # Create a new list that only contains the values of the keys that are in terms
+            filtered_term_variables_values = [term_variables[term] for term in terms if term in term_variables]
+
+            # Join the list into a single string with a comma as a separator
+            filtered_term_variables_string = ','.join(filtered_term_variables_values)
+
+            # Check if all terms exist in the release_title and append the keyword to info
+            if sum(i.format(filtered_term_variables_string) in release_title for i in flat_filtered_term_formats) >= len(terms):
+                info.append(keyword)
+
+        else:
+            if keyword == None:
+                pass
+            else:
+                # Define the keyword as the only term
+                term = keyword
+                # Define the formats for each term
+                term_formats = {
+                    'SEASON': ['season {}'.format(prioritize_season_value), 'season 0{}'.format(prioritize_season_value), 's{}'.format(prioritize_season_value), 's0{}'.format(prioritize_season_value)],
+                    'PART': ['part {}'.format(prioritize_part_value), 'part 0{}'.format(prioritize_part_value), 'cour {}'.format(prioritize_part_value), 'cour 0{}'.format(prioritize_part_value), 'part{}'.format(prioritize_part_value), 'part0{}'.format(prioritize_part_value), 'cour{}'.format(prioritize_part_value), 'cour0{}'.format(prioritize_part_value)],
+                    'EPISODE': ['episode {}'.format(prioritize_episode_value), 'episode 0{}'.format(prioritize_episode_value), 'ep {}'.format(prioritize_episode_value), 'ep 0{}'.format(prioritize_episode_value), 'episode{}'.format(prioritize_episode_value), 'episode0{}'.format(prioritize_episode_value), 'ep{}'.format(prioritize_episode_value), 'ep0{}'.format(prioritize_episode_value), 'e{}'.format(prioritize_episode_value), 'e0{}'.format(prioritize_episode_value)],
+                    'DUAL-AUDIO': ['dual audio'],
+                    'MULTI-SUBS': ['multi-sub', 'multi sub', 'multiple subtitle'],
+                    'BATCH': ['batch']
+                }
+                # Define the variables for each term
+                term_variables = {
+                    'SEASON': str(prioritize_season_value),
+                    'PART': str(prioritize_part_value),
+                    'EPISODE': str(prioritize_episode_value),
+                }
+
+                # Create a new dictionary that only contains the keys that are in term
+                filtered_term_formats = term_formats[term]
+
+                if keyword == 'SEASON' or keyword == 'PART' or keyword == 'EPISODE':
+                    # Create a new list that only contains the values of the keys that are in term
+                    filtered_term_variables_values = term_variables[term]
+
+                    # Join the list into a single string with a comma as a separator
+                    filtered_term_variables_string = ','.join(filtered_term_variables_values)
+
+                    # Check if any term exist in the release_title and append the keyword to info
+                    if any(i.format(filtered_term_variables_string) in release_title for i in filtered_term_formats):
+                        info.append(keyword)
+
+                else:
+                    if any(i in release_title for i in filtered_term_formats):
+                        info.append(keyword)
 
     return info
 

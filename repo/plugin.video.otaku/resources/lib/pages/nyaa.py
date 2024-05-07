@@ -63,8 +63,8 @@ class sources(BrowserBase):
             for i in soup.select("tr.danger,tr.default,tr.success")
         ]
 
-        regex = r'\ss(\d+)|season\s(\d+)|(\d+)+(?:st|[nr]d|th)\sseason'
-        regex_ep = r'\de(\d+)\b|\se(\d+)\b|\s-\s(\d{1,3})\b'
+        regex = r'\b(?:s|season|series)\s*(\d+)\b(?:episode|ep|eps)\s*(\d+)'
+        regex_ep = r'\b(?:e|ep|eps|episode)\s*(\d{1,4})\b'
         rex = re.compile(regex)
         rex_ep = re.compile(regex_ep)
         filtered_list = []
@@ -77,7 +77,7 @@ class sources(BrowserBase):
                 ep_match = rex_ep.findall(title)
                 ep_match = list(map(int, list(filter(None, itertools.chain(*ep_match)))))
                 if ep_match and ep_match[0] != int(episode):
-                    regex_ep_range = r'\s\d+-\d+|\s\d+~\d+|\s\d+\s-\s\d+|\s\d+\s~\s\d+'
+                    regex_ep_range = r'\s(?:\d+(?:[-~]\d+)?)(?:-(?:\d+(?:[-~]\d+)?))?'
                     rex_ep_range = re.compile(regex_ep_range)
                     if not rex_ep_range.search(title):
                         continue
@@ -169,10 +169,8 @@ class sources(BrowserBase):
         sources = self._get_episode_sources(query, anilist_id, episode, status, rescrape)
 
         if not sources and ':' in query:
-            q1, q2 = query.split('|')
-            q1 = q1[1:-1].split(':')[0]
-            q2 = q2[1:-1].split(':')[0]
-            query2 = '({0})|({1})'.format(q1, q2)
+            q1, q2 = (q[1:-1].split(':')[0] for q in query.split('|'))
+            query2 = f"({q1})|({q2})"
             sources = self._get_episode_sources(query2, anilist_id, episode, status, rescrape)
 
         if not sources:
@@ -247,15 +245,23 @@ class sources(BrowserBase):
 
     def _get_episode_sources_pack(self, show, anilist_id, episode):
         query = '%s "Batch"|"Complete Series"' % show
-
+    
         episodes = pickle.loads(database.get_show(anilist_id)['kodi_meta'])['episodes']
         if episodes:
             query += '|"01-{0}"|"01~{0}"|"01 - {0}"|"01 ~ {0}"'.format(episodes)
-
-        season = database.get_season_list(anilist_id)
+    
+        season = database.get_tvdb_season(anilist_id)
         if season:
-            season = season['season']
             query += '|"S{0}"|"Season {0}"'.format(season)
+    
+        part = database.get_tvdb_part(anilist_id)
+        if part:
+            query += '|"Part {0}"|"Cour {0}"'.format(part)
+    
+        season_list = database.get_season_list(anilist_id)
+        if season_list:
+            season_list = season_list['season']
+            query += '|"%s"' % season_list
 
         url = '%s?f=0&c=1_2&q=%s&s=seeders&&o=desc' % (self._BASE_URL, urllib_parse.quote_plus(query))
         return self._process_nyaa_backup(url, anilist_id, 2, episode.zfill(2), True)

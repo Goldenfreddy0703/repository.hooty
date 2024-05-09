@@ -21,6 +21,7 @@ import six
 import time
 import json
 import re
+from six.moves.urllib.parse import unquote
 from resources.lib.AniListBrowser import AniListBrowser
 from resources.lib.OtakuBrowser import OtakuBrowser
 from resources.lib.ui import client, control, database, player, utils
@@ -1827,11 +1828,21 @@ def SEARCH(payload, params):
 
 @route('search/*')
 def SEARCH_PAGES(payload, params):
-    match = re.match(r"(\w+)/(.*)/(\d+)", payload)
-    if match:
-        stype, query, page = match.groups()
-        
-        return control.draw_items(_ANILIST_BROWSER.get_search(stype, query, int(page)))
+    parts = payload.split("/")
+    stype = parts[0]
+    if len(parts) >= 3:
+        # If there are three or more parts, the last one is the page
+        query = unquote("/".join(parts[1:-1]))  # Join all parts except the first and last one
+        page = unquote(parts[-1])  # The last part is the page
+    else:
+        # If there are not three parts, join all parts except the first one and use as the query
+        query = unquote("/".join(parts[1:]))
+        page = '1'  # Default to page 1 if no page number is provided
+
+    # Unquote the search type
+    stype = unquote(stype)
+    
+    return control.draw_items(_ANILIST_BROWSER.get_search(stype, query, int(page)))
 
 
 # <!-- Movie Menu Items -->

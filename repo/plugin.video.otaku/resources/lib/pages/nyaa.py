@@ -198,7 +198,7 @@ class sources(BrowserBase):
         url = '%s?f=0&c=1_0&q=%s&s=downloads&o=desc' % (self._BASE_URL, urllib_parse.quote_plus(query))
 
         if status == 'FINISHED':
-            query = '%s "Batch"|"Complete Series"' % show
+            query = '%s "Special"|"Batch"|"Complete Series"|"EngGerSub"' % show
             episodes = pickle.loads(database.get_show(anilist_id)['kodi_meta'])['episodes']
             if episodes:
                 query += '|"01-{0}"|"01~{0}"|"01 - {0}"|"01 ~ {0}"'.format(episodes)

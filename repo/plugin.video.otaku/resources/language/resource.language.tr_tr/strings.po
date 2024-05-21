@@ -51,6 +51,10 @@ msgctxt "#30026"
 msgid "Rebuild Database"
 msgstr "Veritabanını Yeniden Oluştur"
 
+msgctxt "#30028"
+msgid "Download Manager"
+msgstr "İndirme Yöneticisi"
+
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"
 msgid "Open this link in a browser: {}"
@@ -209,6 +213,10 @@ msgstr "Çözünürlük"
 msgctxt "#40238"
 msgid "Info"
 msgstr "Bilgi"
+
+msgctxt "#40239"
+msgid "Localfiles"
+msgstr "yerel dosyalar"
 
 ######SETTINGS.XML VALUES######
 msgctxt "#40300"
@@ -1168,8 +1176,8 @@ msgid "Scrape Premiumize Cloud"
 msgstr "Premiumize Bulutunu Kazı"
 
 msgctxt "#40549"
-msgid "Scrape Local Content"
-msgstr "Yerel İçeriği Kazı"
+msgid "Scrape Local Files"
+msgstr "Yerel Dosyaları Kazı"
 
 msgctxt "#40550"
 msgid "Force view types on menus"
@@ -1270,6 +1278,10 @@ msgstr "Bölümleri Düzenli Olarak Önceliklendir"
 msgctxt "#40574"
 msgid "Prioritize Episodes Consistently"
 msgstr "Bölümleri Düzenli Olarak Önceliklendir"
+
+msgctxt "#40575"
+msgid "Terminate on Local Sources"
+msgstr "Yerel Kaynaklarda Sonlandır"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"

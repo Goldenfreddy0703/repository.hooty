@@ -68,6 +68,7 @@ class sources(BrowserBase):
         rex = re.compile(regex)
         rex_ep = re.compile(regex_ep)
         filtered_list = []
+        episode_increment = 1
 
         for idx, torrent in enumerate(list_):
             torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
@@ -75,13 +76,18 @@ class sources(BrowserBase):
                 title = torrent['name'].lower()
 
                 ep_match = rex_ep.findall(title)
-                ep_match = list(map(int, list(filter(None, itertools.chain(*ep_match)))))
-                if ep_match and ep_match[0] != int(episode):
+                if ep_match:
+                    ep_match = [int(x) for x in ep_match if x.isdigit()]
+                    if ep_match and ep_match[0] >= episode_increment:
+                        filtered_list.append(torrent)
+                        episode_increment += 1
+                        continue
+                        
                     regex_ep_range = r'\s(?:\d+(?:[-~]\d+)?)(?:-(?:\d+(?:[-~]\d+)?))?'
                     rex_ep_range = re.compile(regex_ep_range)
                     if not rex_ep_range.search(title):
                         continue
-
+                    
                 match = rex.findall(title)
                 match = list(map(int, list(filter(None, itertools.chain(*match)))))
                 if not match or match[0] == int(season):

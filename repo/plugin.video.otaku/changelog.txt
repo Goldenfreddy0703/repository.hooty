@@ -1,3 +1,15 @@
+Changelog 0.5.0[20240521]:
+- Added Download Manager
+- Added Local Scrapping
+- Added New Icons for Download Manager
+- Added New Options and Shortcuts
+- Added Context Menus for Select Source
+- Added Context Menus for Download Manager
+- Added File Selection Context Menu
+- Removed Download Context Menu
+- Removed Background Downloads Setting
+- Improved Scrapping
+
 Changelog 0.4.110[20240509]:
 - Fixed Global Search Paths
 

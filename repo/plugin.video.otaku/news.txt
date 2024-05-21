@@ -1,6 +1,31 @@
-More Exciting News: We are almost there to 0.5.0
+More Exciting News: We have released 0.5.0!
 
-Hey everyone, just a quick few updates. We have recoded the prioritization system to help filter sources better and we also managed to improved nyaa scraping significantly by 3 times as much thanks to theasguard and gujal. For more details, please refer to our latest changelog. We hope you enjoy our latest update.
+Hey everyone,
 
-In the future, we will be implementing a Download Manager and local File Scrapping very soon soon.
-Thank you
+We are thrilled to announce the release of version 0.5.0 of Otaku. This update comes with significant new features that we believe will enhance your experience.
+New Features
+
+Download Manager for Debrid Users:
+We have integrated a Download Manager specifically for Debrid users. This tool will allow you to manage your downloads more efficiently, providing better control.
+
+Local Scrapping:
+We have also introduced Local Scrapping, enabling you to scrape content directly to your local storage. This feature is designed to give you more flexibility and convenience.
+
+How to Use the Download Manager:
+- Access the Download Manager: Navigate to the Download Manager section from the main menu.
+- Adding Downloads: You can add new downloads by going to the source select screen on an episode and holding down on a source and you should be able to download.
+- Manage Your Downloads: Monitor the progress, clear completed, or cancel downloads as needed.
+- Settings: Set a download location, This is where Local Files will be scrapped.
+
+Acknowledgements:
+
+We would like to extend our heartfelt thanks to the following contributors:
+
+joezito129: For your invaluable assistance with the Download Manager.
+theasguard: For your improvements to the scrapping functionality.
+Gujal00: For your diligent bug fixing efforts.
+And to all other contributors: Your ongoing support and contributions are what make this project possible.
+
+Thank you all for your support and contributions. We look forward to bringing you more exciting updates in the future!
+
+Feel free to ask if you need any further revisions or additional content!

@@ -49,7 +49,11 @@ msgstr "Cela effacera complètement les paramètres de votre extension. Êtes-vo
 
 msgctxt "#30026"
 msgid "Rebuild Database"
-msgstr "Reconstruction de la base de données"
+msgstr "Reconstruire la base de données"
+
+msgctxt "#30028"
+msgid "Download Manager"
+msgstr "Gestionnaire de téléchargement"
 
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"
@@ -209,6 +213,10 @@ msgstr "Résolution"
 msgctxt "#40238"
 msgid "Info"
 msgstr "Informations"
+
+msgctxt "#40239"
+msgid "Localfiles"
+msgstr "Fichiers locaux"
 
 # #####SETTINGS.XML VALUES######
 msgctxt "#40300"
@@ -1168,8 +1176,8 @@ msgid "Scrape Premiumize Cloud"
 msgstr "Extraire depuis le cloud Premiumize"
 
 msgctxt "#40549"
-msgid "Scrape Local Content"
-msgstr "Extraire le contenu local"
+msgid "Scrape Local Files"
+msgstr "Extraire les fichiers locaux"
 
 msgctxt "#40550"
 msgid "Force view types on menus"
@@ -1270,6 +1278,10 @@ msgstr "Prioriser les parties de manière cohérente"
 msgctxt "#40574"
 msgid "Prioritize Episodes Consistently"
 msgstr "Prioriser les épisodes de manière cohérente"
+
+msgctxt "#40575"
+msgid "Terminate on Local Sources"
+msgstr "Terminer sur les sources locales"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"

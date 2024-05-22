@@ -1,3 +1,8 @@
+Changelog 0.5.1[20240521]:
+- Added Small Skin Compatibility FIx
+- Added Local File Directory Setting
+- Adjusted a few ranges for filtering file sizes 
+
 Changelog 0.5.0[20240521]:
 - Added Download Manager
 - Added Local Scrapping

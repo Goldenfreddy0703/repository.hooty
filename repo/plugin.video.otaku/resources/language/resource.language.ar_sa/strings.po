@@ -1283,6 +1283,10 @@ msgctxt "#40575"
 msgid "Terminate on Local Sources"
 msgstr "إنهاء عند مصادر محلية"
 
+msgctxt "#40576"
+msgid "Local File Directory"
+msgstr "مجلد الملفات المحلية"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

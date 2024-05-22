@@ -76,3 +76,9 @@
 [submodule "repo/plugin.program.autowidget"]
 	path = repo/plugin.program.autowidget
 	url = https://github.com/Goldenfreddy0703/plugin.program.autowidget.git
+[submodule "skin.arctic.zephyr.mod"]
+	path = skin.arctic.zephyr.mod
+	url = https://github.com/Goldenfreddy0703/skin.arctic.zephyr.mod.git
+[submodule "repo/skin.arctic.zephyr.mod"]
+	path = repo/skin.arctic.zephyr.mod
+	url = https://github.com/Goldenfreddy0703/skin.arctic.zephyr.mod.git

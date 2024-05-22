@@ -196,7 +196,7 @@
 		<setting type="lsep" label="40567"/>
 		<setting id="consistent.torrentInspection" type="bool" label="40568" default="false" />
 		<setting id="consistent.prioritize_season" type="bool" subsetting="true" label="40572" default="false" visible="eq(-1,true)" />
-		<setting id="consistent.prioritize_part" type="bool" subsetting="true" label="40573" default="false" visible="eq(-2,true)" />\
+		<setting id="consistent.prioritize_part" type="bool" subsetting="true" label="40573" default="false" visible="eq(-2,true)" />
 		<setting id="consistent.prioritize_episode" type="bool" subsetting="true" label="40574" default="false" visible="eq(-3,true)" />
 
 		<!-- Cloud Scraping -->
@@ -207,6 +207,7 @@
 		<!-- Local Scraping -->
 		<setting type="lsep" label="40546"/>
 		<setting id="scraping.localInspection" type="bool" label="40549" default="false" />
+		<setting id="download.location" subsetting="true" label="40576" type="folder" option="writeable" default="" visible="eq(-1,true)" />
 	</category>
 
 	<!-- Playback -->
@@ -257,12 +258,12 @@
 		<setting id="general.maxResolution" type="enum" label="40328" values="4k|1080p|720p|NA" default="0" />
 		<setting id="torrent.disable265" type="bool" label="40329" default="false" />
 		<setting id="torrent.batch" type="bool" label="40500" default="false" enable="eq(1, 0)" />
-    	<setting id="general.fileFilter" type="enum" label="40489" lvalues="40497|40498|40499" default="0" />
-    	<setting id="general.webspeed" type="number" subsetting="true" label="40490" default="20" allowempty="false" visible="eq(-1, 1)" />
-    	<setting id="general.movie.maxGB" type="slider" subsetting="true" label="40491" option="int" default="10" range="0,100" visible="eq(-2, 2)" />
-    	<setting id="general.movie.minGB" type="slider" subsetting="true" label="40492" option="int" default="0" range="0,100" visible="eq(-3, 2)" />
-    	<setting id="general.episode.maxGB" type="slider" subsetting="true" label="40493" option="int" default="10" range="0,100" visible="eq(-4, 2)" />
-    	<setting id="general.episode.minGB" type="slider" subsetting="true" label="40494" option="int" default="0" range="0,100" visible="eq(-5, 2)" />
+		<setting id="general.fileFilter" type="enum" label="40489" lvalues="40497|40498|40499" default="0" />
+		<setting id="general.webspeed" type="number" subsetting="true" label="40490" default="20" allowempty="false" visible="eq(-1, 1)" />
+		<setting id="general.movie.maxGB" type="slider" subsetting="true" label="40491" option="int" default="10" range="0,300" visible="eq(-2, 2)" />
+		<setting id="general.movie.minGB" type="slider" subsetting="true" label="40492" option="float" default="0" range="0,0.1,30" visible="eq(-3, 2)" />
+		<setting id="general.episode.maxGB" type="slider" subsetting="true" label="40493" option="int" default="10" range="0,300" visible="eq(-4, 2)" />
+		<setting id="general.episode.minGB" type="slider" subsetting="true" label="40494" option="float" default="0" range="0,0.1,30" visible="eq(-5, 2)" />
 		<setting id="general.release_title_filter.enabled" type="bool" label="40531" default="false" />
 		<setting id="general.release_title_filter.selection" type="enum" subsetting="true" label="40532" lvalues="40533|40534|40535|40536|40537" default="0" visible="eq(-1,true)" />
 		<setting id="general.release_title_filter.logic" type="enum" subsetting="true" label="40538" lvalues="40539|40540" default="0" visible="eq(-2,true)" />

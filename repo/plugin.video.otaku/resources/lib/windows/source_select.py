@@ -131,7 +131,12 @@ class SourceSelect(BaseWindow):
                 else:
                     self.close()
                     source = [self.sources[self.display_list.getSelectedPosition()]]
-                    resolver = Resolver(*('resolver.xml', control.ADDON_PATH), actionArgs=self.actionArgs, source_select=True)
+
+                    if control.getSetting('general.dialog') == '4':
+                        resolver = Resolver(*('resolver_az.xml', control.ADDON_PATH), actionArgs=self.actionArgs, source_select=True)
+                    else:
+                        resolver = Resolver(*('resolver.xml', control.ADDON_PATH), actionArgs=self.actionArgs, source_select=True)
+
                     link = resolver.doModal(source, {}, False)
                     Manager().download_file(link)
 

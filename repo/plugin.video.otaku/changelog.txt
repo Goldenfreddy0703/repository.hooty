@@ -1,3 +1,6 @@
+Changelog 0.5.2[20240522]:
+- Small Bug fix for Source Filtering
+
 Changelog 0.5.1[20240521]:
 - Added Small Skin Compatibility FIx
 - Added Local File Directory Setting

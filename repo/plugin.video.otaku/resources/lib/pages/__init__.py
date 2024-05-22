@@ -401,7 +401,17 @@ class Sources(DisplayWindow):
                 max_GB = float(control.getSetting('general.episode.maxGB'))
                 min_GB = float(control.getSetting('general.episode.minGB'))
 
-            torrent_list = [i for i in _torrent_list if i['size'] != 'NA' and min_GB <= float(i['size'][:-3]) <= max_GB]
+            torrent_list = []
+            for i in _torrent_list:
+                if i['size'] != 'NA':
+                    size = float(i['size'][:-3])
+                    unit = i['size'][-2:].strip()
+
+                    if unit == 'MB':
+                        size /= 1024  # convert MB to GB for comparison
+
+                    if min_GB <= size <= max_GB:
+                        torrent_list.append(i)
 
         if control.getSetting('general.release_title_filter.enabled') == 'true':
             release_title_filter1 = control.getSetting('general.release_title_filter.value1')

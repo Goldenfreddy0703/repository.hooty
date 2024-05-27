@@ -1,3 +1,8 @@
+Changelog 0.5.3[20240527]:
+- Added Sort Order Settings for Watchlists except Simkl
+- Added an Option to Exclude Keywords in Source Filtering Settings 
+- Fixed Small Bug with Episode Meta due to Seasons
+
 Changelog 0.5.2[20240522]:
 - Small Bug fix for Source Filtering
 

@@ -1,10 +1,11 @@
-import xbmcgui, xbmcvfs
+import xbmcgui
 import json
 import os
 import math
 import time
 
 from six.moves import urllib_request, urllib_parse
+from kodi_six import xbmcvfs
 from resources.lib.windows.base_window import BaseWindow
 from resources.lib.ui import database, control
 
@@ -231,7 +232,7 @@ class Manager:
                         data = json.load(file)
                     if data[self.url_hash].get('canceled'):
                         os.remove(self.output_path)
-                        control.notify("Download Canceled")
+                        control.notify(control.ADDON_NAME, "Download Canceled")
                         break
                     f.write(chunk)
                     self.update_status(len(chunk))

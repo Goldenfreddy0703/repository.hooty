@@ -182,7 +182,7 @@ def request(
         if redirect is False:
             class NoRedirectHandler(urllib_request.HTTPRedirectHandler):
                 def http_error_302(self, req, fp, code, msg, headers):
-                    infourl = urllib_response.addinfourl(fp, headers, req.get_full_url())
+                    infourl = urllib_response.addinfourl(fp, headers, req.get_full_url() if six.PY2 else req.full_url)
                     if sys.version_info < (3, 9, 0):
                         infourl.status = code
                         infourl.code = code

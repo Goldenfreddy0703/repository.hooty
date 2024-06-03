@@ -1771,7 +1771,7 @@ def REMOVE_SEARCH_ITEM(payload, params):
         stype, query, page = match.groups()
         database.remove_search(table=stype, value=query)
     else:
-        control.notify("Invalid Search Item")
+        control.notify(control.ADDON_NAME, "Invalid Search Item")
 
 
 @route('clear_history')
@@ -2374,7 +2374,7 @@ def MARKED_AS_WATCHED(payload, params):
     play, anilist_id, episode, filter_lang = payload.rsplit("/")
     flavor = WatchlistFlavor.get_update_flavor()
     watchlist_update_episode(anilist_id, episode)
-    control.notify('Episode #{0} was Marked as Watched in {1}'.format(episode, flavor.flavor_name))
+    control.notify(control.ADDON_NAME, 'Episode #{0} was Marked as Watched in {1}'.format(episode, flavor.flavor_name))
     plugin = 'plugin://plugin.video.otaku'
     show_meta = database.get_show(anilist_id)
     kitsu_id = show_meta['kitsu_id']  # todo kitsu_id is None right now needs to be fixed
@@ -2403,12 +2403,12 @@ def DELETE_ANIME_DATABASE(payload, params):
         try:
             title_user = pickle.loads(show_meta['kodi_meta'])['title_userPreferred']
         except TypeError:
-            control.notify("Not in Database")
+            control.notify(control.ADDON_NAME, "Not in Database")
             return
 
     database.remove_episodes(anilist_id)
     database.remove_season(anilist_id)
-    control.notify('Removed "%s" from database' % title_user)
+    control.notify(control.ADDON_NAME, 'Removed "%s" from database' % title_user)
 
 
 @route('tmdb_helper')
@@ -2450,7 +2450,7 @@ def TMDB_HELPER(payload, params):
             playload = '%s/%s/' % (anime_ids.get('anilist_id'), anime_ids.get('mal_id'))
             PLAY_MOVIE(playload, params)
         else:
-            control.notify('No Anilist ID Found, Might be a special or not in database')
+            control.notify(control.ADDON_NAME, 'No Anilist ID Found, Might be a special or not in database')
 
         return
 
@@ -2459,7 +2459,7 @@ def TMDB_HELPER(payload, params):
         tvdb_id = TMDBAPI().get_tvdb_id(tmdb_id, season_number)
 
         if tvdb_id is None:
-            control.notify('No TVDB_ID Found, Might not be in the TMDB Database')
+            control.notify(control.ADDON_NAME, 'No TVDB_ID Found, Might not be in the TMDB Database')
             return
 
         from resources.lib.indexers.tvdb import TVDBAPI
@@ -2478,7 +2478,7 @@ def TMDB_HELPER(payload, params):
         if mapping is not None:
             anilist_id = mapping['anilist_id']
         else:
-            control.notify('No Anilist ID Found, Might be a special or not in database')
+            control.notify(control.ADDON_NAME, 'No Anilist ID Found, Might be a special or not in database')
             return
 
         # Ensure anilist_id is always a list
@@ -2501,7 +2501,7 @@ def TMDB_HELPER(payload, params):
                 playload = '%s/%s/' % (anilist_id[1], adjusted_episode_number)
                 PLAY(playload, params)
         else:
-            control.notify('No Anilist ID Found, Might be a special or not in database')
+            control.notify(control.ADDON_NAME, 'No Anilist ID Found, Might be a special or not in database')
             return
 
 

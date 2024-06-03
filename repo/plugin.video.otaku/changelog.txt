@@ -1,3 +1,6 @@
+Changelog 0.5.4[20240603]:
+- Fix missing title parameter when calling control.notify causing errors 
+
 Changelog 0.5.3[20240527]:
 - Added Sort Order Settings for Watchlists except Simkl
 - Added an Option to Exclude Keywords in Source Filtering Settings 

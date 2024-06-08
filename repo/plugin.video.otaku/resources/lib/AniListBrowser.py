@@ -4389,11 +4389,12 @@ class AniListBrowser():
     @div_flavor
     def _process_anilist_view(self, json_res, base_plugin_url, page, dub=False, dubsub_filter=None):
         hasNextPage = json_res['pageInfo']['hasNextPage']
+        completed = self.open_completed()
 
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         _ = get_meta.collect_meta(json_res['ANIME'])
         all_results = map(mapfunc, json_res['ANIME'])
@@ -4417,12 +4418,13 @@ class AniListBrowser():
     @div_flavor
     def _process_recommendations_view(self, json_res, base_plugin_url, page, dub=False):
         hasNextPage = json_res['pageInfo']['hasNextPage']
+        completed = self.open_completed()
         res = [edge['node']['mediaRecommendation'] for edge in json_res['edges']]
 
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         _ = get_meta.collect_meta(res)
         all_results = list(map(mapfunc, res))
@@ -4439,10 +4441,12 @@ class AniListBrowser():
                 tnode.update({'relationType': edge['relationType']})
                 res.append(tnode)
 
+        completed = self.open_completed()
+
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         all_results = list(map(mapfunc, res))
         all_results = list(itertools.chain(*all_results))
@@ -4450,8 +4454,10 @@ class AniListBrowser():
         return all_results
 
     def _process_watch_order_view(self, json_res, base_plugin_url, dub=False):
+        completed = self.open_completed()
+
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, completed=completed)
         else:
             mapfunc = self._base_anilist_view
 
@@ -4468,7 +4474,7 @@ class AniListBrowser():
 
         return database.get_show(str(res['id']))
 
-    def _base_anilist_view(self, res, mal_dub=None, dubsub_filter=None):
+    def _base_anilist_view(self, res, completed={}, mal_dub=None, dubsub_filter=None):
         in_database = database.get_show(res['id'])
 
         if not in_database:
@@ -4532,6 +4538,9 @@ class AniListBrowser():
             pass
         info['mediatype'] = 'tvshow'
         info['country'] = res.get('countryOfOrigin', '')
+
+        if completed.get(str(res['id'])):
+            info['playcount'] = 1
 
         try:
             cast = []
@@ -4938,6 +4947,7 @@ class AniListBrowser():
 
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
+        completed = self.open_completed()
 
         if control.getSetting('general.malposters') == 'true':
             try:
@@ -4952,9 +4962,9 @@ class AniListBrowser():
                 pass
 
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         _ = get_meta.collect_meta(anime_res)
         all_results = list(map(mapfunc, anime_res))
@@ -5133,6 +5143,7 @@ class AniListBrowser():
 
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
+        completed = self.open_completed()
 
         if control.getSetting('general.malposters') == 'true':
             try:
@@ -5147,9 +5158,9 @@ class AniListBrowser():
                 pass
 
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         _ = get_meta.collect_meta(anime_res)
         all_results = list(map(mapfunc, anime_res))
@@ -5328,6 +5339,7 @@ class AniListBrowser():
 
         anime_res = results['data']['Page']['ANIME']
         hasNextPage = results['data']['Page']['pageInfo']['hasNextPage']
+        completed = self.open_completed()
 
         if control.getSetting('general.malposters') == 'true':
             try:
@@ -5342,9 +5354,9 @@ class AniListBrowser():
                 pass
 
         if dub:
-            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter)
+            mapfunc = partial(self._base_anilist_view, mal_dub=dub, dubsub_filter=dubsub_filter, completed=completed)
         else:
-            mapfunc = self._base_anilist_view
+            mapfunc = partial(self._base_anilist_view, completed=completed)
 
         _ = get_meta.collect_meta(anime_res)
         all_results = list(map(mapfunc, anime_res))
@@ -5372,3 +5384,12 @@ class AniListBrowser():
             database.remove_season(anilist_id)
             database.remove_episodes(anilist_id)
             control.refresh()
+
+    @staticmethod
+    def open_completed():
+        try:
+            with open(control.completed_json) as file:
+                completed = json.load(file)
+        except FileNotFoundError:
+            completed = {}
+        return completed

@@ -45,8 +45,8 @@ mappingDB_lock = threading.Lock()
 torrentScrapeCacheFile = os.path.join(dataPath, 'torrentScrape.db')
 torrentScrapeCacheFile_lock = threading.Lock()
 
-maldubFile = os.path.join(dataPath, 'mal_dub.json')
 downloads_json = os.path.join(dataPath, 'downloads.json')
+completed_json = os.path.join(dataPath, 'completed.json')
 
 showDialog = xbmcgui.Dialog()
 dialogWindow = xbmcgui.WindowDialog
@@ -442,6 +442,10 @@ def draw_items(video_data, contentType="tvshows", draw_cm=[], bulk_add=False):
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('general.show.view')))
             elif contentType == 'episodes':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('general.episode.view')))
+
+    if getSetting('watchlist.update.enabled') == 'false':
+        if os.path.exists(completed_json):
+            os.remove(completed_json)
 
     if contentType == "episodes" and getSetting('general.smartscroll') == 'true':
         sleep(int(getSetting('general.smartscroll.wait.time')))

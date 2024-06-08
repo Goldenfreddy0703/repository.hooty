@@ -55,6 +55,10 @@ msgctxt "#30028"
 msgid "Download Manager"
 msgstr "Gestionnaire de téléchargement"
 
+msgctxt "#30029"
+msgid "Sync Completed List"
+msgstr "Synchroniser la liste des éléments terminés"
+
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"
 msgid "Open this link in a browser: {}"

@@ -292,6 +292,46 @@ class MyAnimeListWLF(WatchlistFlavorBase):
             'score': results['score']
         }
         return anime_entry
+    
+    def save_completed(self):
+        data = self.get_user_anime_list('completed')
+        completed_ids = {}
+        for dat in data:
+            mal_id = dat['node']['id']
+            try:
+                mapping = database.get_mapping(mal_id=mal_id)
+                if mapping is not None:
+                    anilist_id = mapping['anilist_id']
+                    completed_ids[str(anilist_id)] = int(dat['node']['num_episodes'])
+            except KeyError:
+                pass
+
+        with open(control.completed_json, 'w') as file:
+            json.dump(completed_ids, file)
+
+    def get_user_anime_list(self, status):
+        fields = [
+            'list_status',
+            'num_episodes',
+            'status'
+        ]
+        params = {
+            'status': status,
+            "nsfw": True,
+            'limit': 1000,
+            "fields": ','.join(fields)
+        }
+        url = self._URL + '/users/@me/animelist'
+        r = self._get_request(url, headers=self.__headers(), params=params)
+        res = json.loads(r)
+        paging = res['paging']
+        data = res['data']
+        while paging.get('next'):
+            r = self._get_request(paging['next'], headers=self.__headers())
+            res = json.loads(r)
+            paging = res['paging']
+            data += res['data']
+        return data
 
     def update_list_status(self, anilist_id, status):
         mal_id = self._get_mapping_id(anilist_id, 'mal_id')

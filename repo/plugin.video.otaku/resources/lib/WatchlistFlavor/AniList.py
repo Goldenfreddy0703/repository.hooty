@@ -406,6 +406,46 @@ class AniListWLF(WatchlistFlavorBase):
         }
 
         return anime_entry
+    
+    def save_completed(self):
+        data = self.get_user_anime_list('COMPLETED')
+        completed = {}
+        for dat in data:
+            for entrie in dat['entries']:
+                completed[str(entrie['media']['id'])] = int(entrie['media']['episodes'])
+        with open(control.completed_json, 'w') as file:
+            json.dump(completed, file)
+
+    def get_user_anime_list(self, status):
+        query = '''
+        query ($userId: Int, $userName: String, $status: MediaListStatus, $type: MediaType, $sort: [MediaListSort]) {
+            MediaListCollection(userId: $userId, userName: $userName, status: $status, type: $type, sort: $sort) {
+                lists {
+                    entries {
+                        id
+                        mediaId
+                        progress
+                        media {
+                            id
+                            idMal
+                            episodes
+                        }
+                    }
+                }
+            }
+        }
+        '''
+
+        variables = {
+            'userId': int(self._user_id),
+            'username': self._username,
+            'status': status,
+            'type': 'ANIME',
+            'sort': self.__get_sort()
+        }
+        r = self._post_request(self._URL, headers=self.__headers(), json={'query': query, 'variables': variables})
+        results = json.loads(r)
+        return results['data']['MediaListCollection']['lists']
 
     def get_watchlist_anime_info(self, anilist_id):
         query = '''

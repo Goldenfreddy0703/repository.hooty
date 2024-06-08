@@ -46,6 +46,17 @@ def refresh_apis():
         pass
 
 
+def sync_watchlist():
+    from resources.lib.WatchlistFlavor import WatchlistFlavor
+
+    flavor = WatchlistFlavor.get_update_flavor()
+    if flavor:
+        flavor.save_completed()
+        control.notify(control.ADDON_NAME, 'Completed Sync [B]{}[/B]'.format(flavor.flavor_name))
+    else:
+        control.ok_dialog(control.ADDON_NAME, "No Watchlist Enabled or Not Logged In")
+
+
 def run_maintenance():
 
     # tools.log('Performing Maintenance')
@@ -53,6 +64,8 @@ def run_maintenance():
 
     # Refresh API tokens
     refresh_apis()
+    if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2_592_000:
+        sync_watchlist()
 
     # Setup Search Database
     database.build_searchdb()

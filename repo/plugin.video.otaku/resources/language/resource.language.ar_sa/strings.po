@@ -55,6 +55,10 @@ msgctxt "#30028"
 msgid "Download Manager"
 msgstr "مدير التنزيلات"
 
+msgctxt "#30029"
+msgid "Sync Completed List"
+msgstr "مزامنة القائمة المكتملة"
+
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"
 msgid "Open this link in a browser: {}"

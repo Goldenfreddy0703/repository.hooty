@@ -198,7 +198,7 @@ def watchlist_update_episode(anilist_id, episode):
             status = WatchlistFlavor.watchlist_anime_entry_request(anilist_id).get('status', '')
             if status != current:
                 WatchlistFlavor.watchlist_set_status(anilist_id, current)
-        return WatchlistFlavor.watchlist_update_episdoe(anilist_id, episode)
+        return WatchlistFlavor.watchlist_update_episode(anilist_id, episode)
 
 
 def set_watchlist_status(anilist_id, status):

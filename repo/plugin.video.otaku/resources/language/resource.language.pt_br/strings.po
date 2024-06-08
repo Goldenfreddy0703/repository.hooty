@@ -52,8 +52,12 @@ msgid "Rebuild Database"
 msgstr "Reconstruir banco de dados"
 
 msgctxt "#30028"
-msgid "Download Manager"
-msgstr "Gerenciador de Downloads"
+msgid "Gerenciador de Downloads"
+msgstr "Download Manager"
+
+msgctxt "#30029"
+msgid "Lista de Conclusão de Sincronização"
+msgstr "Sync Completed List"
 
 ######DEBRID DIRECTORY#######
 msgctxt "#30100"

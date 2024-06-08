@@ -687,6 +687,12 @@ def SETTINGS(payload, params):
     return control.settingsMenu()
 
 
+@route('completed_sync')
+def COMPLETED_SYNC(payload, params):
+    from resources.lib.ui import maintenance
+    maintenance.sync_watchlist()
+
+
 @route('clear_cache')
 def CLEAR_CACHE(payload, params):
     # control.clear_cache()
@@ -2515,6 +2521,7 @@ def TOOLS_MENU(payload, params):
         (control.lang(30023), "clear_all_history", 'clear_search_history.png'),
         (control.lang(30026), "rebuild_database", 'rebuild_database.png'),
         (control.lang(30024), "wipe_addon_data", 'wipe_addon_data.png'),
+        (control.lang(30029), "completed_sync", 'sync_completed.png'),
         (control.lang(30028), 'download_manager', 'download_manager.png')
     ]
 

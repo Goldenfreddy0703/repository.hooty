@@ -1150,7 +1150,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.5.4">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.5.5">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -1160,7 +1160,7 @@ Initial release
     <import addon="context.otaku" version="0.0.12" />
     <import addon="script.otaku.themepak" version="0.0.11" />
     <import addon="script.otaku.mappings" />
-    <import addon="script.module.requests" />
+    
     
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
@@ -1643,7 +1643,7 @@ Initial release
             <poster>poster.png</poster>
         </assets>
     </extension>
-</addon><addon id="script.otaku.themepak" version="0.0.12" name="Otaku Themepak" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.themepak" version="0.0.13" name="Otaku Themepak" provider-name="TeamOtaku">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>

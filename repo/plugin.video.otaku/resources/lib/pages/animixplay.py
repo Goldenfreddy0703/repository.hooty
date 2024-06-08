@@ -1,4 +1,5 @@
 import itertools
+import json
 import pickle
 import re
 from functools import partial
@@ -15,7 +16,8 @@ class sources(BrowserBase):
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
-        title = kodi_meta.get('ename') or kodi_meta.get('name')
+        # title = kodi_meta.get('ename') or kodi_meta.get('name')
+        title = kodi_meta.get('name')
         title = self._clean_title(title)
 
         headers = {'Origin': self._BASE_URL[:-1],
@@ -23,24 +25,25 @@ class sources(BrowserBase):
         r = database.get(
             client.request,
             8,
-            self._BASE_URL + 'search',
-            params={'keyword': title},
+            self._BASE_URL + 'api/lsearch',
+            XHR=True,
+            post={'qfast': title},
             headers=headers
         )
 
-        soup = BeautifulSoup(r, 'html.parser')
-        items = soup.find_all('div', {'class': re.compile('^post')})
+        soup = BeautifulSoup(json.loads(r).get('result'), 'html.parser')
+        items = soup.find_all('a')
         slugs = []
 
         for item in items:
-            ititle = item.find('h5')
+            ititle = item.find('p', {'class': 'name'})
             if ititle:
                 ititle = ititle.text.strip()
                 if (ititle.lower() + '  ').startswith(title.lower() + '  '):
-                    slugs.append(item.find('a').get('href'))
+                    slugs.append(item.get('href'))
         if not slugs:
             if len(items) > 1:
-                slugs = [items[0].find('a').get('href')]
+                slugs = [items[0].get('href')]
         all_results = []
         if slugs:
             slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs

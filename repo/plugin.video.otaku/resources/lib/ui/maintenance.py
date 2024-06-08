@@ -1,6 +1,7 @@
 import time
 
 from resources.lib.ui import control, database
+from resources.lib.WatchlistFlavor import WatchlistFlavor
 
 
 def refresh_apis():
@@ -47,10 +48,12 @@ def refresh_apis():
 
 
 def sync_watchlist():
-    from resources.lib.WatchlistFlavor import WatchlistFlavor
 
     flavor = WatchlistFlavor.get_update_flavor()
-    if flavor:
+    if flavor and control.getSetting('watchlist.player') == 'true':
+        control.setSetting('watchlist.player', 'false')
+        flavor.save_completed()
+    elif flavor:
         flavor.save_completed()
         control.notify(control.ADDON_NAME, 'Completed Sync [B]{}[/B]'.format(flavor.flavor_name))
     else:
@@ -64,8 +67,12 @@ def run_maintenance():
 
     # Refresh API tokens
     refresh_apis()
+
+    # Sync Watchlist
     if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2_592_000:
-        sync_watchlist()
+        flavor = WatchlistFlavor.get_update_flavor()
+        if flavor:
+            flavor.save_completed()
 
     # Setup Search Database
     database.build_searchdb()

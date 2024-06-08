@@ -1307,6 +1307,10 @@ msgctxt "#40580"
 msgid "Exclude Keywords"
 msgstr "Anahtar Kelimeleri Hariç Tut"
 
+msgctxt "#40581"
+msgid "Auto-Sync Completed List"
+msgstr "Tamamlanan Listesini Otomatik Senkronize Et"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

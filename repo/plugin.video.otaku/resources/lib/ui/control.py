@@ -219,7 +219,7 @@ def yesno_dialog(title, text, nolabel=None, yeslabel=None):
     return xbmcgui.Dialog().yesno(title, text, nolabel=nolabel, yeslabel=yeslabel)
 
 
-def notify(title, text, icon=OTAKU_LOGO3_PATH, time=5000, sound=True):
+def notify(title, text, icon=OTAKU_LOGO3_PATH, time=5000, sound=False):
     return xbmcgui.Dialog().notification(title, text, icon, time, sound)
 
 

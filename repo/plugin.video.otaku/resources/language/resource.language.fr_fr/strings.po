@@ -1307,6 +1307,10 @@ msgctxt "#40580"
 msgid "Exclude Keywords"
 msgstr "Exclure les mots-clés"
 
+msgctxt "#40581"
+msgid "Auto-Sync Completed List"
+msgstr "Synchronisation automatique de la liste terminée"
+
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"

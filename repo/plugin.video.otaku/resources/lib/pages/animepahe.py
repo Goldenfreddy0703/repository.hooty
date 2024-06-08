@@ -8,6 +8,10 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 class sources(BrowserBase):
     _BASE_URL = 'https://animepahe.ru/'
+    _headers = {
+        'Referer': _BASE_URL,
+        'Cookie': '__ddg1_=PZYJSmACHBBQGP6auJU9; __ddg2_=hxAe1bBqtlUhMFik'
+    }
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -16,7 +20,6 @@ class sources(BrowserBase):
         title = self._clean_title(title)
         etitle = kodi_meta.get('ename')
         etitle = self._clean_title(etitle)
-        headers = {'Referer': self._BASE_URL}
         params = {'m': 'search',
                   'q': title}
         r = database.get(
@@ -24,7 +27,7 @@ class sources(BrowserBase):
             8,
             self._BASE_URL + 'api',
             data=params,
-            headers=headers,
+            headers=self._headers,
             XHR=True
         )
         try:
@@ -40,7 +43,7 @@ class sources(BrowserBase):
                 8,
                 self._BASE_URL + 'api',
                 data=params,
-                headers=headers,
+                headers=self._headers,
                 XHR=True
             )
             sitems = json.loads(r).get('data')
@@ -75,13 +78,12 @@ class sources(BrowserBase):
             'sort': 'episode_asc',
             'page': page
         }
-        headers = {'Referer': self._BASE_URL}
         r = database.get(
             self._get_request,
             8,
             self._BASE_URL + 'api',
             data=params,
-            headers=headers,
+            headers=self._headers,
             XHR=True
         )
         r = json.loads(r)
@@ -94,7 +96,7 @@ class sources(BrowserBase):
         items = [x for x in items if x.get('episode') == e_num]
         if items:
             eurl = self._BASE_URL + 'play/' + slug + '/' + items[0].get('session')
-            html = self._get_request(eurl, headers=headers)
+            html = self._get_request(eurl, headers=self._headers)
             mlink = SoupStrainer('div', {'id': 'resolutionMenu'})
             mdiv = BeautifulSoup(html, "html.parser", parse_only=mlink)
             items = mdiv.find_all('button')

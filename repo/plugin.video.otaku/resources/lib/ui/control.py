@@ -350,7 +350,7 @@ def make_listitem(name='', labels=None, path=''):
     return li
 
 
-def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False):
+def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False, fanart_disable=False, clearlogo_disable=False):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -365,6 +365,13 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH
+    else:
+        if fanart_disable:
+            art['fanart'] = OTAKU_FANART_PATH
+
+    if clearlogo_disable:
+        art['clearlogo'] = OTAKU_LOGO_PATH
+
     if art.get('thumb') is not None:
         art['tvshow.poster'] = art.pop('poster')
 
@@ -377,7 +384,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
     return u, liz, False if bulk_add else xbmcplugin.addDirectoryItem(handle=HANDLE, url=u, listitem=liz, isFolder=False)
 
 
-def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None):
+def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=False, clearlogo_disable=False):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -392,6 +399,12 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None):
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH
+    else:
+        if fanart_disable:
+            art['fanart'] = OTAKU_FANART_PATH
+
+    if clearlogo_disable:
+        art['clearlogo'] = OTAKU_LOGO_PATH
 
     liz.setArt(art)
     if cm:
@@ -413,11 +426,14 @@ def draw_items(video_data, contentType="tvshows", draw_cm=[], bulk_add=False):
         if getSetting('context.marked.watched') == 'true' and contentType == 'episodes':
             draw_cm.append(("Marked as Watched [COLOR blue]WatchList[/COLOR]", 'marked_as_watched'))
 
+    fanart_disable = getSetting('disable.fanart') == 'true'
+    clearlogo_disable = getSetting('disable.clearlogo') == 'true'
+
     for vid in video_data:
         if vid['is_dir']:
-            xbmc_add_dir(vid['name'], vid['url'], vid['image'], vid['info'], draw_cm)
+            xbmc_add_dir(vid['name'], vid['url'], vid['image'], vid['info'], draw_cm, fanart_disable, clearlogo_disable)
         else:
-            xbmc_add_player_item(vid['name'], vid['url'], vid['image'], vid['info'], draw_cm, bulk_add)
+            xbmc_add_player_item(vid['name'], vid['url'], vid['image'], vid['info'], draw_cm, bulk_add, fanart_disable, clearlogo_disable)
 
     xbmcplugin.setContent(HANDLE, contentType)
     if contentType == 'episodes':

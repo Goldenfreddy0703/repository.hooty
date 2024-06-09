@@ -720,12 +720,12 @@ msgid "Offset for Aniskip (seconds)"
 msgstr "Aniskip için Ofset (saniye)"
 
 msgctxt "#40433"
-msgid "Disable Scraping Screen Fanart"
-msgstr "Ekran Fanartını Devre Dışı Bırak"
+msgid "Disable Fanart"
+msgstr ""
 
 msgctxt "#40434"
-msgid "Disable Scraping Screen Clearlogo"
-msgstr "Ekran Clearlogo'sunu Devre Dışı Bırak"
+msgid "Disable Clearlogo"
+msgstr ""
 
 msgctxt "#40435"
 msgid "Preferred Subtitle Language"

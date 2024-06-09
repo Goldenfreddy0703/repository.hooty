@@ -720,12 +720,12 @@ msgid "Offset for Aniskip (seconds)"
 msgstr "إزاحة ل Aniskip (ثواني)"
 
 msgctxt "#40433"
-msgid "Disable Scraping Screen Fanart"
-msgstr "تعطيل كشط الشاشة Fanart"
+msgid "Disable Fanart"
+msgstr "تعطيل الصورة الرمزية"
 
 msgctxt "#40434"
-msgid "Disable Scraping Screen Clearlogo"
-msgstr "تعطيل كشط الشاشة Clearlogo"
+msgid "Disable Clearlogo"
+msgstr "تعطيل الشعار الواضح"
 
 msgctxt "#40435"
 msgid "Preferred Subtitle Language"
@@ -1308,8 +1308,8 @@ msgid "Exclude Keywords"
 msgstr "استبعاد الكلمات الرئيسية"
 
 msgctxt "#40581"
-msgid "Auto-Sync Completed List"
-msgstr "مزامنة القائمة المكتملة تلقائيًا"
+msgid "Sync Completed List"
+msgstr "مزامنة قائمة المكتملة"
 
 ######MAIN Category DIRECTORY#######
 msgctxt "#50000"

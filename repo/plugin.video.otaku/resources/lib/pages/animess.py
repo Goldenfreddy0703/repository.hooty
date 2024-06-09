@@ -85,6 +85,11 @@ class sources(BrowserBase):
             html = self._get_request(e_id[0], headers=headers)
             slink = re.search(r'<source\s*src="([^"]+)', html)
             if not slink:
+                ilink = re.search(r'<iframe.+?src="([^"]+)', html)
+                if ilink:
+                    html = self._get_request(ilink.group(1), headers=headers)
+                    slink = re.search(r'''sources:\s*\[{.+?file:\s*'([^']+)''', html, re.DOTALL)
+            if not slink:
                 elink = re.search(r'<div\s*id="Link".+?href="([^"]+)', html, re.DOTALL)
                 if elink:
                     html = self._get_request(elink.group(1), headers=headers)

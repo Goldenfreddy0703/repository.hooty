@@ -42,13 +42,13 @@ def getInfo(release_title):
     prioritize_season_value = ''
     prioritize_part_value = ''
     prioritize_episode_value = ''
-    
+
     prioritize_dualaudio = False
     prioritize_multisubs = False
     prioritize_batches = False
     prioritize_season = False
     prioritize_part = False
-    prioritize_episode = False 
+    prioritize_episode = False
     prioritize_consistently = False
 
     # info.video
@@ -146,32 +146,39 @@ def getInfo(release_title):
 
         if not (prioritize_dualaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode):
             return info
-    
+
         from itertools import chain, combinations
-    
+
         # Define the order of the keys
         key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-SUBS', 'BATCH']
-    
+
         # Define the user's selected priorities
         selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multisubs, prioritize_batches]
-        
+
         # Generate all possible combinations of the selected priorities
-        selected_combinations = list(chain(*map(lambda x: combinations([key for key, selected in zip(key_order, selected_priorities) if selected], x), range(0, len(selected_priorities)+1))))
+        selected_combinations = list(
+            chain(
+                *map(
+                    lambda x: combinations([key for key, selected in zip(key_order, selected_priorities) if selected], x),
+                    range(0, len(selected_priorities) + 1)
+                )
+            )
+        )
 
         # Initialize keyword as an empty list
         keyword = []
-        
+
         for combination in selected_combinations:
             # Skip the empty combination
             if not combination:
                 continue
-        
+
             # Join the keys in the combination with '_OR_' and append to the keyword list
             keyword.append('_OR_'.join(combination))
-        
+
         # Keep only the last combination in the keyword list
         keyword = [keyword[-1]] if keyword else []
-        
+
         # Convert the keyword list to a string
         keyword = ' '.join(keyword) if keyword else ''
 
@@ -221,7 +228,7 @@ def getInfo(release_title):
                 info.append(keyword)
 
         else:
-            if keyword == None:
+            if keyword is None:
                 pass
             else:
                 # Define the keyword as the only term

@@ -47,17 +47,24 @@ def refresh_apis():
         pass
 
 
-def sync_watchlist():
+def sync_watchlist(silent=False):
+    if control.getSetting('watchlist.sync.enabled') == 'true':
 
-    flavor = WatchlistFlavor.get_update_flavor()
-    if flavor and control.getSetting('watchlist.player') == 'true':
-        control.setSetting('watchlist.player', 'false')
-        flavor.save_completed()
-    elif flavor:
-        flavor.save_completed()
-        control.notify(control.ADDON_NAME, 'Completed Sync [B]{}[/B]'.format(flavor.flavor_name))
+        flavor = WatchlistFlavor.get_update_flavor()
+        if flavor:
+            if flavor.flavor_name in WatchlistFlavor.get_enabled_watchlist_list():
+                flavor.save_completed()
+                if not silent:
+                    control.notify(control.ADDON_NAME, 'Completed Sync [B]{}[/B]'.format(flavor.flavor_name.capitalize()))
+            else:
+                if not silent:
+                    control.ok_dialog(control.ADDON_NAME, "Not Logged In")
+        else:
+            if not silent:
+                control.ok_dialog(control.ADDON_NAME, "No Watchlist Enabled or Not Logged In")
     else:
-        control.ok_dialog(control.ADDON_NAME, "No Watchlist Enabled or Not Logged In")
+        if not silent:
+            control.ok_dialog(control.ADDON_NAME, "Watchlist Sync is Disabled")
 
 
 def run_maintenance():
@@ -70,9 +77,7 @@ def run_maintenance():
 
     # Sync Watchlist
     if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2_592_000:
-        flavor = WatchlistFlavor.get_update_flavor()
-        if flavor:
-            flavor.save_completed()
+        sync_watchlist(True)
 
     # Setup Search Database
     database.build_searchdb()

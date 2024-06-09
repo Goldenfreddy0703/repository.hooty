@@ -720,11 +720,11 @@ msgid "Offset for Aniskip (seconds)"
 msgstr ""
 
 msgctxt "#40433"
-msgid "Disable Scraping Screen Fanart"
+msgid "Disable Fanart"
 msgstr ""
 
 msgctxt "#40434"
-msgid "Disable Scraping Screen Clearlogo"
+msgid "Disable Clearlogo"
 msgstr ""
 
 msgctxt "#40435"
@@ -1308,7 +1308,7 @@ msgid "Exclude Keywords"
 msgstr ""
 
 msgctxt "#40581"
-msgid "Auto-Sync Completed List"
+msgid "Sync Completed List"
 msgstr ""
 
 ######MAIN Category DIRECTORY#######

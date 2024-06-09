@@ -2,10 +2,9 @@ import sys
 import os
 
 from kodi_six import xbmc, xbmcgui, xbmcplugin
-from resources.lib.ui import client, control, utils, database
+from resources.lib.ui import client, control, utils, database, maintenance
 from six.moves import urllib_parse
 from resources.lib.indexers import aniskip
-from resources.lib.WatchlistFlavor import WatchlistFlavor
 
 HANDLE = control.HANDLE
 playList = control.playList
@@ -143,14 +142,10 @@ class watchlistPlayer(xbmc.Player):
             if watched_percentage > self.update_percent:
                 self._watchlist_update(self._anilist_id, self._episode)
                 self.updated = True
-                flavor = WatchlistFlavor.get_update_flavor()
 
-                if control.getSetting('watchlist.update.enabled') == 'true':
-                    if control.getSetting('watchlist.sync.enabled') == 'true':
-                        if flavor:
-                            if playList.size() == 0 or playList.getposition() == (playList.size() - 1):
-                                control.setSetting('watchlist.player', 'true')
-                                control.execute('RunPlugin("plugin://plugin.video.otaku/completed_sync")')
+                if playList.size() == 0 or playList.getposition() == (playList.size() - 1):
+                    maintenance.sync_watchlist(True)
+
                 break
             xbmc.sleep(5000)
 

@@ -189,10 +189,12 @@ class AniListWLF(WatchlistFlavorBase):
         r = self._post_request(self._URL, headers=self.__headers(), json={'query': query, 'variables': variables})
         results = json.loads(r)
 
-        entries = []
         lists = results['data']['MediaListCollection']['lists']
+        entries = []
         for mlist in lists:
-            entries += mlist['entries']
+            for entrie in mlist['entries']:
+                if entrie not in entries:
+                    entries.append(entrie)
         get_meta.collect_meta(entries)
         
         if control.getSetting('anilist.order') == '0':

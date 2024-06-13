@@ -182,9 +182,6 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('Local Inspection')
 
-        self.threads.append(
-            threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape)))
-
         cloud_thread = threading.Thread(target=self.user_cloud_inspection, args=(query, anilist_id, episode, media_type, rescrape))
 
         for i in self.threads:
@@ -234,7 +231,7 @@ class Sources(DisplayWindow):
             self.return_data = []
             self.close()
             return
-        
+
         sourcesList = self.sortSources(self.torrentCacheSources, self.embedSources, filter_lang, media_type, duration)
         self.return_data = sourcesList
         self.close()
@@ -419,32 +416,36 @@ class Sources(DisplayWindow):
             release_title_filter3 = control.getSetting('general.release_title_filter.value3')
             release_title_filter4 = control.getSetting('general.release_title_filter.value4')
             release_title_filter5 = control.getSetting('general.release_title_filter.value5')
-        
+
             # Get the new settings
             exclude_filter1 = control.getSetting('general.release_title_filter.exclude1') == 'true'
             exclude_filter2 = control.getSetting('general.release_title_filter.exclude2') == 'true'
             exclude_filter3 = control.getSetting('general.release_title_filter.exclude3') == 'true'
             exclude_filter4 = control.getSetting('general.release_title_filter.exclude4') == 'true'
             exclude_filter5 = control.getSetting('general.release_title_filter.exclude5') == 'true'
-        
+
             _torrent_list = torrent_list
             release_title_logic = control.getSetting('general.release_title_filter.logic')
             if release_title_logic == '0':
                 # AND filter
-                torrent_list = [i for i in _torrent_list if 
-                                (not exclude_filter1 or release_title_filter1 not in i['release_title']) and 
-                                (not exclude_filter2 or release_title_filter2 not in i['release_title']) and 
-                                (not exclude_filter3 or release_title_filter3 not in i['release_title']) and 
-                                (not exclude_filter4 or release_title_filter4 not in i['release_title']) and 
-                                (not exclude_filter5 or release_title_filter5 not in i['release_title'])]
+                torrent_list = [
+                    i for i in _torrent_list
+                    if (not exclude_filter1 or release_title_filter1 not in i['release_title'])
+                    and (not exclude_filter2 or release_title_filter2 not in i['release_title'])
+                    and (not exclude_filter3 or release_title_filter3 not in i['release_title'])
+                    and (not exclude_filter4 or release_title_filter4 not in i['release_title'])
+                    and (not exclude_filter5 or release_title_filter5 not in i['release_title'])
+                ]
             if release_title_logic == '1':
                 # OR filter
-                torrent_list = [i for i in _torrent_list if 
-                                (release_title_filter1 != "" and (exclude_filter1 ^ (release_title_filter1 in i['release_title']))) or 
-                                (release_title_filter2 != "" and (exclude_filter2 ^ (release_title_filter2 in i['release_title']))) or 
-                                (release_title_filter3 != "" and (exclude_filter3 ^ (release_title_filter3 in i['release_title']))) or 
-                                (release_title_filter4 != "" and (exclude_filter4 ^ (release_title_filter4 in i['release_title']))) or 
-                                (release_title_filter5 != "" and (exclude_filter5 ^ (release_title_filter5 in i['release_title'])))]
+                torrent_list = [
+                    i for i in _torrent_list
+                    if (release_title_filter1 != "" and (exclude_filter1 ^ (release_title_filter1 in i['release_title'])))
+                    or (release_title_filter2 != "" and (exclude_filter2 ^ (release_title_filter2 in i['release_title'])))
+                    or (release_title_filter3 != "" and (exclude_filter3 ^ (release_title_filter3 in i['release_title'])))
+                    or (release_title_filter4 != "" and (exclude_filter4 ^ (release_title_filter4 in i['release_title'])))
+                    or (release_title_filter5 != "" and (exclude_filter5 ^ (release_title_filter5 in i['release_title'])))
+                ]
 
         # Get the value of the 'sourcesort.menu' setting
         sort_option = control.getSetting('general.sourcesort')
@@ -467,7 +468,7 @@ class Sources(DisplayWindow):
         prioritize_batches = False
         prioritize_season = False
         prioritize_part = False
-        prioritize_episode = False 
+        prioritize_episode = False
         prioritize_consistently = False
         keyword = None
 
@@ -476,7 +477,7 @@ class Sources(DisplayWindow):
             prioritize_multisubs = control.getSetting('general.prioritize_multisubs') == 'true'
             prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
             prioritize_consistently = control.getSetting('consistent.torrentInspection') == 'true'
-   
+
             if prioritize_consistently:
                 prioritize_season = control.getSetting('consistent.prioritize_season') == 'true'
                 prioritize_part = control.getSetting('consistent.prioritize_part') == 'true'
@@ -485,32 +486,39 @@ class Sources(DisplayWindow):
                 prioritize_season = control.getSetting('general.prioritize_season') == 'true'
                 prioritize_part = control.getSetting('general.prioritize_part') == 'true'
                 prioritize_episode = control.getSetting('general.prioritize_episode') == 'true'
-            
+
             from itertools import chain, combinations
-    
+
             # Define the order of the keys
             key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-SUBS', 'BATCH']
-    
+
             # Define the user's selected priorities
             selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multisubs, prioritize_batches]
-    
+
             # Generate all possible combinations of the selected priorities
-            selected_combinations = list(chain(*map(lambda x: combinations([key for key, selected in zip(key_order, selected_priorities) if selected], x), range(0, len(selected_priorities)+1))))
-    
+            selected_combinations = list(chain(
+                *map(
+                    lambda x: combinations(
+                        [key for key, selected in zip(key_order, selected_priorities) if selected], x
+                    ),
+                    range(0, len(selected_priorities) + 1)
+                )
+            ))
+
             # Initialize keyword as an empty list
             keyword = []
-            
+
             for combination in selected_combinations:
                 # Skip the empty combination
                 if not combination:
                     continue
-            
+
                 # Join the keys in the combination with '_OR_' and append to the keyword list
                 keyword.append('_OR_'.join(combination))
-            
+
             # Keep only the last combination in the keyword list
             keyword = [keyword[-1]] if keyword else []
-            
+
             # Convert the keyword list to a string
             keyword = ' '.join(keyword) if keyword else ''
 

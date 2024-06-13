@@ -126,6 +126,16 @@ def __extract_mp4upload(url, page_content, referer=None):
     return
 
 
+def __extract_lulu(url, page_content, referer=None):
+    page_content += __get_packed_data(page_content)
+    r = re.search(r'''sources:\s*\[{file:\s*["']([^"']+)''', page_content)
+    headers = {'User-Agent': _EDGE_UA,
+               'Referer': url}
+    if r:
+        return r.group(1) + __append_headers(headers)
+    return
+
+
 def __extract_vidplay(url, page_content, referer=None):
     def dex(key, data, encode=True):
         x = 0
@@ -156,9 +166,7 @@ def __extract_vidplay(url, page_content, referer=None):
         return duration
 
     def encode_id(id_):
-        # kurl = 'https://raw.githubusercontent.com/Claudemirovsky/worstsource-keys/keys/keys.json'
         kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
-        # kurl = 'https://raw.githubusercontent.com/rawgimaster/worstsource-keys/keys/keys.json'
         keys = database.get(
             client.request, cache_duration(),
             kurl
@@ -273,9 +281,10 @@ def __extract_dood(url, page_content, referer=None):
         token = match.group(2)
         nurl = 'https://{0}{1}'.format(host, match.group(1))
         html = client.request(nurl, referer=url)
-        headers = {'User-Agent': _EDGE_UA,
-                   'Referer': url}
-        return dood_decode(html) + token + str(int(time.time() * 1000)) + __append_headers(headers)
+        if html != '{}':
+            headers = {'User-Agent': _EDGE_UA,
+                       'Referer': url}
+            return dood_decode(html) + token + str(int(time.time() * 1000)) + __append_headers(headers)
     return
 
 
@@ -309,6 +318,13 @@ def __extract_streamwish(url, page_content, referer=None):
 
 
 def __extract_voe(url, page_content, referer=None):
+    r = re.search(r"let\s*(?:wc0|[0-9a-f]+)\s*=\s*'([^']+)", page_content)
+    if r:
+        r = json.loads(base64.b64decode(r.group(1)).decode('utf-8')[::-1])
+        stream_url = r.get('file')
+        if stream_url:
+            headers = {'User-Agent': _EDGE_UA}
+            return stream_url + __append_headers(headers)
     r = re.search(r'''mp4["']:\s*["']([^"']+)''', page_content)
     if r:
         headers = {'User-Agent': _EDGE_UA}
@@ -406,7 +422,8 @@ __register_extractor(["https://www.mp4upload.com/",
 __register_extractor(["https://vidplay.online/",
                       "https://mcloud.bz/",
                       "https://a9bfed0818.nl/",
-                      "https://vid142.site/"],
+                      "https://vid142.site/",
+                      "https://vid1a52.site/"],
                      __extract_vidplay)
 
 __register_extractor(["https://kwik.cx/",
@@ -469,13 +486,16 @@ __register_extractor(["https://gogo-stream.com/",
                       "https://playtaku.online/",
                       "https://gotaku1.com/",
                       "https://goone.pro/",
-                      "https://embtaku.pro/"],
+                      "https://embtaku.pro/",
+                      "https://embtaku.com/"],
                      __extract_goload)
 
 __register_extractor(["https://streamtape.com/e/"],
                      __extract_streamtape)
 
-__register_extractor(["https://filemoon.sx/e/"],
+__register_extractor(["https://filemoon.sx/e/",
+                      "https://kerapoxy.cc/e/",
+                      "https://1azayf9w.xyz/e/"],
                      __extract_filemoon)
 
 __register_extractor(["https://embedrise.com/v/"],
@@ -505,5 +525,12 @@ __register_extractor(["https://fusevideo.net/e/",
                      __extract_fusevideo)
 
 __register_extractor(["https://voe.sx/e/",
-                      "https://brookethoughi.com/e/"],
+                      "https://brookethoughi.com/e/",
+                      "https://rebeccaneverbase.com/e/",
+                      "https://loriwithinfamily.com/e/"],
                      __extract_voe)
+
+__register_extractor(["https://lulustream.com",
+                      "https://luluvdo.com",
+                      "https://kinoger.pw"],
+                     __extract_lulu)

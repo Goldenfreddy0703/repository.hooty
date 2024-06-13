@@ -125,12 +125,12 @@ class Resolver(BaseWindow):
                                     self.return_data.update({'skip': i.get('skip')})
                             self.close()
                             return
-                        
+
                     elif i['type'] == 'local':
                         stream_link = i['hash']
                         self.return_data = {
-                        'url': stream_link,
-                        'headers': {}
+                            'url': stream_link,
+                            'headers': {}
                         }
                         self.close()
                         return

@@ -34,6 +34,8 @@ class BrowserBase(object):
 
     @staticmethod
     def _get_redirect_url(url, headers=None):
+        if headers is None:
+            headers = {}
         t = client.request(url, redirect=False, headers=headers, output='extended')
         if t:
             return t[2].get('Location')

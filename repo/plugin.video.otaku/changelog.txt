@@ -1,3 +1,8 @@
+Changelog 0.5.7[20240613]:
+- Added additional Domains for Embed Extractor
+- Update Embed Extractor
+- Flake8 linting
+
 Changelog 0.5.6[20240609]:
 - Changed Artwork Customization Options
 - Improved Watchlist Sync

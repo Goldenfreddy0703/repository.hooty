@@ -101,7 +101,7 @@ class sources(BrowserBase):
                     elif 'HD' in qual:
                         qual = '720p'
                     else:
-                        qual = 'NA'
+                        qual = 'EQ'
                     lang = 2 if mitem.a.get('id').endswith('dub') else 0
 
                     data = {

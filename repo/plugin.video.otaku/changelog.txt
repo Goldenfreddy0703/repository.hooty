@@ -1,3 +1,11 @@
+Changelog 0.5.8[20240614]:
+- Added option to hide next page button on widget view
+- Added Fuzzypacks to local files
+- Added AllDebrid cloud scraping
+- Added SD and EQ filter
+- Fix Scrolling Issue with Download Manager
+- Fix Manual File Selection in Source Select
+
 Changelog 0.5.7[20240613]:
 - Added additional Domains for Embed Extractor
 - Update Embed Extractor

@@ -2,7 +2,7 @@ import re
 import json
 from resources.lib.ui import source_utils, client, control
 from resources.lib.ui.BrowserBase import BrowserBase
-from resources.lib.debrid import real_debrid, premiumize
+from resources.lib.debrid import real_debrid, premiumize, all_debrid
 import threading
 
 
@@ -19,6 +19,10 @@ class sources(BrowserBase):
         if debrid.get('premiumize'):
             self.threads.append(
                 threading.Thread(target=self.premiumize_cloud_inspection, args=(query, episode,)))
+            
+        if debrid.get('all_debrid'):
+            self.threads.append(
+                threading.Thread(target=self.alldebrid_cloud_inspection, args=(query, episode,)))
 
         for i in self.threads:
             i.start()
@@ -120,3 +124,43 @@ class sources(BrowserBase):
             'debrid_provider': 'premiumize',
             'size': self._get_size(int(item['size']))
         })
+
+    def alldebrid_cloud_inspection(self, query, episode):
+        api = all_debrid.AllDebrid()
+        torrents = api.list_torrents()['links']
+
+        filenames = [re.sub(r'\[.*?]\s*', '', i['filename']) for i in torrents]
+        filenames_query = ','.join(filenames)
+        resp = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
+        resp = json.loads(resp)
+
+        for i in resp:
+            torrent = torrents[i]
+            filename = re.sub(r'\[.*?]', '', torrent['filename']).lower()
+            if source_utils.is_file_ext_valid(filename) and episode not in filename.rsplit('-', 1)[1]:
+                continue
+
+            torrent_info = api.link_info(torrent['link'])
+            torrent_files = torrent_info['infos']
+
+            if len(torrent_files) > 1 and len(torrent_info['links']) == 1:
+                continue
+
+            if not any(source_utils.is_file_ext_valid(tor_file['filename'].lower()) for tor_file in torrent_files):
+                continue
+
+            url = api.resolve_hoster(torrent['link'])
+            self.cloud_files.append(
+                {
+                    'quality': source_utils.getQuality(torrent['filename']),
+                    'lang': source_utils.getAudio_lang(torrent['filename']),
+                    'hash': url,
+                    'provider': 'Cloud',
+                    'type': 'cloud',
+                    'release_title': torrent['filename'],
+                    'info': source_utils.getInfo(torrent['filename']),
+                    'debrid_provider': 'all_debrid',
+                    'size': self._get_size(torrent['size']),
+                    'episode': episode
+                }
+            )

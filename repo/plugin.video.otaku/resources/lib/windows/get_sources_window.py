@@ -108,7 +108,8 @@ class GetSources(BaseWindow):
         self.setProperty('4k_sources', str(self.torrents_qual_len[0] + self.hosters_qual_len[0]))
         self.setProperty('1080p_sources', str(self.torrents_qual_len[1] + self.hosters_qual_len[1]))
         self.setProperty('720p_sources', str(self.torrents_qual_len[2] + self.hosters_qual_len[2]))
-        self.setProperty('SD_sources', str(self.torrents_qual_len[3] + self.hosters_qual_len[3]))
+        self.setProperty('sd_sources', str(self.torrents_qual_len[3] + self.hosters_qual_len[3]))
+        self.setProperty('eq_sources', str(self.torrents_qual_len[4] + self.hosters_qual_len[4]))
 
         # Set total source type counts
         # self.setProperty('total_torrents', str(len([i for i in self.allTorrents])))

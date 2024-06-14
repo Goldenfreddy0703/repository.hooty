@@ -161,7 +161,7 @@ class sources(BrowserBase):
                             for qual, qlink in quals:
                                 qual = int(qual)
                                 if qual < 577:
-                                    quality = 'NA'
+                                    quality = 'EQ'
                                 elif qual < 721:
                                     quality = '720p'
                                 elif qual < 1081:

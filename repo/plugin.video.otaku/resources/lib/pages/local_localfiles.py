@@ -1,9 +1,10 @@
 import os
 import re
+import json
 
 from functools import partial
 from resources.lib.ui.BrowserBase import BrowserBase
-from resources.lib.ui import source_utils, control
+from resources.lib.ui import source_utils, client, control
 
 PATH = control.getSetting('download.location')
 
@@ -11,17 +12,16 @@ PATH = control.getSetting('download.location')
 class sources(BrowserBase):
 
     def get_sources(self, query, anilist_id, episode):
-        title1, title2 = self._clean_title(query).lower().split('|')
-        first1 = self.get_title_clean(title1).split(' ')[0]
-        first2 = self.get_title_clean(title2).split(' ')[0]
-
-        files = [f for f in os.listdir(PATH) if os.path.isfile(os.path.join(PATH, f)) and source_utils.is_file_ext_valid(f)]
+        filenames = os.listdir(PATH)
+        clean_filenames = [re.sub(r'\[.*?]\s*', '', i) for i in filenames]
+        filenames_query = ','.join(clean_filenames)
+        r = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
+        resp = json.loads(r)
         match_files = []
-        for f in files:
-            filename_ = re.sub(r'\[.*?]', '', f.lower())
-            filename = filename_.replace('-', '')
-            if (first1 in filename) or (first2 in filename) and episode in filename:
-                match_files.append(f)
+        for i in resp:
+            if source_utils.is_file_ext_valid(clean_filenames[i]) and episode not in clean_filenames[i].rsplit('-', 1)[1]:
+                continue
+            match_files.append(filenames[i])
         mapfunc = partial(self.process_local_search, episode=episode)
         all_results = list(map(mapfunc, match_files))
         return all_results

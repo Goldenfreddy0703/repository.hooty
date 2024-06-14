@@ -16,10 +16,6 @@ class sources(BrowserBase):
         query = self._clean_title(query)
         query = self._sphinx_clean(query)
 
-        if rescrape:
-            # todo add rescrape stuff here
-            pass
-            # return self._get_episode_sources_pack(quary, anilist_id, episode)
         if media_type != "movie":
             query = '%s "\- %s"' % (query, episode.zfill(2))  # noQA
             season = database.get_season_list(anilist_id)['season']

@@ -144,7 +144,8 @@ class SourceSelect(BaseWindow):
             elif context == 2:  # File Selection
                 if not self.sources[self.position]['debrid_provider']:
                     control.notify(control.ADDON_NAME, "Please Select A Debrid File")
-                self.resolve_item(True)
+                else:
+                    self.resolve_item(True)
 
         if actionID in [92, 10]:
             self.stream_link = False

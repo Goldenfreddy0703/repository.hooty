@@ -22,7 +22,7 @@ def getAudio_lang(release_title):
 
 def getQuality(release_title):
     release_title = release_title.lower()
-    quality = 'NA'
+    quality = 'SD'
     if '4k' in release_title or '2160' in release_title:
         quality = '4K'
     if '1080' in release_title:
@@ -30,7 +30,7 @@ def getQuality(release_title):
     if '720' in release_title:
         quality = '720p'
     if '480' in release_title:
-        quality = 'NA'
+        quality = 'SD'
 
     return quality
 

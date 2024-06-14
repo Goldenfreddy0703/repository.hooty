@@ -263,8 +263,16 @@
                     <left>1010</left>
                     <width>128.8</width>
                     <height>87.2</height>
+                    <texture background="true">quality/qualityeq.png</texture>
+                    <visible>String.Contains(ListItem.Property(quality),EQ)</visible>
+                </control>
+                <control type="image">
+                    <centertop>50%</centertop>
+                    <left>1010</left>
+                    <width>128.8</width>
+                    <height>87.2</height>
                     <texture background="true" colordiffuse="yellow">quality/qualitysd480.png</texture>
-                    <visible>String.Contains(ListItem.Property(quality),NA)</visible>
+                    <visible>String.Contains(ListItem.Property(quality),SD)</visible>
                 </control>
                 <control type="image">
                     <centertop>50%</centertop>
@@ -289,14 +297,6 @@
                     <height>87.2</height>
                     <texture background="true">quality/qualityhd4k.png</texture>
                     <visible>String.Contains(ListItem.Property(quality),4k)</visible>
-                </control>
-                <control type="image">
-                    <centertop>50%</centertop>
-                    <left>1010</left>
-                    <width>128.8</width>
-                    <height>87.2</height>
-                    <texture background="true">quality/qualityeq.png</texture>
-                    <visible>String.Contains(ListItem.Property(quality),EQ)</visible>
                 </control>
                 <control type="image">
                     <width>100%</width>
@@ -385,8 +385,16 @@
                     <left>1010</left>
                     <width>128.8</width>
                     <height>87.2</height>
+                    <texture background="true">quality/qualityeq.png</texture>
+                    <visible>String.Contains(ListItem.Property(quality),EQ)</visible>
+                </control>
+                <control type="image">
+                    <centertop>50%</centertop>
+                    <left>1010</left>
+                    <width>128.8</width>
+                    <height>87.2</height>
                     <texture background="true" colordiffuse="yellow">quality/qualitysd480.png</texture>
-                    <visible>String.Contains(ListItem.Property(quality),NA)</visible>
+                    <visible>String.Contains(ListItem.Property(quality),SD)</visible>
                 </control>
                 <control type="image">
                     <centertop>50%</centertop>
@@ -411,14 +419,6 @@
                     <height>87.2</height>
                     <texture background="true">quality/qualityhd4k.png</texture>
                     <visible>String.Contains(ListItem.Property(quality),4k)</visible>
-                </control>
-                <control type="image">
-                    <centertop>50%</centertop>
-                    <left>1010</left>
-                    <width>128.8</width>
-                    <height>87.2</height>
-                    <texture background="true">quality/qualityeq.png</texture>
-                    <visible>String.Contains(ListItem.Property(quality),EQ)</visible>
                 </control>
             </focusedlayout>
         </control>

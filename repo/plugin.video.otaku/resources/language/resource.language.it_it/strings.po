@@ -1311,7 +1311,15 @@ msgctxt "#40581"
 msgid "Sync Completed List"
 msgstr "Sincronizza lista completata"
 
-######MAIN Category DIRECTORY#######
+msgctxt "#40582"
+msgid "Hide Next Page in Widgets"
+msgstr "Nascondi pagina successiva nei widget"
+
+msgctxt "#40583"
+msgid "Scrape AllDebrid Cloud"
+msgstr "Estrai da AllDebrid Cloud"
+
+######MAIN Category DIRECTORY######
 msgctxt "#50000"
 msgid "Airing Anime Calendar"
 msgstr "Calendario anime in onda"

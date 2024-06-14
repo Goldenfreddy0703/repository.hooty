@@ -49,7 +49,7 @@ class AniListBrowser():
             self.perPage_type = 20
 
     def _handle_paging(self, hasNextPage, base_url, page):
-        if not hasNextPage:
+        if not hasNextPage or (not control.is_addon_visible() and control.getSetting('widget.hide.next') == 'true'):
             return []
 
         next_page = page + 1

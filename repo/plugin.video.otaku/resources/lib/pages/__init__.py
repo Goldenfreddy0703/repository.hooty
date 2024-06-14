@@ -55,8 +55,8 @@ class Sources(DisplayWindow):
         self.allTorrents = {}
         self.allTorrents_len = 0
         self.hosterDomains = {}
-        self.torrents_qual_len = [0, 0, 0, 0]
-        self.hosters_qual_len = [0, 0, 0, 0]
+        self.torrents_qual_len = [0, 0, 0, 0, 0]
+        self.hosters_qual_len = [0, 0, 0, 0, 0]
         self.trakt_id = ''
         self.silent = False
         self.return_data = (None, None, None)
@@ -202,21 +202,23 @@ class Sources(DisplayWindow):
                     and len(self.local_files) > 0):
                 self.updateProgress()
                 self.setProgress()
-                self.setText("4K: %s | 1080: %s | 720: %s | SD: %s" % (
+                self.setText("4K: %s | 1080: %s | 720: %s | SD: %s| EQ: %s" % (
                     control.colorString(self.torrents_qual_len[0] + self.hosters_qual_len[0]),
                     control.colorString(self.torrents_qual_len[1] + self.hosters_qual_len[1]),
                     control.colorString(self.torrents_qual_len[2] + self.hosters_qual_len[2]),
                     control.colorString(self.torrents_qual_len[3] + self.hosters_qual_len[3]),
+                    control.colorString(self.torrents_qual_len[4] + self.hosters_qual_len[4]),
                 ))
                 time.sleep(.5)
                 break
             self.updateProgress()
             self.setProgress()
-            self.setText("4K: %s | 1080: %s | 720: %s | SD: %s" % (
+            self.setText("4K: %s | 1080: %s | 720: %s | SD: %s| EQ: %s" % (
                 control.colorString(self.torrents_qual_len[0] + self.hosters_qual_len[0]),
                 control.colorString(self.torrents_qual_len[1] + self.hosters_qual_len[1]),
                 control.colorString(self.torrents_qual_len[2] + self.hosters_qual_len[2]),
                 control.colorString(self.torrents_qual_len[3] + self.hosters_qual_len[3]),
+                control.colorString(self.torrents_qual_len[4] + self.hosters_qual_len[4]),
             ))
 
             # Update Progress
@@ -314,6 +316,9 @@ class Sources(DisplayWindow):
             if control.premiumize_enabled() and control.getSetting('premiumize.cloudInspection') == 'true':
                 debrid['premiumize'] = True
 
+            if control.all_debrid_enabled() and control.getSetting('alldebrid.cloudInspection') == 'true':
+                debrid['all_debrid'] = True
+
             self.usercloudSources = debrid_cloudfiles.sources().get_sources(debrid, query, episode)
             self.cloud_files += self.usercloudSources
 
@@ -323,16 +328,16 @@ class Sources(DisplayWindow):
     def resolutionList():
         resolutions = []
         max_res = int(control.getSetting('general.maxResolution'))
-        if max_res <= 3:
-            resolutions.append('NA')
+        if max_res <= 4:
             resolutions.append('EQ')
-        if max_res < 3:
+        if max_res <= 3:
+            resolutions.append('SD')
+        if max_res <= 2:
             resolutions.append('720p')
-        if max_res < 2:
+        if max_res <= 1:
             resolutions.append('1080p')
-        if max_res < 1:
+        if max_res <= 0:
             resolutions.append('4K')
-
         return resolutions
 
     @staticmethod
@@ -606,18 +611,30 @@ class Sources(DisplayWindow):
             len([i for i in self.nyaaSources if i['quality'] == '4K']),
             len([i for i in self.nyaaSources if i['quality'] == '1080p']),
             len([i for i in self.nyaaSources if i['quality'] == '720p']),
-            len([i for i in self.nyaaSources if i['quality'] == 'NA']),
+            len([i for i in self.nyaaSources if i['quality'] == 'SD']),
+            len([i for i in self.nyaaSources if i['quality'] == 'EQ']),
         ]
 
         self.torrents_qual_len = list1
 
         list2 = [
+            len([i for i in self.animetoshoSources if i['quality'] == '4K']),
+            len([i for i in self.animetoshoSources if i['quality'] == '1080p']),
+            len([i for i in self.animetoshoSources if i['quality'] == '720p']),
+            len([i for i in self.animetoshoSources if i['quality'] == 'SD']),
+            len([i for i in self.animetoshoSources if i['quality'] == 'EQ']),
+        ]
+
+        self.torrents_qual_len = list2
+
+        list3 = [
             len([i for i in self.embedSources if i['quality'] == '4K']),
             len([i for i in self.embedSources if i['quality'] == '1080p']),
             len([i for i in self.embedSources if i['quality'] == '720p']),
-            len([i for i in self.embedSources if i['quality'] == 'NA']),
+            len([i for i in self.embedSources if i['quality'] == 'SD']),
+            len([i for i in self.embedSources if i['quality'] == 'EQ']),
         ]
 
-        self.hosters_qual_len = list2
+        self.hosters_qual_len = list3
 
         return

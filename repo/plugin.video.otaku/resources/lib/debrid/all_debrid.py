@@ -127,6 +127,12 @@ class AllDebrid:
     def magnet_status(self, magnet_id):
         return self.get_json('magnet/status', apikey=self.apikey, id=magnet_id)
 
+    def list_torrents(self):
+        return self.get_json('user/links', apikey=self.apikey)
+
+    def link_info(self, url):
+        return self.get_json('link/infos', apikey=self.apikey, link=url)
+
     def resolve_single_magnet(self, hash_, magnet, episode='', pack_select=False):
         selected_file = None
 

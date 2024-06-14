@@ -22,6 +22,11 @@
 		<setting id="general.show.view.id" type="number" subsetting="true" label="40556" default="" visible="eq(-5,true) + eq(-6,true)" />
 		<setting id="general.episode.view.id" type="number" subsetting="true" label="40557" default="" visible="eq(-6,true) + eq(-7,true)" />
 
+		<!-- Widgets -->
+		<setting type="lsep" label="Widgets" />
+		<setting id="sep"/>
+		<setting id="widget.hide.next" label="40582" type="bool" default="false" />
+
 		<!-- Content Customization -->
 		<setting type="lsep" label="40302"/>
 		<setting id="sep"/>
@@ -204,6 +209,7 @@
 		<setting type="lsep" label="40545"/>
 		<setting id="rd.cloudInspection" type="bool" label="40547" default="false" />
 		<setting id="premiumize.cloudInspection" type="bool" label="40548" default="false" />
+		<setting id="alldebrid.cloudInspection" type="bool" label="40583" default="false" />
 
 		<!-- Local Scraping -->
 		<setting type="lsep" label="40546"/>
@@ -256,7 +262,7 @@
 	<category label="40326">
 		<!-- Source Filters -->
 		<setting type="lsep" label="40327"/>
-		<setting id="general.maxResolution" type="enum" label="40328" values="4k|1080p|720p|NA" default="0" />
+		<setting id="general.maxResolution" type="enum" label="40328" values="4k|1080p|720p|480p|EQ" default="0" />
 		<setting id="torrent.disable265" type="bool" label="40329" default="false" />
 		<setting id="torrent.batch" type="bool" label="40500" default="false" enable="eq(1, 0)" />
 		<setting id="general.fileFilter" type="enum" label="40489" lvalues="40497|40498|40499" default="0" />
@@ -278,8 +284,6 @@
 		<setting id="general.release_title_filter.exclude3" type="bool" label="40580" default="false" subsetting="true" visible="eq(-9,2) + eq(-10,true)" />
 		<setting id="general.release_title_filter.exclude4" type="bool" label="40580" default="false" subsetting="true" visible="eq(-10,3) + eq(-11,true)" />
 		<setting id="general.release_title_filter.exclude5" type="bool" label="40580" default="false" subsetting="true" visible="eq(-11,4) + eq(-12,true)" />
-
-		<setting type="sep" />
 		<!-- Manual File Selection -->
 		<setting type="lsep" label="40481"/>
 		<setting id="general.manual.select" type="bool" label="40482" default="false" />

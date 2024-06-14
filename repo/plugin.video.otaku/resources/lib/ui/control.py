@@ -632,6 +632,10 @@ def hide_unaired(content_type):
     return getSetting('general.unaired.episodes') == 'true' and content_type == 'episodes'
 
 
+def is_addon_visible():
+    return xbmc.getInfoLabel('Container.PluginName') == 'plugin.video.otaku'
+
+
 def enabled_embeds():
     embeds = [embed for embed in ALL_EMBEDS if __settings__.getSetting('embed.%s' % embed) == 'true']
     return embeds

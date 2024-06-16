@@ -69,9 +69,8 @@ class GetSources(BaseWindow):
                 return True
 
     def onAction(self, action):
-
-        id = action.getId()
-        if id == 92 or id == 10:
+        actionID = action.getId()
+        if actionID in [92, 10]:
             self.canceled = True
 
     def setBackground(self, url):
@@ -79,11 +78,6 @@ class GetSources(BaseWindow):
             if self.display_style == 0:
                 self.background.setImage(url)
         pass
-
-    def onAction(self, action):
-        actionID = action.getId()
-        if actionID in [92, 10]:
-            self.canceled = True
 
     def close(self):
         if not self.silent:

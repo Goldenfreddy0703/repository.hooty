@@ -237,12 +237,12 @@ class Premiumize:
 
     def _handle_add_to_cloud(self, magnet):
         pass
-        # if tools.getSetting('premiumize.addToCloud') == 'true':
+        # if control.getSetting('premiumize.addToCloud') == 'true':
         #     transfer = self.create_transfer(magnet)
         #     database.add_premiumize_transfer(transfer['id'])
 
     def _fetch_transcode_or_standard(self, file_object):
-        # if tools.getSetting('premiumize.transcoded') == 'true' and \
+        # if control.getSetting('premiumize.transcoded') == 'true' and \
         #         file_object['transcode_status'] == 'finished':
         #     return file_object['stream_link']
         # else:
@@ -255,14 +255,14 @@ class Premiumize:
         #     if any(i['path'].endswith(ext) for ext in source_utils.COMMON_VIDEO_EXTENSIONS):
         #         display_list.append(i)
 
-        # selection = tools.showDialog.select('{}: {}'.format(tools.addonName, tools.lang(40297)),
+        # selection = control.showDialog.select('{}: {}'.format(tools.addonName, control.lang(40297)),
         #                                     [i['path'] for i in display_list])
         # if selection == -1:
         #     return None
 
         # selection = content[selection]
 
-        # if tools.getSetting('premiumize.transcoded') == 'true':
+        # if control.getSetting('premiumize.transcoded') == 'true':
         #     if selection['transcode_status'] == 'finished':
 
         #         return selection['stream_link']

@@ -180,7 +180,7 @@ class SourceSelect(BaseWindow):
             # if focus_id == 3008:
             #     self.flip_mutliple_providers('disabled', package_name=self.package_list.getSelectedItem().getLabel())
             # if focus_id == 3009:
-            #     tools.showBusyDialog()
+            #     control.showBusyDialog()
 
             #     self.providers_class.install_package(None)
             #     self.packages = database.get_provider_packages()
@@ -191,16 +191,16 @@ class SourceSelect(BaseWindow):
             #     except:
             #         self.provider_list.reset()
             #         pass
-            #     tools.closeBusyDialog()
+            #     control.closeBusyDialog()
             #     self.setFocus(self.package_list)
             # if focus_id == 3010:
             #     try: package = self.package_list.getSelectedItem().getLabel()
             #     except:
             #         return
-            #     tools.showBusyDialog()
-            #     confirm = tools.showDialog.yesno(tools.addonName, tools.lang(40255) % package)
+            #     control.showBusyDialog()
+            #     confirm = control.showDialog.yesno(tools.addonName, control.lang(40255) % package)
             #     if not confirm:
-            #         tools.closeBusyDialog()
+            #         control.closeBusyDialog()
             #         return
 
             #     self.providers_class.uninstall_package(package=self.package_list.getSelectedItem().getLabel(),
@@ -208,7 +208,7 @@ class SourceSelect(BaseWindow):
             #     self.packages = database.get_provider_packages()
             #     self.fill_packages()
             #     self.fill_providers()
-            #     tools.closeBusyDialog()
+            #     control.closeBusyDialog()
             #     self.setFocus(self.package_list)
             pass
 

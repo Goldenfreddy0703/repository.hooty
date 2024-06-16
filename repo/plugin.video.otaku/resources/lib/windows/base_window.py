@@ -68,7 +68,7 @@ class BaseWindow(control.xmlWindow):
                 title = self.item_information.get('name')
             self.setProperty('item.info.title', title)
 
-        # self.item_information['info'] = tools.clean_air_dates(self.item_information['info'])
+        # self.item_information['info'] = control.clean_air_dates(self.item_information['info'])
         # year, month, day = self.item_information['info'].get('aired', '0000-00-00').split('-')
 
         # self.setProperty('item.info.aired.year', '2018')
@@ -78,13 +78,13 @@ class BaseWindow(control.xmlWindow):
         # try:
         #     if 'aired' in self.item_information['info']:
         #         aired_date = self.item_information['info']['aired']
-        #         aired_date = tools.datetime_workaround(aired_date)
+        #         aired_date = control.datetime_workaround(aired_date)
         #         aired_date = aired_date.strftime(tools.get_region('dateshort'))
         #         self.item_information['info']['aired'] = aired_date
 
         #     if 'premiered' in self.item_information['info']:
         #         premiered = self.item_information['info']['premiered']
-        #         premiered = tools.datetime_workaround(premiered)
+        #         premiered = control.datetime_workaround(premiered)
         #         premiered = premiered.strftime(tools.get_region('dateshort'))
         #         self.item_information['info']['premiered'] = premiered
         # except:

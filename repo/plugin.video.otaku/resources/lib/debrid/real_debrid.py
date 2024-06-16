@@ -116,7 +116,7 @@ class RealDebrid:
             control.setSetting('rd.auth', self.token)
             control.setSetting('rd.refresh', self.refresh)
             control.setSetting('rd.expiry', str(time.time() + int(response['expires_in'])))
-        # tools.log('Real Debrid Token Refreshed')
+        # control.log('Real Debrid Token Refreshed')
         ###############################################
         # To be FINISHED FINISH ME
         ###############################################

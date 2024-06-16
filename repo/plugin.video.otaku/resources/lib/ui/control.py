@@ -1,7 +1,10 @@
+import datetime
 import os
 import sys
 import threading
+import time
 import xbmcgui
+from dateutil import tz
 from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcvfs
 from six.moves import urllib_parse
 
@@ -52,6 +55,8 @@ showDialog = xbmcgui.Dialog()
 dialogWindow = xbmcgui.WindowDialog
 xmlWindow = xbmcgui.WindowXMLDialog
 condVisibility = xbmc.getCondVisibility
+get_region = xbmc.getRegion
+trakt_gmt_format = '%Y-%m-%dT%H:%M:%S.000Z'
 sleep = xbmc.sleep
 fanart_ = "%s/fanart.jpg" % ADDON_PATH
 IMAGES_PATH = os.path.join(ADDON_PATH, 'resources', 'images')
@@ -639,6 +644,58 @@ def is_addon_visible():
 def enabled_embeds():
     embeds = [embed for embed in ALL_EMBEDS if __settings__.getSetting('embed.%s' % embed) == 'true']
     return embeds
+
+
+def datetime_workaround(string_date, format=r"%Y-%m-%d", date_only=True):
+    if string_date == '':
+        return None
+    try:
+        if date_only:
+            res = datetime.datetime.strptime(string_date, format).date()
+        else:
+            res = datetime.datetime.strptime(string_date, format)
+    except TypeError:
+        if date_only:
+            res = datetime.datetime(*(time.strptime(string_date, format)[0:6])).date()
+        else:
+            res = datetime.datetime(*(time.strptime(string_date, format)[0:6]))
+
+    return res
+
+
+def clean_air_dates(info):
+    try:
+        air_date = info.get('premiered')
+        if air_date != '' and air_date is not None:
+            info['aired'] = gmt_to_local(info['aired'])[:10]
+    except KeyError:
+        pass
+    except:
+        info['aired'] = info['aired'][:10]
+    try:
+        air_date = info.get('premiered')
+        if air_date != '' and air_date is not None:
+            info['premiered'] = gmt_to_local(info['premiered'])[:10]
+    except KeyError:
+        pass
+    except:
+        info['premiered'] = info['premiered'][:10]
+
+    return info
+
+
+def gmt_to_local(gmt_string, tformat=None, date_only=False):
+    try:
+        local_timezone = tz.tzlocal()
+        gmt_timezone = tz.gettz('GMT')
+        if tformat is None:
+            tformat = trakt_gmt_format
+        GMT = datetime_workaround(gmt_string, tformat, date_only)
+        GMT = GMT.replace(tzinfo=gmt_timezone)
+        GMT = GMT.astimezone(local_timezone)
+        return GMT.strftime(tformat)
+    except:
+        return gmt_string
 
 
 # ### for testing ###

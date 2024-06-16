@@ -69,7 +69,7 @@ def sync_watchlist(silent=False):
 
 def run_maintenance():
 
-    # tools.log('Performing Maintenance')
+    # control.log('Performing Maintenance')
     # ADD COMMON HOUSE KEEPING ITEMS HERE #
 
     # Refresh API tokens

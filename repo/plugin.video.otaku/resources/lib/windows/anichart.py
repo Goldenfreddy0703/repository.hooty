@@ -29,7 +29,7 @@ class Anichart(BaseWindow):
             for info in list(i.keys()):
                 try:
                     value = i[info]
-                    if type(value) == list:
+                    if isinstance(value, list):
                         value = [str(k) for k in value]
                         value = ' '.join(sorted(value))
                     menu_item.setProperty(info, str(value).replace('_', ' '))

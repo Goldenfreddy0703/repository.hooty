@@ -327,7 +327,7 @@ def cleanTitle(title):
 
 def clean_title(title, broken=None):
     title = title.lower()
-    # title = tools.deaccentString(title)
+    # title = control.deaccentString(title)
     title = strip_non_ascii_and_unprintable(title)
 
     if broken == 1:

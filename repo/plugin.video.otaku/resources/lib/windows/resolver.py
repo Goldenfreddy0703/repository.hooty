@@ -166,7 +166,7 @@ class Resolver(BaseWindow):
 
     def doModal(self, sources, args, pack_select):
 
-        # if tools.getSetting('general.tempSilent') == 'true':
+        # if control.getSetting('general.tempSilent') == 'true':
         #     self.silent = True
 
         if not sources:

@@ -1,3 +1,6 @@
+Changelog 0.5.9[20240616]:
+- Added missing functions for Airing Anime Calendar
+
 Changelog 0.5.8[20240614]:
 - Added option to hide next page button on widget view
 - Added Fuzzypacks to local files

@@ -501,7 +501,7 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
         subs = []
 
     labels = {'unique_ids': utils.get_unique_ids(anilist_id)}
-    item = control.make_listitem(labels=labels, path=linkInfo['url'])
+    item = control.make_listitem(labels=labels, path=linkInfo['url'], offscreen=True)
 
     if subs:
         utils.del_subs()

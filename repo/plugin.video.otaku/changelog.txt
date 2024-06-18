@@ -1,3 +1,6 @@
+Changelog 0.5.10[20240617]:
+- Improve Loading Speed
+
 Changelog 0.5.9[20240616]:
 - Added missing functions for Airing Anime Calendar
 

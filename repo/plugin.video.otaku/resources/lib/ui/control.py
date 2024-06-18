@@ -345,17 +345,17 @@ def update_listitem(li, labels):
     return
 
 
-def make_listitem(name='', labels=None, path=''):
+def make_listitem(name='', labels=None, path='', offscreen=True):
     if name:
-        li = xbmcgui.ListItem(name)
+        li = xbmcgui.ListItem(name, offscreen=offscreen)
     else:
-        li = xbmcgui.ListItem(path=path)
+        li = xbmcgui.ListItem(path=path, offscreen=offscreen)
     if isinstance(labels, dict):
         update_listitem(li, labels)
     return li
 
 
-def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False, fanart_disable=False, clearlogo_disable=False):
+def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False, fanart_disable=False, clearlogo_disable=False, offscreen=True):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -366,7 +366,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
         if isinstance(draw_cm, list):
             cm = [(x[0], 'RunPlugin(plugin://{0}/{1}/{2})'.format(ADDON_ID, x[1], url)) for x in draw_cm]
 
-    liz = make_listitem(name, info)
+    liz = make_listitem(name, info, offscreen=offscreen)
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH
@@ -389,7 +389,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
     return u, liz, False if bulk_add else xbmcplugin.addDirectoryItem(handle=HANDLE, url=u, listitem=liz, isFolder=False)
 
 
-def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=False, clearlogo_disable=False):
+def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=False, clearlogo_disable=False, offscreen=True):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -400,7 +400,7 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=Fa
         if isinstance(draw_cm, list):
             cm = [(x[0], 'RunPlugin(plugin://{0}/{1}/{2})'.format(ADDON_ID, x[1], url)) for x in draw_cm]
 
-    liz = make_listitem(name, info)
+    liz = make_listitem(name, info, offscreen=offscreen)
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH

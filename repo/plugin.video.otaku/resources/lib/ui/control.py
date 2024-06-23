@@ -345,17 +345,25 @@ def update_listitem(li, labels):
     return
 
 
-def make_listitem(name='', labels=None, path='', offscreen=True):
-    if name:
-        li = xbmcgui.ListItem(name, offscreen=offscreen)
+def make_listitem(name='', labels=None, path=''):
+    if _kodiver >= 18.0:  # Include Kodi version 18 in the condition
+        offscreen = True
+        if name:
+            li = xbmcgui.ListItem(name, offscreen=offscreen)
+        else:
+            li = xbmcgui.ListItem(path=path, offscreen=offscreen)
     else:
-        li = xbmcgui.ListItem(path=path, offscreen=offscreen)
+        if name:
+            li = xbmcgui.ListItem(name)
+        else:
+            li = xbmcgui.ListItem(path=path)
+
     if isinstance(labels, dict):
         update_listitem(li, labels)
     return li
 
 
-def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False, fanart_disable=False, clearlogo_disable=False, offscreen=True):
+def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=False, fanart_disable=False, clearlogo_disable=False):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -366,7 +374,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
         if isinstance(draw_cm, list):
             cm = [(x[0], 'RunPlugin(plugin://{0}/{1}/{2})'.format(ADDON_ID, x[1], url)) for x in draw_cm]
 
-    liz = make_listitem(name, info, offscreen=offscreen)
+    liz = make_listitem(name, info)
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH
@@ -389,7 +397,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
     return u, liz, False if bulk_add else xbmcplugin.addDirectoryItem(handle=HANDLE, url=u, listitem=liz, isFolder=False)
 
 
-def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=False, clearlogo_disable=False, offscreen=True):
+def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=False, clearlogo_disable=False):
     u = addon_url(url)
     if art is None or type(art) is not dict:
         art = {}
@@ -400,7 +408,7 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=Fa
         if isinstance(draw_cm, list):
             cm = [(x[0], 'RunPlugin(plugin://{0}/{1}/{2})'.format(ADDON_ID, x[1], url)) for x in draw_cm]
 
-    liz = make_listitem(name, info, offscreen=offscreen)
+    liz = make_listitem(name, info)
 
     if art.get('fanart') is None:
         art['fanart'] = OTAKU_FANART_PATH
@@ -597,6 +605,10 @@ def toggle_reuselanguageinvoker(forced_state=None):
                 setSetting("reuselanguageinvoker.status", "Disabled")
                 _store_and_reload(file_lines)
             break
+
+
+def clearGlobalProp(property):
+    xbmcgui.Window(10000).clearProperty(property)
 
 
 def setGlobalProp(property, value):

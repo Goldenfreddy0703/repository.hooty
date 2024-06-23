@@ -1,5 +1,6 @@
-import sys
+import json
 import os
+import sys
 
 from kodi_six import xbmc, xbmcgui, xbmcplugin
 from resources.lib.ui import client, control, utils, database, maintenance
@@ -500,8 +501,12 @@ def play_source(link, anilist_id=None, watchlist_update=None, build_playlist=Non
     if subs is None:
         subs = []
 
-    labels = {'unique_ids': utils.get_unique_ids(anilist_id)}
-    item = control.make_listitem(labels=labels, path=linkInfo['url'], offscreen=True)
+    unique_ids = utils.get_unique_ids(anilist_id)
+    item = control.make_listitem(labels={'unique_ids': unique_ids}, path=linkInfo['url'])
+
+    # Trakt scrobbling support
+    control.clearGlobalProp('script.trakt.ids')
+    control.setGlobalProp('script.trakt.ids', json.dumps(unique_ids))
 
     if subs:
         utils.del_subs()

@@ -423,6 +423,7 @@ __register_extractor(["https://vidplay.online/",
                       "https://mcloud.bz/",
                       "https://a9bfed0818.nl/",
                       "https://vid142.site/",
+                      "https://vid2a41.site/",
                       "https://vid1a52.site/"],
                      __extract_vidplay)
 

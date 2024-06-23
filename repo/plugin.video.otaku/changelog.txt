@@ -1,3 +1,8 @@
+Changelog 0.5.11[20240622]:
+- Added unique ids for trakt scrobbler
+- Update embed extractor
+- Small fix with Loading Speed
+
 Changelog 0.5.10[20240617]:
 - Improve Loading Speed
 

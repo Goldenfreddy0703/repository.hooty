@@ -179,12 +179,14 @@
 		<setting id="embed.hd-2" type="bool" label="HD-2" default="true" />
 		<setting id="embed.iga" type="bool" label="IGA" default="true" />
 		<setting id="embed.kwik" type="bool" label="Kwik" default="true" />
+		<setting id="embed.megaf" type="bool" label="MegaF" default="true" />
 		<setting id="embed.mp4upload" type="bool" label="Mp4upload" default="true" />
 		<setting id="embed.mycloud" type="bool" label="MyCloud" default="true" />
 		<setting id="embed.streamtape" type="bool" label="Streamtape" default="true" />
 		<setting id="embed.streamwish" type="bool" label="StreamWish" default="true" />
 		<setting id="embed.vidcdn" type="bool" label="VidCDN" default="true" />
 		<setting id="embed.vidplay" type="bool" label="Vidplay" default="true" />
+		<setting id="embed.vidstream" type="bool" label="Vidstream" default="true" />
 		<setting id="embed.yourupload" type="bool" label="YourUpload" default="true" />
 		<setting id="embed.zto" type="bool" label="ZTO" default="true" />
 	</category>

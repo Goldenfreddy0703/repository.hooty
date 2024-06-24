@@ -166,9 +166,10 @@ def __extract_vidplay(url, page_content, referer=None):
         return duration
 
     def encode_id(id_):
-        kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
+        # kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
+        kurl = 'https://raw.githubusercontent.com/Inside4ndroid/vidkey-js/main/keys.json'
         keys = database.get(
-            client.request, cache_duration(),
+            client.request, 8,
             kurl
         )
         k1, k2 = json.loads(keys)
@@ -421,6 +422,7 @@ __register_extractor(["https://www.mp4upload.com/",
 
 __register_extractor(["https://vidplay.online/",
                       "https://mcloud.bz/",
+                      "https://megaf.cc",
                       "https://a9bfed0818.nl/",
                       "https://vid142.site/",
                       "https://vid2a41.site/",

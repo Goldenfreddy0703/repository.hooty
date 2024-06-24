@@ -1,3 +1,6 @@
+Changelog 0.5.12[20240624]:
+- Added additional embed types
+
 Changelog 0.5.11[20240622]:
 - Added unique ids for trakt scrobbler
 - Update embed extractor

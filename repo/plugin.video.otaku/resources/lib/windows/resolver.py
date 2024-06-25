@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import re
 
 from kodi_six import xbmc
 from resources.lib.debrid import all_debrid, debrid_link, premiumize, real_debrid
@@ -42,7 +43,6 @@ class Resolver(BaseWindow):
         self.resolve(self.sources)
 
     def resolve(self, sources):
-
         # last played source move to top of list
         if len(sources) > 1 and not self.source_select:
             last_played = control.getSetting('last_played_source')
@@ -50,9 +50,46 @@ class Resolver(BaseWindow):
                 if source['type'] == 'embed' and str(source['provider']) + " ".join(map(str, source['info'])) == last_played:
                     sources.insert(0, sources.pop(index))
                     break
-                elif str(source['release_title']) == last_played:
-                    sources.insert(0, sources.pop(index))
-                    break
+                else:
+                    for index, source in enumerate(sources):
+                        release_title = str(source['release_title'])
+                        if "batch" in release_title.lower() and release_title == last_played:
+                            sources.insert(0, sources.pop(index))
+                            break  # Stop checking further if an exact match is found
+                        else:
+                            episode_value = control.getSetting('episode_value')
+                            episode_value_length = len(episode_value)  # Get the length of episode_value
+                            chars = list(last_played)
+                            match_found = False
+
+                            i = 0
+                            while i < len(chars):
+                                if chars[i].isdigit():
+                                    # Check if there's enough room to replace episode_value_length digits
+                                    if i + episode_value_length <= len(chars) and all(c.isdigit() for c in chars[i:i+episode_value_length]):
+                                        # Replace the next episode_value_length digits with episode_value
+                                        for j in range(episode_value_length):
+                                            chars[i + j] = episode_value[j]
+                                        modified_last_played = ''.join(chars)
+
+                                        if modified_last_played == release_title:
+                                            sources.insert(0, sources.pop(index))
+                                            match_found = True
+                                            break  # Found a match, no need to continue
+
+                                        # Reset the modified characters if not a match
+                                        for j in range(episode_value_length):
+                                            chars[i + j] = last_played[i + j]
+
+                                    i += episode_value_length  # Move past the digits just checked or replaced
+                                else:
+                                    i += 1  # Move to the next character if the current one is not a digit
+
+                                if match_found:
+                                    break
+
+                            if match_found:
+                                break
         try:
             # Begin resolving links
             for i in sources:

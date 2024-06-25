@@ -180,6 +180,9 @@ class OtakuBrowser(BrowserBase):
             'duration': kodi_meta.get('duration', -1)
         }
 
+        episode = int(episode)
+        control.setSetting("episode_value", str(episode))
+
         if control.getSetting("consistent.torrentInspection") == 'true':
             from resources.lib.indexers.syncurl import SyncUrl
             

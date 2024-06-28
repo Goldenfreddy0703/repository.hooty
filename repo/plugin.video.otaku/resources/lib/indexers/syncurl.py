@@ -14,6 +14,5 @@ class SyncUrl:
         }
         r = database.get(client.request, 2, self.BaseURL, params=params)
         if r:
-            r_json = json.dumps(r)  # Convert response content to JSON string
-            res = json.loads(r_json)  # Parse JSON string
+            res = json.loads(r)
             return res

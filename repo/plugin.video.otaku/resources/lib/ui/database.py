@@ -792,7 +792,7 @@ def get_all_ids(anilist_id):
             all_ids.update({'anidb': str(mapping['anidb_id'])})
         if mapping['imdb_id'] is not None:
             all_ids.update({'imdb': str(mapping['imdb_id'])})
-        if mapping['trakt_id'] is not None:
+        if mapping.get('trakt_id') is not None:
             all_ids.update({'trakt': str(mapping['trakt_id'])})
 
     return all_ids

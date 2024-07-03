@@ -59,7 +59,7 @@ class ANIZIPAPI:
 
         parsed = utils.allocate_item(title, "play/%s" % url, False, image, info, fanart, poster)
         database._update_episode(anilist_id, season=season, number=res['episode'], update_time=update_time, kodi_meta=parsed)
-    
+
         if title_disable and info.get('playcount') != 1:
             parsed['info']['title'] = 'Episode {}'.format(episode)
             parsed['info']['plot'] = None

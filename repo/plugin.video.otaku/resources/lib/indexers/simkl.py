@@ -92,28 +92,28 @@ class SIMKLAPI:
         result = database.get(self.get_anime_info, 6, anilist_id)
         result_ep = database.get(self.get_anilist_meta, 6, anilist_id)
 
-        season = result.get('season') if result else '1'
+        if result_ep:
+            season = result.get('season') if result else '1'
+            s_id = database.get_tvdb_season(anilist_id)
+            if not s_id:
+                sync_data = SyncUrl().get_anime_data(anilist_id, 'Anilist')
+                s_id = utils.get_season(sync_data[0]) if sync_data else None
+            if isinstance(s_id, list) and s_id:
+                season = s_id[0]
+            elif isinstance(s_id, int):
+                season = s_id
+            else:
+                season = 1
 
-        s_id = database.get_tvdb_season(anilist_id)
-        if not s_id:
-            sync_data = SyncUrl().get_anime_data(anilist_id, 'Anilist')
-            s_id = utils.get_season(sync_data[0]) if sync_data else None
-        if isinstance(s_id, list) and s_id:
-            season = s_id[0]
-        elif isinstance(s_id, int):
-            season = s_id
-        else:
-            season = 1
+            season = int(season)
+            database._update_season(anilist_id, season)
 
-        season = int(season)
-        database._update_season(anilist_id, season)
+            result_ep = [x for x in result_ep if x['type'] == 'episode']
 
-        result_ep = [x for x in result_ep if x['type'] == 'episode']
-
-        mapfunc = partial(self._parse_episode_view, anilist_id=anilist_id, season=season, poster=poster, fanart=fanart,
-                          eps_watched=eps_watched, filter_lang=filter_lang, update_time=update_time,
-                          tvshowtitle=tvshowtitle, title_disable=title_disable)
-        all_results = list(map(mapfunc, result_ep))
+            mapfunc = partial(self._parse_episode_view, anilist_id=anilist_id, season=season, poster=poster, fanart=fanart,
+                              eps_watched=eps_watched, filter_lang=filter_lang, update_time=update_time,
+                              tvshowtitle=tvshowtitle, title_disable=title_disable)
+            all_results = list(map(mapfunc, result_ep))
 
         return all_results
 
@@ -203,13 +203,16 @@ class SIMKLAPI:
         if not simkl_id:
             mal_id = show_ids['mal_id']
             simkl_id = self.get_simkl_id('mal', mal_id)
-            database.add_mapping_id(anilist_id, 'simkl_id', simkl_id)
-        params = {
-            'extended': 'full',
-            'client_id': self.ClientID
-        }
-        r = client.request(self.baseUrl + "anime/episodes/" + str(simkl_id), params=params)
-        res = json.loads(r)
+            if simkl_id:
+                database.add_mapping_id(anilist_id, 'simkl_id', simkl_id)
+        res = []
+        if simkl_id:
+            params = {
+                'extended': 'full',
+                'client_id': self.ClientID
+            }
+            r = client.request(self.baseUrl + "anime/episodes/" + str(simkl_id), params=params)
+            res = json.loads(r)
         return res
 
     def get_simkl_id(self, send_id, anime_id):
@@ -217,9 +220,11 @@ class SIMKLAPI:
             send_id: anime_id,
             "client_id": self.ClientID,
         }
+        anime_id = ''
         r = client.request('{0}search/id'.format(self.baseUrl), params=params)
         r = json.loads(r)
-        anime_id = r[0]['ids']['simkl']
+        if r:
+            anime_id = r[0]['ids']['simkl']
         return anime_id
 
     def get_mapping_ids(self, send_id, anime_id):

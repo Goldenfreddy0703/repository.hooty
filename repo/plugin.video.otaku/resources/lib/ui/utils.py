@@ -1,5 +1,4 @@
 import os
-import random
 import re
 from resources.lib.ui import control, client, database
 from six import StringIO, iteritems
@@ -7,37 +6,35 @@ from kodi_six import xbmcvfs
 
 
 def allocate_item(name, url, is_dir=False, image='', info='', fanart=None, poster=None, cast=[], landscape=None, banner=None, clearart=None, clearlogo=None):
-    new_res = {}
-    new_res['is_dir'] = is_dir
     if image and '/' not in image:
         genre_image = os.path.join(control.genrePath(), image)
         art_image = os.path.join(control.artPath(), image)
         image = genre_image if os.path.exists(genre_image) else art_image
-    if fanart:
-        if isinstance(fanart, list):
-            fanart = random.choice(fanart)
-        if '/' not in fanart:
-            genre_fanart = os.path.join(control.genrePath(), fanart)
-            art_fanart = os.path.join(control.artPath(), fanart)
-            fanart = genre_fanart if os.path.exists(genre_fanart) else art_fanart
+    if fanart and not isinstance(fanart, list) and '/' not in fanart:
+        genre_fanart = os.path.join(control.genrePath(), fanart)
+        art_fanart = os.path.join(control.artPath(), fanart)
+        fanart = genre_fanart if os.path.exists(genre_fanart) else art_fanart
     if poster and '/' not in poster:
         genre_poster = os.path.join(control.genrePath(), poster)
         art_poster = os.path.join(control.artPath(), poster)
         poster = genre_poster if os.path.exists(genre_poster) else art_poster
-    new_res['image'] = {
-        'poster': poster or image,
-        'icon': image,
-        'thumb': image,
-        'fanart': fanart,
-        'landscape': landscape,
-        'banner': banner,
-        'clearart': clearart,
-        'clearlogo': clearlogo
+    new_res = {
+        'is_dir': is_dir,
+        'name': name,
+        'url': url,
+        'info': info,
+        'cast': cast,
+        'image': {
+                'poster': poster or image,
+                'icon': image,
+                'thumb': image,
+                'fanart': fanart,
+                'landscape': landscape,
+                'banner': banner,
+                'clearart': clearart,
+                'clearlogo': clearlogo
+        }
     }
-    new_res['name'] = name
-    new_res['url'] = url
-    new_res['info'] = info
-    new_res['cast'] = cast
     return new_res
 
 

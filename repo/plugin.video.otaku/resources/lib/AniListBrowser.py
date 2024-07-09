@@ -4507,7 +4507,9 @@ class AniListBrowser():
         if res.get('relationType'):
             title += ' [COLOR limegreen][I]{0}[/I][/COLOR]'.format(res.get('relationType'))
 
-        info = {}
+        info = {
+            'unique_ids': {'anilist_id': str(res['id'])}
+        }
 
         info['genre'] = res.get('genres')
 
@@ -4590,7 +4592,7 @@ class AniListBrowser():
         }
 
         if kodi_meta.get('fanart'):
-            base['fanart'] = random.choice(kodi_meta.get('fanart'))
+            base['fanart'] = kodi_meta['fanart']
         if kodi_meta.get('thumb'):
             base['landscape'] = random.choice(kodi_meta.get('thumb'))
         if kodi_meta.get('clearart'):

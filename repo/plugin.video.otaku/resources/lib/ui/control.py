@@ -1,3 +1,4 @@
+import random
 import datetime
 import os
 import sys
@@ -291,7 +292,10 @@ def _get_view_type(viewType):
 def update_listitem(li, labels):
     if isinstance(labels, dict):
         cast2 = labels.pop('cast2') if 'cast2' in labels.keys() else []
-        unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
+        if _kodiver > 19.8:
+            unique_ids = labels.get('unique_ids') if 'unique_ids' in labels.keys() else {}
+        else:
+            unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
 
     if _kodiver > 19.8 and isinstance(labels, dict):
         vtag = li.getVideoInfoTag()
@@ -376,11 +380,18 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
 
     liz = make_listitem(name, info)
 
-    if art.get('fanart') is None:
+    if art.get('fanart') is None or getSetting('disable.fanart') == 'true':
         art['fanart'] = OTAKU_FANART_PATH
     else:
-        if fanart_disable:
-            art['fanart'] = OTAKU_FANART_PATH
+        if isinstance(art['fanart'], list):
+            if getSetting('context.fanart.select') == 'true':
+                if info.get('unique_ids', {}).get('anilist_id'):
+                    fanart_select = getSetting(f'fanart.select.anilist.{info["unique_ids"]["anilist_id"]}')
+                    art['fanart'] = fanart_select if fanart_select else random.choice(art['fanart'])
+                else:
+                    art['fanart'] = OTAKU_FANART_PATH
+            else:
+                art['fanart'] = random.choice(art['fanart'])
 
     if clearlogo_disable:
         art['clearlogo'] = OTAKU_LOGO_PATH
@@ -410,11 +421,18 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=Fa
 
     liz = make_listitem(name, info)
 
-    if art.get('fanart') is None:
+    if art.get('fanart') is None or getSetting('disable.fanart') == 'true':
         art['fanart'] = OTAKU_FANART_PATH
     else:
-        if fanart_disable:
-            art['fanart'] = OTAKU_FANART_PATH
+        if isinstance(art['fanart'], list):
+            if getSetting('context.fanart.select') == 'true':
+                if info.get('unique_ids', {}).get('anilist_id'):
+                    fanart_select = getSetting(f'fanart.select.anilist.{info["unique_ids"]["anilist_id"]}')
+                    art['fanart'] = fanart_select if fanart_select else random.choice(art['fanart'])
+                else:
+                    art['fanart'] = OTAKU_FANART_PATH
+            else:
+                art['fanart'] = random.choice(art['fanart'])
 
     if clearlogo_disable:
         art['clearlogo'] = OTAKU_LOGO_PATH
@@ -438,6 +456,8 @@ def draw_items(video_data, contentType="tvshows", draw_cm=[], bulk_add=False):
     if getSetting('watchlist.update.enabled') == 'true':
         if getSetting('context.marked.watched') == 'true' and contentType == 'episodes':
             draw_cm.append(("Marked as Watched [COLOR blue]WatchList[/COLOR]", 'marked_as_watched'))
+    if getSetting('context.fanart.select') == 'true' and contentType == 'tvshows':
+        draw_cm.append(("Select Fanart", 'select_fanart'))
 
     fanart_disable = getSetting('disable.fanart') == 'true'
     clearlogo_disable = getSetting('disable.clearlogo') == 'true'

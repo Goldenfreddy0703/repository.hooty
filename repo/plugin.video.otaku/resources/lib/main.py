@@ -2367,6 +2367,61 @@ def TOGGLE_LANGUAGE_INVOKER(payload, params):
     return control.toggle_reuselanguageinvoker()
 
 
+@route('select_fanart/*')
+def SELECT_FANART(payload, params):
+    payload_list = payload.rsplit("/")
+    if len(payload_list) == 1:
+        anilist_id = payload
+        episode = database.get_episode(anilist_id)
+        fanart = pickle.loads(episode['kodi_meta'])['image']['fanart']
+        fanart_display = fanart + ["None", "Random (Defualt)"]
+        fanart += ["None", ""]
+        control.draw_items([utils.allocate_item(f, f'fanart/{anilist_id}/{i}', True, f, fanart=f) for i, f in enumerate(fanart_display)], '')
+        return
+    elif len(payload_list) == 3:
+        path, anilist_id, mal_id = payload_list
+    else:
+        path, anilist_id, mal_id, eps_watched = payload_list
+    if not anilist_id:
+        try:
+            anilist_id = database.get_show_mal(mal_id)['anilist_id']
+        except TypeError:
+            from resources.lib.AniListBrowser import AniListBrowser
+            show_meta = _ANILIST_BROWSER.get_mal_to_anilist(mal_id)
+            anilist_id = show_meta['anilist_id']
+    episode = database.get_episode(anilist_id)
+    if not episode:
+        OtakuBrowser().get_anime_init(anilist_id)
+
+    control.execute(f'ActivateWindow(Videos,plugin://{control.ADDON_ID}/select_fanart/{anilist_id})')
+
+
+@route('fanart/*')
+def FANART(payload, params):
+    anilist_id, select = payload.rsplit('/', 2)
+
+    episode = database.get_episode(anilist_id)
+    fanart = pickle.loads(episode['kodi_meta'])['image']['fanart']
+    fanart_display = fanart + ["None", "Random"]
+    fanart += ["None", ""]
+    fanart_all = control.getSetting(f'fanart.all').split(',')
+    if '' in fanart_all:
+        fanart_all.remove('')
+    fanart_all += [str(anilist_id)]
+    control.setSetting(f'fanart.select.anilist.{anilist_id}', fanart[int(select)])
+    control.setSetting(f'fanart.all', ",".join(fanart_all))
+    control.ok_dialog(control.ADDON_NAME, f"Fanart Set to {fanart_display[int(select)]}")
+
+
+@route('clear_slected_fanart')
+def CLEAR_SELECTED_FANART(payload, params):
+    fanart_all = control.getSetting(f'fanart.all').split(',')
+    for i in fanart_all:
+        control.setSetting(f'fanart.select.anilist.{i}', '')
+    control.setSetting('fanart.all', '')
+    control.ok_dialog(control.ADDON_NAME, "Completed")
+
+
 @route('download_manager')
 def DOWNLOAD_MANAGER(payload, params):
     from resources.lib.windows.download_manager import DownloadManager

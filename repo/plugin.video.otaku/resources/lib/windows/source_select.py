@@ -43,8 +43,6 @@ class SourceSelect(BaseWindow):
                 self.setProperty('item.info.title', anime_init[0][episode - 1].get('info').get('title'))
                 self.setProperty('item.info.aired', anime_init[0][episode - 1].get('info').get('aired'))
                 self.setProperty('item.info.plot', anime_init[0][episode - 1].get('info').get('plot'))
-                if control.getSetting('disable.fanart') == 'false':
-                    self.setProperty('item.art.fanart', anime_init[0][episode - 1].get('image').get('fanart', control.OTAKU_FANART_PATH))
             except IndexError:
                 pass
             try:

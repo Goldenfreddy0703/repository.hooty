@@ -992,8 +992,8 @@ msgid "Hide BATCH Items"
 msgstr "إخفاء عناصر الدفعة"
 
 msgctxt "#40501"
-msgid "Show Delete from Database in Context Menu"
-msgstr "إظهار الحذف من قاعدة البيانات في قائمة السياق"
+msgid "Show 'Delete from Database' in Context Menu"
+msgstr "إظهار 'حذف من قاعدة البيانات' في قائمة السياق"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
@@ -1318,6 +1318,10 @@ msgstr "إخفاء الصفحة التالية في الودجت"
 msgctxt "#40583"
 msgid "Scrape AllDebrid Cloud"
 msgstr "جمع المعلومات من سحابة AllDebrid"
+
+msgctxt "#40584"
+msgid "Show 'Select Fanart' in Context Menu"
+msgstr "إظهار 'اختر فن الغلاف' في قائمة السياق"
 
 ######MAIN Category DIRECTORY######
 msgctxt "#50000"

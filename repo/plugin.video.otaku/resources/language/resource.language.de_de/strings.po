@@ -992,8 +992,8 @@ msgid "Hide BATCH Items"
 msgstr "BATCH-Elemente ausblenden"
 
 msgctxt "#40501"
-msgid "Show Delete from Database in Context Menu"
-msgstr "Löschen aus der Datenbank im Kontextmenü anzeigen"
+msgid "Show 'Delete from Database' in Context Menu"
+msgstr "In Kontextmenü anzeigen: 'Aus Datenbank löschen'"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
@@ -1318,6 +1318,10 @@ msgstr "Nächste Seite in Widgets ausblenden"
 msgctxt "#40583"
 msgid "Scrape AllDebrid Cloud"
 msgstr "AllDebrid-Cloud scrapen"
+
+msgctxt "#40584"
+msgid "Show 'Select Fanart' in Context Menu"
+msgstr "Zeige 'Fanart auswählen' im Kontextmenü"
 
 ######MAIN Category DIRECTORY######
 msgctxt "#50000"

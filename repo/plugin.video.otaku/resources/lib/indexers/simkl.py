@@ -30,8 +30,6 @@ class SIMKLAPI:
 
         url = "%s/%s/" % (anilist_id, res['episode'])
 
-        if isinstance(fanart, list):
-            fanart = random.choice(fanart)
         if filter_lang:
             url += filter_lang
 
@@ -57,6 +55,7 @@ class SIMKLAPI:
                 landscape = show_art['landscape']
 
         info = {
+            'unique_ids': {'anilist_id': str(anilist_id)},
             'plot': res.get('description', ''),
             'title': res['title'],
             'season': season,

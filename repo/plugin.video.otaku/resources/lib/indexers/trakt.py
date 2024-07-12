@@ -1,6 +1,7 @@
 import json
 import pickle
 import re
+import six
 from functools import partial
 
 from resources.lib.indexers.fanart import FANARTAPI
@@ -150,8 +151,9 @@ class TRAKTAPI:
         name = re.sub(r'(?i)(?:part|cour)\s\d+$', '', name)
         name = re.sub(r'(?i)season\s\d+$', '', name)
         name = re.sub(r'(?i)(?:ova|special)s?$', '', name)
+        name = name.strip() if six.PY3 else name.strip().encode('utf-8')
         rtype = 'show' if mtype == 'tv' else 'movie'
-        url = 'search/%s?query=%s&genres=anime&extended=full' % (rtype, urllib_parse.quote(name.strip()))
+        url = 'search/%s?query=%s&genres=anime&extended=full' % (rtype, urllib_parse.quote(name))
         if year:
             url += '&years=%s' % year
         result = database.get(self._json_request, 4, url)
@@ -163,7 +165,7 @@ class TRAKTAPI:
             name = re.sub(roman, '', name)
             if ':' in name:
                 name = name.split(':')[0]
-            url = 'search/%s?query=%s&genres=anime&extended=full' % (rtype, urllib_parse.quote(name.strip()))
+            url = 'search/%s?query=%s&genres=anime&extended=full' % (rtype, urllib_parse.quote(name))
             result = database.get(self._json_request, 4, url)
 
         if not result:

@@ -82,12 +82,12 @@ class sources(BrowserBase):
                         filtered_list.append(torrent)
                         episode_increment += 1
                         continue
-                        
+
                     regex_ep_range = r'\s(?:\d+(?:[-~]\d+)?)(?:-(?:\d+(?:[-~]\d+)?))?'
                     rex_ep_range = re.compile(regex_ep_range)
                     if not rex_ep_range.search(title):
                         continue
-                    
+
                 match = rex.findall(title)
                 match = list(map(int, list(filter(None, itertools.chain(*match)))))
                 if not match or match[0] == int(season):
@@ -176,7 +176,7 @@ class sources(BrowserBase):
 
         if not sources and ':' in query:
             q1, q2 = (q[1:-1].split(':')[0] for q in query.split('|'))
-            query2 = f"({q1})|({q2})"
+            query2 = "({})|({})".format(q1, q2)
             sources = self._get_episode_sources(query2, anilist_id, episode, status, rescrape)
 
         if not sources:
@@ -251,19 +251,19 @@ class sources(BrowserBase):
 
     def _get_episode_sources_pack(self, show, anilist_id, episode):
         query = '%s "Batch"|"Complete Series"' % show
-    
+
         episodes = pickle.loads(database.get_show(anilist_id)['kodi_meta'])['episodes']
         if episodes:
             query += '|"01-{0}"|"01~{0}"|"01 - {0}"|"01 ~ {0}"'.format(episodes)
-    
+
         season = database.get_tvdb_season(anilist_id)
         if season:
             query += '|"S{0}"|"Season {0}"'.format(season)
-    
+
         part = database.get_tvdb_part(anilist_id)
         if part:
             query += '|"Part {0}"|"Cour {0}"'.format(part)
-    
+
         season_list = database.get_season_list(anilist_id)
         if season_list:
             season_list = season_list['season']

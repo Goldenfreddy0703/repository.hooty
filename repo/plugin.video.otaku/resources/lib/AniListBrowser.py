@@ -4600,7 +4600,7 @@ class AniListBrowser():
         if kodi_meta.get('clearlogo'):
             base['clearlogo'] = random.choice(kodi_meta.get('clearlogo'))
 
-        if res['format'] in ['MOVIE', 'ONA'] and res['episodes'] == 1:
+        if res['format'] in ['MOVIE', 'ONA', 'SPECIAL'] and res['episodes'] == 1:
             base['url'] = "play_movie/%s/1/" % (res['id'])
             base['info']['mediatype'] = 'movie'
             return self._parse_view(base, False, dub=dub, dubsub_filter=dubsub_filter)
@@ -5392,6 +5392,6 @@ class AniListBrowser():
         try:
             with open(control.completed_json) as file:
                 completed = json.load(file)
-        except FileNotFoundError:
+        except:
             completed = {}
         return completed

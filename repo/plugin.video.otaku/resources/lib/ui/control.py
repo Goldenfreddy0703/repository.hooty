@@ -289,63 +289,61 @@ def _get_view_type(viewType):
     return viewTypes[viewType]
 
 
-def update_listitem(li, labels):
-    if isinstance(labels, dict):
+def update_listitem(li, infoLabels):
+    if isinstance(infoLabels, dict):
+        labels = infoLabels.copy()
         cast2 = labels.pop('cast2') if 'cast2' in labels.keys() else []
-        if _kodiver > 19.8:
-            unique_ids = labels.get('unique_ids') if 'unique_ids' in labels.keys() else {}
-        else:
-            unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
+        unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
 
-    if _kodiver > 19.8 and isinstance(labels, dict):
-        vtag = li.getVideoInfoTag()
-        if labels.get('mediatype'):
-            vtag.setMediaType(labels['mediatype'])
-        if labels.get('title'):
-            vtag.setTitle(labels['title'])
-        if labels.get('tvshowtitle'):
-            vtag.setTvShowTitle(labels['tvshowtitle'])
-        if labels.get('plot'):
-            vtag.setPlot(labels['plot'])
-        if labels.get('year'):
-            vtag.setYear(int(labels['year']))
-        if labels.get('premiered'):
-            vtag.setPremiered(labels['premiered'])
-        if labels.get('status'):
-            vtag.setTvShowStatus(labels['status'])
-        if labels.get('duration'):
-            vtag.setDuration(labels['duration'])
-        if labels.get('country'):
-            vtag.setCountries([labels['country']])
-        if labels.get('genre'):
-            vtag.setGenres(labels['genre'])
-        if labels.get('studio'):
-            vtag.setStudios(labels['studio'])
-        if labels.get('rating'):
-            vtag.setRating(labels['rating'])
-        if labels.get('trailer'):
-            vtag.setTrailer(labels['trailer'])
-        if labels.get('season'):
-            vtag.setSeason(int(labels['season']))
-        if labels.get('episode'):
-            vtag.setEpisode(int(labels['episode']))
-        if labels.get('aired'):
-            vtag.setFirstAired(labels['aired'])
-        if labels.get('playcount'):
-            vtag.setPlaycount(labels['playcount'])
-        if cast2:
-            cast2 = [xbmc.Actor(p['name'], p['role'], cast2.index(p), p['thumbnail']) for p in cast2]
-            vtag.setCast(cast2)
-        if unique_ids:
-            vtag.setUniqueIDs(unique_ids)
-            if 'imdb' in list(unique_ids.keys()):
-                vtag.setIMDBNumber(unique_ids['imdb'])
-    else:
-        li.setInfo(type='Video', infoLabels=labels)
-        if cast2:
-            li.setCast(cast2)
-        if unique_ids:
-            li.setUniqueIDs(unique_ids)
+        if _kodiver > 19.8:
+            vtag = li.getVideoInfoTag()
+            if labels.get('mediatype'):
+                vtag.setMediaType(labels['mediatype'])
+            if labels.get('title'):
+                vtag.setTitle(labels['title'])
+            if labels.get('tvshowtitle'):
+                vtag.setTvShowTitle(labels['tvshowtitle'])
+            if labels.get('plot'):
+                vtag.setPlot(labels['plot'])
+            if labels.get('year'):
+                vtag.setYear(int(labels['year']))
+            if labels.get('premiered'):
+                vtag.setPremiered(labels['premiered'])
+            if labels.get('status'):
+                vtag.setTvShowStatus(labels['status'])
+            if labels.get('duration'):
+                vtag.setDuration(labels['duration'])
+            if labels.get('country'):
+                vtag.setCountries([labels['country']])
+            if labels.get('genre'):
+                vtag.setGenres(labels['genre'])
+            if labels.get('studio'):
+                vtag.setStudios(labels['studio'])
+            if labels.get('rating'):
+                vtag.setRating(labels['rating'])
+            if labels.get('trailer'):
+                vtag.setTrailer(labels['trailer'])
+            if labels.get('season'):
+                vtag.setSeason(int(labels['season']))
+            if labels.get('episode'):
+                vtag.setEpisode(int(labels['episode']))
+            if labels.get('aired'):
+                vtag.setFirstAired(labels['aired'])
+            if labels.get('playcount'):
+                vtag.setPlaycount(labels['playcount'])
+            if cast2:
+                cast2 = [xbmc.Actor(p['name'], p['role'], cast2.index(p), p['thumbnail']) for p in cast2]
+                vtag.setCast(cast2)
+            if unique_ids:
+                vtag.setUniqueIDs(unique_ids)
+                if 'imdb' in list(unique_ids.keys()):
+                    vtag.setIMDBNumber(unique_ids['imdb'])
+        else:
+            li.setInfo(type='Video', infoLabels=labels)
+            if cast2:
+                li.setCast(cast2)
+            if unique_ids:
+                li.setUniqueIDs(unique_ids)
     return
 
 
@@ -386,7 +384,7 @@ def xbmc_add_player_item(name, url, art=None, info=None, draw_cm=None, bulk_add=
         if isinstance(art['fanart'], list):
             if getSetting('context.fanart.select') == 'true':
                 if info.get('unique_ids', {}).get('anilist_id'):
-                    fanart_select = getSetting(f'fanart.select.anilist.{info["unique_ids"]["anilist_id"]}')
+                    fanart_select = getSetting('fanart.select.anilist.{}'.format(info["unique_ids"]["anilist_id"]))
                     art['fanart'] = fanart_select if fanart_select else random.choice(art['fanart'])
                 else:
                     art['fanart'] = OTAKU_FANART_PATH
@@ -427,7 +425,7 @@ def xbmc_add_dir(name, url, art=None, info=None, draw_cm=None, fanart_disable=Fa
         if isinstance(art['fanart'], list):
             if getSetting('context.fanart.select') == 'true':
                 if info.get('unique_ids', {}).get('anilist_id'):
-                    fanart_select = getSetting(f'fanart.select.anilist.{info["unique_ids"]["anilist_id"]}')
+                    fanart_select = getSetting('fanart.select.anilist.{}'.format(info["unique_ids"]["anilist_id"]))
                     art['fanart'] = fanart_select if fanart_select else random.choice(art['fanart'])
                 else:
                     art['fanart'] = OTAKU_FANART_PATH

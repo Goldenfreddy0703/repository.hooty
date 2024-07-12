@@ -45,25 +45,24 @@ class BaseWindow(control.xmlWindow):
         fanart = self.item_information.get('fanart')
         clearlogo = self.item_information.get('clearlogo', control.OTAKU_LOGO2_PATH)
 
-        if not actionArgs.get('playnext') and not fanart:
-            fanart = control.OTAKU_FANART_PATH
-
         if fanart is None or control.getSetting('disable.fanart') == 'true':
             fanart = control.OTAKU_FANART_PATH
         else:
             if isinstance(fanart, list):
                 if control.getSetting('context.fanart.select') == 'true':
-                    fanart_select = control.getSetting(f'fanart.select.anilist.{anilist_id}')
+                    fanart_select = control.getSetting('fanart.select.anilist.{}'.format(anilist_id))
                     fanart = fanart_select if fanart_select else random.choice(fanart)
                 else:
                     fanart = random.choice(fanart)
-        
+
         if isinstance(clearlogo, list) and len(clearlogo) > 0:
             clearlogo = control.OTAKU_LOGO2_PATH if control.getSetting('disable.clearlogo') == 'true' else random.choice(clearlogo)
 
+        if not actionArgs.get('playnext'):
+            self.setProperty('item.art.fanart', fanart)
+
         self.setProperty('item.art.thumb', thumb if thumb else fanart)
         self.setProperty('item.art.poster', self.item_information.get('poster'))
-        self.setProperty('item.art.fanart', fanart)
         self.setProperty('item.art.clearlogo', clearlogo)
         self.setProperty('item.art.logo', clearlogo)
         self.setProperty('item.info.title', self.item_information.get('name'))

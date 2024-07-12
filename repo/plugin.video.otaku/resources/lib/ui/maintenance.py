@@ -76,7 +76,7 @@ def run_maintenance():
     refresh_apis()
 
     # Sync Watchlist
-    if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2_592_000:
+    if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2592000:
         sync_watchlist(True)
 
     # Setup Search Database

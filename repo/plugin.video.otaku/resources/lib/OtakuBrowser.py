@@ -114,7 +114,7 @@ class OtakuBrowser(BrowserBase):
             show_art = pickle.loads(show_meta.get('art'))
         else:
             show_art = {}
-        if kodi_meta['format'] == 'MOVIE' and kodi_meta['episodes'] == 1:
+        if kodi_meta['format'] in ['MOVIE', 'ONA', 'SPECIAL'] and kodi_meta['episodes'] == 1:
             clearart = clearlogo = None
             if show_art.get('clearart'):
                 clearart = random.choice(show_art['clearart'])

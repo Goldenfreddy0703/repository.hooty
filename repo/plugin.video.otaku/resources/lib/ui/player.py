@@ -124,8 +124,12 @@ class watchlistPlayer(xbmc.Player):
         playList.clear()
 
     def onPlayBackError(self):
+        control.closeAllDialogs()
         playList.clear()
         sys.exit(1)
+
+    def onPlayBackEnded(self):
+        control.closeAllDialogs()
 
     def getWatchedPercent(self):
         current_position = self.getTime()

@@ -1,3 +1,7 @@
+Changelog 0.5.17[20240711]:
+- Added Set Artwork for Fanart
+- Updated embed_extractor
+
 Changelog 0.5.16[20240702]:
 - Have episode meta fail gracefully
 

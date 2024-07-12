@@ -2373,10 +2373,10 @@ def SELECT_FANART(payload, params):
     if len(payload_list) == 1:
         anilist_id = payload
         episode = database.get_episode(anilist_id)
-        fanart = pickle.loads(episode['kodi_meta'])['image']['fanart']
+        fanart = pickle.loads(episode['kodi_meta'])['image']['fanart'] or []
         fanart_display = fanart + ["None", "Random (Defualt)"]
         fanart += ["None", ""]
-        control.draw_items([utils.allocate_item(f, f'fanart/{anilist_id}/{i}', True, f, fanart=f) for i, f in enumerate(fanart_display)], '')
+        control.draw_items([utils.allocate_item(f, 'fanart/{}/{}'.format(anilist_id, i), True, f, fanart=f) for i, f in enumerate(fanart_display)], '')
         return
     elif len(payload_list) == 3:
         path, anilist_id, mal_id = payload_list
@@ -2386,14 +2386,13 @@ def SELECT_FANART(payload, params):
         try:
             anilist_id = database.get_show_mal(mal_id)['anilist_id']
         except TypeError:
-            from resources.lib.AniListBrowser import AniListBrowser
             show_meta = _ANILIST_BROWSER.get_mal_to_anilist(mal_id)
             anilist_id = show_meta['anilist_id']
     episode = database.get_episode(anilist_id)
     if not episode:
         OtakuBrowser().get_anime_init(anilist_id)
 
-    control.execute(f'ActivateWindow(Videos,plugin://{control.ADDON_ID}/select_fanart/{anilist_id})')
+    control.execute('ActivateWindow(Videos,plugin://{}/select_fanart/{})'.format(control.ADDON_ID, anilist_id))
 
 
 @route('fanart/*')
@@ -2401,23 +2400,23 @@ def FANART(payload, params):
     anilist_id, select = payload.rsplit('/', 2)
 
     episode = database.get_episode(anilist_id)
-    fanart = pickle.loads(episode['kodi_meta'])['image']['fanart']
+    fanart = pickle.loads(episode['kodi_meta'])['image']['fanart'] or []
     fanart_display = fanart + ["None", "Random"]
     fanart += ["None", ""]
-    fanart_all = control.getSetting(f'fanart.all').split(',')
+    fanart_all = control.getSetting('fanart.all').split(',')
     if '' in fanart_all:
         fanart_all.remove('')
     fanart_all += [str(anilist_id)]
-    control.setSetting(f'fanart.select.anilist.{anilist_id}', fanart[int(select)])
-    control.setSetting(f'fanart.all', ",".join(fanart_all))
-    control.ok_dialog(control.ADDON_NAME, f"Fanart Set to {fanart_display[int(select)]}")
+    control.setSetting('fanart.select.anilist.{}'.format(anilist_id), fanart[int(select)])
+    control.setSetting('fanart.all', ",".join(fanart_all))
+    control.ok_dialog(control.ADDON_NAME, "Fanart Set to {}".format(fanart_display[int(select)]))
 
 
 @route('clear_slected_fanart')
 def CLEAR_SELECTED_FANART(payload, params):
-    fanart_all = control.getSetting(f'fanart.all').split(',')
+    fanart_all = control.getSetting('fanart.all').split(',')
     for i in fanart_all:
-        control.setSetting(f'fanart.select.anilist.{i}', '')
+        control.setSetting('fanart.select.anilist.{}'.format(i), '')
     control.setSetting('fanart.all', '')
     control.ok_dialog(control.ADDON_NAME, "Completed")
 

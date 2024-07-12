@@ -1495,21 +1495,6 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.otakuv2icons.coloured" name="Otaku Icons V2- Coloured" version="0.0.3" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="otakuv2icons" />
-	<requires>
-		<import addon="kodi.resource" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Otaku Icons</summary>
-		<description lang="en">Icons for Otaku</description>
-		<platform>all</platform>
-		<license>CC-BY-SA-3.0</license>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
 </addon><addon id="resource.images.otakuv2icons.white" name="Otaku Icons V2- White" version="0.0.3" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="otakuv2icons" />
 	<requires>
@@ -1645,7 +1630,7 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.ytmusicicons.black" name="YT [COLOR red]Music[/COLOR] EXP Icons - Black" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.ytmusicicons.coloured" name="YT [COLOR red]Music[/COLOR] EXP Icons - Coloured" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -1660,22 +1645,7 @@ Initial release
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.ytmusicicons.coloured" name="YT [COLOR red]Music[/COLOR] EXP Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
-	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
-	<requires>
-		<import addon="kodi.resource" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">YT [COLOR red]Music[/COLOR] EXP Icons</summary>
-		<description lang="en">Icons for YT [COLOR red]Music[/COLOR] EXP</description>
-		<platform>all</platform>
-		<license>CC-BY-SA-3.0</license>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-	</extension>
-</addon><addon id="resource.images.ytmusicicons.white" name="YT [COLOR red]Music[/COLOR] EXP Icons - White" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.ytmusicicons.white" name="YT [COLOR red]Music[/COLOR] EXP Icons - White" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />

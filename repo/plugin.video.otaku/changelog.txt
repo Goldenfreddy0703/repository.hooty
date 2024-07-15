@@ -1,3 +1,6 @@
+Changelog 0.5.18[20240715]:
+- Added Kitsu_id to Fanart Selector
+
 Changelog 0.5.17[20240711]:
 - Added Set Artwork for Fanart
 - Updated embed_extractor

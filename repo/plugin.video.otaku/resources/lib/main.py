@@ -2378,10 +2378,10 @@ def SELECT_FANART(payload, params):
         fanart += ["None", ""]
         control.draw_items([utils.allocate_item(f, 'fanart/{}/{}'.format(anilist_id, i), True, f, fanart=f) for i, f in enumerate(fanart_display)], '')
         return
-    elif len(payload_list) == 3:
-        path, anilist_id, mal_id = payload_list
+    elif len(payload_list) == 4:
+        path, anilist_id, mal_id, kitsu_id = payload_list
     else:
-        path, anilist_id, mal_id, eps_watched = payload_list
+        path, anilist_id, mal_id, kitsu_id, eps_watched = payload_list
     if not anilist_id:
         try:
             anilist_id = database.get_show_mal(mal_id)['anilist_id']

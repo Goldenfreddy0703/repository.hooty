@@ -268,7 +268,7 @@ Changelog 0.0.10:
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta28.1" provider-name="ForeverGuest">
+</addon><addon id="plugin.audio.ytmusic.exp" name="YT [COLOR red]Music[/COLOR] EXP" version="1.0~beta29" provider-name="ForeverGuest">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" version="1.1.0" />
@@ -282,10 +282,8 @@ Changelog 0.0.10:
     <summary lang="en">Experimental Youtube [COLOR red]Music[/COLOR] plugin</summary>
     <description lang="en">EXPerimental plugin that lets you play music from Youtube Music.</description>
     <news>
-1.0~beta28.1 (2024-06-09)
-- Update to Pytubefix 5.6.3
-- Add rudimentary headless mode (to be extended)
-- Add experimental settings to force viewtypes on menus
+1.0~beta29 (2024-07-18)
+- Update to Pytubefix 6.3.3
     </news>
     <assets>
       <icon>resources/media/icon.png</icon>

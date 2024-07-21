@@ -22,7 +22,7 @@ class sources(BrowserBase):
         keyword = title
 
         all_results = []
-        srcs = ['sub', 'dub']
+        srcs = ['sub', 'dub', 'raw']
         if control.getSetting('general.source') == 'Sub':
             srcs.remove('dub')
         elif control.getSetting('general.source') == 'Dub':
@@ -161,7 +161,7 @@ class sources(BrowserBase):
                             for qual, qlink in quals:
                                 qual = int(qual)
                                 if qual < 577:
-                                    quality = 'EQ'
+                                    quality = 'SD'
                                 elif qual < 721:
                                     quality = '720p'
                                 elif qual < 1081:

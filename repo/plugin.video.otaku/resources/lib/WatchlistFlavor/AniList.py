@@ -217,6 +217,7 @@ class AniListWLF(WatchlistFlavorBase):
         title = res['title'].get(self._title_lang) or res['title'].get('userPreferred')
 
         info = {
+            'unique_ids': {'anilist_id': str(anilist_id)},
             'title': title,
             'genre': res.get('genres'),
             'status': res.get('status'),
@@ -288,7 +289,7 @@ class AniListWLF(WatchlistFlavorBase):
         if show_meta:
             art = pickle.loads(show_meta['art'])
             if art.get('fanart'):
-                base['fanart'] = random.choice(art['fanart'])
+                base['fanart'] = art['fanart']
             if art.get('thumb'):
                 base['landscape'] = random.choice(art['thumb'])
             if art.get('clearart'):
@@ -332,6 +333,7 @@ class AniListWLF(WatchlistFlavorBase):
             aired = next_up_meta.get('aired')
 
         info = {
+            'unique_ids': {'anilist_id': str(anilist_id)},
             'episode': next_up,
             'title': title,
             'tvshowtitle': res['title']['userPreferred'],
@@ -354,7 +356,7 @@ class AniListWLF(WatchlistFlavorBase):
         if show_meta:
             art = pickle.loads(show_meta['art'])
             if art.get('fanart'):
-                base['fanart'] = random.choice(art['fanart'])
+                base['fanart'] = art['fanart']
             if art.get('thumb'):
                 base['landscape'] = random.choice(art['thumb'])
             if art.get('clearart'):

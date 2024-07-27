@@ -1,3 +1,11 @@
+Changelog 0.5.20[20240727]:
+- Added Resume for Source Select & Rescrape
+- Added Settings to enable or disable any context menu
+- Added Subfolder support for Local Files
+- Added Aniwave & Hianime Skip times for torrents
+- Removed Context Files and combined it into 1 file
+- Fix Autoplay Last Selected Source
+
 Changelog 0.5.19[20240723]:
 - Fixed hianime sources on some anime
 - removed random(fanart)

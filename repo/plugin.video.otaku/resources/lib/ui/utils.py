@@ -118,6 +118,13 @@ def get_season(res):
     return s_ids
 
 
+def format_time(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+
+    return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+
+
 def get_unique_ids(anilist_id):
     unique_ids = database.get_all_ids(anilist_id)
 

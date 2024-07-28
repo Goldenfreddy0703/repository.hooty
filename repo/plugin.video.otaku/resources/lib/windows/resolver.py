@@ -39,6 +39,9 @@ class Resolver(BaseWindow):
         self.source_select = source_select
         self.pack_select = None
 
+        if self.source_select:
+            control.setSetting('last_played_source', None)
+
     def onInit(self):
         self.resolve(self.sources)
 

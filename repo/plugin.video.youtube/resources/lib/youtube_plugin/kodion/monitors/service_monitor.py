@@ -29,6 +29,7 @@ from ..network import get_connect_address, get_http_server, httpd_status
 class ServiceMonitor(xbmc.Monitor):
     _settings_changes = 0
     _settings_state = None
+    get_idle_time = xbmc.getGlobalIdleTime
 
     def __init__(self, context):
         self._context = context
@@ -41,8 +42,9 @@ class ServiceMonitor(xbmc.Monitor):
 
         self.httpd = None
         self.httpd_thread = None
-        self.httpd_sleep_allowed = True
+        self.httpd_sleep_allowed = settings.httpd_sleep_allowed()
 
+        self.system_idle = False
         self.refresh = False
         self.interrupt = False
 
@@ -104,7 +106,7 @@ class ServiceMonitor(xbmc.Monitor):
                 self.interrupt = True
             elif target == SERVER_WAKEUP:
                 if not self.httpd and self.httpd_required():
-                    self.httpd_sleep_allowed = False
+                    self.httpd_sleep_allowed = None
                     self.start_httpd()
             if data.get('response_required'):
                 self.set_property(WAKEUP, target)
@@ -113,6 +115,20 @@ class ServiceMonitor(xbmc.Monitor):
         elif event == RELOAD_ACCESS_MANAGER:
             self._context.reload_access_manager()
             self.refresh_container()
+
+    def onScreensaverActivated(self):
+        self.system_idle = True
+
+    def onScreensaverDeactivated(self):
+        self.system_idle = False
+        self.interrupt = True
+
+    def onDPMSActivated(self):
+        self.system_idle = True
+
+    def onDPMSDeactivated(self):
+        self.system_idle = False
+        self.interrupt = True
 
     def onSettingsChanged(self):
         self._settings_changes += 1
@@ -147,6 +163,10 @@ class ServiceMonitor(xbmc.Monitor):
         if whitelist != self._whitelist:
             self._whitelist = whitelist
             httpd_restart = httpd_started
+
+        sleep_allowed = settings.httpd_sleep_allowed()
+        if sleep_allowed is False:
+            self.httpd_sleep_allowed = False
 
         if self.httpd_required(settings):
             if httpd_restart:

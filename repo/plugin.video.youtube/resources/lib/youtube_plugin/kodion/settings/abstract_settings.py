@@ -195,9 +195,10 @@ class AbstractSettings(object):
         return self.get_bool(SETTINGS.AGE_GATE, True)
 
     def verify_ssl(self):
-        verify = self.get_bool(SETTINGS.VERIFY_SSL, False)
         if sys.version_info <= (2, 7, 9):
             verify = False
+        else:
+            verify = self.get_bool(SETTINGS.VERIFY_SSL, True)
         return verify
 
     def get_timeout(self):
@@ -288,6 +289,11 @@ class AbstractSettings(object):
                 continue
             allow_list.append('.'.join(map(str, octets)))
         return allow_list
+
+    def httpd_sleep_allowed(self, value=None):
+        if value is not None:
+            return self.set_bool(SETTINGS.HTTPD_IDLE_SLEEP, value)
+        return self.get_bool(SETTINGS.HTTPD_IDLE_SLEEP, True)
 
     def api_config_page(self):
         return self.get_bool(SETTINGS.API_CONFIG_PAGE, False)

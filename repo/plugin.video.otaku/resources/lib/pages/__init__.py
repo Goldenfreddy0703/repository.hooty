@@ -302,7 +302,7 @@ class Sources(DisplayWindow):
                 if x and x['skip'].get('outro') and x['skip']['outro']['start'] != 0:
                     control.setSetting('hianime.skipoutro.start', str(x['skip']['outro']['start']))
                     control.setSetting('hianime.skipoutro.end', str(x['skip']['outro']['end']))
-        self.remainingProviders.remove('hianime')
+        self.remainingProviders.remove('h!anime')
 
     def animess_worker(self, anilist_id, episode, get_backup, rescrape):
         self.animessSources = animess.sources().get_sources(anilist_id, episode, get_backup)

@@ -28,7 +28,7 @@ from ..compatibility import (
 )
 from ..constants import ADDON_ID, LICENSE_TOKEN, LICENSE_URL, PATHS, TEMP_PATH
 from ..logger import log_debug, log_error
-from ..utils import validate_ip_address, redact_ip_from_url, wait
+from ..utils import validate_ip_address, redact_ip, wait
 
 
 class HTTPServer(TCPServer):
@@ -43,7 +43,7 @@ class HTTPServer(TCPServer):
         self.socket.close()
 
 
-class RequestHandler(BaseHTTPRequestHandler):
+class RequestHandler(BaseHTTPRequestHandler, object):
     _context = None
     requests = None
     BASE_PATH = xbmcvfs.translatePath(TEMP_PATH)
@@ -97,15 +97,14 @@ class RequestHandler(BaseHTTPRequestHandler):
         stripped_path = self.path.rstrip('/')
         if stripped_path != PATHS.PING:
             log_debug('HTTPServer: GET |{path}|'.format(
-                path=redact_ip_from_url(self.path)
+                path=redact_ip(self.path)
             ))
 
         if not self.connection_allowed():
             self.send_error(403)
 
         elif stripped_path == PATHS.IP:
-            client_json = json.dumps({"ip": "{ip}"
-                                     .format(ip=self.client_address[0])})
+            client_json = json.dumps({'ip': self.client_address[0]})
             self.send_response(200)
             self.send_header('Content-Type', 'application/json; charset=utf-8')
             self.send_header('Content-Length', str(len(client_json)))
@@ -579,9 +578,13 @@ def get_http_server(address, port, context):
 
 def httpd_status(context):
     address, port = get_connect_address(context)
-    url = 'http://{address}:{port}{path}'.format(address=address,
-                                                 port=port,
-                                                 path=PATHS.PING)
+    url = ''.join((
+        'http://',
+        address,
+        ':',
+        str(port),
+        PATHS.IP,
+    ))
     if not RequestHandler.requests:
         RequestHandler.requests = BaseRequestsClass(context=context)
     response = RequestHandler.requests.request(url)
@@ -599,9 +602,13 @@ def httpd_status(context):
 def get_client_ip_address(context):
     ip_address = None
     address, port = get_connect_address(context)
-    url = 'http://{address}:{port}{path}'.format(address=address,
-                                                 port=port,
-                                                 path=PATHS.IP)
+    url = ''.join((
+        'http://',
+        address,
+        ':',
+        str(port),
+        PATHS.IP,
+    ))
     if not RequestHandler.requests:
         RequestHandler.requests = BaseRequestsClass(context=context)
     response = RequestHandler.requests.request(url)

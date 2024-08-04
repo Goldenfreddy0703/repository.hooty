@@ -58,15 +58,10 @@ def to_unicode(text):
 
 def select_stream(context,
                   stream_data_list,
-                  ask_for_quality=None,
-                  audio_only=None,
+                  ask_for_quality,
+                  audio_only,
                   use_adaptive_formats=True):
     settings = context.get_settings()
-    if ask_for_quality is None:
-        ask_for_quality = settings.ask_for_video_quality()
-    if audio_only is None:
-        audio_only = settings.audio_only()
-
     isa_capabilities = context.inputstream_adaptive_capabilities()
     use_adaptive = (use_adaptive_formats
                     and settings.use_isa()
@@ -112,7 +107,7 @@ def select_stream(context,
 
         original_value = log_data.get('url')
         if original_value:
-            log_data['url'] = redact_ip_from_url(original_value)
+            log_data['url'] = redact_ip(original_value)
 
         context.log_debug('Stream {0}:\n{1}'.format(idx, log_data))
 
@@ -275,7 +270,7 @@ def get_kodi_setting_value(setting, process=None):
 
 
 def get_kodi_setting_bool(setting):
-    return xbmc.getCondVisibility('System.GetBool({0})'.format(setting))
+    return xbmc.getCondVisibility(setting.join(('System.GetBool(', ')')))
 
 
 def validate_ip_address(ip_address):
@@ -317,5 +312,5 @@ def wait(timeout=None):
     return xbmc.Monitor().waitForAbort(timeout)
 
 
-def redact_ip_from_url(url):
+def redact_ip(url):
     return re.sub(r'([?&/])ip([=/])[^?&/]+', '\g<1>ip\g<2><redacted>', url)

@@ -13,9 +13,7 @@ from resources.lib.indexers.malsync import MALSYNC
 
 class sources(BrowserBase):
     _BASE_URL = 'https://aniwave.vc/' if control.getSetting('provider.aniwavealt') == 'true' else 'https://aniwave.to/'
-    EKEY = 'tGn6kIpVXBEUmqjD'
-    DKEY = 'LUyDrL4qIxtIxOGs'
-    CHAR_SUBST_OFFSETS = [-2, -4, -5, 6, 2, -3, 3, 6]
+    EKEY, DKEY = json.loads(control.getSetting('keys.aniwave'))
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -177,20 +175,9 @@ class sources(BrowserBase):
 
         return out
 
-    @staticmethod
-    def vrf_shift(t, offset=CHAR_SUBST_OFFSETS):
-        o = ''
-        for s in range(len(t)):
-            o += chr(t[s] if isinstance(t[s], int) else ord(t[s]) + offset[s % 8])
-        return o
-
     def generate_vrf(self, content_id, key=EKEY):
         vrf = self.arc4(six.b(key), six.b(urllib_parse.quote(content_id)))
-        vrf = base64.urlsafe_b64encode(vrf)
         vrf = six.ensure_str(base64.b64encode(vrf))
-        vrf = vrf.replace('/', '_').replace('+', '-')
-        vrf = self.vrf_shift(vrf)
-        vrf = six.ensure_str(base64.b64encode(six.b(vrf[::-1])))
         vrf = vrf.replace('/', '_').replace('+', '-')
         return vrf
 

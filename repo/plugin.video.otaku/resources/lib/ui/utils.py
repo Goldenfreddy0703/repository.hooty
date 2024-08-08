@@ -25,14 +25,14 @@ def allocate_item(name, url, is_dir=False, image='', info='', fanart=None, poste
         'info': info,
         'cast': cast,
         'image': {
-                'poster': poster or image,
-                'icon': image,
-                'thumb': image,
-                'fanart': fanart,
-                'landscape': landscape,
-                'banner': banner,
-                'clearart': clearart,
-                'clearlogo': clearlogo
+            'poster': poster or image,
+            'icon': image,
+            'thumb': image,
+            'fanart': fanart,
+            'landscape': landscape,
+            'banner': banner,
+            'clearart': clearart,
+            'clearlogo': clearlogo
         }
     }
     return new_res

@@ -992,7 +992,7 @@ msgid "Hide BATCH Items"
 msgstr ""
 
 msgctxt "#40501"
-msgid "Show 'Delete from Database' in Context Menu"
+msgid "Min Resolution"
 msgstr ""
 
 msgctxt "#40502"
@@ -1040,7 +1040,7 @@ msgid "Context Menu Customization"
 msgstr ""
 
 msgctxt "#40513"
-msgid "Show 'Marked as Watched [COLOR blue](Watchlist)[/COLOR]' in Context Menu"
+msgid "Prioritize Multiaudio Sources"
 msgstr ""
 
 msgctxt "#40514"
@@ -1320,7 +1320,23 @@ msgid "Scrape AllDebrid Cloud"
 msgstr ""
 
 msgctxt "#40584"
-msgid "Show 'Select Fanart' in Context Menu"
+msgid "4k"
+msgstr ""
+
+msgctxt "#40585"
+msgid "1080p"
+msgstr ""
+
+msgctxt "#40586"
+msgid "720p"
+msgstr ""
+
+msgctxt "#40587"
+msgid "SD"
+msgstr ""
+
+msgctxt "#40588"
+msgid "EQ"
 msgstr ""
 
 ######MAIN Category DIRECTORY######

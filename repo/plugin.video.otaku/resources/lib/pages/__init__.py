@@ -352,16 +352,20 @@ class Sources(DisplayWindow):
     def resolutionList():
         resolutions = []
         max_res = int(control.getSetting('general.maxResolution'))
-        if max_res <= 4:
-            resolutions.append('EQ')
-        if max_res <= 3:
-            resolutions.append('SD')
-        if max_res <= 2:
-            resolutions.append('720p')
-        if max_res <= 1:
-            resolutions.append('1080p')
-        if max_res <= 0:
-            resolutions.append('4K')
+        min_res = int(control.getSetting('general.minResolution'))
+
+        all_resolutions = [
+            (4, 'EQ'),
+            (3, 'SD'),
+            (2, '720p'),
+            (1, '1080p'),
+            (0, '4K')
+        ]
+
+        for res_value, res_name in all_resolutions:
+            if max_res <= res_value <= min_res:
+                resolutions.append(res_name)
+
         return resolutions
 
     @staticmethod
@@ -493,6 +497,7 @@ class Sources(DisplayWindow):
             pass
 
         prioritize_dualaudio = False
+        prioritize_multiaudio = False
         prioritize_multisubs = False
         prioritize_batches = False
         prioritize_season = False
@@ -503,6 +508,7 @@ class Sources(DisplayWindow):
 
         if control.getSetting('general.sortsources') == '0':  # Torrents selected
             prioritize_dualaudio = control.getSetting('general.prioritize_dualaudio') == 'true'
+            prioritize_multiaudio = control.getSetting('general.prioritize_multiaudio') == 'true'
             prioritize_multisubs = control.getSetting('general.prioritize_multisubs') == 'true'
             prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
             prioritize_consistently = control.getSetting('consistent.torrentInspection') == 'true'
@@ -519,10 +525,10 @@ class Sources(DisplayWindow):
             from itertools import chain, combinations
 
             # Define the order of the keys
-            key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-SUBS', 'BATCH']
+            key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-AUDIO', 'MULTI-SUBS', 'BATCH']
 
             # Define the user's selected priorities
-            selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multisubs, prioritize_batches]
+            selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multiaudio, prioritize_multisubs, prioritize_batches]
 
             # Generate all possible combinations of the selected priorities
             selected_combinations = list(chain(

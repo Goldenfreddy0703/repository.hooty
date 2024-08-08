@@ -1,6 +1,7 @@
+import json
 import time
 
-from resources.lib.ui import control, database
+from resources.lib.ui import client, control, database
 from resources.lib.WatchlistFlavor import WatchlistFlavor
 
 
@@ -67,6 +68,18 @@ def sync_watchlist(silent=False):
             control.ok_dialog(control.ADDON_NAME, "Watchlist Sync is Disabled")
 
 
+def get_keys():
+    kurl = 'https://raw.githubusercontent.com/Ciarands/keys/main/keys.json'
+    resp = database.get(client.request, 8, kurl)
+    resp = json.loads(resp)
+    vidplay = resp.get('embed', {}).get('keys')
+    if vidplay:
+        control.setSetting('keys.vidplay', json.dumps(vidplay))
+    aniwave = resp.get('aniwave', {}).get('keys')
+    if aniwave:
+        control.setSetting('keys.aniwave', json.dumps(aniwave))
+
+
 def run_maintenance():
 
     # control.log('Performing Maintenance')
@@ -74,6 +87,9 @@ def run_maintenance():
 
     # Refresh API tokens
     refresh_apis()
+
+    # Get worst source keys
+    get_keys()
 
     # Sync Watchlist
     if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2592000:

@@ -992,8 +992,8 @@ msgid "Hide BATCH Items"
 msgstr "TOPLU Öğeleri Gizle"
 
 msgctxt "#40501"
-msgid "Show 'Delete from Database' in Context Menu"
-msgstr "Veritabanından Sil'i İçerik Menüsünde Göster"
+msgid "Min Resolution"
+msgstr "Minimum Çözünürlük"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
@@ -1040,8 +1040,8 @@ msgid "Context Menu Customization"
 msgstr "İçerik Menüsü Özelleştirme"
 
 msgctxt "#40513"
-msgid "Show 'Marked as Watched [COLOR blue](Watchlist)[/COLOR]' in Context Menu"
-msgstr "İçerik Menüsünde 'İzlenmiş Olarak İşaretlendi [COLOR blue](İzleme Listesi)[/COLOR]' göster"
+msgid "Prioritize Multiaudio Sources"
+msgstr "Çoklu Ses Kaynaklarını Önceliklendir"
 
 msgctxt "#40514"
 msgid "Set Percent to Mark as Watched"
@@ -1320,8 +1320,24 @@ msgid "Scrape AllDebrid Cloud"
 msgstr "AllDebrid Bulutunu Kazı"
 
 msgctxt "#40584"
-msgid "Show 'Select Fanart' in Context Menu"
-msgstr "'Fanart Seç' İçerik Menüsünde Göster"
+msgid "4k"
+msgstr "4k"
+
+msgctxt "#40585"
+msgid "1080p"
+msgstr "1080p"
+
+msgctxt "#40586"
+msgid "720p"
+msgstr "720p"
+
+msgctxt "#40587"
+msgid "SD"
+msgstr "SD"
+
+msgctxt "#40588"
+msgid "EQ"
+msgstr "EQ"
 
 ######MAIN Category DIRECTORY######
 msgctxt "#50000"

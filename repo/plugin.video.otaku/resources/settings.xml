@@ -190,6 +190,7 @@
 		<setting id="embed.kwik" type="bool" label="Kwik" default="true" />
 		<setting id="embed.megaf" type="bool" label="MegaF" default="true" />
 		<setting id="embed.mp4upload" type="bool" label="Mp4upload" default="true" />
+		<setting id="embed.mp4u" type="bool" label="MP4u" default="true" />
 		<setting id="embed.mycloud" type="bool" label="MyCloud" default="true" />
 		<setting id="embed.streamtape" type="bool" label="Streamtape" default="true" />
 		<setting id="embed.streamwish" type="bool" label="StreamWish" default="true" />
@@ -273,7 +274,8 @@
 	<category label="40326">
 		<!-- Source Filters -->
 		<setting type="lsep" label="40327"/>
-		<setting id="general.maxResolution" type="enum" label="40328" values="4k|1080p|720p|480p|EQ" default="0" />
+		<setting id="general.maxResolution" type="enum" label="40328" lvalues="40584|40585|40586|40587|40588" default="0" />
+		<setting id="general.minResolution" type="enum" label="40501" lvalues="40584|40585|40586|40587|40588" default="4" />
 		<setting id="torrent.disable265" type="bool" label="40329" default="false" />
 		<setting id="torrent.batch" type="bool" label="40500" default="false" enable="eq(1, 0)" />
 		<setting id="general.fileFilter" type="enum" label="40489" lvalues="40497|40498|40499" default="0" />
@@ -303,15 +305,16 @@
 		<setting id="general.sortsources" type="enum" label="40332" values="Torrents|Embeds" default="0" />
 		<!-- Prioritized Source Sorting -->
 		<setting type="lsep" label="40465"/>
-		<setting id="general.prioritize_dualaudio" type="bool" label="40462" default="false" enable="eq(2,false) + eq(1,false) + eq(-2,0)" />
-		<setting id="general.prioritize_multisubs" type="bool" label="40463" default="false" enable="eq(1,false) + eq(-1,false) + eq(-3,0)" />
-		<setting id="general.prioritize_batches" type="bool" label="40464" default="false" enable="eq(-2,false) + eq(-1,false) + eq(-4,0)" />
-		<setting id="general.prioritize_season" type="bool" label="40468" default="false" enable="eq(-5,0)" />
-		<setting id="menu.prioritize_season_value" type="number" subsetting="true" label="40469" option="int" default="1" visible="eq(-1,true)" enable="eq(-6,0)" />
-		<setting id="general.prioritize_part" type="bool" label="40470" default="false" enable="eq(-7,0)" />
-		<setting id="menu.prioritize_part_value" type="number" subsetting="true" label="40471" option="int" default="1" visible="eq(-1,true)" enable="eq(-8,0)" />
-		<setting id="general.prioritize_episode" type="bool" label="40570" default="false" enable="eq(-9,0)" />
-		<setting id="menu.prioritize_episode_value" type="number" subsetting="true" label="40571" option="int" default="1" visible="eq(-1,true)" enable="eq(-10,0)" />
+		<setting id="general.prioritize_dualaudio" type="bool" label="40462" default="false" enable="eq(3,false) + eq(2,false) + eq(1,false) + eq(-2,0)" />
+		<setting id="general.prioritize_multiaudio" type="bool" label="40513" default="false" enable="eq(2,false) + eq(1,false) + eq(-1,false) + eq(-3,0)" />
+		<setting id="general.prioritize_multisubs" type="bool" label="40463" default="false" enable="eq(1,false) + eq(-2,false) + eq(-1,false) + eq(-4,0)" />
+		<setting id="general.prioritize_batches" type="bool" label="40464" default="false" enable="eq(-3,false) + eq(-2,false) + eq(-1,false) + eq(-5,0)" />
+		<setting id="general.prioritize_season" type="bool" label="40468" default="false" enable="eq(-6,0)" />
+		<setting id="menu.prioritize_season_value" type="number" subsetting="true" label="40469" option="int" default="1" visible="eq(-1,true)" enable="eq(-7,0)" />
+		<setting id="general.prioritize_part" type="bool" label="40470" default="false" enable="eq(-8,0)" />
+		<setting id="menu.prioritize_part_value" type="number" subsetting="true" label="40471" option="int" default="1" visible="eq(-1,true)" enable="eq(-9,0)" />
+		<setting id="general.prioritize_episode" type="bool" label="40570" default="false" enable="eq(-10,0)" />
+		<setting id="menu.prioritize_episode_value" type="number" subsetting="true" label="40571" option="int" default="1" visible="eq(-1,true)" enable="eq(-11,0)" />
 		<!-- Search Filtering -->
 		<setting type="lsep" label="40409"/>
 		<setting id="search.adult" type="bool" label="40410" default="false" />

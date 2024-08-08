@@ -6,7 +6,7 @@ import string
 import time
 import six
 
-from resources.lib.ui import client, control, database, jsunpack
+from resources.lib.ui import client, control, jsunpack
 from resources.lib.ui.pyaes import AESModeOfOperationCBC, Decrypter, Encrypter
 from six.moves import urllib_error, urllib_parse
 
@@ -136,7 +136,7 @@ def __extract_lulu(url, page_content, referer=None):
     return
 
 
-def __extract_vidplay(url, page_content, referer=None):
+def __extract_vidplay(slink, page_content, referer=None):
     def dex(key, data, encode=True):
         x = 0
         ct = ''
@@ -159,41 +159,31 @@ def __extract_vidplay(url, page_content, referer=None):
 
         return ct
 
-    def cache_duration():
-        from datetime import datetime
-        cmin = datetime.now().minute
-        duration = round((60 - 59 if cmin == 0 else cmin) / 60, 2)
-        return duration
-
-    def encode_id(id_):
-        # kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
-        kurl = 'https://raw.githubusercontent.com/Inside4ndroid/vidkey-js/main/keys.json'
-        keys = database.get(
-            client.request, 8,
-            kurl
-        )
-        k1, k2 = json.loads(keys)
-        v = dex(k1, id_, False)
-        v = dex(k2, v)
+    def encode_id(key_, id_):
+        v = dex(key_, id_)
         return v
 
+    def decode_vurl(key, eurl):
+        eurl = eurl.replace('_', '/').replace('-', '+')
+        if len(eurl) % 4 != 0:
+            eurl = eurl + (4 - (len(eurl) % 4)) * '='
+        url = dex(key, base64.b64decode(eurl), encode=False)
+        url = urllib_parse.unquote(url)
+        return url
+
     headers = {'User-Agent': _EDGE_UA}
-    turl = urllib_parse.urljoin(url, '/futoken')
-    r = six.ensure_str(client.request(turl, referer=url, headers=headers))
-    k = re.search(r"var\s*k='([^']+)", r)
-    if k:
-        v = encode_id(url.split('?')[0].split('/')[-1])
-        k = k.group(1)
-        a = [k]
-        for i in range(len(v)):
-            a.append(str(ord(k[i % len(k)]) + ord(v[i])))
-        murl = urllib_parse.urljoin(url, '/mediainfo/' + ','.join(a) + '?' + url.split('?')[-1])
-        s = json.loads(client.request(murl, referer=url, XHR=True, headers=headers))
-        if isinstance(s.get('result'), dict):
-            uri = s.get('result').get('sources')[0].get('file')
-            rurl = urllib_parse.urljoin(murl, '/')
-            uri += '|Referer={0}&Origin={1}&User-Agent=iPad'.format(rurl, rurl[:-1])
-            return uri
+    ek1, ek2, dk = json.loads(control.getSetting('keys.vidplay'))
+    mid = slink.split('?')[0].split('/')[-1]
+    m = encode_id(ek1, mid)
+    h = encode_id(ek2, mid)
+    murl = urllib_parse.urljoin(slink, '/mediainfo/{}?{}&h={}'.format(m, slink.split('?')[-1], h))
+    s = json.loads(client.request(murl, referer=slink, XHR=True, headers=headers))
+    s = json.loads(decode_vurl(dk, s.get("result")))
+    if isinstance(s, dict):
+        uri = s.get('sources')[0].get('file')
+        rurl = urllib_parse.urljoin(murl, '/')
+        uri += '|Referer={0}&Origin={1}&User-Agent=iPad'.format(rurl, rurl[:-1])
+        return uri
 
 
 def __extract_kwik(url, page_content, referer=None):

@@ -44,6 +44,7 @@ def getInfo(release_title):
     prioritize_episode_value = ''
 
     prioritize_dualaudio = False
+    prioritize_multiaudio = False
     prioritize_multisubs = False
     prioritize_batches = False
     prioritize_season = False
@@ -131,6 +132,7 @@ def getInfo(release_title):
 
     if control.getSetting('general.sortsources') == '0':  # Torrents selected
         prioritize_dualaudio = control.getSetting('general.prioritize_dualaudio') == 'true'
+        prioritize_multiaudio = control.getSetting('general.prioritize_multiaudio') == 'true'
         prioritize_multisubs = control.getSetting('general.prioritize_multisubs') == 'true'
         prioritize_batches = control.getSetting('general.prioritize_batches') == 'true'
         prioritize_consistently = control.getSetting('consistent.torrentInspection') == 'true'
@@ -144,16 +146,16 @@ def getInfo(release_title):
             prioritize_part = control.getSetting('general.prioritize_part') == 'true'
             prioritize_episode = control.getSetting('general.prioritize_episode') == 'true'
 
-        if not (prioritize_dualaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode):
+        if not (prioritize_dualaudio or prioritize_multiaudio or prioritize_multisubs or prioritize_batches or prioritize_season or prioritize_part or prioritize_episode):
             return info
 
         from itertools import chain, combinations
 
         # Define the order of the keys
-        key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-SUBS', 'BATCH']
+        key_order = ['SEASON', 'PART', 'EPISODE', 'DUAL-AUDIO', 'MULTI-AUDIO', 'MULTI-SUBS', 'BATCH']
 
         # Define the user's selected priorities
-        selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multisubs, prioritize_batches]
+        selected_priorities = [prioritize_season, prioritize_part, prioritize_episode, prioritize_dualaudio, prioritize_multiaudio, prioritize_multisubs, prioritize_batches]
 
         # Generate all possible combinations of the selected priorities
         selected_combinations = list(
@@ -200,7 +202,8 @@ def getInfo(release_title):
                 'SEASON': ['season {}'.format(prioritize_season_value), 'season 0{}'.format(prioritize_season_value), 's{}'.format(prioritize_season_value), 's0{}'.format(prioritize_season_value)],
                 'PART': ['part {}'.format(prioritize_part_value), 'part 0{}'.format(prioritize_part_value), 'cour {}'.format(prioritize_part_value), 'cour 0{}'.format(prioritize_part_value), 'part{}'.format(prioritize_part_value), 'part0{}'.format(prioritize_part_value), 'cour{}'.format(prioritize_part_value), 'cour0{}'.format(prioritize_part_value)],
                 'EPISODE': ['episode {}'.format(prioritize_episode_value), 'episode 0{}'.format(prioritize_episode_value), 'ep {}'.format(prioritize_episode_value), 'ep 0{}'.format(prioritize_episode_value), 'episode{}'.format(prioritize_episode_value), 'episode0{}'.format(prioritize_episode_value), 'ep{}'.format(prioritize_episode_value), 'ep0{}'.format(prioritize_episode_value), 'e{}'.format(prioritize_episode_value), 'e0{}'.format(prioritize_episode_value)],
-                'DUAL-AUDIO': ['dual audio'],
+                'DUAL-AUDIO': ['dual-audio', 'dual audio'],
+                'MULTI-AUDIO': ['multi-audio', 'multi audio', 'multiple audio'],
                 'MULTI-SUBS': ['multi-sub', 'multi sub', 'multiple subtitle'],
                 'BATCH': ['batch']
             }
@@ -239,6 +242,7 @@ def getInfo(release_title):
                     'PART': ['part {}'.format(prioritize_part_value), 'part 0{}'.format(prioritize_part_value), 'cour {}'.format(prioritize_part_value), 'cour 0{}'.format(prioritize_part_value), 'part{}'.format(prioritize_part_value), 'part0{}'.format(prioritize_part_value), 'cour{}'.format(prioritize_part_value), 'cour0{}'.format(prioritize_part_value)],
                     'EPISODE': ['episode {}'.format(prioritize_episode_value), 'episode 0{}'.format(prioritize_episode_value), 'ep {}'.format(prioritize_episode_value), 'ep 0{}'.format(prioritize_episode_value), 'episode{}'.format(prioritize_episode_value), 'episode0{}'.format(prioritize_episode_value), 'ep{}'.format(prioritize_episode_value), 'ep0{}'.format(prioritize_episode_value), 'e{}'.format(prioritize_episode_value), 'e0{}'.format(prioritize_episode_value)],
                     'DUAL-AUDIO': ['dual audio'],
+                    'MULTI-AUDIO': ['multi-audio', 'multi audio', 'multiple audio'],
                     'MULTI-SUBS': ['multi-sub', 'multi sub', 'multiple subtitle'],
                     'BATCH': ['batch']
                 }

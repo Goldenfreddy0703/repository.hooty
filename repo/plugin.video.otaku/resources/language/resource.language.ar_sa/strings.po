@@ -992,8 +992,8 @@ msgid "Hide BATCH Items"
 msgstr "إخفاء عناصر الدفعة"
 
 msgctxt "#40501"
-msgid "Show 'Delete from Database' in Context Menu"
-msgstr "إظهار 'حذف من قاعدة البيانات' في قائمة السياق"
+msgid "Min Resolution"
+msgstr "الحد الأدنى للدقة"
 
 msgctxt "#40502"
 msgid "Re-Use Language Invoker"
@@ -1040,12 +1040,12 @@ msgid "Context Menu Customization"
 msgstr "تخصيص قائمة السياق"
 
 msgctxt "#40513"
-msgid "Show 'Marked as Watched [COLOR blue](Watchlist)[/COLOR]' in Context Menu"
-msgstr "اظهر 'تمت مشاهدته [COLOR blue](Watchlist)[/COLOR]' في قائمة السياق"
+msgid "Prioritize Multiaudio Sources"
+msgstr "اعطاء الاولية للمصادر التى تحوي عدة لغات صوت"
 
 msgctxt "#40514"
 msgid "Set Percent to Mark as Watched"
-msgstr "اعداد النسبة لتعليم ما تمت مشاهدته"
+msgstr "تعيين النسبة لتعليمها كمشاهدة"
 
 msgctxt "#40515"
 msgid "NOTE: Next up Dialog will not begin until this percentage is met"
@@ -1320,8 +1320,24 @@ msgid "Scrape AllDebrid Cloud"
 msgstr "جمع المعلومات من سحابة AllDebrid"
 
 msgctxt "#40584"
-msgid "Show 'Select Fanart' in Context Menu"
-msgstr "إظهار 'اختر فن الغلاف' في قائمة السياق"
+msgid "4k"
+msgstr "4k"
+
+msgctxt "#40585"
+msgid "1080p"
+msgstr "1080p"
+
+msgctxt "#40586"
+msgid "720p"
+msgstr "720p"
+
+msgctxt "#40587"
+msgid "SD"
+msgstr "SD"
+
+msgctxt "#40588"
+msgid "EQ"
+msgstr "EQ"
 
 ######MAIN Category DIRECTORY######
 msgctxt "#50000"

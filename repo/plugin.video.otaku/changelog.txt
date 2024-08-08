@@ -1,3 +1,10 @@
+Changelog 0.5.23[20240808]:
+- Added Min Resolution Setting
+- Added Multiaudio Priority Setting
+- Changed 480p to SD
+- Removed Context Menu Strings
+- Updated Embed Extractor
+
 Changelog 0.5.22[20240729]:
 - Fix H!anime from hanging after scrape
 

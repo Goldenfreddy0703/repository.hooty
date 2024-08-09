@@ -69,13 +69,13 @@ def sync_watchlist(silent=False):
 
 
 def get_keys():
-    kurl = 'https://raw.githubusercontent.com/Ciarands/keys/main/keys.json'
+    kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
     resp = database.get(client.request, 8, kurl)
     resp = json.loads(resp)
-    vidplay = resp.get('embed', {}).get('keys')
+    vidplay = resp.get('embed.js')
     if vidplay:
         control.setSetting('keys.vidplay', json.dumps(vidplay))
-    aniwave = resp.get('aniwave', {}).get('keys')
+    aniwave = resp.get('anime', {}).get('aniwave.to')
     if aniwave:
         control.setSetting('keys.aniwave', json.dumps(aniwave))
 

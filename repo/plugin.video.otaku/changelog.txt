@@ -1,3 +1,6 @@
+Changelog 0.5.24[20240809]:
+- Quick Fix with Embed Extractor
+
 Changelog 0.5.23[20240808]:
 - Added Min Resolution Setting
 - Added Multiaudio Priority Setting

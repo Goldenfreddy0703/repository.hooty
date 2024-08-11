@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import re
-
 from kodi_six import xbmc
 from resources.lib.debrid import all_debrid, debrid_link, premiumize, real_debrid
 from resources.lib.ui import control, source_utils
@@ -57,40 +55,40 @@ class Resolver(BaseWindow):
                     sources.insert(0, sources.pop(index))
                     break
                 elif source['type'] in ['torrent', 'cloud', 'hoster', 'local']:
-                        release_title = str(source['release_title'])
-                        chars = list(last_played)
-                        match_found = False
+                    release_title = str(source['release_title'])
+                    chars = list(last_played)
+                    match_found = False
 
-                        i = 0
-                        while i < len(chars):
-                            if chars[i].isdigit():
-                                # Check if there's enough room to replace episode_value_length digits
-                                if i + episode_value_length <= len(chars) and all(c.isdigit() for c in chars[i:i+episode_value_length]):
-                                    # Replace the next episode_value_length digits with episode_value
-                                    for j in range(episode_value_length):
-                                        chars[i + j] = episode_value[j]
-                                    modified_last_played = ''.join(chars)
+                    i = 0
+                    while i < len(chars):
+                        if chars[i].isdigit():
+                            # Check if there's enough room to replace episode_value_length digits
+                            if i + episode_value_length <= len(chars) and all(c.isdigit() for c in chars[i:i + episode_value_length]):
+                                # Replace the next episode_value_length digits with episode_value
+                                for j in range(episode_value_length):
+                                    chars[i + j] = episode_value[j]
+                                modified_last_played = ''.join(chars)
 
-                                    if modified_last_played == release_title:
-                                        sources.insert(0, sources.pop(index))
-                                        match_found = True
-                                        break  # Found a match, no need to continue
-
-                                    # Reset the modified characters if not a match
-                                    for j in range(episode_value_length):
-                                        chars[i + j] = last_played[i + j]
-
-                                i += episode_value_length  # Move past the digits just checked or replaced
-                            else:
-                                i += 1  # Move to the next character if the current one is not a digit
-
-                            if match_found:
-                                break
-
-                            if not match_found:
-                                if str(source['release_title']) == last_played:
+                                if modified_last_played == release_title:
                                     sources.insert(0, sources.pop(index))
-                                    break
+                                    match_found = True
+                                    break  # Found a match, no need to continue
+
+                                # Reset the modified characters if not a match
+                                for j in range(episode_value_length):
+                                    chars[i + j] = last_played[i + j]
+
+                            i += episode_value_length  # Move past the digits just checked or replaced
+                        else:
+                            i += 1  # Move to the next character if the current one is not a digit
+
+                        if match_found:
+                            break
+
+                        if not match_found:
+                            if str(source['release_title']) == last_played:
+                                sources.insert(0, sources.pop(index))
+                                break
 
         try:
             # Begin resolving links
@@ -156,8 +154,15 @@ class Resolver(BaseWindow):
                             continue
                         else:
                             self.return_data = stream_link
+                            if isinstance(stream_link, dict):
+                                self.return_data = {
+                                    'url': stream_link.get('url'),
+                                    'subs': stream_link.get('subs')
+                                }
+
                             if i.get('subs') or i.get('skip'):
-                                self.return_data = {'url': stream_link}
+                                if not isinstance(self.return_data, dict):
+                                    self.return_data = {'url': stream_link}
                                 if i.get('subs'):
                                     self.return_data.update({'subs': i.get('subs')})
                                 if i.get('skip'):

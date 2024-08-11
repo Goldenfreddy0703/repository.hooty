@@ -189,6 +189,7 @@
 		<setting id="embed.iga" type="bool" label="IGA" default="true" />
 		<setting id="embed.kwik" type="bool" label="Kwik" default="true" />
 		<setting id="embed.megaf" type="bool" label="MegaF" default="true" />
+		<setting id="embed.moonf" type="bool" label="MoonF" default="true" />
 		<setting id="embed.mp4upload" type="bool" label="Mp4upload" default="true" />
 		<setting id="embed.mp4u" type="bool" label="MP4u" default="true" />
 		<setting id="embed.mycloud" type="bool" label="MyCloud" default="true" />

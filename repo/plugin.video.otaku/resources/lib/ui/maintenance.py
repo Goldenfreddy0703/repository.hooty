@@ -69,15 +69,23 @@ def sync_watchlist(silent=False):
 
 
 def get_keys():
-    kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
-    resp = database.get(client.request, 8, kurl)
-    resp = json.loads(resp)
+    try:
+        kurl = 'https://raw.githubusercontent.com/Ciarands/vidsrc-keys/main/keys.json'
+        resp = database.get(client.request, 8, kurl)
+        resp = json.loads(resp)
+    except:
+        resp = {}
+
     vidplay = resp.get('embed.js')
     if vidplay:
-        control.setSetting('keys.vidplay', json.dumps(vidplay))
+        vidplay = json.dumps(vidplay)
+        if vidplay != control.getSetting('keys.vidplay'):
+            control.setSetting('keys.vidplay', vidplay)
     aniwave = resp.get('anime', {}).get('aniwave.to')
     if aniwave:
-        control.setSetting('keys.aniwave', json.dumps(aniwave))
+        aniwave = json.dumps(aniwave)
+        if aniwave != control.getSetting('keys.aniwave'):
+            control.setSetting('keys.aniwave', aniwave)
 
 
 def run_maintenance():

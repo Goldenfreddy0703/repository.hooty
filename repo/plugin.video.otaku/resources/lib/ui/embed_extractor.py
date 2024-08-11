@@ -183,6 +183,10 @@ def __extract_vidplay(slink, page_content, referer=None):
         uri = s.get('sources')[0].get('file')
         rurl = urllib_parse.urljoin(murl, '/')
         uri += '|Referer={0}&Origin={1}&User-Agent=iPad'.format(rurl, rurl[:-1])
+        subs = s.get('tracks')
+        if subs:
+            subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
+            uri = {'url': uri, 'subs': subs}
         return uri
 
 
@@ -491,6 +495,7 @@ __register_extractor(["https://streamtape.com/e/"],
 
 __register_extractor(["https://filemoon.sx/e/",
                       "https://kerapoxy.cc/e/",
+                      "https://smdfs40r.skin/e/",
                       "https://1azayf9w.xyz/e/"],
                      __extract_filemoon)
 

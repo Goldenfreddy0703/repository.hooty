@@ -1,4 +1,3 @@
-import base64
 import json
 import pickle
 import re
@@ -13,7 +12,7 @@ from resources.lib.indexers.malsync import MALSYNC
 
 class sources(BrowserBase):
     _BASE_URL = 'https://aniwave.to/' if control.getSetting('provider.aniwavealt') == 'false' else 'https://aniwave.vc/'
-    EKEY, DKEY = json.loads(control.getSetting('keys.aniwave'))
+    keys = json.loads(control.getSetting('keys.aniwave'))
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -22,7 +21,7 @@ class sources(BrowserBase):
         title = self._clean_title(title)
 
         all_results = []
-        srcs = ['softsub', 'sub', 'dub']
+        srcs = ['sub', 'softsub', 'dub']
         if control.getSetting('general.source') == 'Sub':
             srcs.remove('dub')
         elif control.getSetting('general.source') == 'Dub':
@@ -159,37 +158,35 @@ class sources(BrowserBase):
                             }
                             sources.append(source)
         except:
+            import traceback
+            traceback.print_exc()
             pass
         return sources
 
-    @staticmethod
-    def arc4(key, data):
-        l_key = len(key)
-        S = [i for i in range(256)]
-        j = 0
-        out = bytearray()
-        app = out.append
-
-        for i in range(256):
-            j = (j + S[i] + key[i % l_key]) % 256
-            S[i], S[j] = S[j], S[i]
-
-        i = j = 0
-        for c in data:
-            i = (i + 1) % 256
-            j = (j + S[i]) % 256
-            S[i], S[j] = S[j], S[i]
-            app(c ^ S[(S[i] + S[j]) % 256])
-
-        return out
-
-    def generate_vrf(self, content_id, key=EKEY):
-        vrf = self.arc4(six.b(key), six.b(urllib_parse.quote(content_id)))
-        vrf = six.ensure_str(base64.b64encode(vrf))
-        vrf = vrf.replace('/', '_').replace('+', '-')
+    def generate_vrf(self, content_id):
+        vrf = control.vrf_shift(content_id, "AP6GeR8H0lwUz1", "UAz8Gwl10P6ReH")
+        vrf = control.arc4(six.b("ItFKjuWokn4ZpB"), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+        vrf = control.arc4(six.b("fOyt97QWFB3"), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+        vrf = control.vrf_shift(vrf, "1majSlPQd2M5", "da1l2jSmP5QM")
+        vrf = control.vrf_shift(vrf, "CPYvHj09Au3", "0jHA9CPYu3v")
+        vrf = vrf[::-1]
+        vrf = control.arc4(six.b("736y1uTJpBLUX"), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+        vrf = control.serialize_text(vrf)
         return vrf
 
-    def decrypt_vrf(self, text, key=DKEY):
-        data = self.arc4(six.b(key), base64.urlsafe_b64decode(six.b(text)))
-        data = urllib_parse.unquote(data.decode())
-        return data
+    def decrypt_vrf(self, text):
+        text = control.deserialize_text(text)
+        text = control.deserialize_text(six.ensure_str(text))
+        text = control.arc4(six.b("736y1uTJpBLUX"), text)
+        text = text[::-1]
+        text = control.vrf_shift(text, "0jHA9CPYu3v", "CPYvHj09Au3")
+        text = control.vrf_shift(text, "da1l2jSmP5QM", "1majSlPQd2M5")
+        text = control.deserialize_text(text)
+        text = control.arc4(six.b("fOyt97QWFB3"), text)
+        text = control.deserialize_text(text)
+        text = control.arc4(six.b("ItFKjuWokn4ZpB"), text)
+        text = control.vrf_shift(text, "UAz8Gwl10P6ReH", "AP6GeR8H0lwUz1")
+        return text

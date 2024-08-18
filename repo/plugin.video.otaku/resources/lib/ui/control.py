@@ -1,6 +1,8 @@
 import random
+import base64
 import datetime
 import os
+import six
 import sys
 import threading
 import time
@@ -731,6 +733,46 @@ def gmt_to_local(gmt_string, tformat=None, date_only=False):
         return GMT.strftime(tformat)
     except:
         return gmt_string
+
+
+def arc4(t, n):
+    u = 0
+    h = ''
+    s = list(range(256))
+    for e in range(256):
+        x = t[e % len(t)]
+        u = (u + s[e] + (x if isinstance(x, int) else ord(x))) % 256
+        s[e], s[u] = s[u], s[e]
+
+    e = u = 0
+    for c in range(len(n)):
+        e = (e + 1) % 256
+        u = (u + s[e]) % 256
+        s[e], s[u] = s[u], s[e]
+        h += chr((n[c] if isinstance(n[c], int) else ord(n[c])) ^ s[(s[e] + s[u]) % 256])
+    return h
+
+
+def serialize_text(input):
+    input = six.ensure_str(base64.b64encode(six.b(input)))
+    input = input.replace('/', '_').replace('+', '-')
+    return input
+
+
+def deserialize_text(input):
+    input = input.replace('_', '/').replace('-', '+')
+    input = base64.b64decode(input)
+    return input
+
+
+def vrf_shift(vrf, k1, k2):
+    lut = {}
+    for i in range(len(k1)):
+        lut[k1[i]] = k2[i]
+    svrf = ''
+    for c in vrf:
+        svrf += lut[c] if c in lut.keys() else c
+    return svrf
 
 
 # ### for testing ###

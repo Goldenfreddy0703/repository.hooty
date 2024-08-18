@@ -137,48 +137,47 @@ def __extract_lulu(url, page_content, referer=None):
 
 
 def __extract_vidplay(slink, page_content, referer=None):
-    def dex(key, data, encode=True):
-        x = 0
-        ct = ''
-        y = list(range(256))
-        for r in range(256):
-            u = key[r % len(key)]
-            x = (x + y[r] + (u if isinstance(u, int) else ord(u))) % 256
-            y[r], y[x] = y[x], y[r]
+    def generate_mid(content_id):
+        vrf = control.arc4(six.b("V4pBzCPyMSwqx"), six.b(content_id))
+        vrf = control.serialize_text(vrf)
+        vrf = control.vrf_shift(vrf, "4pjVI6otnvxW", "Ip64xWVntvoj")
+        vrf = vrf[::-1]
+        vrf = control.vrf_shift(vrf, "kHWPSL5RKG9Ei8Q", "REG859WSLiQkKHP")
+        vrf = control.arc4(six.b("eLWogkrHstP"), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+        vrf = vrf[::-1]
+        vrf = control.arc4(six.b("bpPVcKMFJXq"), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+        vrf = control.vrf_shift(vrf, "VtravPeTH34OUog", "OeaTrt4H3oVgvPU")
+        vrf = vrf[::-1]
+        vrf = control.serialize_text(vrf)
+        return vrf
 
-        s = 0
-        x = 0
-        for r in range(len(data)):
-            s = (s + 1) % 256
-            x = (x + y[s]) % 256
-            y[s], y[x] = y[x], y[s]
-            ct += chr((data[r] if isinstance(data[r], int) else ord(data[r])) ^ y[(y[s] + y[x]) % 256])
-
-        if encode:
-            ct = six.ensure_str(base64.b64encode(six.b(ct))).replace('/', '_').replace('+', '-')
-
-        return ct
-
-    def encode_id(key_, id_):
-        v = dex(key_, id_)
-        return v
-
-    def decode_vurl(key, eurl):
-        eurl = eurl.replace('_', '/').replace('-', '+')
-        if len(eurl) % 4 != 0:
-            eurl = eurl + (4 - (len(eurl) % 4)) * '='
-        url = dex(key, base64.b64decode(eurl), encode=False)
-        url = urllib_parse.unquote(url)
-        return url
+    def decode_vurl(text):
+        res = control.deserialize_text(text)
+        res = six.ensure_str(res)
+        res = res[::-1]
+        res = control.vrf_shift(res, "OeaTrt4H3oVgvPU", "VtravPeTH34OUog")
+        res = control.deserialize_text(res)
+        res = control.arc4("bpPVcKMFJXq", res)
+        res = res[::-1]
+        res = control.deserialize_text(res)
+        res = control.arc4("eLWogkrHstP", res)
+        res = control.vrf_shift(res, "REG859WSLiQkKHP", "kHWPSL5RKG9Ei8Q")
+        res = res[::-1]
+        res = control.vrf_shift(res, "Ip64xWVntvoj", "4pjVI6otnvxW")
+        res = control.deserialize_text(res)
+        res = control.arc4("V4pBzCPyMSwqx", res)
+        return res
 
     headers = {'User-Agent': _EDGE_UA}
-    ek1, ek2, dk = json.loads(control.getSetting('keys.vidplay'))
+    # keys = json.loads(control.getSetting('keys.vidplay'))
     mid = slink.split('?')[0].split('/')[-1]
-    m = encode_id(ek1, mid)
-    h = encode_id(ek2, mid)
+    m = generate_mid(mid)
+    h = control.serialize_text(control.arc4("BvxAphQAmWO9BIJ8", mid))
     murl = urllib_parse.urljoin(slink, '/mediainfo/{}?{}&h={}'.format(m, slink.split('?')[-1], h))
     s = json.loads(client.request(murl, referer=slink, XHR=True, headers=headers))
-    s = json.loads(decode_vurl(dk, s.get("result")))
+    s = json.loads(decode_vurl(s.get("result")))
     if isinstance(s, dict):
         uri = s.get('sources')[0].get('file')
         rurl = urllib_parse.urljoin(murl, '/')
@@ -186,7 +185,8 @@ def __extract_vidplay(slink, page_content, referer=None):
         subs = s.get('tracks')
         if subs:
             subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
-            uri = {'url': uri, 'subs': subs}
+            if subs:
+                uri = {'url': uri, 'subs': subs}
         return uri
 
 

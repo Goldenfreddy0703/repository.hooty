@@ -12,7 +12,10 @@ from resources.lib.indexers.malsync import MALSYNC
 
 class sources(BrowserBase):
     _BASE_URL = 'https://aniwave.to/' if control.getSetting('provider.aniwavealt') == 'false' else 'https://aniwave.vc/'
-    keys = json.loads(control.getSetting('keys.aniwave'))
+    # KEYS = json.loads(control.getSetting('keys.aniwave'))
+    KEYS = ["AP6GeR8H0lwUz1", "UAz8Gwl10P6ReH", "ItFKjuWokn4ZpB",
+            "fOyt97QWFB3", "1majSlPQd2M5", "da1l2jSmP5QM",
+            "CPYvHj09Au3", "0jHA9CPYu3v", "736y1uTJpBLUX"]
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -163,30 +166,30 @@ class sources(BrowserBase):
             pass
         return sources
 
-    def generate_vrf(self, content_id):
-        vrf = control.vrf_shift(content_id, "AP6GeR8H0lwUz1", "UAz8Gwl10P6ReH")
-        vrf = control.arc4(six.b("ItFKjuWokn4ZpB"), six.b(vrf))
+    def generate_vrf(self, content_id, keys=KEYS):
+        vrf = control.vrf_shift(content_id, keys[0], keys[1])
+        vrf = control.arc4(six.b(keys[2]), six.b(vrf))
         vrf = control.serialize_text(vrf)
-        vrf = control.arc4(six.b("fOyt97QWFB3"), six.b(vrf))
+        vrf = control.arc4(six.b(keys[3]), six.b(vrf))
         vrf = control.serialize_text(vrf)
-        vrf = control.vrf_shift(vrf, "1majSlPQd2M5", "da1l2jSmP5QM")
-        vrf = control.vrf_shift(vrf, "CPYvHj09Au3", "0jHA9CPYu3v")
+        vrf = control.vrf_shift(vrf, keys[4], keys[5])
+        vrf = control.vrf_shift(vrf, keys[6], keys[7])
         vrf = vrf[::-1]
-        vrf = control.arc4(six.b("736y1uTJpBLUX"), six.b(vrf))
+        vrf = control.arc4(six.b(keys[8]), six.b(vrf))
         vrf = control.serialize_text(vrf)
         vrf = control.serialize_text(vrf)
         return vrf
 
-    def decrypt_vrf(self, text):
+    def decrypt_vrf(self, text, keys=KEYS):
         text = control.deserialize_text(text)
         text = control.deserialize_text(six.ensure_str(text))
-        text = control.arc4(six.b("736y1uTJpBLUX"), text)
+        text = control.arc4(six.b(keys[8]), text)
         text = text[::-1]
-        text = control.vrf_shift(text, "0jHA9CPYu3v", "CPYvHj09Au3")
-        text = control.vrf_shift(text, "da1l2jSmP5QM", "1majSlPQd2M5")
+        text = control.vrf_shift(text, keys[7], keys[6])
+        text = control.vrf_shift(text, keys[5], keys[4])
         text = control.deserialize_text(text)
-        text = control.arc4(six.b("fOyt97QWFB3"), text)
+        text = control.arc4(six.b(keys[3]), text)
         text = control.deserialize_text(text)
-        text = control.arc4(six.b("ItFKjuWokn4ZpB"), text)
-        text = control.vrf_shift(text, "UAz8Gwl10P6ReH", "AP6GeR8H0lwUz1")
+        text = control.arc4(six.b(keys[2]), text)
+        text = control.vrf_shift(text, keys[1], keys[0])
         return text

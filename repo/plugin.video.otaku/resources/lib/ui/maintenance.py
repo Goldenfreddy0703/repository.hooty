@@ -97,7 +97,7 @@ def run_maintenance():
     refresh_apis()
 
     # Get worst source keys
-    get_keys()
+    # get_keys()
 
     # Sync Watchlist
     if control.getSetting('update.time') == '' or time.time() > int(control.getSetting('update.time')) + 2592000:

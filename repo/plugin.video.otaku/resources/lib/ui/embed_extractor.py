@@ -137,47 +137,57 @@ def __extract_lulu(url, page_content, referer=None):
 
 
 def __extract_vidplay(slink, page_content, referer=None):
-    def generate_mid(content_id):
-        vrf = control.arc4(six.b("V4pBzCPyMSwqx"), six.b(content_id))
-        vrf = control.serialize_text(vrf)
-        vrf = control.vrf_shift(vrf, "4pjVI6otnvxW", "Ip64xWVntvoj")
+    def generate_mid(content_id, keys):
+        vrf = control.vrf_shift(content_id, keys[0], keys[1])
         vrf = vrf[::-1]
-        vrf = control.vrf_shift(vrf, "kHWPSL5RKG9Ei8Q", "REG859WSLiQkKHP")
-        vrf = control.arc4(six.b("eLWogkrHstP"), six.b(vrf))
+        vrf = control.arc4(six.b(keys[2]), six.b(vrf))
         vrf = control.serialize_text(vrf)
+
         vrf = vrf[::-1]
-        vrf = control.arc4(six.b("bpPVcKMFJXq"), six.b(vrf))
+        vrf = control.vrf_shift(vrf, keys[3], keys[4])
+        vrf = control.arc4(six.b(keys[5]), six.b(vrf))
         vrf = control.serialize_text(vrf)
-        vrf = control.vrf_shift(vrf, "VtravPeTH34OUog", "OeaTrt4H3oVgvPU")
+
+        vrf = control.arc4(six.b(keys[6]), six.b(vrf))
+        vrf = control.serialize_text(vrf)
+
         vrf = vrf[::-1]
+        vrf = control.vrf_shift(vrf, keys[7], keys[8])
         vrf = control.serialize_text(vrf)
         return vrf
 
-    def decode_vurl(text):
+    def decode_vurl(text, keys):
         res = control.deserialize_text(text)
         res = six.ensure_str(res)
-        res = res[::-1]
-        res = control.vrf_shift(res, "OeaTrt4H3oVgvPU", "VtravPeTH34OUog")
-        res = control.deserialize_text(res)
-        res = control.arc4("bpPVcKMFJXq", res)
+
+        res = control.vrf_shift(res, keys[8], keys[7])
         res = res[::-1]
         res = control.deserialize_text(res)
-        res = control.arc4("eLWogkrHstP", res)
-        res = control.vrf_shift(res, "REG859WSLiQkKHP", "kHWPSL5RKG9Ei8Q")
-        res = res[::-1]
-        res = control.vrf_shift(res, "Ip64xWVntvoj", "4pjVI6otnvxW")
+        res = control.arc4(keys[6], res)
+
         res = control.deserialize_text(res)
-        res = control.arc4("V4pBzCPyMSwqx", res)
+        res = control.arc4(keys[5], res)
+        res = control.vrf_shift(res, keys[4], keys[3])
+        res = res[::-1]
+
+        res = control.deserialize_text(res)
+        res = control.arc4(keys[2], res)
+        res = res[::-1]
+        res = control.vrf_shift(res, keys[1], keys[0])
         return res
 
     headers = {'User-Agent': _EDGE_UA}
     # keys = json.loads(control.getSetting('keys.vidplay'))
+    keys = [
+        "E1KyOcIMf9v7XHg", "gMvO97yE1cfKIXH", "dawQCziL2v",
+        "ZSsbx4NtMpOoCh", "ZCo4MthpsNxSOb", "thDz4uPKGSYW",
+        "QIP5jcuvYEKdG", "fH0n3GZDeKCE6", "0GCn6e3ZfDKEH"
+    ]
     mid = slink.split('?')[0].split('/')[-1]
-    m = generate_mid(mid)
-    h = control.serialize_text(control.arc4("BvxAphQAmWO9BIJ8", mid))
-    murl = urllib_parse.urljoin(slink, '/mediainfo/{}?{}&h={}'.format(m, slink.split('?')[-1], h))
+    m = generate_mid(mid, keys)
+    murl = urllib_parse.urljoin(slink, '/mediainfo/{}?{}'.format(m, slink.split('?')[-1]))
     s = json.loads(client.request(murl, referer=slink, XHR=True, headers=headers))
-    s = json.loads(decode_vurl(s.get("result")))
+    s = json.loads(decode_vurl(s.get("result"), keys))
     if isinstance(s, dict):
         uri = s.get('sources')[0].get('file')
         rurl = urllib_parse.urljoin(murl, '/')

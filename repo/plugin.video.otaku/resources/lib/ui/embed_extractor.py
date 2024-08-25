@@ -12,6 +12,7 @@ from six.moves import urllib_error, urllib_parse
 
 _EMBED_EXTRACTORS = {}
 _EDGE_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62'
+_FF_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0'
 
 
 def load_video_from_url(in_url):
@@ -37,7 +38,13 @@ def load_video_from_url(in_url):
                                              data)
 
         control.log("Probing source: %s" % in_url)
-        reqObj = client.request(in_url, output='extended')
+        headers = None
+        if '|' in in_url:
+            in_url, headers = in_url.split('|')
+            headers = dict([item.split('=') for item in headers.split('&')])
+            for header in headers:
+                headers[header] = urllib_parse.unquote_plus(headers[header])
+        reqObj = client.request(in_url, headers=headers, output='extended')
 
         return found_extractor['parser'](reqObj[5],
                                          reqObj[0],
@@ -129,8 +136,10 @@ def __extract_mp4upload(url, page_content, referer=None):
 def __extract_lulu(url, page_content, referer=None):
     page_content += __get_packed_data(page_content)
     r = re.search(r'''sources:\s*\[{file:\s*["']([^"']+)''', page_content)
-    headers = {'User-Agent': _EDGE_UA,
-               'Referer': url}
+    ref = urllib_parse.urljoin(url, '/')
+    headers = {'User-Agent': _FF_UA,
+               'Referer': ref,
+               'Origin': ref[:-1]}
     if r:
         return r.group(1) + __append_headers(headers)
     return
@@ -333,12 +342,18 @@ def __extract_voe(url, page_content, referer=None):
     r = re.search(r'''mp4["']:\s*["']([^"']+)''', page_content)
     if r:
         headers = {'User-Agent': _EDGE_UA}
-        stream_url = r.group(1) + __append_headers(headers)
+        stream_url = r.group(1)
+        if not stream_url.startswith('http'):
+            stream_url = base64.b64decode(stream_url).decode('utf-8')
+        stream_url = stream_url + __append_headers(headers)
         return stream_url
     r = re.search(r'''hls["']:\s*["']([^"']+)''', page_content)
     if r:
         headers = {'User-Agent': _EDGE_UA}
-        stream_url = r.group(1) + __append_headers(headers)
+        stream_url = r.group(1)
+        if not stream_url.startswith('http'):
+            stream_url = base64.b64decode(stream_url).decode('utf-8')
+        stream_url = stream_url + __append_headers(headers)
         return stream_url
     return
 
@@ -538,8 +553,10 @@ __register_extractor(["https://fusevideo.net/e/",
 __register_extractor(["https://voe.sx/e/",
                       "https://brookethoughi.com/e/",
                       "https://rebeccaneverbase.com/e/",
-                      "https://loriwithinfamily.com/e/"],
-                     __extract_voe)
+                      "https://loriwithinfamily.com/e/",
+                      "https://donaldlineelse.com/e/"],
+                     __extract_voe,
+                     lambda x: x.replace('/voe.sx/', '/donaldlineelse.com/'))
 
 __register_extractor(["https://lulustream.com",
                       "https://luluvdo.com",

@@ -104,26 +104,29 @@ class sources(BrowserBase):
                 items = self.al_decode(json.loads(res).get('pageProps').get('data')).get('players')
             except:
                 items = []
-            for item in items:
-                headers = {'Referer': self._API_URL}
-                for src in item:
-                    lang = 'SUB' if src.get('languaje') == '0' else 'DUB'
-                    sid = src.get('id')
-                    surl = '{0}videoLink/{1}'.format(self._API_URL, self.al_encode(sid))
-                    slink = self._get_redirect_url(surl, headers=headers)
-                    if slink:
-                        source = {
-                            'release_title': '{0} - Ep {1}'.format(title, episode),
-                            'hash': slink,
-                            'type': 'embed',
-                            'quality': 'EQ',
-                            'debrid_provider': '',
-                            'provider': 'animelatino',
-                            'size': 'NA',
-                            'info': [lang, source_utils.get_embedhost(slink)],
-                            'lang': 2 if lang == 'DUB' else 0
-                        }
-                        sources.append(source)
+            try:
+                headers.pop('x-nextjs-data')
+                for item in items:
+                    for src in item:
+                        lang = 'SUB' if src.get('languaje') == '0' else 'DUB'
+                        sid = src.get('id')
+                        surl = '{0}video/{1}'.format(self._API_URL, self.al_encode(sid))
+                        slink = self._get_redirect_url(surl, headers=headers)
+                        if slink:
+                            source = {
+                                'release_title': '{0} - Ep {1}'.format(title, episode),
+                                'hash': slink + '|Referer={}'.format(self._BASE_URL),
+                                'type': 'embed',
+                                'quality': 'EQ',
+                                'debrid_provider': '',
+                                'provider': 'animelatino',
+                                'size': 'NA',
+                                'info': [lang, source_utils.get_embedhost(slink)],
+                                'lang': 2 if lang == 'DUB' else 0
+                            }
+                            sources.append(source)
+            except:
+                pass
 
         return sources
 

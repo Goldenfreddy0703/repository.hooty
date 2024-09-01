@@ -1255,7 +1255,7 @@ Initial release
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.2.30" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.31" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1286,7 +1286,7 @@ Initial release
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.0.9.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.0.9.2" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1812,7 +1812,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="2.1.15" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.16" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.jurialmunkey" version="0.1.17" />
@@ -2159,12 +2159,12 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, SubDL, Addic7ed
   * results ordering with preferred language ordered first
         </news>
     </extension>
-</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.7.37~omega">
+</addon><addon id="skin.arctic.fuse" name="Arctic Fuse" provider-name="jurialmunkey" version="0.7.38~omega">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinvariables" version="2.1.14" />
         <import addon="script.texturemaker" version="0.2.9" />
-        <import addon="plugin.video.themoviedb.helper" version="5.2.27" />
+        <import addon="plugin.video.themoviedb.helper" version="5.2.31" />
         <import addon="resource.images.weathericons.white" version="0.0.1" />
         <import addon="resource.images.studios.coloured" version="0.0.1" />
         <import addon="resource.font.robotocjksc" version="0.0.1" />

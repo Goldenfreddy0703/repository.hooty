@@ -150,8 +150,8 @@
 		<!-- English Sub & Dub Embeds -->
 		<setting type="lsep" label="40505" />
 		<setting type="sep"/>
-		<setting id="provider.aniwave" type="bool" label="Aniwave" default="true" />
-		<setting id="provider.aniwavealt" type="bool" subsetting="true" label="Aniwave Proxies (Region Problem)" default="false" visible="eq(-1,true)"/>
+		<!-- <setting id="provider.aniwave" type="bool" label="Aniwave" default="true" />
+		<setting id="provider.aniwavealt" type="bool" subsetting="true" label="Aniwave Proxies (Region Problem)" default="false" visible="eq(-1,true)"/> -->
 		<setting id="provider.animix" type="bool" label="Animix" default="true" />
 		<setting id="provider.animixalt" type="bool" subsetting="true" label="Animix Proxies (Region Problem)" default="false" visible="eq(-1,true)"/>
 		<setting id="provider.animepahe" type="bool" label="Animepahe" default="true" />

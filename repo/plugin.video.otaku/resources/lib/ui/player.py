@@ -81,7 +81,7 @@ class watchlistPlayer(xbmc.Player):
             if self.skipintro_aniskip_enable or self.skipoutro_aniskip_enable:
                 # process skip times
                 self.process_hianime()
-                self.process_aniwave()
+                # self.process_aniwave()
                 self.process_aniskip()
 
         control.setSetting('skipintro.start.skip.time', str(self.skipintro_start_skip_time))
@@ -111,17 +111,17 @@ class watchlistPlayer(xbmc.Player):
                 self.skipoutro_end_skip_time = int(skip_times['endTime']) + self.skipoutro_aniskip_offset
                 self.skipoutro_aniskip = True
 
-    def process_aniwave(self):
-        aniwave_start = int(control.getSetting('aniwave.skipintro.start'))
-        aniwave_end = int(control.getSetting('aniwave.skipintro.start'))
-        if aniwave_start != -1:
-            self.skipintro_start_skip_time = aniwave_start + self.skipintro_aniskip_offset
-            self.skipintro_end_skip_time = int(control.getSetting('aniwave.skipintro.end')) + self.skipintro_aniskip_offset
-            self.skipintro_aniskip = True
-        if aniwave_end != -1:
-            self.skipoutro_start_skip_time = aniwave_end + self.skipoutro_aniskip_offset
-            self.skipoutro_end_skip_time = int(control.getSetting('aniwave.skipoutro.end')) + self.skipoutro_aniskip_offset
-            self.skipoutro_aniskip = True
+    # def process_aniwave(self):
+    #     aniwave_start = int(control.getSetting('aniwave.skipintro.start'))
+    #     aniwave_end = int(control.getSetting('aniwave.skipintro.start'))
+    #     if aniwave_start != -1:
+    #         self.skipintro_start_skip_time = aniwave_start + self.skipintro_aniskip_offset
+    #         self.skipintro_end_skip_time = int(control.getSetting('aniwave.skipintro.end')) + self.skipintro_aniskip_offset
+    #         self.skipintro_aniskip = True
+    #     if aniwave_end != -1:
+    #         self.skipoutro_start_skip_time = aniwave_end + self.skipoutro_aniskip_offset
+    #         self.skipoutro_end_skip_time = int(control.getSetting('aniwave.skipoutro.end')) + self.skipoutro_aniskip_offset
+    #         self.skipoutro_aniskip = True
 
     def process_hianime(self):
         hianime_start = int(control.getSetting('hianime.skipintro.start'))

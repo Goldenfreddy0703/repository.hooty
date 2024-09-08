@@ -138,11 +138,13 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('gogo')
 
-        if control.getSetting('provider.aniwave') == 'true':
-            self.threads.append(
-                threading.Thread(target=self.aniwave_worker, args=(anilist_id, episode, get_backup, rescrape)))
-        else:
-            self.remainingProviders.remove('aniwave')
+        # if control.getSetting('provider.aniwave') == 'true':
+        #     self.threads.append(
+        #         threading.Thread(target=self.aniwave_worker, args=(anilist_id, episode, get_backup, rescrape)))
+        # else:
+        #     self.remainingProviders.remove('aniwave')
+        # aniwave site gone for now
+        self.remainingProviders.remove('aniwave')
 
         if control.getSetting('provider.animix') == 'true':
             self.threads.append(

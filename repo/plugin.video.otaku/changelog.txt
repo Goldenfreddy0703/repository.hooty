@@ -1,3 +1,6 @@
+Changelog 0.5.28[20240913]:
+- Updated AniList.py
+
 Changelog 0.5.27[20240908]:
 - Fixed Animelatino
 - Disabled Aniwave Scraping

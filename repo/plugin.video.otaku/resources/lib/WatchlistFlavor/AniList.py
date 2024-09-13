@@ -416,7 +416,8 @@ class AniListWLF(WatchlistFlavorBase):
         completed = {}
         for dat in data:
             for entrie in dat['entries']:
-                completed[str(entrie['media']['id'])] = int(entrie['media']['episodes'])
+                if entrie['media']['episodes']:
+                    completed[str(entrie['media']['id'])] = int(entrie['media']['episodes'])
         with open(control.completed_json, 'w') as file:
             json.dump(completed, file)
 

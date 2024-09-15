@@ -105,7 +105,7 @@ class sources(BrowserBase):
                 if any(x in item.get('data-src').lower() for x in control.enabled_embeds()):
                     qual = int(item.get('data-resolution'))
                     if qual < 577:
-                        quality = 'EQ'
+                        quality = 'SD'
                     elif qual < 721:
                         quality = '720p'
                     elif qual < 1081:

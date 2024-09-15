@@ -15,7 +15,7 @@ import time
 from math import log10
 
 from ...kodion.constants import CONTENT, LICENSE_TOKEN, LICENSE_URL, PATHS
-from ...kodion.items import AudioItem, DirectoryItem, menu_items
+from ...kodion.items import AudioItem, DirectoryItem, CommandItem, menu_items
 from ...kodion.utils import (
     datetime_parser,
     friendly_number,
@@ -118,7 +118,10 @@ def make_comment_item(context, snippet, uri, total_replies=0):
             ui.new_line(body, cr_before=2),
         ))
 
-    comment_item = DirectoryItem(label, uri, plot=plot, action=(not uri))
+    if uri:
+        comment_item = DirectoryItem(label, uri, plot=plot)
+    else:
+        comment_item = CommandItem(label, 'Action(Info)', context, plot=plot)
 
     datetime = datetime_parser.parse(published_at)
     comment_item.set_added_utc(datetime)
@@ -432,7 +435,7 @@ def update_video_infos(provider, context, video_id_dict,
         media_item = video_id_dict[video_id]
         media_item.set_mediatype(
             CONTENT.AUDIO_TYPE
-            if audio_only or isinstance(media_item, AudioItem) else
+            if isinstance(media_item, AudioItem) else
             CONTENT.VIDEO_TYPE
         )
 
@@ -855,12 +858,16 @@ def update_play_info(provider, context, video_id, media_item, video_stream,
         media_item.set_headers(video_stream['headers'])
 
     # set _uses_isa
-    if media_item.live:
-        media_item.set_isa(settings.use_isa_live_streams())
-    elif media_item.use_hls() or media_item.use_mpd():
-        media_item.set_isa(settings.use_isa())
+    if media_item.use_hls() or media_item.use_mpd():
+        if media_item.live:
+            use_isa = settings.use_isa_live_streams()
+        else:
+            use_isa = settings.use_isa()
+    else:
+        use_isa = False
+    media_item.set_isa(use_isa)
 
-    if media_item.use_isa():
+    if use_isa:
         license_info = video_stream.get('license_info', {})
         license_proxy = license_info.get('proxy', '')
         license_url = license_info.get('url', '')
@@ -1020,13 +1027,13 @@ def get_shelf_index_by_title(context, json_data, shelf_title):
 
 
 def add_related_video_to_playlist(provider, context, client, v3, video_id):
-    playlist = context.get_video_playlist()
+    playlist_player = context.get_playlist_player()
 
-    if playlist.size() <= 999:
+    if playlist_player.size() <= 999:
         a = 0
         add_item = None
         page_token = ''
-        playlist_items = playlist.get_items()
+        playlist_items = playlist_player.get_items()
 
         while not add_item and a <= 2:
             a += 1
@@ -1056,7 +1063,7 @@ def add_related_video_to_playlist(provider, context, client, v3, video_id):
                 continue
 
             if add_item:
-                playlist.add(add_item)
+                playlist_player.add(add_item)
                 break
 
             if not page_token:

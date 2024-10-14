@@ -1,3 +1,6 @@
+Changelog 0.5.30[20241014]:
+- Fixed matching dragon ball z movies
+
 Changelog 0.5.29[20241009]:
 - Corrected some quality labels
 - Added bleach 1000 year blood war part 3

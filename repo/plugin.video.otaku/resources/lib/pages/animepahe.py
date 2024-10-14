@@ -59,6 +59,8 @@ class sources(BrowserBase):
                     items = [x for x in sitems if etitle.lower() in x.get('title').lower()]
                 else:
                     items = [x for x in sitems if (etitle.lower() + '  ') in (x.get('title').lower() + '  ')]
+            if not items:
+                items = sitems
             if items:
                 slug = items[0].get('session')
                 all_results = self._process_ap(slug, title=title, episode=episode)

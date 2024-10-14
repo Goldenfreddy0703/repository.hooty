@@ -11,7 +11,7 @@ from resources.lib.ui.BrowserBase import BrowserBase
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://animixplay.fun/' if control.getSetting('provider.animixalt') == 'true' else 'https://animixplay.best/'
+    _BASE_URL = 'https://animixplay.best/' if control.getSetting('provider.animixalt') == 'false' else 'https://animixplay.fun/'
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -42,7 +42,7 @@ class sources(BrowserBase):
                 if (ititle.lower() + '  ').startswith(title.lower() + '  '):
                     slugs.append(item.get('href'))
         if not slugs:
-            if len(items) > 1:
+            if len(items) > 0:
                 slugs = [items[0].get('href')]
         all_results = []
         if slugs:

@@ -85,7 +85,7 @@ class sources(BrowserBase):
         elink = SoupStrainer('div', {'class': re.compile('^ss-list')})
         ediv = BeautifulSoup(res, "html.parser", parse_only=elink)
         items = ediv.find_all('a')
-        e_id = [x.get('data-id') for x in items if x.get('data-number') == episode]
+        e_id = [x.get('data-id') for x in items if int(x.get('data-number')) == int(episode)]
         if e_id:
             params = {'episodeId': e_id[0]}
             r = database.get(

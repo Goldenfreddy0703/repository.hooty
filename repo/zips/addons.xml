@@ -1257,7 +1257,7 @@ Initial release
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.2.31" name="TheMovieDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.2.33" name="TheMovieDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -1288,7 +1288,7 @@ Initial release
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.1.0" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.1.1+beta.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1400,7 +1400,7 @@ Initial release
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
     </extension>
-</addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.1" provider-name="jurialmunkey">
+</addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.2" provider-name="jurialmunkey">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>
@@ -1875,7 +1875,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.16.1" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.18.1" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -1899,7 +1899,26 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, SubDL, Addic7ed
             <screenshot>screenshot-02.png</screenshot>
             <screenshot>screenshot-03.png</screenshot>
         </assets>
-        <news>
+    <news>
+[v3.18.1]:
+  * Fix IMDB ID not found
+
+[v3.18.0]:
+  * Use the newer InfoTagVideo KODI API (contributed by @kiamvdd)
+
+[v3.17.0]:
+  * Fix: TV year being pulled incorrectly
+  * Fix: File name issues in both temp and media directories
+  * Fix: Subtitle file missing extension
+  * Fix: Incorrect episode selection when downloaded archive contains multiple subtitles
+  * Fix: Auto-download not working after the first selected episode in the playlist (A4K only works for the first media)
+  * Fix: Subtitle import issue due to "illegal characters"
+  * Improve: determination of subtitle episodes
+  * Improve: results parsing
+  * Feature: Auto-download now copies subtitles next to the video or to a custom location, based on Kodi's subtitle storage mode path
+  * SubSource: Now supports series in "absolute order", as used by some anime websites
+  * SubSource: Fixed issue of duplicated subtitle IDs with different names
+
 [v3.16.1]:
   * Fix addons.xml.crc  
 

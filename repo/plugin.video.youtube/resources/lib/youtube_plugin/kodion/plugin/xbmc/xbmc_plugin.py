@@ -28,6 +28,7 @@ from ...constants import (
     REFRESH_CONTAINER,
     RELOAD_ACCESS_MANAGER,
     REROUTE_PATH,
+    SERVER_WAKEUP,
     VIDEO_ID,
 )
 from ...exceptions import KodionException
@@ -227,6 +228,7 @@ class XbmcPlugin(AbstractPlugin):
                     playlist_player = context.get_playlist_player()
                     playlist_player.play_item(item=uri, listitem=item)
                 else:
+                    context.wakeup(SERVER_WAKEUP, timeout=5)
                     xbmcplugin.setResolvedUrl(self.handle,
                                               succeeded=result,
                                               listitem=item)
@@ -267,8 +269,9 @@ class XbmcPlugin(AbstractPlugin):
                     context.log_debug('Override view mode to "%d"' % view_mode)
                     context.execute('Container.SetViewMode(%d)' % view_mode)
         else:
-            ui.clear_property(CONTENT_TYPE)
             succeeded = bool(result)
+            if not succeeded:
+                ui.clear_property(CONTENT_TYPE)
             cache_to_disc = False
             update_listing = True
 

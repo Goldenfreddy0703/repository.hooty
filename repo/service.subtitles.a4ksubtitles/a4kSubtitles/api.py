@@ -26,6 +26,8 @@ class A4kSubtitlesApi(object):
 
     def __mock_video_meta(self, meta):
         def get_info_label(label):
+            if label == 'System.BuildVersionCode':
+                return meta.get('version', '19.1.0')
             if label == 'VideoPlayer.Year':
                 return meta.get('year', '')
             if label == 'VideoPlayer.Season':
@@ -81,10 +83,10 @@ class A4kSubtitlesApi(object):
         restore_video_meta = None
 
         try:
-            if settings:
+            if settings is not None:
                 restore_settings = self.mock_settings(settings)
 
-            if video_meta:
+            if video_meta is not None:
                 restore_video_meta = self.__mock_video_meta(video_meta)
 
             return self.core.search(self.core, params)

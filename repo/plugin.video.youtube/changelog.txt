@@ -1,4 +1,27 @@
-## v7.1.0
+## v7.1.1+beta.1
+### Fixed
+- Fix http server not listening on any interface if listen IP is 0.0.0.0 #927
+
+### New
+- Explicitly enable TCP keep alive #913
+- Add localised title and description for videos, channels and playlists
+- Update display of playlists to show the following details:
+  - item count
+  - date
+  - channel name
+  - description
+  - web url
+  - podcast status
+- Update display of channels to show the following details:
+  - view count
+  - subscriber count
+  - video count
+  - date
+  - description
+  - channel name in description
+  - web url
+
+## v7.1.0.1
 ### Fixed
 - Fix logging/retry of sqlite3.OperationalError
 - Fix trying to use ISA for progressive live streams
@@ -13,6 +36,9 @@
 - Fix new resume details not being saved in plugin local playback history #904
 - Fix default thumbnails not being updated if available
 - Fix login to personal project only #910
+- Fix regression with not using content type when routing after f239764 #922
+- Partially revert eb0f81c to avoid merge error in unofficial version #924
+- Only attempt to import InputStream Helper if necessary #923
 
 ### Changed
 - Update multiple busy dialog crash workaround #891

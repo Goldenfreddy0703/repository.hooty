@@ -34,7 +34,6 @@ from ..constants import (
     PATHS,
     TEMP_PATH,
 )
-from ..logger import log_debug, log_error
 from ..utils import redact_ip, validate_ip_address, wait
 
 
@@ -51,6 +50,9 @@ class HTTPServer(TCPServer):
 
 
 class RequestHandler(BaseHTTPRequestHandler, object):
+    protocol_version = 'HTTP/1.1'
+    server_version = 'plugin.video.youtube/1.0'
+
     _context = None
     requests = None
     BASE_PATH = xbmcvfs.translatePath(TEMP_PATH)
@@ -88,24 +90,25 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             log_lines.append('Whitelisted: |%s|' % str(conn_allowed))
 
         if not conn_allowed:
-            log_debug('HTTPServer: Connection from |{client_ip| not allowed'
-                      .format(client_ip=client_ip))
+            self._context.log_debug('HTTPServer: Connection blocked from'
+                                    ' |{client_ip|'
+                                    .format(client_ip=client_ip))
         elif self.path != PATHS.PING:
-            log_debug(' '.join(log_lines))
+            self._context.log_debug(' '.join(log_lines))
         return conn_allowed
 
     # noinspection PyPep8Naming
     def do_GET(self):
-        settings = self._context.get_settings()
-        localize = self._context.localize
+        context = self._context
+        settings = context.get_settings()
+        localize = context.localize
         api_config_enabled = settings.api_config_page()
 
         # Strip trailing slash if present
         stripped_path = self.path.rstrip('/')
         if stripped_path != PATHS.PING:
-            log_debug('HTTPServer: GET |{path}|'.format(
-                path=redact_ip(self.path)
-            ))
+            context.log_debug('HTTPServer: GET |{path}|'
+                              .format(path=redact_ip(self.path)))
 
         if not self.connection_allowed():
             self.send_error(403)
@@ -168,7 +171,7 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             api_secret = params.get('api_secret')
             # Bookmark this page
             if api_key and api_id and api_secret:
-                footer = localize(30638)
+                footer = localize('api.config.bookmark')
             else:
                 footer = ''
 
@@ -181,27 +184,27 @@ class RequestHandler(BaseHTTPRequestHandler, object):
 
             if api_key is not None and api_key != settings.api_key():
                 settings.api_key(new_key=api_key)
-                updated.append(localize(30201))  # API Key
+                updated.append(localize('api.key'))
 
             if api_id is not None and api_id != settings.api_id():
                 settings.api_id(new_id=api_id)
-                updated.append(localize(30202))  # API ID
+                updated.append(localize('api.id'))
 
             if api_secret is not None and api_secret != settings.api_secret():
                 settings.api_secret(new_secret=api_secret)
-                updated.append(localize(30203))  # API Secret
+                updated.append(localize('api.secret'))
 
             if api_key and api_id and api_secret:
-                enabled = localize(30636)  # Personal keys enabled
+                enabled = localize('api.personal.enabled')
             else:
-                enabled = localize(30637)  # Personal keys disabled
+                enabled = localize('api.personal.disabled')
 
             if updated:
                 # Successfully updated
-                updated = localize(30631) % ', '.join(updated)
+                updated = localize('api.config.updated') % ', '.join(updated)
             else:
                 # No changes, not updated
-                updated = localize(30635)
+                updated = localize('api.config.not_updated')
 
             html = self.api_submit_page(updated, enabled, footer)
             html = html.encode('utf-8')
@@ -223,6 +226,7 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                 wait(1)
                 self.send_response(301)
                 self.send_header('Location', url)
+                self.send_header('Connection', 'close')
                 self.end_headers()
             else:
                 self.send_error(501)
@@ -232,23 +236,30 @@ class RequestHandler(BaseHTTPRequestHandler, object):
 
     # noinspection PyPep8Naming
     def do_HEAD(self):
-        log_debug('HTTPServer: HEAD |{path}|'.format(path=self.path))
+        self._context.log_debug('HTTPServer: HEAD |{path}|'
+                                .format(path=self.path))
 
         if not self.connection_allowed():
             self.send_error(403)
 
         elif self.path.startswith(PATHS.MPD):
-            filepath = os.path.join(self.BASE_PATH, self.path[len(PATHS.MPD):])
-            if not os.path.isfile(filepath):
-                response = ('File Not Found: |{path}| -> |{filepath}|'
-                            .format(path=self.path, filepath=filepath))
-                self.send_error(404, response)
-            else:
+            try:
+                file = dict(parse_qsl(urlsplit(self.path).query)).get('file')
+                if file:
+                    file_path = os.path.join(self.BASE_PATH, file)
+                else:
+                    file_path = None
+                    raise IOError
+
+                file_size = os.path.getsize(file_path)
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/dash+xml')
-                self.send_header('Content-Length',
-                                 str(os.path.getsize(filepath)))
+                self.send_header('Content-Length', str(file_size))
                 self.end_headers()
+            except IOError:
+                response = ('File Not Found: |{path}| -> |{file_path}|'
+                            .format(path=self.path, file_path=file_path))
+                self.send_error(404, response)
 
         elif self.path.startswith(PATHS.REDIRECT):
             self.send_error(404)
@@ -258,7 +269,8 @@ class RequestHandler(BaseHTTPRequestHandler, object):
 
     # noinspection PyPep8Naming
     def do_POST(self):
-        log_debug('HTTPServer: POST |{path}|'.format(path=self.path))
+        self._context.log_debug('HTTPServer: POST |{path}|'
+                                .format(path=self.path))
 
         if not self.connection_allowed():
             self.send_error(403)
@@ -308,8 +320,9 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                               re.MULTILINE)
             if match:
                 authorized_types = match.group('authorized_types').split(',')
-                log_debug('HTTPServer: Found authorized formats |{auth_fmts}|'
-                          .format(auth_fmts=authorized_types))
+                self._context.log_debug('HTTPServer: Found authorized formats'
+                                        ' |{auth_fmts}|'
+                                        .format(auth_fmts=authorized_types))
 
                 fmt_to_px = {
                     'SD': (1280 * 528) - 1,
@@ -363,15 +376,15 @@ class RequestHandler(BaseHTTPRequestHandler, object):
         css = Pages.api_configuration.get('css')
         html = html.format(
             css=css,
-            title=localize(30634),  # YouTube Add-on API Configuration
-            api_key_head=localize(30201),  # API Key
-            api_id_head=localize(30202),  # API ID
-            api_secret_head=localize(30203),  # API Secret
+            title=localize('api.config'),
+            api_key_head=localize('api.key'),
+            api_id_head=localize('api.id'),
+            api_secret_head=localize('api.secret'),
             api_id_value=api_id,
             api_key_value=api_key,
             api_secret_value=api_secret,
-            submit=localize(30630),  # Save
-            header=localize(30634),  # YouTube Add-on API Configuration
+            submit=localize('api.config.save'),
+            header=localize('api.config'),
         )
         return html
 
@@ -382,11 +395,11 @@ class RequestHandler(BaseHTTPRequestHandler, object):
         css = Pages.api_submit.get('css')
         html = html.format(
             css=css,
-            title=localize(30634),  # YouTube Add-on API Configuration
+            title=localize('api.config'),
             updated=updated_keys,
             enabled=enabled,
             footer=footer,
-            header=localize(30634),  # YouTube Add-on API Configuration
+            header=localize('api.config'),
         )
         return html
 
@@ -580,8 +593,10 @@ def get_http_server(address, port, context):
         server = HTTPServer((address, port), RequestHandler)
         return server
     except socket.error as exc:
-        log_error('HTTPServer: Failed to start |{address}:{port}| |{response}|'
-                  .format(address=address, port=port, response=exc))
+        context.log_error('HTTPServer: Failed to start\n'
+                          'Address: |{address}:{port}|\n'
+                          'Response: |{response}|'
+                          .format(address=address, port=port, response=exc))
         xbmcgui.Dialog().notification(context.get_name(),
                                       str(exc),
                                       context.get_icon(),
@@ -606,9 +621,9 @@ def httpd_status(context):
     if result == 204:
         return True
 
-    log_debug('HTTPServer: Ping |{netloc}| - |{response}|'
-              .format(netloc=netloc,
-                      response=result or 'failed'))
+    context.log_debug('HTTPServer: Ping |{netloc}| - |{response}|'
+                      .format(netloc=netloc,
+                              response=result or 'failed'))
     return False
 
 

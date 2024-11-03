@@ -109,27 +109,58 @@ def queue_video(context):
     )
 
 
-def play_all_from_playlist(context, playlist_id, video_id=''):
-    if video_id:
-        return (
-            context.localize('playlist.play.from_here'),
-            context.create_uri(
-                (PATHS.PLAY,),
-                {
-                    'playlist_id': playlist_id,
-                    'video_id': video_id,
-                    'play': True,
-                },
-                run=True,
-            ),
-        )
+def play_playlist(context, playlist_id):
     return (
         context.localize('playlist.play.all'),
         context.create_uri(
             (PATHS.PLAY,),
             {
                 'playlist_id': playlist_id,
-                'play': True,
+                'order': 'ask',
+            },
+            run=True,
+        ),
+    )
+
+
+def play_playlist_from(context, playlist_id, video_id):
+    return (
+        context.localize('playlist.play.from_here'),
+        context.create_uri(
+            (PATHS.PLAY,),
+            {
+                'playlist_id': playlist_id,
+                'video_id': video_id,
+            },
+            run=True,
+        ),
+    )
+
+
+def view_playlist(context, playlist_id):
+    return (
+        context.localize('playlist.view.all'),
+        context.create_uri(
+            (PATHS.ROUTE, PATHS.PLAY,),
+            {
+                'playlist_id': playlist_id,
+                'order': 'normal',
+                'action': 'list',
+            },
+            run=True,
+        ),
+    )
+
+
+def shuffle_playlist(context, playlist_id):
+    return (
+        context.localize('playlist.play.shuffle'),
+        context.create_uri(
+            (PATHS.ROUTE, PATHS.PLAY,),
+            {
+                'playlist_id': playlist_id,
+                'order': 'random',
+                'action': 'list',
             },
             run=True,
         ),
@@ -533,7 +564,7 @@ def bookmark_add_channel(context, channel_id, channel_name=''):
     return (
         (context.localize('bookmark.channel') % (
             context.get_ui().bold(channel_name) if channel_name else
-            context.localize(19029)  # "Channel"
+            context.localize('channel')
         )),
         context.create_uri(
             (PATHS.BOOKMARKS, 'add',),
@@ -605,6 +636,21 @@ def search_clear(context):
     )
 
 
+def search_sort_by(context, params, order):
+    selected = params.get('order', 'relevance') == order
+    order_label = context.localize('search.sort.' + order)
+    return (
+        context.localize('search.sort').format(
+            context.get_ui().bold(order_label) if selected else order_label
+        ),
+        context.create_uri(
+            (PATHS.ROUTE, PATHS.SEARCH, 'query',),
+            params=dict(params, order=order),
+            run=True,
+        ),
+    )
+
+
 def separator():
     return (
         '--------',
@@ -614,7 +660,7 @@ def separator():
 
 def goto_home(context):
     return (
-        context.localize(10000),  # "Home"
+        context.localize('home'),
         context.create_uri(
             (PATHS.ROUTE, PATHS.HOME,),
             {

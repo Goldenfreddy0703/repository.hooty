@@ -18,7 +18,11 @@ from ...kodion.compatibility import (
     urlsplit,
     xbmcvfs,
 )
-from ...kodion.constants import PLAY_PROMPT_SUBTITLES, TEMP_PATH
+from ...kodion.constants import (
+    TRANSLATION_LANGUAGES,
+    PLAY_PROMPT_SUBTITLES,
+    TEMP_PATH,
+)
 from ...kodion.network import BaseRequestsClass
 from ...kodion.utils import make_dirs
 
@@ -94,6 +98,7 @@ class Subtitles(object):
         self.renderer = captions.get('playerCaptionsTracklistRenderer', {})
         self.caption_tracks = self.renderer.get('captionTracks', [])
         self.translation_langs = self.renderer.get('translationLanguages', [])
+        self.translation_langs.extend(TRANSLATION_LANGUAGES)
 
         try:
             default_audio = self.renderer.get('defaultAudioTrackIndex')
@@ -394,7 +399,7 @@ class Subtitles(object):
         response = BaseRequestsClass(context=self._context).request(
             subtitle_url,
             headers=self.headers,
-            error_info=('Subtitles._get_url - GET failed for: {lang}: {{exc}}'
+            error_info=('Subtitles._get_url - GET failed for: {lang}: {{exc!r}}'
                         .format(lang=lang))
         )
         response = response and response.text
@@ -466,7 +471,8 @@ class Subtitles(object):
         if sel_track:
             return sel_track, sel_lang, sel_language, sel_kind
 
-        self._context.log_debug('Subtitles._get - no subtitle for: |{lang}|'
+        self._context.log_debug('Subtitles._get_track'
+                                ' - no subtitle for: |{lang}|'
                                 .format(lang=lang))
         return None, None, None, None
 

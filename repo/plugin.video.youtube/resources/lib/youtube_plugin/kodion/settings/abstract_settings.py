@@ -15,6 +15,7 @@ import sys
 from ..constants import SETTINGS
 from ..utils import (
     current_system_version,
+    get_kodi_setting_bool,
     get_kodi_setting_value,
     validate_ip_address,
 )
@@ -190,10 +191,15 @@ class AbstractSettings(object):
             return self._THUMB_SIZES[value]
         return self._THUMB_SIZES[default]
 
+    _SAFE_SEARCH_LEVELS = {
+        0: 'moderate',
+        1: 'none',
+        2: 'strict',
+    }
+
     def safe_search(self):
         index = self.get_int(SETTINGS.SAFE_SEARCH, 0)
-        values = {0: 'moderate', 1: 'none', 2: 'strict'}
-        return values[index]
+        return self._SAFE_SEARCH_LEVELS[index]
 
     def age_gate(self):
         return self.get_bool(SETTINGS.AGE_GATE, True)
@@ -653,3 +659,7 @@ class AbstractSettings(object):
 
     def get_channel_name_aliases(self):
         return frozenset(self.get_string_list(SETTINGS.CHANNEL_NAME_ALIASES))
+
+    def logging_enabled(self):
+        return (self.get_bool(SETTINGS.LOGGING_ENABLED, False)
+                or get_kodi_setting_bool('debug.showloginfo'))

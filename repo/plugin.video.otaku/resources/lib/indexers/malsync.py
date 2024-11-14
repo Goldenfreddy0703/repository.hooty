@@ -26,7 +26,7 @@ class MALSYNC:
 
     def get_slugs(self, anilist_id, site=''):
         slugs = []
-        if site in ['9anime', 'Gogoanime', 'Zoro']:
+        if site in ['Gogoanime', 'Zoro']:
             url = '/mal/anime/anilist:{0}'.format(anilist_id)
             resp = self._json_request(url)['Sites'].get(site)
             if resp:

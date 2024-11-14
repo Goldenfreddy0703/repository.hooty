@@ -122,9 +122,8 @@ class sources(BrowserBase):
                                 'debrid_provider': '',
                                 'provider': 'h!anime',
                                 'size': 'NA',
-                                'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
-                                'lang': 2 if lang == 'dub' else 0,
-                                'skip': {}
+                                'info': [lang, edata_name],
+                                'lang': 2 if lang == 'dub' else 0
                             }
                             sources.append(source)
                         else:
@@ -180,9 +179,10 @@ class sources(BrowserBase):
                                     'size': 'NA',
                                     'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
                                     'lang': 2 if lang == 'dub' else 0,
-                                    'subs': subs,
-                                    'skip': skip
+                                    'subs': subs
                                 }
+                                if skip:
+                                    source.update({'skip': skip})
                                 sources.append(source)
         return sources
 

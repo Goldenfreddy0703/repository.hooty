@@ -4436,7 +4436,8 @@ class AniListBrowser():
     def _process_relations_view(self, json_res, base_plugin_url, dub=False):
         res = []
         for edge in json_res['edges']:
-            if edge['relationType'] != 'ADAPTATION':
+            tnode = edge['node']
+            if tnode['format'] not in ['NOVEL', 'MANGA']:
                 tnode = edge['node']
                 tnode.update({'relationType': edge['relationType']})
                 res.append(tnode)

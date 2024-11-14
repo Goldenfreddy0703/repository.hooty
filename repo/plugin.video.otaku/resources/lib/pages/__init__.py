@@ -138,13 +138,11 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('gogo')
 
-        # if control.getSetting('provider.aniwave') == 'true':
-        #     self.threads.append(
-        #         threading.Thread(target=self.aniwave_worker, args=(anilist_id, episode, get_backup, rescrape)))
-        # else:
-        #     self.remainingProviders.remove('aniwave')
-        # aniwave site gone for now
-        self.remainingProviders.remove('aniwave')
+        if control.getSetting('provider.aniwave') == 'true':
+            self.threads.append(
+                threading.Thread(target=self.aniwave_worker, args=(anilist_id, episode, get_backup, rescrape)))
+        else:
+            self.remainingProviders.remove('aniwave')
 
         if control.getSetting('provider.animix') == 'true':
             self.threads.append(
@@ -273,12 +271,13 @@ class Sources(DisplayWindow):
             self.aniwaveSources = aniwave.sources().get_sources(anilist_id, episode, get_backup)
             self.embedSources += self.aniwaveSources
             for x in self.aniwaveSources:
-                if x and x['skip'].get('intro') and x['skip']['intro']['start'] != 0:
-                    control.setSetting('aniwave.skipintro.start', str(x['skip']['intro']['start']))
-                    control.setSetting('aniwave.skipintro.end', str(x['skip']['intro']['end']))
-                if x and x['skip'].get('outro') and x['skip']['outro']['start'] != 0:
-                    control.setSetting('aniwave.skipoutro.start', str(x['skip']['outro']['start']))
-                    control.setSetting('aniwave.skipoutro.end', str(x['skip']['outro']['end']))
+                if x.get('skip'):
+                    if x['skip'].get('intro') and x['skip']['intro']['start'] != 0:
+                        control.setSetting('aniwave.skipintro.start', str(x['skip']['intro']['start']))
+                        control.setSetting('aniwave.skipintro.end', str(x['skip']['intro']['end']))
+                    if x['skip'].get('outro') and x['skip']['outro']['start'] != 0:
+                        control.setSetting('aniwave.skipoutro.start', str(x['skip']['outro']['start']))
+                        control.setSetting('aniwave.skipoutro.end', str(x['skip']['outro']['end']))
         self.remainingProviders.remove('aniwave')
 
     def animixplay_worker(self, anilist_id, episode, get_backup, rescrape):
@@ -298,12 +297,13 @@ class Sources(DisplayWindow):
             self.hianimeSources = hianime.sources().get_sources(anilist_id, episode, get_backup)
             self.embedSources += self.hianimeSources
             for x in self.hianimeSources:
-                if x and x['skip'].get('intro') and x['skip']['intro']['start'] != 0:
-                    control.setSetting('hianime.skipintro.start', str(x['skip']['intro']['start']))
-                    control.setSetting('hianime.skipintro.end', str(x['skip']['intro']['end']))
-                if x and x['skip'].get('outro') and x['skip']['outro']['start'] != 0:
-                    control.setSetting('hianime.skipoutro.start', str(x['skip']['outro']['start']))
-                    control.setSetting('hianime.skipoutro.end', str(x['skip']['outro']['end']))
+                if x.get('skip'):
+                    if x['skip'].get('intro') and x['skip']['intro']['start'] != 0:
+                        control.setSetting('hianime.skipintro.start', str(x['skip']['intro']['start']))
+                        control.setSetting('hianime.skipintro.end', str(x['skip']['intro']['end']))
+                    if x['skip'].get('outro') and x['skip']['outro']['start'] != 0:
+                        control.setSetting('hianime.skipoutro.start', str(x['skip']['outro']['start']))
+                        control.setSetting('hianime.skipoutro.end', str(x['skip']['outro']['end']))
         self.remainingProviders.remove('h!anime')
 
     def animess_worker(self, anilist_id, episode, get_backup, rescrape):

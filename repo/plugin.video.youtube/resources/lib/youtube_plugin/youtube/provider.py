@@ -60,12 +60,12 @@ class Provider(AbstractProvider):
         self._logged_in = False
 
         self.on_video_x = self.register_path(
-            '^/video/(?P<method>[^/]+)/?$',
+            '^/video/(?P<command>[^/]+)/?$',
             yt_video.process,
         )
 
         self.on_playlist_x = self.register_path(
-            '^/playlist/(?P<method>[^/]+)/(?P<category>[^/]+)/?$',
+            '^/playlist/(?P<command>[^/]+)/(?P<category>[^/]+)/?$',
             yt_playlist.process,
         )
 
@@ -80,7 +80,7 @@ class Provider(AbstractProvider):
         )
 
         self.register_path(
-            '^/subscriptions/(?P<method>[^/]+)/?$',
+            '^/subscriptions/(?P<command>[^/]+)/?$',
             yt_subscriptions.process,
         )
 
@@ -220,7 +220,7 @@ class Provider(AbstractProvider):
                               .format(dev_keys['system']))
 
         refresh_tokens = access_manager.get_refresh_token(dev_id)
-        if refresh_tokens:
+        if any(refresh_tokens):
             keys_changed = access_manager.dev_keys_changed(
                 dev_id, dev_keys['key'], dev_keys['id'], dev_keys['secret']
             ) if dev_id else self._api_check.changed
@@ -517,7 +517,7 @@ class Provider(AbstractProvider):
         return result
 
     @AbstractProvider.register_path(
-        r'^/(?P<method>(channel|handle|user))'
+        r'^/(?P<command>(channel|handle|user))'
         r'/(?P<identifier>[^/]+)/?$')
     @staticmethod
     def on_channel(provider, context, re_match):
@@ -538,10 +538,10 @@ class Provider(AbstractProvider):
         params = context.get_params()
         ui = context.get_ui()
 
-        method = re_match.group('method')
+        command = re_match.group('command')
         identifier = re_match.group('identifier')
 
-        if (method == 'channel'
+        if (command == 'channel'
                 and identifier
                 and identifier.lower() == 'property'
                 and listitem_channel_id
@@ -550,7 +550,7 @@ class Provider(AbstractProvider):
                 channel=create_uri(('channel', listitem_channel_id))
             ))
 
-        if method == 'channel' and not identifier:
+        if command == 'channel' and not identifier:
             return False
 
         context.set_content(CONTENT.VIDEO_CONTENT)
@@ -564,14 +564,14 @@ class Provider(AbstractProvider):
         only have the handle or username of a channel.
         """
         if identifier == 'mine':
-            method = 'mine'
+            command = 'mine'
         elif identifier.startswith('@'):
-            method = 'handle'
-        if method == 'channel':
+            command = 'handle'
+        if command == 'channel':
             channel_id = identifier
         else:
             channel_id = None
-            identifier = {method: True, 'identifier': identifier}
+            identifier = {command: True, 'identifier': identifier}
 
         if not channel_id:
             context.log_debug('Trying to get channel ID for |{0}|'.format(
@@ -767,7 +767,7 @@ class Provider(AbstractProvider):
 
         if mode == 'in' or (mode == 'out' and sign_out_confirmed):
             yt_login.process(mode, provider, context)
-        return False
+        return True
 
     def _search_channel_or_playlist(self, context, identifier):
         if re.match(r'U[CU][0-9a-zA-Z_\-]{20,24}', identifier):
@@ -775,11 +775,11 @@ class Provider(AbstractProvider):
         elif re.match(r'[OP]L[0-9a-zA-Z_\-]{30,40}', identifier):
             json_data = self.get_client(context).get_playlists(identifier)
         else:
-            return False
+            return None
 
         if json_data:
             return v3.response_to_items(self, context, json_data)
-        return False
+        return None
 
     def on_search_run(self, context, query):
         data_cache = context.get_data_cache()
@@ -937,21 +937,23 @@ class Provider(AbstractProvider):
         action = re_match.group('action')
         if action == 'setup_wizard':
             provider.run_wizard(context)
-            return False
+            return False, {provider.RESULT_FALLBACK: False}
         return UriItem('script://{addon},config/{action}'.format(
             addon=ADDON_ID, action=action
         ))
 
-    @AbstractProvider.register_path('^/my_subscriptions/filter/?$')
+    @AbstractProvider.register_path(
+        '^/my_subscriptions/filter'
+        '/(?P<command>add|remove)/?$'
+    )
     @staticmethod
-    def on_manage_my_subscription_filter(context, **_kwargs):
+    def on_manage_my_subscription_filter(context, re_match):
         settings = context.get_settings()
         ui = context.get_ui()
 
-        params = context.get_params()
-        action = params.get('action')
-        channel = params.get('item_name')
-        if not channel or not action:
+        channel = context.get_param('item_name')
+        command = re_match.group('command')
+        if not channel or not command:
             return
 
         filter_enabled = settings.get_bool('youtube.folder.my_subscriptions_filtered.show', False)
@@ -966,19 +968,19 @@ class Provider(AbstractProvider):
         filter_list = filter_string.split(',')
         filter_list = [x.lower() for x in filter_list]
 
-        if action == 'add':
+        if command == 'add':
             if channel_name not in filter_list:
                 filter_list.append(channel_name)
-        elif action == 'remove' and channel_name in filter_list:
+        elif command == 'remove' and channel_name in filter_list:
             filter_list = [chan_name for chan_name in filter_list if chan_name != channel_name]
 
         modified_string = ','.join(filter_list).lstrip(',')
         if filter_string != modified_string:
             settings.set_string('youtube.filter.my_subscriptions_filtered.list', modified_string)
             message = ''
-            if action == 'add':
+            if command == 'add':
                 message = context.localize('my_subscriptions.filter.added')
-            elif action == 'remove':
+            elif command == 'remove':
                 message = context.localize('my_subscriptions.filter.removed')
             if message:
                 ui.show_notification(message=message)
@@ -1012,7 +1014,7 @@ class Provider(AbstractProvider):
             client = provider.get_client(context)
             refresh_tokens = access_manager.get_refresh_token()
             success = True
-            if refresh_tokens:
+            if any(refresh_tokens):
                 for refresh_token in set(refresh_tokens):
                     try:
                         if refresh_token:
@@ -1083,15 +1085,15 @@ class Provider(AbstractProvider):
     @staticmethod
     def on_playback_history(provider, context, re_match):
         params = context.get_params()
-        action = params.get('action')
-        if not action:
+        command = re_match.group('command')
+        if not command:
             return False
 
         localize = context.localize
         playback_history = context.get_playback_history()
         ui = context.get_ui()
 
-        if action == 'list':
+        if command in {'list', 'play'}:
             context.set_content(CONTENT.VIDEO_CONTENT, sub_type='history')
             items = playback_history.get_items()
             if not items:
@@ -1120,14 +1122,21 @@ class Provider(AbstractProvider):
                 ]
             }
             video_items = v3.response_to_items(provider, context, v3_response)
+            if command == 'play':
+                return yt_play.process_items_for_playlist(
+                    context,
+                    video_items,
+                    action='play',
+                    play_from='start',
+                )
             return video_items
 
-        if action == 'clear':
+        if command == 'clear':
             if not ui.on_yes_no_input(
                     localize('history.clear'),
                     localize('history.clear.check')
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             playback_history.clear()
             ui.refresh_container()
@@ -1143,14 +1152,14 @@ class Provider(AbstractProvider):
         if not video_id:
             return False
 
-        if action == 'remove':
+        if command == 'remove':
             video_name = params.get('item_name') or video_id
             video_name = to_unicode(video_name)
             if not ui.on_yes_no_input(
                     localize('content.remove'),
                     localize('content.remove.check') % video_name,
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             playback_history.del_item(video_id)
             ui.refresh_container()
@@ -1174,17 +1183,17 @@ class Provider(AbstractProvider):
                 'played_percent': 0
             }
 
-        if action == 'mark_unwatched':
+        if command == 'mark_unwatched':
             if play_data.get('play_count', 0) > 0:
                 play_data['play_count'] = 0
                 play_data['played_time'] = 0
                 play_data['played_percent'] = 0
 
-        elif action == 'mark_watched':
+        elif command == 'mark_watched':
             if not play_data.get('play_count', 0):
                 play_data['play_count'] = 1
 
-        elif action == 'reset_resume':
+        elif command == 'reset_resume':
             play_data['played_time'] = 0
             play_data['played_percent'] = 0
 
@@ -1205,6 +1214,7 @@ class Provider(AbstractProvider):
         # _.get_my_playlists()
 
         # context.set_content(CONTENT.LIST_CONTENT)
+        context.set_param('category_label', localize('youtube'))
 
         result = []
 
@@ -1337,12 +1347,26 @@ class Provider(AbstractProvider):
                 watch_later_item.add_context_menu(context_menu)
                 result.append(watch_later_item)
             else:
-                watch_history_item = DirectoryItem(
+                watch_later_item = DirectoryItem(
                     localize('watch_later'),
                     create_uri((PATHS.WATCH_LATER, 'list')),
                     image='{media}/watch_later.png',
                 )
-                result.append(watch_history_item)
+                context_menu = [
+                    menu_items.watch_later_local_clear(context),
+                    menu_items.separator(),
+                    menu_items.play_all_from(
+                        context,
+                        route=PATHS.WATCH_LATER,
+                    ),
+                    menu_items.play_all_from(
+                        context,
+                        route=PATHS.WATCH_LATER,
+                        order='shuffle',
+                    ),
+                ]
+                watch_later_item.add_context_menu(context_menu)
+                result.append(watch_later_item)
 
         # liked videos
         if logged_in and settings_bool('youtube.folder.liked_videos.show', True):
@@ -1402,9 +1426,25 @@ class Provider(AbstractProvider):
             elif local_history:
                 watch_history_item = DirectoryItem(
                     localize('history'),
-                    create_uri((PATHS.HISTORY,), params={'action': 'list'}),
+                    create_uri((PATHS.HISTORY, 'list')),
                     image='{media}/history.png',
                 )
+                context_menu = [
+                    menu_items.history_clear(
+                        context
+                    ),
+                    menu_items.separator(),
+                    menu_items.play_all_from(
+                        context,
+                        route=PATHS.HISTORY,
+                    ),
+                    menu_items.play_all_from(
+                        context,
+                        route=PATHS.HISTORY,
+                        order='shuffle',
+                    ),
+                ]
+                watch_history_item.add_context_menu(context_menu)
                 result.append(watch_history_item)
 
         # (my) playlists
@@ -1442,6 +1482,22 @@ class Provider(AbstractProvider):
                 create_uri((PATHS.BOOKMARKS, 'list')),
                 image='{media}/bookmarks.png',
             )
+            context_menu = [
+                menu_items.bookmarks_clear(
+                    context
+                ),
+                menu_items.separator(),
+                menu_items.play_all_from(
+                    context,
+                    route=PATHS.BOOKMARKS,
+                ),
+                menu_items.play_all_from(
+                    context,
+                    route=PATHS.BOOKMARKS,
+                    order='shuffle',
+                ),
+            ]
+            bookmarks_item.add_context_menu(context_menu)
             result.append(bookmarks_item)
 
         # browse channels
@@ -1527,7 +1583,7 @@ class Provider(AbstractProvider):
         if not command:
             return False
 
-        if command == 'list':
+        if command in {'list', 'play'}:
             context.set_content(CONTENT.VIDEO_CONTENT)
             bookmarks_list = context.get_bookmarks_list()
             items = bookmarks_list.get_items()
@@ -1635,6 +1691,13 @@ class Provider(AbstractProvider):
                 v3_response['items'].append(item)
 
             bookmarks = v3.response_to_items(provider, context, v3_response)
+            if command == 'play':
+                return yt_play.process_items_for_playlist(
+                    context,
+                    bookmarks,
+                    action='play',
+                    play_from='start',
+                )
             return bookmarks
 
         ui = context.get_ui()
@@ -1645,7 +1708,7 @@ class Provider(AbstractProvider):
                     context.localize('bookmarks.clear'),
                     localize('bookmarks.clear.check')
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             context.get_bookmarks_list().clear()
             ui.refresh_container()
@@ -1679,7 +1742,7 @@ class Provider(AbstractProvider):
                     localize('content.remove'),
                     localize('content.remove.check') % bookmark_name,
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             context.get_bookmarks_list().del_item(item_id)
             context.get_ui().refresh_container()
@@ -1703,7 +1766,7 @@ class Provider(AbstractProvider):
         localize = context.localize
         ui = context.get_ui()
 
-        if command == 'list':
+        if command in {'list', 'play'}:
             context.set_content(CONTENT.VIDEO_CONTENT, sub_type='watch_later')
             items = context.get_watch_later_list().get_items()
             if not items:
@@ -1732,6 +1795,13 @@ class Provider(AbstractProvider):
                 ]
             }
             video_items = v3.response_to_items(provider, context, v3_response)
+            if command == 'play':
+                return yt_play.process_items_for_playlist(
+                    context,
+                    video_items,
+                    action='play',
+                    play_from='start',
+                )
             return video_items
 
         if command == 'clear':
@@ -1739,7 +1809,7 @@ class Provider(AbstractProvider):
                     localize('watch_later.clear'),
                     localize('watch_later.clear.check')
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             context.get_watch_later_list().clear()
             ui.refresh_container()
@@ -1768,7 +1838,7 @@ class Provider(AbstractProvider):
                     localize('content.remove'),
                     localize('content.remove.check') % video_name,
             ):
-                return False
+                return False, {provider.RESULT_FALLBACK: False}
 
             context.get_watch_later_list().del_item(video_id)
             ui.refresh_container()
@@ -1783,69 +1853,68 @@ class Provider(AbstractProvider):
         return False
 
     def handle_exception(self, context, exception_to_handle):
-        if isinstance(exception_to_handle, (InvalidGrant, LoginException)):
-            ok_dialog = False
-            message_timeout = 5000
-
-            message = exception_to_handle.get_message()
-            msg = exception_to_handle.get_message()
-            log_message = exception_to_handle.get_message()
-
-            error = ''
-            code = ''
-            if isinstance(msg, dict):
-                if 'error_description' in msg:
-                    message = strip_html_from_text(msg['error_description'])
-                    log_message = strip_html_from_text(msg['error_description'])
-                elif 'message' in msg:
-                    message = strip_html_from_text(msg['message'])
-                    log_message = strip_html_from_text(msg['message'])
-                else:
-                    message = 'No error message'
-                    log_message = 'No error message'
-
-                if 'error' in msg:
-                    error = msg['error']
-
-                if 'code' in msg:
-                    code = msg['code']
-
-            if error and code:
-                title = '%s: [%s] %s' % ('LoginException', code, error)
-            elif error:
-                title = '%s: %s' % ('LoginException', error)
-            else:
-                title = 'LoginException'
-
-            context.log_error('%s: %s' % (title, log_message))
-
-            if error == 'deleted_client':
-                message = context.localize('key.requirement')
-                context.get_access_manager().update_access_token(
-                    context.get_param('addon_id', None),
-                    access_token='',
-                    expiry=-1,
-                    refresh_token='',
-                )
-                ok_dialog = True
-
-            if error == 'invalid_client':
-                if message == 'The OAuth client was not found.':
-                    message = context.localize('client.id.incorrect')
-                    message_timeout = 7000
-                elif message == 'Unauthorized':
-                    message = context.localize('client.secret.incorrect')
-                    message_timeout = 7000
-
-            if ok_dialog:
-                context.get_ui().on_ok(title, message)
-            else:
-                context.get_ui().show_notification(message,
-                                                   title,
-                                                   time_ms=message_timeout)
-
+        if not isinstance(exception_to_handle, (InvalidGrant, LoginException)):
             return False
 
+        ok_dialog = False
+        message_timeout = 5000
+
+        message = exception_to_handle.get_message()
+        msg = exception_to_handle.get_message()
+        log_message = exception_to_handle.get_message()
+
+        error = ''
+        code = ''
+        if isinstance(msg, dict):
+            if 'error_description' in msg:
+                message = strip_html_from_text(msg['error_description'])
+                log_message = strip_html_from_text(msg['error_description'])
+            elif 'message' in msg:
+                message = strip_html_from_text(msg['message'])
+                log_message = strip_html_from_text(msg['message'])
+            else:
+                message = 'No error message'
+                log_message = 'No error message'
+
+            if 'error' in msg:
+                error = msg['error']
+
+            if 'code' in msg:
+                code = msg['code']
+
+        if error and code:
+            title = '%s: [%s] %s' % ('LoginException', code, error)
+        elif error:
+            title = '%s: %s' % ('LoginException', error)
+        else:
+            title = 'LoginException'
+
+        context.log_error('%s: %s' % (title, log_message))
+
+        if error == 'deleted_client':
+            message = context.localize('key.requirement')
+            context.get_access_manager().update_access_token(
+                context.get_param('addon_id', None),
+                access_token='',
+                expiry=-1,
+                refresh_token='',
+            )
+            ok_dialog = True
+
+        if error == 'invalid_client':
+            if message == 'The OAuth client was not found.':
+                message = context.localize('client.id.incorrect')
+                message_timeout = 7000
+            elif message == 'Unauthorized':
+                message = context.localize('client.secret.incorrect')
+                message_timeout = 7000
+
+        if ok_dialog:
+            context.get_ui().on_ok(title, message)
+        else:
+            context.get_ui().show_notification(message,
+                                               title,
+                                               time_ms=message_timeout)
         return True
 
     def tear_down(self):

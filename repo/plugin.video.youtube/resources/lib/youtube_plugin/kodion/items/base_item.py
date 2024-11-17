@@ -90,7 +90,7 @@ class BaseItem(object):
         item_ids = {}
 
         uri = urlsplit(self._uri)
-        path = uri.path
+        path = uri.path.rstrip('/')
         params = dict(parse_qsl(uri.query))
 
         video_id = params.get('video_id')
@@ -127,7 +127,7 @@ class BaseItem(object):
     def set_name(self, name):
         try:
             name = unescape(name)
-        except:
+        except Exception:
             pass
         self._name = name
         return name

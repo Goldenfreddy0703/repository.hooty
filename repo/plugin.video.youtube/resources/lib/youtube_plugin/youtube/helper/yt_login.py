@@ -22,7 +22,7 @@ def process(mode, provider, context, sign_out_refresh=True):
     def _do_logout():
         refresh_tokens = access_manager.get_refresh_token()
         client = provider.get_client(context)
-        if refresh_tokens:
+        if any(refresh_tokens):
             for _refresh_token in set(refresh_tokens):
                 try:
                     if _refresh_token:
@@ -56,18 +56,21 @@ def process(mode, provider, context, sign_out_refresh=True):
         else:
             verification_url = 'youtube.com/activate'
 
-        text = [localize('sign.go_to') % ui.bold(verification_url),
-                '[CR]%s %s' % (localize('sign.enter_code'),
-                               ui.bold(user_code))]
-        text = ''.join(text)
+        message = ''.join((
+            localize('sign.go_to') % ui.bold(verification_url),
+            '[CR]',
+            localize('sign.enter_code'),
+            ' ',
+            ui.bold(user_code),
+        ))
 
         with ui.create_progress_dialog(
-                heading=localize('sign.in'), text=text, background=False
-        ) as dialog:
+                heading=localize('sign.in'), message=message, background=False
+        ) as progress_dialog:
             steps = ((10 * 60) // interval)  # 10 Minutes
-            dialog.set_total(steps)
+            progress_dialog.set_total(steps)
             for _ in range(steps):
-                dialog.update()
+                progress_dialog.update()
                 try:
                     json_data = _client.request_access_token(token_type,
                                                              device_code)
@@ -102,7 +105,7 @@ def process(mode, provider, context, sign_out_refresh=True):
                     context.log_error('Error requesting access token: |error|'
                                       .format(error=message))
 
-                if dialog.is_aborted():
+                if progress_dialog.is_aborted():
                     break
 
                 context.sleep(interval)
@@ -118,14 +121,8 @@ def process(mode, provider, context, sign_out_refresh=True):
 
         tokens = ['tv', 'personal']
         for token_type, token in enumerate(tokens):
-            new_token = _do_login(token_type)
+            new_token = _do_login(token_type) or (None, 0, None)
             tokens[token_type] = new_token
-            if new_token:
-                access_token, expiry, refresh_token = new_token
-            else:
-                access_token = None
-                expiry = 0
-                refresh_token = None
 
             context.log_debug('YouTube Login:'
                               '\n\tType:          |{0}|'
@@ -133,9 +130,9 @@ def process(mode, provider, context, sign_out_refresh=True):
                               '\n\tRefresh token: |{2}|'
                               '\n\tExpires:       |{3}|'
                               .format(token,
-                                      bool(access_token),
-                                      bool(refresh_token),
-                                      expiry))
+                                      bool(new_token[0]),
+                                      bool(new_token[2]),
+                                      new_token[1]))
 
         provider.reset_client()
         access_manager.update_access_token(addon_id, *zip(*tokens))

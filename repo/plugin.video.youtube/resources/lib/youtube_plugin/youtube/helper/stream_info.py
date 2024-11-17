@@ -716,8 +716,6 @@ class StreamInfo(YouTubeRequestClient):
             # Limited audio stream availability with some clients
             'mpd': (
                 'android_vr',
-                'android_youtube_tv',
-                'android_testsuite',
             ),
             # Progressive streams
             # Limited video and audio stream availability
@@ -1671,10 +1669,10 @@ class StreamInfo(YouTubeRequestClient):
 
         subtitles = Subtitles(context, video_id)
         query_subtitles = client.get('_query_subtitles')
-        if (not is_live or live_dvr) and (
-                query_subtitles is True
-                or (query_subtitles
-                    and subtitles.sub_selection == subtitles.LANG_ALL)):
+        if ((not is_live or live_dvr)
+                and (query_subtitles is True
+                     or (query_subtitles
+                         and subtitles.sub_selection == subtitles.LANG_ALL))):
             for client_name in ('smart_tv_embedded', 'web', 'android'):
                 caption_client = self.build_client(client_name, client_data)
                 if not caption_client:

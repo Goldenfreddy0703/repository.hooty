@@ -334,7 +334,10 @@ def __extract_streamwish(url, page_content, referer=None):
 def __extract_aniwave(url, page_content, referer=None):
     r = re.search(r'''sources\s*[:=]\s*\[{["']?file["']?:\s*["']([^"']+)''', page_content)
     if r:
-        return r.group(1)
+        surl = r.group(1)
+        if 'vipanicdn.net' in surl:
+            surl = surl.replace('vipanicdn.net', 'anzeat.pro')
+        return surl
     return
 
 
@@ -382,7 +385,7 @@ def __extract_goload(url, page_content, referer=None):
         decrypted += decrypter.feed()
         return six.ensure_str(decrypted)
 
-    pattern = r'(?://|\.)((?:gogo-(?:play|stream)|streamani|go(?:load|one|gohd)|vidstreaming|gembedhd|playgo1|anihdplay|(?:play|emb|go|s3)taku1?)\.' \
+    pattern = r'(?://|\.)((?:gogo-(?:play|stream)|streamani|go(?:load|one|gohd)|vidstreaming|gembedhd|playgo1|anihdplay|(?:play|emb|go|s3|s3emb)taku1?)\.' \
               r'(?:io|pro|net|com|cc|online))/(?:streaming|embed(?:plus)?|ajax|load)(?:\.php)?\?id=([a-zA-Z0-9-]+)'
     r = re.search(r'crypto-js\.js.+?data-value="([^"]+)', page_content)
     if r:
@@ -522,7 +525,8 @@ __register_extractor(["https://gogo-stream.com/",
                       "https://goone.pro/",
                       "https://embtaku.pro/",
                       "https://s3taku.com/",
-                      "https://embtaku.com/"],
+                      "https://embtaku.com/",
+                      "https://s3embtaku.pro/"],
                      __extract_goload)
 
 __register_extractor(["https://streamtape.com/e/"],

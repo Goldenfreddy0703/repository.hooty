@@ -26,45 +26,36 @@ class sources(BrowserBase):
 
         all_results = []
         items = []
-        srcs = ['sub', 'softsub', 'dub']
+        srcs = ['sub', 'dub']
         if control.getSetting('general.source') == 'Sub':
             srcs.remove('dub')
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
-            srcs.remove('softsub')
 
         headers = {'Referer': self._BASE_URL}
         params = {'keyword': title}
         r = database.get(
             self._get_request,
             8,
-            self._BASE_URL + 'ajax/anime/search',
+            self._BASE_URL + 'filter',
             data=params,
             headers=headers,
             XHR=True
         )
-        if not r and ':' in title:
-            title = title.split(':')[0]
-            params.update({'keyword': title})
-            r = database.get(
-                self._get_request,
-                8,
-                self._BASE_URL + 'ajax/anime/search',
-                data=params,
-                headers=headers,
-                XHR=True
-            )
         if not r:
             return all_results
 
-        if 'NOT FOUND' not in r:
-            r = json.loads(r)
-            r = BeautifulSoup(r.get('html') or r.get('result', {}).get('html'), "html.parser")
-            sitems = r.find_all('a', {'class': 'item'})
-            if sitems:
-                items = [urllib_parse.urljoin(self._BASE_URL, x.get('href'))
+        mlink = SoupStrainer('div', {'class': 'ani items'})
+        soup = BeautifulSoup(r, "html.parser", parse_only=mlink)
+        sitems = soup.find_all('div', {'class': 'item'})
+        if sitems:
+            items = [urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
+                     for x in sitems
+                     if self.clean_title(title) == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))]
+            if not items:
+                items = [urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
                          for x in sitems
-                         if self.clean_title(title) in self.clean_title(x.find('div', {'class': 'name'}).text)]
+                         if self.clean_title(title + 'dub') == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))]
 
         if items:
             slug = items[0]
@@ -118,9 +109,6 @@ class sources(BrowserBase):
                         edata_id = src.get('data-link-id')
                         edata_name = src.text
                         if self.clean_title(edata_name) in control.enabled_embeds():
-                            if scrapes == 3:
-                                control.sleep(5000)
-                                scrapes = 0
                             vrf = self.generate_vrf(edata_id)
                             params = {'vrf': vrf}
                             r = self._get_request(
@@ -156,8 +144,6 @@ class sources(BrowserBase):
                                 source.update({'skip': skip})
                             sources.append(source)
         except:
-            import traceback
-            traceback.print_exc()
             pass
         return sources
 

@@ -151,8 +151,8 @@ class RealDebrid:
         except:
             return response
 
+    """
     def checkHash(self, hashList):
-
         if isinstance(hashList, list):
             self.cache_check_results = {}
             hashList = [hashList[x: x + 100] for x in range(0, len(hashList), 100)]
@@ -172,6 +172,57 @@ class RealDebrid:
         hashString = '/' + '/'.join(hashes)
         response = self.get_url("https://api.real-debrid.com/rest/1.0/torrents/instantAvailability" + hashString)
         self.cache_check_results.update(response)
+    """
+
+    def check_hash(self, hash_list):
+        if isinstance(hash_list, list):
+            self.cache_check_results = {}
+            hash_list = [hash_list[x: x + 100] for x in range(0, len(hash_list), 100)]
+            threads = []
+            for section in hash_list:
+                threads.append(threading.Thread(target=self._check_hash_thread, args=(section,)))
+            for i in threads:
+                i.start()
+            for i in threads:
+                i.join()
+            return self.cache_check_results
+        else:
+            magnet = 'magnet:?xt=urn:btih:' + hash_list
+            response = self.add_magnet(magnet)
+            try:
+                torr_id = response['id']
+            except:
+                return {}
+            response = self.torrentInfo(torr_id)
+            if response['status'] == 'downloaded':
+                hash_dict = {hash_list: {'rd': []}}
+                for x in response['files']:
+                    if x['selected'] == 1:
+                        hash_dict[hash_list]['rd'].append({str(x['id']): {'filename': x['path'], 'filesize': x['bytes']}})
+                response = self.deleteTorrent(torr_id)
+                return hash_dict
+            else:
+                response = self.deleteTorrent(torr_id)
+                return {}
+
+    def _check_hash_thread(self, hashes):
+        for i in hashes:
+            magnet = 'magnet:?xt=urn:btih:' + i
+            response = self.addMagnet(magnet)
+            try:
+                torr_id = response['id']
+            except:
+                continue
+            response = self.torrentInfo(torr_id)
+            if response['status'] == 'downloaded':
+                hash_dict = {i: {'rd': []}}
+                for x in response['files']:
+                    if x['selected'] == 1:
+                        hash_dict[i]['rd'].append({str(x['id']): {'filename': x['path'], 'filesize': x['bytes']}})
+                response = self.delete_torrent(torr_id)
+                self.cache_check_results.update(hash_dict)
+            else:
+                response = self.delete_torrent(torr_id)
 
     def addMagnet(self, magnet):
         postData = {'magnet': magnet}

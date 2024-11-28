@@ -1,9 +1,15 @@
-We Added Syncing!!!!
+We Added Torbox Support!
 
 Hello Everyone,
 
-We're excited to announce that we've added a new syncing feature to our addon! Currently, syncing is available for completed anime only. This decision was made to ensure optimal speed and performance. Our focus remains on delivering functionality, quality, and speed, and this feature has been a long-time goal of ours.
+We’re thrilled to announce that Torbox has been added to Otaku! This update brings support for Torbox as a debrid service, addressing the community’s growing interest in alternatives like Torbox due to recent restrictions with Real Debrid and AllDebrid.
 
-A special thank you to Joezito for developing the syncing code and making this possible, and to all the contributors who have supported our addon.
+A huge thank you to klarstil for their fantastic work in implementing this feature. Here's what the update includes:
 
-Thank you for your continued support!
+    Torbox Features:
+        Added Torbox as a debrid service with a basic implementation for essential use cases.
+        Torbox Cloud Inspection: Uses a user-select system to identify the best matching file name.
+
+We’re excited to provide more options for our users and will continue working to ensure Otaku meets your needs. As always, thank you for your ongoing support!
+
+Happy watching!

@@ -1679,3 +1679,19 @@ msgstr "Filmler - Tür Öğeleri"
 msgctxt "#50096"
 msgid "TV Shows - Genre Items"
 msgstr "TV Programları - Tür Öğeleri"
+
+msgctxt "#50097"
+msgid "Enable Torbox"
+msgstr "Torbox'ı Etkinleştir"
+
+msgctxt "#50098"
+msgid "Torbox API key"
+msgstr "Torbox API Anahtarı"
+
+msgctxt "#50099"
+msgid "Torbox Priority"
+msgstr "Torbox Önceliği"
+
+msgctxt "#50100"
+msgid "Scrape Torbox Cloud"
+msgstr "Torbox Bulutunu Kazı"

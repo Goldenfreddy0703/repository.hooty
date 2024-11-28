@@ -1679,3 +1679,19 @@ msgstr "Films - Articles de genre"
 msgctxt "#50096"
 msgid "TV Shows - Genre Items"
 msgstr "Spectacles télévisés - Articles de genre"
+
+msgctxt "#50097"
+msgid "Enable Torbox"
+msgstr "Activer Torbox"
+
+msgctxt "#50098"
+msgid "Torbox API key"
+msgstr "Clé API Torbox"
+
+msgctxt "#50099"
+msgid "Torbox Priority"
+msgstr "Priorité Torbox"
+
+msgctxt "#50100"
+msgid "Scrape Torbox Cloud"
+msgstr "Extraire le cloud Torbox"

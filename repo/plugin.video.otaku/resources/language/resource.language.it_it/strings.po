@@ -1679,3 +1679,19 @@ msgstr "Voci del menu dei film - Generi"
 msgctxt "#50096"
 msgid "TV Shows - Genre Items"
 msgstr "Voci del menu delle serie TV - Generi"
+
+msgctxt "#50097"
+msgid "Enable Torbox"
+msgstr "Abilita Torbox"
+
+msgctxt "#50098"
+msgid "Torbox API key"
+msgstr "Chiave API Torbox"
+
+msgctxt "#50099"
+msgid "Torbox Priority"
+msgstr "Priorità Torbox"
+
+msgctxt "#50100"
+msgid "Scrape Torbox Cloud"
+msgstr "Raccogli dati dal cloud Torbox"

@@ -1679,3 +1679,19 @@ msgstr "Filme - Genre-Punkte"
 msgctxt "#50096"
 msgid "TV Shows - Genre Items"
 msgstr "TV-Serien - Genre-Punkte"
+
+msgctxt "#50097"
+msgid "Enable Torbox"
+msgstr "Torbox aktivieren"
+
+msgctxt "#50098"
+msgid "Torbox API key"
+msgstr "Torbox API-Schlüssel"
+
+msgctxt "#50099"
+msgid "Torbox Priority"
+msgstr "Torbox Priorität"
+
+msgctxt "#50100"
+msgid "Scrape Torbox Cloud"
+msgstr "Torbox Cloud durchsuchen"

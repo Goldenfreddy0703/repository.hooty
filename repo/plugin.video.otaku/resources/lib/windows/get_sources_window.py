@@ -106,10 +106,7 @@ class GetSources(BaseWindow):
         self.setProperty('eq_sources', str(self.torrents_qual_len[4] + self.hosters_qual_len[4]))
 
         # Set total source type counts
-        # self.setProperty('total_torrents', str(len([i for i in self.allTorrents])))
-
-        # self.setProperty('total_torrents', str(len([i for i in self.allTorrents])))
-        self.setProperty('total_torrents', str(len([i for i in self.torrentCacheSources])))
+        self.setProperty('total_torrents', str(len([i for i in self.allTorrents])))
         self.setProperty('cached_torrents', str(len([i for i in self.torrentCacheSources])))
         self.setProperty('hosters_sources', str(len([i for i in self.embedSources])))
         self.setProperty('cloud_sources', str(len([i for i in self.cloud_files])))

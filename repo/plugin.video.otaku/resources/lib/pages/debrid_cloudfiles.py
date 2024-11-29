@@ -19,11 +19,11 @@ class sources(BrowserBase):
         if debrid.get('premiumize'):
             self.threads.append(
                 threading.Thread(target=self.premiumize_cloud_inspection, args=(query, episode,)))
-            
+
         if debrid.get('all_debrid'):
             self.threads.append(
                 threading.Thread(target=self.alldebrid_cloud_inspection, args=(query, episode,)))
-            
+
         if debrid.get('torbox'):
             self.threads.append(
                 threading.Thread(target=self.torbox_cloud_inspection, args=(query, episode,)))
@@ -168,7 +168,7 @@ class sources(BrowserBase):
                     'episode': episode
                 }
             )
-    
+
     def torbox_cloud_inspection(self, query, episode):
         api = torbox.Torbox()
         torrents = api.list_torrents()
@@ -177,10 +177,10 @@ class sources(BrowserBase):
         filenames_query = ','.join(filenames)
         resp = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
         resp = json.loads(resp)
-        
+
         for i in resp:
             torrent = torrents[i]
-            if torrent['cached'] != True or torrent['download_finished'] != True:
+            if torrent['cached'] is not True or torrent['download_finished'] is not True:
                 continue
 
             if len(torrent['files']) <= 0:

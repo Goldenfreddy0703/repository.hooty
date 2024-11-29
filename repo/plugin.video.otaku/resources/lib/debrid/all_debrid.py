@@ -1,5 +1,4 @@
 import json
-import threading
 
 from resources.lib.ui import client, control, source_utils
 from six.moves import urllib_parse
@@ -8,7 +7,7 @@ from six.moves import urllib_parse
 class AllDebrid:
     def __init__(self):
         self.apikey = control.getSetting('alldebrid.apikey')
-        self.agent_identifier = 'Otaku_Kodi_Addon'
+        self.agent_identifier = 'Otaku_Addon'
         self.base_url = 'https://api.alldebrid.com/v4/'
         self.cache_check_results = []
 
@@ -80,29 +79,17 @@ class AllDebrid:
         if user_information is not None:
             control.setSetting('alldebrid.username', user_information['user']['username'])
 
-    def check_hash(self, hashList):
-        if isinstance(hashList, list):
-            self.cache_check_results = []
-            hashList = [hashList[x: x + 10] for x in range(0, len(hashList), 10)]
-            threads = []
-            for section in hashList:
-                threads.append(threading.Thread(target=self._check_hash_thread, args=(section,)))
-            for i in threads:
-                i.start()
-            for i in threads:
-                i.join()
-            return self.cache_check_results
-        else:
-            hashString = '&magnets[]=' + hashList
-            return self.post_json('magnet/instant', hashString, apikey=self.apikey).get('magnets')
-
-    def _check_hash_thread(self, hashes):
-        hashString = '&'.join(['magnets[]=' + x for x in hashes])
-        response = self.post_json('magnet/instant', hashString, apikey=self.apikey)
-        self.cache_check_results += response.get('magnets')
-
     def upload_magnet(self, magnet_hash):
-        return self.get_json('magnet/upload', apikey=self.apikey, magnets=magnet_hash)
+        result = self.get_json('magnet/upload', apikey=self.apikey, magnets=magnet_hash)
+        magnets = result.get('magnets')
+        magnet = [m for m in magnets if magnet_hash in m.get('magnet')]
+        if magnet:
+            magnet_id = magnet[0].get('id')
+            if not magnet[0].get('ready'):
+                self.delete_magnet(magnet_id)
+                return
+            return magnet_id
+        return
 
     def update_relevant_hosters(self):
         return
@@ -116,8 +103,6 @@ class AllDebrid:
                  if 'status' in x and x['status']
                  for d in x['domains']]
         else:
-            import traceback
-            traceback.print_exc()
             hosters['premium']['all_debrid'] = []
 
     def resolve_hoster(self, url):
@@ -136,7 +121,9 @@ class AllDebrid:
     def resolve_single_magnet(self, hash_, magnet, episode='', pack_select=False):
         selected_file = None
 
-        magnet_id = self.upload_magnet(magnet)['magnets'][0]['id']
+        magnet_id = self.upload_magnet(magnet)
+        if not magnet_id:
+            return
         folder_details = self.magnet_status(magnet_id)['magnets']['links']
         folder_details = [{'link': x['link'], 'path': x['filename']} for x in folder_details]
 
@@ -146,7 +133,7 @@ class AllDebrid:
             if selected_file is not None:
                 return self.resolve_hoster(selected_file['link'])
 
-        selected_file = folder_details[0]['link']
+        selected_file = folder_details[0].get('link')
 
         if selected_file is None:
             return

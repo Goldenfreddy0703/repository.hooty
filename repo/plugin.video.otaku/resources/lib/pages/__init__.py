@@ -115,7 +115,13 @@ class Sources(DisplayWindow):
         control.setSetting('hianime.skipoutro.start', '-1')
         control.setSetting('hianime.skipoutro.end', '-1')
 
-        if control.real_debrid_enabled() or control.all_debrid_enabled() or control.debrid_link_enabled() or control.premiumize_enabled() or control.torbox_enabled():
+        if any([
+            control.real_debrid_enabled(),
+            control.all_debrid_enabled(),
+            control.debrid_link_enabled(),
+            control.premiumize_enabled(),
+            control.torbox_enabled()
+        ]):
             if control.getSetting('provider.nyaa') == 'true':
                 self.threads.append(
                     threading.Thread(target=self.nyaa_worker, args=(query, anilist_id, episode, status, media_type, rescrape)))
@@ -389,18 +395,14 @@ class Sources(DisplayWindow):
             p.append({'slug': 'torbox', 'priority': int(control.getSetting('tb.priority'))})
 
         p.append({'slug': '', 'priority': 11})
-
         p = sorted(p, key=lambda i: i['priority'])
 
         return p
 
     def sortSources(self, torrent_list, embed_list, filter_lang, media_type, duration):
         sort_method = int(control.getSetting('general.sortsources'))
-
         sortedList = []
-
         resolutions = self.resolutionList()
-
         resolutions.reverse()
 
         for i in self.cloud_files:
@@ -412,13 +414,10 @@ class Sources(DisplayWindow):
         if filter_lang:
             filter_lang = int(filter_lang)
             _torrent_list = torrent_list
-
             torrent_list = [i for i in _torrent_list if i['lang'] != filter_lang]
-
             embed_list = [i for i in embed_list if i['lang'] != filter_lang]
 
         filter_option = control.getSetting('general.fileFilter')
-
         if filter_option == '1':
             # web speed limit
             webspeed = int(control.getSetting('general.webspeed'))

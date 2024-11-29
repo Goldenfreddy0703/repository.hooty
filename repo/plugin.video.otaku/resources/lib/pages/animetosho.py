@@ -30,12 +30,12 @@ class sources(BrowserBase):
             'q': query,
             'qx': 1
         }
-        
+
         anidb = database.get_anidb_id(anilist_id)
         if anidb is None and show_meta:
             meta_ids = pickle.loads(show_meta['meta_ids'])
             anidb = meta_ids.get('anidb')
-        
+
         if anidb:
             params.update({'aids': anidb})
 

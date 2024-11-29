@@ -69,7 +69,6 @@ class Sources(DisplayWindow):
     def getSources(self, args):
         try:
             # Extract arguments from url
-
             self.setProperty('process_started', 'true')
             self.progress = 50
 
@@ -84,13 +83,10 @@ class Sources(DisplayWindow):
                 ))
 
             except:
-                import traceback
-                traceback.print_exc()
+                pass
 
             xbmc.sleep(5000)
             self.close()
 
         except:
             self.close()
-            import traceback
-            traceback.print_exc()

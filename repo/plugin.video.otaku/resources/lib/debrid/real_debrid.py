@@ -1,8 +1,5 @@
-import re
-import threading
 import json
 import time
-from kodi_six import xbmcgui
 from resources.lib.ui import source_utils
 from resources.lib.ui import control, client
 
@@ -23,7 +20,6 @@ class RealDebrid:
         self.OauthTimeout = 0
         self.OauthTimeStep = 0
         self.BaseUrl = "https://api.real-debrid.com/rest/1.0/"
-        self.cache_check_results = {}
 
     def auth_loop(self):
         if control.progressDialog.iscanceled():
@@ -151,84 +147,18 @@ class RealDebrid:
         except:
             return response
 
-    """
-    def checkHash(self, hashList):
-        if isinstance(hashList, list):
-            self.cache_check_results = {}
-            hashList = [hashList[x: x + 100] for x in range(0, len(hashList), 100)]
-            threads = []
-            for section in hashList:
-                threads.append(threading.Thread(target=self._check_hash_thread, args=(section,)))
-            for i in threads:
-                i.start()
-            for i in threads:
-                i.join()
-            return self.cache_check_results
-        else:
-            hashString = "/" + hashList
-            return self.get_url("https://api.real-debrid.com/rest/1.0/torrents/instantAvailability" + hashString)
-
-    def _check_hash_thread(self, hashes):
-        hashString = '/' + '/'.join(hashes)
-        response = self.get_url("https://api.real-debrid.com/rest/1.0/torrents/instantAvailability" + hashString)
-        self.cache_check_results.update(response)
-    """
-
-    def check_hash(self, hash_list):
-        if isinstance(hash_list, list):
-            self.cache_check_results = {}
-            hash_list = [hash_list[x: x + 100] for x in range(0, len(hash_list), 100)]
-            threads = []
-            for section in hash_list:
-                threads.append(threading.Thread(target=self._check_hash_thread, args=(section,)))
-            for i in threads:
-                i.start()
-            for i in threads:
-                i.join()
-            return self.cache_check_results
-        else:
-            magnet = 'magnet:?xt=urn:btih:' + hash_list
-            response = self.add_magnet(magnet)
-            try:
-                torr_id = response['id']
-            except:
-                return {}
-            response = self.torrentInfo(torr_id)
-            if response['status'] == 'downloaded':
-                hash_dict = {hash_list: {'rd': []}}
-                for x in response['files']:
-                    if x['selected'] == 1:
-                        hash_dict[hash_list]['rd'].append({str(x['id']): {'filename': x['path'], 'filesize': x['bytes']}})
-                response = self.deleteTorrent(torr_id)
-                return hash_dict
-            else:
-                response = self.deleteTorrent(torr_id)
-                return {}
-
-    def _check_hash_thread(self, hashes):
-        for i in hashes:
-            magnet = 'magnet:?xt=urn:btih:' + i
-            response = self.addMagnet(magnet)
-            try:
-                torr_id = response['id']
-            except:
-                continue
-            response = self.torrentInfo(torr_id)
-            if response['status'] == 'downloaded':
-                hash_dict = {i: {'rd': []}}
-                for x in response['files']:
-                    if x['selected'] == 1:
-                        hash_dict[i]['rd'].append({str(x['id']): {'filename': x['path'], 'filesize': x['bytes']}})
-                response = self.delete_torrent(torr_id)
-                self.cache_check_results.update(hash_dict)
-            else:
-                response = self.delete_torrent(torr_id)
-
     def addMagnet(self, magnet):
         postData = {'magnet': magnet}
         url = 'https://api.real-debrid.com/rest/1.0/torrents/addMagnet'
         response = self.post_url(url, postData)
-        return response
+        torrent_id = response.get('id')
+        if torrent_id:
+            torrent_info = self.torrentInfo(torrent_id)
+            status = torrent_info.get('status')
+            if status not in ['downloaded', 'waiting_files_selection']:
+                self.deleteTorrent(torrent_id)
+                return
+            return response
 
     def list_torrents(self):
         url = "https://api.real-debrid.com/rest/1.0/torrents"
@@ -260,56 +190,14 @@ class RealDebrid:
         url = "https://api.real-debrid.com/rest/1.0/torrents/delete/%s" % (id)
         client.request(url, headers=headers, timeout=5, method='DELETE')
 
-    def resolve_magnet(self, hash_, magnet, episode):
-        try:
-
-            hash = hash_
-
-            hashCheck = self.checkHash(hash)
-
-            for storage_variant in hashCheck[hash]['rd']:
-
-                key_list = ','.join(list(storage_variant.keys()))
-                xbmcgui.Dialog().textviewer('sdsd', str(key_list))
-
-                torrent = self.addMagnet(magnet)
-
-                self.torrentSelect(torrent['id'], key_list)
-
-                files = self.torrentInfo(torrent['id'])
-                selected_files = [i for i in files['files'] if i['selected'] == 1]
-
-                regex = episode
-                selected_files = sorted([idx for idx, i in enumerate(selected_files) if re.search(regex, i['path'])])
-
-                if not selected_files:
-                    continue
-
-                file_index = selected_files[0]
-                xbmcgui.Dialog().textviewer('sdsd', str(file_index))
-                link = link['files'][file_index]
-                link = self.resolve_hoster(link)
-
-                if link.endswith('rar'):
-                    link = None
-
-                self.deleteTorrent(cached_torrent['id'])
-
-                return link
-        except:
-            import traceback
-            traceback.print_exc()
-            self.deleteTorrent(cached_torrent['id'])
-
     def resolve_single_magnet(self, hash_, magnet, episode='', pack_select=False):
         try:
-
-            hashCheck = self.checkHash(hash_)
-
-            for storage_variant in hashCheck[hash_]['rd']:
+            for storage_variant in [hash_]['rd']:
                 key_list = 'all'
 
                 torrent = self.addMagnet(magnet)
+                if not torrent:
+                    return
 
                 self.torrentSelect(torrent['id'], key_list)
 

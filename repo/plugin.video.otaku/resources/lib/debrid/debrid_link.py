@@ -1,5 +1,4 @@
 import json
-import threading
 import time
 
 from resources.lib.ui import client, control, source_utils
@@ -8,7 +7,7 @@ from resources.lib.ui import client, control, source_utils
 class DebridLink:
     def __init__(self):
         self.ClientID = 'sdpBuYFQo6L53s3B4apluw'
-        self.USER_AGENT = 'Otaku for Kodi/{0}'.format(control.ADDON_VERSION)
+        self.USER_AGENT = 'Otaku/{0}'.format(control.ADDON_VERSION)
         self.token = control.getSetting('dl.auth')
         self.refresh = control.getSetting('dl.refresh')
         self.headers = {'User-Agent': self.USER_AGENT,
@@ -88,40 +87,30 @@ class DebridLink:
             control.setSetting('dl.auth', self.token)
             control.setSetting('dl.expiry', str(time.time() + response.get('expires_in')))
 
-    def check_hash(self, hashList):
-        if isinstance(hashList, list):
-            self.cache_check_results = {}
-            hashList = [hashList[x: x + 100] for x in range(0, len(hashList), 100)]
-            threads = []
-            for section in hashList:
-                threads.append(threading.Thread(target=self._check_hash_thread, args=(section,)))
-            for i in threads:
-                i.start()
-            for i in threads:
-                i.join()
-            return self.cache_check_results
-        else:
-            url = "{0}/seedbox/cached?url={1}".format(self.api_url, hashList)
-            response = client.request(url, headers=self.headers)
-            return json.loads(response).get('value')
-
-    def _check_hash_thread(self, hashes):
-        hashString = ','.join(hashes)
-        url = "{0}/seedbox/cached?url={1}".format(self.api_url, hashString)
-        response = client.request(url, headers=self.headers)
-        if response:
-            self.cache_check_results.update(json.loads(response).get('value'))
-
     def addMagnet(self, magnet):
         postData = {'url': magnet,
                     'async': 'true'}
         url = '{0}/seedbox/add'.format(self.api_url)
-        response = client.request(url, post=postData, headers=self.headers)
-        return json.loads(response).get('value')
+        resp = client.request(url, post=postData, headers=self.headers)
+        js_result = json.loads(resp).get('value')
+        if js_result:
+            torrent_id = js_result.get('id')
+            if js_result.get('downloadPercent') < 100:
+                self.delete_transfer(torrent_id)
+                return
+            return js_result
+        return
+
+    def delete_transfer(self, transfer_id):
+        url = '{0}/seedbox/{1}/remove'.format(self.api_url, transfer_id)
+        _ = client.request(url, headers=self.headers, method='DELETE')
 
     def resolve_single_magnet(self, hash_, magnet, episode='', pack_select=False):
         selected_file = None
-        files = self.addMagnet(magnet)['files']
+        res = self.addMagnet(magnet)
+        if not res:
+            return
+        files = res.get('files')
         folder_details = [{'link': x['downloadUrl'], 'path': x['name']} for x in files]
         if episode:
             selected_file = source_utils.get_best_match('path', folder_details, episode, pack_select)

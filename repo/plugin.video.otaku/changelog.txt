@@ -1,3 +1,6 @@
+Changelog 0.5.36[20241201]:
+- Small Fix for real-debrid
+
 Changelog 0.5.35[20241128]:
 - Update debrid playback
 

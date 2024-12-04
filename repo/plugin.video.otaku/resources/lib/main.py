@@ -2554,7 +2554,6 @@ def TMDB_HELPER(payload, params):
 
         # Check if both mappings return a result and if they match
         mapping = database.get_tmdb_helper_mapping(tvdb_id=tvdb_id, tvdb_season=tvdb_season)
-        control.log('Mapping is {}'.format(repr(mapping)), level='info')
         if mapping is not None:
             anilist_id = mapping['anilist_id']
         else:

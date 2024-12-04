@@ -299,7 +299,7 @@ def request(
                     if not error:
                         return '{}'
             elif output == '':
-                control.log('Request-HTTPError (%s): %s' % (response.code, url))
+                control.log('Request-HTTPError (%s): %s' % (e.code, url))
                 if not error:
                     return '{}'
         except urllib_error.URLError as e:
@@ -431,7 +431,7 @@ def request(
                 response.close()
             return result
     except Exception as e:
-        control.log('Request-Error: (%s) => %s' % (str(e), url), 'info')
+        control.log('Request-Error: (%s) => %s' % (str(e), url))
         return
 
 

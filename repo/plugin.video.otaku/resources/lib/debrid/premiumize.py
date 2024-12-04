@@ -48,7 +48,6 @@ class Premiumize:
     def poll_token(self, device_code):
         data = {'client_id': self.client_id, 'code': device_code, 'grant_type': 'device_code'}
         token = client.request('https://www.premiumize.me/token', post=data, error=True)
-        control.log('token is %s' % repr(token), level='info')
         token = json.loads(token)
 
         if 'error' in token:

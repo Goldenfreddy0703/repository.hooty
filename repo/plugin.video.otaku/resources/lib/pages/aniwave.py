@@ -26,36 +26,59 @@ class sources(BrowserBase):
 
         all_results = []
         items = []
-        srcs = ['sub', 'dub']
+        srcs = ['sub', 'dub', 's-sub']
         if control.getSetting('general.source') == 'Sub':
             srcs.remove('dub')
         elif control.getSetting('general.source') == 'Dub':
             srcs.remove('sub')
+            srcs.remove('s-sub')
 
         headers = {'Referer': self._BASE_URL}
         params = {'keyword': title}
         r = database.get(
             self._get_request,
             8,
-            self._BASE_URL + 'filter',
+            self._BASE_URL + 'ajax/anime/search',
             data=params,
             headers=headers,
             XHR=True
         )
-        if not r:
-            return all_results
 
-        mlink = SoupStrainer('div', {'class': 'ani items'})
-        soup = BeautifulSoup(r, "html.parser", parse_only=mlink)
-        sitems = soup.find_all('div', {'class': 'item'})
-        if sitems:
-            items = [urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
-                     for x in sitems
-                     if self.clean_title(title) == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))]
-            if not items:
-                items = [urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
-                         for x in sitems
-                         if self.clean_title(title + 'dub') == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))]
+        if 'NOT FOUND' in r:
+            r1 = database.get(
+                self._get_request,
+                8,
+                self._BASE_URL + 'filter',
+                data=params,
+                headers=headers,
+                XHR=True
+            )
+
+            mlink = SoupStrainer('div', {'class': 'ani items'})
+            soup = BeautifulSoup(r1, "html.parser", parse_only=mlink)
+            sitems = soup.find_all('div', {'class': 'item'})
+            if sitems:
+                items = [
+                    urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
+                    for x in sitems
+                    if self.clean_title(title) == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                ]
+                if not items:
+                    items = [
+                        urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
+                        for x in sitems
+                        if self.clean_title(title + 'dub') == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                    ]
+        elif r:
+            r = json.loads(r)
+            r = BeautifulSoup(r.get('html') or r.get('result', {}).get('html'), "html.parser")
+            sitems = r.find_all('a', {'class': 'item'})
+            if sitems:
+                items = [
+                    urllib_parse.urljoin(self._BASE_URL, x.get('href'))
+                    for x in sitems
+                    if self.clean_title(title) in self.clean_title(x.find('div', {'class': 'name'}).text)
+                ]
 
         if items:
             slug = items[0]

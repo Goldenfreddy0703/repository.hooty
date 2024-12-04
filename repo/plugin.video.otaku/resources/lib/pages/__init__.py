@@ -253,7 +253,6 @@ class Sources(DisplayWindow):
         sourcesList = self.sortSources(self.torrentCacheSources, self.embedSources, filter_lang, media_type, duration)
         self.return_data = sourcesList
         self.close()
-        # control.log('Sorted sources :\n {0}'.format(sourcesList), 'info')
         return
 
     def nyaa_worker(self, query, anilist_id, episode, status, media_type, rescrape):

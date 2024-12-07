@@ -1762,7 +1762,7 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="5.4.15" name="TMDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="5.4.16" name="TMDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -2153,6 +2153,21 @@ Initial release
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Twitch Icons</summary>
 		<description lang="en">Icons for Twitch</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.youtube.white" name="YouTube Icons - White" version="0.0.2" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">YouTube Icons</summary>
+		<description lang="en">Icons for YouTube</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>

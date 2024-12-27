@@ -331,37 +331,6 @@ def __extract_streamwish(url, page_content, referer=None):
     return
 
 
-def __extract_aniwave(url, page_content, referer=None):
-    r = re.search(r'''sources["\s]?[:=]\s*\[\{"file":"([^"]+)''', page_content)
-    if r:
-        subs = []
-        skip = {}
-        surl = r.group(1)
-        if 'vipanicdn.net' in surl:
-            surl = surl.replace('vipanicdn.net', 'anzeat.pro')
-
-        s = re.search(r'''tracks:\s*(\[[^\]]+])''', page_content)
-        if s:
-            s = json.loads(s.group(1))
-            subs = [
-                {'url': x.get('file'), 'lang': x.get('label')}
-                for x in s if x.get('kind') == 'captions'
-                and x.get('file') is not None
-            ]
-
-        s = re.search(r'''var\s*intro_begin\s*=\s*(\d+);\s*var\s*introEnd\s*=\s*(\d+);\s*var\s*outroStart\s*=\s*(\d+);\s*var\s*outroEnd\s*=\s*(\d+);''', page_content)
-        if s:
-            if int(s.group(2)) > 0:
-                skip = {
-                    "intro": {"start": int(s.group(1)), "end": int(s.group(2))},
-                    "outro": {"start": int(s.group(3)), "end": int(s.group(4))}
-                }
-        if subs or skip:
-            surl = {'url': surl, 'subs': subs, 'skip': skip}
-
-        return surl
-
-
 def __extract_voe(url, page_content, referer=None):
     r = re.search(r"let\s*(?:wc0|[0-9a-f]+)\s*=\s*'([^']+)", page_content)
     if r:
@@ -485,9 +454,6 @@ __register_extractor(["https://kwik.cx/",
 
 __register_extractor(["https://www.yourupload.com/"],
                      __extract_yourupload)
-
-__register_extractor(["https://aniwave.se/"],
-                     __extract_aniwave)
 
 __register_extractor(["https://mixdrop.co/",
                       "https://mixdrop.to/",

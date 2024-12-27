@@ -1,3 +1,7 @@
+Changelog 0.5.38[20241227]:
+- Updated the Brazilian provider
+- Modified an embed scraper to pull qualities
+
 Changelog 0.5.37[20241204]:
 - Updated embed extractor
 

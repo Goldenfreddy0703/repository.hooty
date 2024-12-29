@@ -1793,7 +1793,7 @@ Initial release
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.2" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1905,7 +1905,7 @@ Initial release
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
     </extension>
-</addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.2" provider-name="jurialmunkey">
+</addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.3" provider-name="jurialmunkey">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
     </requires>

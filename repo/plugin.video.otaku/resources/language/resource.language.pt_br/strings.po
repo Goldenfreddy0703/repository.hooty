@@ -102,19 +102,19 @@ msgstr "Tempo limite do FlareSolverr"
 
 msgctxt "#30125"
 msgid "Megacloud Solver"
-msgstr ""
+msgstr "Solucionador Megacloud"
 
 msgctxt "#30126"
 msgid "Enable Megacloud Solver"
-msgstr ""
+msgstr "Ativar o Solucionador Megacloud"
 
 msgctxt "#30127"
 msgid "Megacloud Solver url"
-msgstr ""
+msgstr "URL do Solucionador Megacloud"
 
 msgctxt "#30128"
 msgid "Requires Megacloud Solver"
-msgstr ""
+msgstr "Requer o Solucionador Megacloud"
 
 ######DATABASE.PY######
 msgctxt "#30200"

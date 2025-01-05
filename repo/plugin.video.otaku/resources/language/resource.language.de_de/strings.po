@@ -100,6 +100,22 @@ msgctxt "#30124"
 msgid "FlareSolverr Timeout"
 msgstr "FlareSolverr-Timeout"
 
+msgctxt "#30125"
+msgid "Megacloud Solver"
+msgstr "Megacloud Solver"
+
+msgctxt "#30126"
+msgid "Enable Megacloud Solver"
+msgstr "Megacloud Solver aktivieren"
+
+msgctxt "#30127"
+msgid "Megacloud Solver url"
+msgstr "Megacloud Solver-URL"
+
+msgctxt "#30128"
+msgid "Requires Megacloud Solver"
+msgstr "Erfordert Megacloud Solver"
+
 ######DATABASE.PY######
 msgctxt "#30200"
 msgid "Cache"

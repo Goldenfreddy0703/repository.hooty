@@ -102,19 +102,19 @@ msgstr "FlareSolverr Zaman Aşımı"
 
 msgctxt "#30125"
 msgid "Megacloud Solver"
-msgstr ""
+msgstr "Megacloud Çözücü"
 
 msgctxt "#30126"
 msgid "Enable Megacloud Solver"
-msgstr ""
+msgstr "Megacloud Çözücüyü Etkinleştir"
 
 msgctxt "#30127"
 msgid "Megacloud Solver url"
-msgstr ""
+msgstr "Megacloud Çözücü URL'si"
 
 msgctxt "#30128"
 msgid "Requires Megacloud Solver"
-msgstr ""
+msgstr "Megacloud Çözücü Gerektirir"
 
 ######DATABASE.PY######
 msgctxt "#30200"

@@ -1,3 +1,8 @@
+Changelog 0.5.39[20240105]:
+- Added Megacloud Solver Support
+- Modified Hosting Instructions
+- Updated embed extractor
+
 Changelog 0.5.38[20241227]:
 - Updated the Brazilian provider
 - Modified an embed scraper to pull qualities

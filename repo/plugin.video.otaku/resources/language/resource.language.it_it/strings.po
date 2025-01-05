@@ -102,19 +102,19 @@ msgstr "Timeout FlareSolverr"
 
 msgctxt "#30125"
 msgid "Megacloud Solver"
-msgstr ""
+msgstr "Risoluzione Megacloud"
 
 msgctxt "#30126"
 msgid "Enable Megacloud Solver"
-msgstr ""
+msgstr "Abilita risoluzione Megacloud"
 
 msgctxt "#30127"
 msgid "Megacloud Solver url"
-msgstr ""
+msgstr "URL risoluzione Megacloud"
 
 msgctxt "#30128"
 msgid "Requires Megacloud Solver"
-msgstr ""
+msgstr "Richiede risoluzione Megacloud"
 
 ######DATABASE.PY######
 msgctxt "#30200"

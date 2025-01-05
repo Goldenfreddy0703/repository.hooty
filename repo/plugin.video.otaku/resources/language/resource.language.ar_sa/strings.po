@@ -100,6 +100,22 @@ msgctxt "#30124"
 msgid "FlareSolverr Timeout"
 msgstr "مهلة FlareSolverr"
 
+msgctxt "#30125"
+msgid "Megacloud Solver"
+msgstr "محلل Megacloud"
+
+msgctxt "#30126"
+msgid "Enable Megacloud Solver"
+msgstr "تمكين محلل Megacloud"
+
+msgctxt "#30127"
+msgid "Megacloud Solver url"
+msgstr "رابط محلل Megacloud"
+
+msgctxt "#30128"
+msgid "Requires Megacloud Solver"
+msgstr "يتطلب محلل Megacloud"
+
 ######DATABASE.PY######
 msgctxt "#30200"
 msgid "Cache"

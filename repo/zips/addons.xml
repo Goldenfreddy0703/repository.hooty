@@ -1148,7 +1148,7 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.5.38">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.5.39">
   <requires>
     
     <import addon="script.module.beautifulsoup4" version="4.5.3" />
@@ -2246,7 +2246,7 @@ Initial release
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.otaku.mappings" version="24.12.01" name="Otaku Mappings" provider-name="TeamOtaku">
+</addon><addon id="script.otaku.mappings" version="25.01.05" name="Otaku Mappings" provider-name="TeamOtaku">
     <extension point="xbmc.python.module" library="lib" />
 	<extension point="xbmc.addon.metadata">
         <summary>Anime ID Mappings for Otaku Addon</summary>

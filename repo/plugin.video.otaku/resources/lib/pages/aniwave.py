@@ -161,7 +161,8 @@ class sources(BrowserBase):
                                     else:
                                         srclink = sresp
                                         subs = {}
-                                    res = self._get_request(srclink)
+                                    headers.update({'Origin': self._BASE_URL[:-1]})
+                                    res = self._get_request(srclink, headers=headers)
                                     quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).+\n(?!#)(.+)', res)
                                     for qual, qlink in quals:
                                         qual = int(qual)

@@ -92,6 +92,7 @@ class Sources(DisplayWindow):
         self.userlocalSources = []
         self.terminate_on_cloud = control.getSetting('general.terminate.oncloud') == 'true'
         self.terminate_on_local = control.getSetting('general.terminate.onlocal') == 'true'
+        self.mcs_enabled = control.getSetting('mcs_enable') == 'true'
 
     def getSources(self, args):
         query = args['query']
@@ -162,7 +163,7 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('animepahe')
 
-        if control.getSetting('provider.hianime') == 'true':
+        if control.getSetting('provider.hianime') == 'true' and self.mcs_enabled:
             self.threads.append(
                 threading.Thread(target=self.hianime_worker, args=(anilist_id, episode, get_backup, rescrape,)))
         else:

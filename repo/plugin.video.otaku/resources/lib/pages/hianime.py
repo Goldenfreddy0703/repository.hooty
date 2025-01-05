@@ -5,14 +5,12 @@ import re
 from bs4 import BeautifulSoup, SoupStrainer
 from six.moves import urllib_parse
 from resources.lib.ui import control, database
-from resources.lib.ui.jscrypto import jscrypto
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
     _BASE_URL = 'https://hianime.sx/' if control.getSetting('provider.hianimealt') == 'true' else 'https://hianime.to/'
-    js_file = 'https://megacloud.tv/js/player/a/prod/e1-player.min.js'
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
@@ -127,19 +125,10 @@ class sources(BrowserBase):
                             }
                             sources.append(source)
                         else:
-                            headers = {'Referer': slink}
-                            sl = urllib_parse.urlparse(slink)
-                            spath = sl.path.split('/')
-                            spath.insert(2, 'ajax')
-                            sid = spath.pop(-1)
-                            eurl = '{}://{}{}/getSources'.format(sl.scheme, sl.netloc, '/'.join(spath))
-                            params = {'id': sid}
-                            res = self._get_request(
-                                eurl,
-                                data=params,
-                                headers=headers,
-                                XHR=True
-                            )
+                            srclink = False
+                            params = {'url': slink, 'referer': self._BASE_URL}
+                            mcs_url = urllib_parse.urljoin(control.getSetting('mcs_url'), '/get')
+                            res = self._get_request(mcs_url, data=params)
                             res = json.loads(res)
                             subs = res.get('tracks')
                             if subs:
@@ -150,12 +139,12 @@ class sources(BrowserBase):
                             if res.get('outro'):
                                 skip.update({'outro': res.get('outro')})
                             if res.get('encrypted'):
-                                slink = self._process_link(res.get('sources'))
-                            else:
-                                slink = res.get('sources')[0].get('file')
-                            if not slink:
+                                srclink = self._process_link(res.get('sources'))
+                            elif res.get('sources'):
+                                srclink = res.get('sources')[0].get('file')
+                            if not srclink:
                                 continue
-                            res = self._get_request(slink, headers=headers)
+                            res = self._get_request(srclink, headers=headers)
                             quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).+\n(?!#)(.+)', res)
 
                             for qual, qlink in quals:
@@ -171,7 +160,7 @@ class sources(BrowserBase):
 
                                 source = {
                                     'release_title': '{0} - Ep {1}'.format(title, episode),
-                                    'hash': urllib_parse.urljoin(slink, qlink) + '|User-Agent=iPad',
+                                    'hash': urllib_parse.urljoin(srclink, qlink) + '|User-Agent=iPad',
                                     'type': 'direct',
                                     'quality': quality,
                                     'debrid_provider': '',
@@ -185,43 +174,3 @@ class sources(BrowserBase):
                                     source.update({'skip': skip})
                                 sources.append(source)
         return sources
-
-    def get_keyhints(self):
-        def to_int(num):
-            if num.startswith('0x'):
-                return int(num, 16)
-            return int(num)
-
-        def chunked(varlist, count):
-            return [varlist[i:i + count] for i in range(0, len(varlist), count)]
-
-        js = self._get_request(self.js_file)
-        cases = re.findall(r'switch\(\w+\){([^}]+?)partKey', js)[0]
-        vars = re.findall(r"\w+=(\w+)", cases)
-        consts = re.findall(r"((?:[,;\s]\w+=0x\w{1,2}){%s,})" % len(vars), js)[0]
-        indexes = []
-        for var in vars:
-            var_value = re.search(r',{0}=(\w+)'.format(var), consts)
-            if var_value:
-                indexes.append(to_int(var_value.group(1)))
-
-        return chunked(indexes, 2)
-
-    def _process_link(self, sources):
-        keyhints = database.get(self.get_keyhints, 0.2)
-        try:
-            key = ''
-            orig_src = sources
-            y = 0
-            for m, p in keyhints:
-                f = m + y
-                x = f + p
-                key += orig_src[f:x]
-                sources = sources.replace(orig_src[f:x], '')
-                y += p
-            sources = json.loads(jscrypto.decode(sources, key))
-            return sources[0].get('file')
-        except:
-            database.remove(self.get_keyhints)
-            control.log('decryption key not working')
-            return ''

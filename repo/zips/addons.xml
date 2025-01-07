@@ -1184,7 +1184,7 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.seren" version="3.0.62" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="3.0.62d" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -1194,6 +1194,8 @@ Initial release
         <import addon="script.module.inputstreamhelper" version="0.5.10" optional="true" />
         <import addon="script.module.unidecode" version="1.1.1" />
         <import addon="script.module.myconnpy" version="8.0.18" />
+        <import addon="script.module.pytz" version="2014.2" />
+        <import addon="script.module.infotagger" version="0.0.5" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="seren.py">
         <provides>video</provides>
@@ -1250,6 +1252,12 @@ Initial release
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
         <news>
+            Changelog 3.0.62d
+            [BUG] More Fixes for RD 
+            [FEATURE] Updated code spacing
+            [FEATURE] Deleted pytz directory
+            [PERFORMANCE] Removed RD ResolverFailure on failed magnet
+
             Changelog 3.0.62
             [BUG] Optimised RD fix implementation
             [BUG] Improved RD season pack handling

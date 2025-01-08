@@ -3736,3 +3736,28 @@ msgstr "Minimalny procent pozostały przed wyświetleniem okna dialogowego"
 msgctxt "#30652"
 msgid "Icon Only"
 msgstr "Tylko ikona"
+
+#: /resources/settings.xml:120
+msgctxt "#30653"
+msgid "Watchlist Sort Style"
+msgstr "Styl sortowania listy obserwowanych"
+
+#: /resources/settings.xml:125
+msgctxt "#30654"
+msgid "Recently Added"
+msgstr "Ostatnio dodane"
+
+#: /resources/settings.xml:126
+msgctxt "#30655"
+msgid "First Added"
+msgstr "Dodane jako pierwsze"
+
+#: /resources/settings.xml:2111
+msgctxt "#30656"
+msgid "Use Last Chapter Info When Available"
+msgstr "Użyj informacji z ostatniego rozdziału, gdy dostępne"
+
+#: /resources/settings.xml:1231
+msgctxt "#30657"
+msgid "Limit Next Up Episodes"
+msgstr "Ogranicz następne odcinki"

@@ -1,8 +1,14 @@
-Changelog 3.0.62d
-[BUG] More Fixes for RD 
-[FEATURE] Updated code spacing
-[FEATURE] Deleted pytz directory
-[PERFORMANCE] Removed RD ResolverFailure on failed magnet
+Changelog 3.0.65
+[BUG] Improved SQLite database lock handling
+[BUG] If you skip back to the start and stop playback will now stop trakt scrobble and remove playback history
+[BUG] Will no longer use stretched icon for fanart on menu items
+[PERFORMANCE] Will no longer remove trakt bookmark when starting playback
+[PERFORMANCE] Resuming playback will now seek faster
+[PERFORMANCE] Removed unnecessary error when RD magnet doesn't resolve
+[FEATURE] Can limit next up episodes by item limit
+[FEATURE] Added sorting options for watchlist
+[FEATURE] Can now use chapter info to trigger smartplay window
+[FEATURE] Added progress indicators
 
 Changelog 3.0.62
 [BUG] Optimised RD fix implementation

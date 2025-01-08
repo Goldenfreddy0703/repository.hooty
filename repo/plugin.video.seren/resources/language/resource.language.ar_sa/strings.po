@@ -3711,3 +3711,28 @@ msgstr "الحد الأدنى للنسبة المتبقية قبل إظهار ا
 msgctxt "#30652"
 msgid "Icon Only"
 msgstr "أيقونة فقط"
+
+#: /resources/settings.xml:120
+msgctxt "#30653"
+msgid "Watchlist Sort Style"
+msgstr "نمط ترتيب قائمة المشاهدة"
+
+#: /resources/settings.xml:125
+msgctxt "#30654"
+msgid "Recently Added"
+msgstr "أضيف مؤخرا"
+
+#: /resources/settings.xml:126
+msgctxt "#30655"
+msgid "First Added"
+msgstr "أضيف أولا"
+
+#: /resources/settings.xml:2111
+msgctxt "#30656"
+msgid "Use Last Chapter Info When Available"
+msgstr "استخدام معلومات الفصل الأخير عند توفرها"
+
+#: /resources/settings.xml:1231
+msgctxt "#30657"
+msgid "Limit Next Up Episodes"
+msgstr "تحديد الحلقات التالية"

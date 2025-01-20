@@ -148,6 +148,12 @@ class SimklWLF(WatchlistFlavorBase):
         anilist_id = show_ids.get('anilist', '')
         kitsu_id = show_ids.get('kitsu', '')
 
+        unique_ids = {
+            'mal_id': str(show_ids.get('mal', '')),
+            'anilist_id': str(show_ids.get('anilist', '')),
+            'kitsu_id': str(show_ids.get('kitsu', ''))
+        }
+
         show = database.get_show(anilist_id)
         if show:
             kodi_meta = pickle.loads(show['kodi_meta'])
@@ -163,7 +169,8 @@ class SimklWLF(WatchlistFlavorBase):
             'mediatype': 'tvshow',
             'year': res['show']['year'],
             'last_watched': res['last_watched_at'],
-            'user_rating': res['user_rating']
+            'user_rating': res['user_rating'],
+            'unique_ids': unique_ids
         }
 
         if res["total_episodes_count"] != 0 and res["watched_episodes_count"] == res["total_episodes_count"]:

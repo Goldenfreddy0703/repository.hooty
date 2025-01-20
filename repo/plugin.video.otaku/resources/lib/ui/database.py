@@ -780,7 +780,19 @@ def get_trakt_id(anilist_id):
     return mapping['trakt_id'] if mapping else None
 
 
-def get_all_ids(anilist_id):
+def get_all_ids_by_anilist_id(anilist_id):
+    return _get_all_ids('anilist_id', anilist_id)
+
+
+def get_all_ids_by_mal_id(mal_id):
+    return _get_all_ids('mal_id', mal_id)
+
+
+def get_all_ids_by_kitsu_id(kitsu_id):
+    return _get_all_ids('kitsu_id', kitsu_id)
+
+
+def _get_all_ids(id_type, id_value):
     control.mappingDB_lock.acquire()
     conn = db.connect(control.mappingDB, timeout=60.0)
     conn.row_factory = _dict_factory
@@ -788,7 +800,7 @@ def get_all_ids(anilist_id):
     cursor = conn.cursor()
     mapping = None
     all_ids = {}
-    db_query = 'SELECT * FROM anime WHERE anilist_id IN ({0})'.format(anilist_id)
+    db_query = f'SELECT * FROM anime WHERE {id_type} IN ({id_value})'
     cursor.execute(db_query)
     mapping = cursor.fetchone()
     cursor.close()

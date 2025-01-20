@@ -171,7 +171,8 @@ class KitsuWLF(WatchlistFlavorBase):
             'title': eres["attributes"]["titles"].get(self.__get_title_lang(), eres["attributes"]['canonicalTitle']),
             'mpaa': eres['attributes']['ageRating'],
             'trailer': 'plugin://plugin.video.youtube/play/?video_id={0}'.format(eres['attributes']['youtubeVideoId']),
-            'mediatype': 'tvshow'
+            'mediatype': 'tvshow',
+            'unique_ids': {'kitsu_id': str(eres['id'])}
         }
 
         if eres['attributes']['episodeCount'] != 0 and res["attributes"]["progress"] == eres['attributes']['episodeCount']:
@@ -232,7 +233,8 @@ class KitsuWLF(WatchlistFlavorBase):
             'tvshowtitle': anime_title,
             'plot': plot,
             'mediatype': 'episode',
-            'aired': aired
+            'aired': aired,
+            'unique_ids': {'kitsu_id': str(eres['id'])}
         }
 
         base = {

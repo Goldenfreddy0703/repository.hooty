@@ -126,7 +126,7 @@ def format_time(seconds):
 
 
 def get_unique_ids(anilist_id):
-    unique_ids = database.get_all_ids(anilist_id)
+    unique_ids = database.get_all_ids_by_anilist_id(anilist_id)
 
     if 'imdb' not in list(unique_ids.keys()):
         if unique_ids.get('tvdb'):

@@ -188,6 +188,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
             'mpaa': res['node'].get('rating'),
             'mediatype': 'tvshow',
             'studio': [x.get('name') for x in res['node']['studios']],
+            'unique_ids': {'mal_id': str(res['node']['id'])}
         }
 
         try:
@@ -248,7 +249,8 @@ class MyAnimeListWLF(WatchlistFlavorBase):
             'duration': res['node']['average_episode_duration'],
             'plot': plot,
             'mediatype': 'episode',
-            'aired': aired
+            'aired': aired,
+            'unique_ids': {'mal_id': str(res['node']['id'])}
         }
 
         base = {

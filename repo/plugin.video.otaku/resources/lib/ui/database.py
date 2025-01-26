@@ -800,7 +800,7 @@ def _get_all_ids(id_type, id_value):
     cursor = conn.cursor()
     mapping = None
     all_ids = {}
-    db_query = f'SELECT * FROM anime WHERE {id_type} IN ({id_value})'
+    db_query = 'SELECT * FROM anime WHERE {0} IN ({1})'.format(id_type, id_value)
     cursor.execute(db_query)
     mapping = cursor.fetchone()
     cursor.close()

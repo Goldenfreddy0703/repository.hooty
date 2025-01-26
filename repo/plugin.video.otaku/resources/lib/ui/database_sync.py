@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
-
 from resources.lib.ui import control
 from kodi_six import xbmcvfs
 

@@ -205,6 +205,7 @@
 		<setting id="embed.streamtape" type="bool" label="Streamtape" default="true" />
 		<setting id="embed.streamwish" type="bool" label="StreamWish" default="true" />
 		<setting id="embed.vidcdn" type="bool" label="VidCDN" default="true" />
+		<setting id="embed.vidhide" type="bool" label="Vidhide" default="true" />
 		<setting id="embed.vidplay" type="bool" label="Vidplay" default="true" />
 		<setting id="embed.vidstream" type="bool" label="Vidstream" default="true" />
 		<setting id="embed.yourupload" type="bool" label="YourUpload" default="true" />

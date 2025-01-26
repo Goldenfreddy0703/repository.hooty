@@ -1,5 +1,8 @@
+Changelog 0.5.42[20240126]:
+- Fixed Doodstreeam Embed
+
 Changelog 0.5.41[20240126]:
-- Fixed Goganime Embeds
+- Fixed Goganime Provider
 
 Changelog 0.5.40[20240120]:
 - Added Individual properties for each ID

@@ -5,49 +5,48 @@ import re
 from functools import partial
 
 from bs4 import BeautifulSoup
-from resources.lib.ui import control, database, source_utils
+from resources.lib.ui import control, database
 from resources.lib.ui.BrowserBase import BrowserBase
-from resources.lib.indexers.malsync import MALSYNC
 
 
 class sources(BrowserBase):
-    _BASE_URL = 'https://anitaku.to/' if control.getSetting('provider.gogoalt') == 'true' else 'https://gogoanime3.cc/'
+    _BASE_URL = 'https://gogoanime3.cc/' if control.getSetting('provider.gogoalt') == 'false' else 'https://anitaku.bz/'
 
     def get_sources(self, anilist_id, episode, get_backup):
         show = database.get_show(anilist_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
+        slugs = []
 
-        slugs = MALSYNC().get_slugs(anilist_id=anilist_id, site='Gogoanime')
-        if not slugs:
-            headers = {'Referer': self._BASE_URL}
-            params = {
-                'keyword': title,
-                'id': -1,
-                'link_web': self._BASE_URL
-            }
+        headers = {'Referer': self._BASE_URL}
+        params = {
+            'keyword': title,
+            'id': -1,
+            'link_web': self._BASE_URL
+        }
+        r = database.get(
+            self._get_request,
+            8,
+            'https://ajax.gogocdn.net/site/loadAjaxSearch',
+            data=params,
+            headers=headers
+        )
+        r = json.loads(r).get('content')
+
+        if not r and ':' in title:
+            title = title.split(':')[0]
+            params.update({'keyword': title})
             r = database.get(
                 self._get_request,
                 8,
-                'https://ajax.gogo-load.com/site/loadAjaxSearch',
+                'https://ajax.gogocdn.net/site/loadAjaxSearch',
                 data=params,
                 headers=headers
             )
             r = json.loads(r).get('content')
 
-            if not r and ':' in title:
-                title = title.split(':')[0]
-                params.update({'keyword': title})
-                r = database.get(
-                    self._get_request,
-                    8,
-                    'https://ajax.gogo-load.com/site/loadAjaxSearch',
-                    data=params,
-                    headers=headers
-                )
-                r = json.loads(r).get('content')
-
+        if r:
             soup = BeautifulSoup(r, 'html.parser')
             items = soup.find_all('div', {'class': 'list_search_ajax'})
             if len(items) == 1:
@@ -63,10 +62,10 @@ class sources(BrowserBase):
                     or ((item.a.text.strip().replace(' - ', ' ') + '  ').lower()).startswith((title + '  ').lower())
                     or (item.a.text.strip().replace(':', ' ') + '   ').startswith(title + '   ')
                 ]
+        if not slugs:
+            slugs = database.get(get_backup, 168, anilist_id, 'Gogoanime')
             if not slugs:
-                slugs = database.get(get_backup, 168, anilist_id, 'Gogoanime')
-                if not slugs:
-                    return []
+                return []
         slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
         mapfunc = partial(self._process_gogo, show_id=anilist_id, episode=episode)
         all_results = list(map(mapfunc, slugs))
@@ -76,6 +75,7 @@ class sources(BrowserBase):
     def _process_gogo(self, slug, show_id, episode):
         if slug.startswith('http'):
             slug = slug.split('/')[-1]
+        lang = 'dub' if '-dub' in slug else 'sub'
         url = "{0}{1}-episode-{2}".format(self._BASE_URL, slug, episode)
         headers = {'Referer': self._BASE_URL}
         title = (slug.replace('-', ' ')).title() + '  Episode-{0}'.format(episode)
@@ -100,7 +100,7 @@ class sources(BrowserBase):
                           'ep_end': episode,
                           'id': mid[0],
                           'alias': slug}
-                eurl = 'https://ajax.gogo-load.com/ajax/load-list-episode'
+                eurl = 'https://ajax.gogocdn.net/ajax/load-list-episode'
                 r2 = self._get_request(eurl, data=params, headers=headers)
                 soup2 = BeautifulSoup(r2, 'html.parser')
                 eslug = soup2.find('a')
@@ -128,8 +128,8 @@ class sources(BrowserBase):
                     'debrid_provider': '',
                     'provider': 'gogo',
                     'size': 'NA',
-                    'info': source_utils.getInfo(slug) + [server],
-                    'lang': source_utils.getAudio_lang(title)
+                    'info': ['{} {}'.format(server.upper(), lang.upper())],
+                    'lang': 2 if lang == 'dub' else 0
                 }
                 sources.append(source)
 

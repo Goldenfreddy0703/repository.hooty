@@ -1,3 +1,6 @@
+Changelog 0.5.41[20240126]:
+- Fixed Goganime Embeds
+
 Changelog 0.5.40[20240120]:
 - Added Individual properties for each ID
 

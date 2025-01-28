@@ -1,7 +1,7 @@
 import threading
 import time
 
-from resources.lib.pages import nyaa, animetosho, animixplay, debrid_cloudfiles, \
+from resources.lib.pages import nyaa, animetosho, debrid_cloudfiles, \
     aniwave, gogoanime, animepahe, hianime, animess, animelatino, animecat, aniplay, \
     local_localfiles
 from resources.lib.ui import control
@@ -48,7 +48,7 @@ class Sources(DisplayWindow):
         self.cloud_files = []
         self.local_files = []
         self.remainingProviders = [
-            'nyaa', 'animetosho', 'aniwave', 'gogo', 'animix',
+            'nyaa', 'animetosho', 'aniwave', 'gogo',
             'animepahe', 'h!anime', 'animesfhd', 'animelatino',
             'nekosama', 'aniplay', 'Local Inspection', 'Cloud Inspection'
         ]
@@ -80,7 +80,7 @@ class Sources(DisplayWindow):
         self.animetoshoSources = []
         self.gogoSources = []
         self.aniwaveSources = []
-        self.animixplaySources = []
+        # self.animixplaySources = []
         self.animepaheSources = []
         self.hianimeSources = []
         self.animessSources = []
@@ -151,11 +151,11 @@ class Sources(DisplayWindow):
         else:
             self.remainingProviders.remove('aniwave')
 
-        if control.getSetting('provider.animix') == 'true':
-            self.threads.append(
-                threading.Thread(target=self.animixplay_worker, args=(anilist_id, episode, get_backup, rescrape,)))
-        else:
-            self.remainingProviders.remove('animix')
+        # if control.getSetting('provider.animix') == 'true':
+        #     self.threads.append(
+        #         threading.Thread(target=self.animixplay_worker, args=(anilist_id, episode, get_backup, rescrape,)))
+        # else:
+        #     self.remainingProviders.remove('animix')
 
         if control.getSetting('provider.animepahe') == 'true':
             self.threads.append(
@@ -286,11 +286,11 @@ class Sources(DisplayWindow):
                         control.setSetting('aniwave.skipoutro.end', str(x['skip']['outro']['end']))
         self.remainingProviders.remove('aniwave')
 
-    def animixplay_worker(self, anilist_id, episode, get_backup, rescrape):
-        if not rescrape:
-            self.animixplaySources = animixplay.sources().get_sources(anilist_id, episode, get_backup)
-            self.embedSources += self.animixplaySources
-        self.remainingProviders.remove('animix')
+    # def animixplay_worker(self, anilist_id, episode, get_backup, rescrape):
+    #     if not rescrape:
+    #         self.animixplaySources = animixplay.sources().get_sources(anilist_id, episode, get_backup)
+    #         self.embedSources += self.animixplaySources
+    #     self.remainingProviders.remove('animix')
 
     def animepahe_worker(self, anilist_id, episode, get_backup, rescrape):
         if not rescrape:

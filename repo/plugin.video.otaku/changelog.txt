@@ -1,3 +1,6 @@
+Changelog 0.5.43[20240126]:
+- Disabled Animix Due to Problems
+
 Changelog 0.5.42[20240126]:
 - Fixed Doodstreeam Embed
 

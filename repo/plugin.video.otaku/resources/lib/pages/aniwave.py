@@ -130,7 +130,7 @@ class sources(BrowserBase):
                     for src in srcs:
                         edata_id = src.get('data-link-id')
                         edata_name = src.text
-                        if self.clean_title(edata_name) in control.enabled_embeds():
+                        if any(x in self.clean_title(edata_name) for x in control.enabled_embeds()):
                             vrf = self.generate_vrf(edata_id)
                             params = {'vrf': vrf}
                             r = self._get_request(
@@ -183,7 +183,7 @@ class sources(BrowserBase):
                                             'debrid_provider': '',
                                             'provider': 'aniwave',
                                             'size': 'NA',
-                                            'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
+                                            'info': ['{0} {1}'.format(edata_name, lang)],
                                             'lang': 2 if lang == 'dub' else 0
                                         }
                                         if subs:
@@ -200,7 +200,7 @@ class sources(BrowserBase):
                                     'debrid_provider': '',
                                     'provider': 'aniwave',
                                     'size': 'NA',
-                                    'info': [lang, edata_name],
+                                    'info': ['{0} {1}'.format(edata_name, lang)],
                                     'lang': 2 if lang == 'dub' else 0
                                 }
                                 if skip:

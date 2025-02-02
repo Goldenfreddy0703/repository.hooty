@@ -10,8 +10,6 @@ import xbmcgui
 from dateutil import tz
 from kodi_six import xbmc, xbmcaddon, xbmcplugin, xbmcvfs
 from six.moves import urllib_parse
-from resources.lib.ui import database
-
 
 try:
     HANDLE = int(sys.argv[1])
@@ -310,21 +308,6 @@ def update_listitem(li, infoLabels):
         labels = infoLabels.copy()
         cast2 = labels.pop('cast2') if 'cast2' in labels.keys() else []
         unique_ids = labels.pop('unique_ids') if 'unique_ids' in labels.keys() else {}
-
-        # Retrieve additional IDs using anilist_id
-        anilist_id = unique_ids.get('anilist_id')
-        mal_id = unique_ids.get('mal_id')
-        kitsu_id = unique_ids.get('kitsu_id')
-
-        if anilist_id:
-            additional_ids = database.get_all_ids_by_anilist_id(anilist_id)
-            unique_ids.update(additional_ids)
-        if mal_id:
-            additional_ids = database.get_all_ids_by_mal_id(mal_id)
-            unique_ids.update(additional_ids)
-        if kitsu_id:
-            additional_ids = database.get_all_ids_by_kitsu_id(kitsu_id)
-            unique_ids.update(additional_ids)
 
         if _kodiver > 19.8:
             vtag = li.getVideoInfoTag()

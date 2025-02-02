@@ -4508,10 +4508,8 @@ class AniListBrowser():
         if res.get('relationType'):
             title += ' [COLOR limegreen][I]{0}[/I][/COLOR]'.format(res.get('relationType'))
 
-        info = {
-            'unique_ids': {'anilist_id': str(res['id'])}
-        }
-
+        info = {'unique_ids': {'anilist_id': str(res['id'])}}
+        info['unique_ids'].update(database.get_all_ids_by_anilist_id(str(res['id'])))
         info['genre'] = res.get('genres')
 
         desc = res.get('description')

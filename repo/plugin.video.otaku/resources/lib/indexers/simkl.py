@@ -63,6 +63,7 @@ class SIMKLAPI:
             'tvshowtitle': tvshowtitle,
             'mediatype': 'episode'
         }
+        info['unique_ids'].update(database.get_all_ids_by_anilist_id(str(anilist_id)))
 
         if eps_watched:
             if int(eps_watched) >= res['episode']:

@@ -153,6 +153,9 @@ class SimklWLF(WatchlistFlavorBase):
             'anilist_id': str(show_ids.get('anilist', '')),
             'kitsu_id': str(show_ids.get('kitsu', ''))
         }
+        unique_ids.update(database.get_all_ids_by_mal_id(str(show_ids.get('mal', ''))))
+        unique_ids.update(database.get_all_ids_by_anilist_id(str(show_ids.get('anilist', ''))))
+        unique_ids.update(database.get_all_ids_by_kitsu_id(str(show_ids.get('kitsu', ''))))
 
         show = database.get_show(anilist_id)
         if show:
@@ -263,7 +266,7 @@ class SimklWLF(WatchlistFlavorBase):
         # }
         # return anime_entry
 
-    def save_completed(self):    
+    def save_completed(self):
         data = self.get_all_items('completed')
         completed = {}
         for dat in data['anime']:

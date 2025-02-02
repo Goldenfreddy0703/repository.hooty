@@ -174,6 +174,7 @@ class KitsuWLF(WatchlistFlavorBase):
             'mediatype': 'tvshow',
             'unique_ids': {'kitsu_id': str(eres['id'])}
         }
+        info['unique_ids'].update(database.get_all_ids_by_kitsu_id(str(eres['id'])))
 
         if eres['attributes']['episodeCount'] != 0 and res["attributes"]["progress"] == eres['attributes']['episodeCount']:
             info['playcount'] = 1
@@ -236,6 +237,7 @@ class KitsuWLF(WatchlistFlavorBase):
             'aired': aired,
             'unique_ids': {'kitsu_id': str(eres['id'])}
         }
+        info['unique_ids'].update(database.get_all_ids_by_kitsu_id(str(eres['id'])))
 
         base = {
             "name": title,
@@ -309,7 +311,7 @@ class KitsuWLF(WatchlistFlavorBase):
                     completed[str(anilist_id)] = dat['attributes']['progress']
                 except KeyError:
                     pass
-    
+
         with open(control.completed_json, 'w') as file:
             json.dump(completed, file)
 

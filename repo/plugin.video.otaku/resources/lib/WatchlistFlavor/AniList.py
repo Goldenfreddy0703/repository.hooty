@@ -196,7 +196,7 @@ class AniListWLF(WatchlistFlavorBase):
                 if entrie not in entries:
                     entries.append(entrie)
         get_meta.collect_meta(entries)
-        
+
         if control.getSetting('anilist.order') == '0':
             all_results = map(self._base_next_up_view, reversed(entries)) if next_up else map(self._base_watchlist_status_view, reversed(entries))
         else:
@@ -204,7 +204,7 @@ class AniListWLF(WatchlistFlavorBase):
 
         all_results = [i for i in all_results if i is not None]
         all_results = list(itertools.chain(*all_results))
-        
+
         return all_results
 
     def _base_watchlist_status_view(self, res):
@@ -225,6 +225,7 @@ class AniListWLF(WatchlistFlavorBase):
             'country': res.get('countryOfOrigin', ''),
             'studio': [x['node'].get('name') for x in res['studios'].get('edges')]
         }
+        info['unique_ids'].update(database.get_all_ids_by_anilist_id(str(anilist_id)))
 
         if res['episodes'] != 0 and progress == res['episodes']:
             info['playcount'] = 1
@@ -342,6 +343,7 @@ class AniListWLF(WatchlistFlavorBase):
             'mediatype': 'episode',
             'aired': aired
         }
+        info['unique_ids'].update(database.get_all_ids_by_anilist_id(str(anilist_id)))
 
         base = {
             "name": title,
@@ -410,7 +412,7 @@ class AniListWLF(WatchlistFlavorBase):
         }
 
         return anime_entry
-    
+
     def save_completed(self):
         data = self.get_user_anime_list('COMPLETED')
         completed = {}

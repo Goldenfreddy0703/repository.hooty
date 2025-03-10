@@ -1,0 +1,22 @@
+Welcome to Otaku's Testing Addon!
+
+Hi everyone,
+
+Thank you for checking out Otaku's new testing addon. This version is a complete recode, offering more features than the original, with support for Kodi 20 and above. It will soon become the main public release.
+
+Please note that this version is still in development, so you may encounter a few bugs. If you do, we encourage you to report them on GitHub and specify the repository you used.
+
+New in this version:
+
+    - Every Debrid and Cloud Service are now Fixed thanks to @joezito129 and @adamosborne83
+    - Flitering has been improved significantly to help with scraping
+    - MyAnimeList (MAL) menus (AniList menus are still available)
+    - New sorting system for more precise control over your content
+    - Reuse Language Invoker support for faster, more efficient performance
+    - New menu settings for more customization
+
+You might also notice some anime missing; this is because we're primarily using MAL IDs to streamline episode metadata, ensuring fewer issues for users.
+
+A huge thank you to the entire Otaku development team and everyone who contributed to this release! Special shoutout to Joezito129, who led the recode and added many of these awesome features. We couldn’t have done it without the team's hard work and dedication!
+
+Another huge thank you to @adamosborne83 for letting me use his Real-Debrid and AllDebrid Account!

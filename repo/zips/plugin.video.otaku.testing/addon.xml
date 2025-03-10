@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.1.76">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.beautifulsoup4"/>
+    <import addon="script.module.inputstreamhelper"/>
+    <import addon="context.otaku.testing" version="1.0.26"/>
+  </requires>
+  <extension library="default.py" point="xbmc.python.pluginsource">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py"/>
+  <extension point="xbmc.addon.metadata">
+    <reuselanguageinvoker>false</reuselanguageinvoker> <!-- You can enable this if you want, expect some instability but much faster menu speeds -->
+    <summary lang="en">Otaku video plugin</summary>
+    <description lang="en">Otaku is a provider based, streaming software that is tightly
+            interwoven with Mal. Otaku provides the freedom to view media from a single menu system from service
+            providers of the users choosing. Please Note: We do not host, create, or distribute any of the content displayed in the addon.
+    </description>
+    <platform>all</platform>
+    <disclaimer>Otaku is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.[CR]This addon and its developers [B]DO NOT[/B] host, create, or distribute any of the content displayed in the addon, it simply scrapes ad financed public websites. It is the responsibility of the user to ensure that they are following all applicable laws and regulations in their country.[CR]This addon and its developers are not in any way affiliated with Team Kodi or any of the sites and providers used in the addon.</disclaimer>
+    <license>GPL-3.0</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+      <clearlogo>logo.png</clearlogo>
+      <poster>poster.png</poster>
+      <screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+      <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
+    </assets>
+  </extension>
+</addon>

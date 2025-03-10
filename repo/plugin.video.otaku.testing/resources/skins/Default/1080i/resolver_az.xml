@@ -1,0 +1,91 @@
+<window type="dialog">
+<onload>Skin.SetString(otakufile,$INFO[Window().Property(release_title)])</onload>
+    <defaultcontrol>2</defaultcontrol>
+    <controls>
+        <!-- Background Texture -->
+        <control type="image">
+            <texture>white.png</texture>
+            <colordiffuse>FF000000</colordiffuse>
+        </control>
+        <control type="list" id="1100">
+        </control>
+        <!-- Fanart -->
+        <control type="image">
+            <top>0</top>
+            <left>0</left>
+            <width>1920</width>
+            <height>1080</height>
+            <texture background="true">$INFO[Window().Property(item.art.fanart)]</texture>
+        </control>
+
+        <!-- Background -->
+        <control type="image">
+            <top>0</top>
+            <left>0</left>
+            <width>1920</width>
+            <height>1080</height>
+            <texture background="true">white.png</texture>
+            <colordiffuse>CC000000</colordiffuse>
+        </control>
+
+        <!-- Clear Logo -->
+        <control type="image" id="1001">
+            <top>-150</top>
+            <left>700</left>
+            <width>500</width>
+            <aspectratio>keep</aspectratio>
+            <texture>$INFO[Window().Property(item.art.clearlogo)]</texture>
+        </control>
+
+        <control type="label">
+            <left>0</left>
+            <top>300</top>
+            <width>100%</width>
+            <font>font12</font>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>FFDDDDDD</textcolor>
+            <label>$INFO[Window().Property(notification_text)]</label>
+        </control>
+
+        <!-- Information -->
+        <control type="group">
+            <left>760</left>
+            <top>550</top>
+            <width>100%</width>
+            <control type="label">
+                <top>50</top>
+                <left>-760</left>
+                <width>1920</width>
+                <font>font12</font>
+                <align>center</align>
+                <aligny>center</aligny>
+                <width>auto</width>
+                <textcolor>FFDDDDDD</textcolor>
+                <label>[COLOR deepskyblue]$INFO[Window().Property(release_title)][/COLOR]</label>
+            </control>
+            <control type="label">
+                <top>100</top>
+                <left>-760</left>
+                <width>1920</width>
+                <font>font12</font>
+                <align>center</align>
+                <aligny>center</aligny>
+                <width>auto</width>
+                <textcolor>FFDDDDDD</textcolor>
+                <label>Provider: [UPPERCASE][COLORdeepskyblue]$INFO[Window().Property(debrid_provider)][/COLOR][/UPPERCASE] | Source:  [UPPERCASE][COLORdeepskyblue]$INFO[Window().Property(source_provider)][/COLOR][/UPPERCASE]</label>
+            </control>
+            <control type="label">
+                <top>150</top>
+                <left>-760</left>
+                <width>1920</width>
+                <font>font12</font>
+                <align>center</align>
+                <aligny>center</aligny>
+                <width>auto</width>
+                <textcolor>FFDDDDDD</textcolor>
+                <label>Resolution: [UPPERCASE][COLORdeepskyblue]$INFO[Window().Property(source_resolution)][/COLOR][UPPERCASE] | Info: [UPPERCASE][COLORdeepskyblue]$INFO[Window().Property(source_info)][/COLOR][/UPPERCASE]</label>
+            </control>
+        </control>
+    </controls>
+</window>

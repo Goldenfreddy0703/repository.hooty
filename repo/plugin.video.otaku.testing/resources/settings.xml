@@ -1,0 +1,3438 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="otaku">
+        <!-- General -->
+        <category id="general" label="30300" help="">
+            <!-- General Customization -->
+            <group id="1" label="30545">
+                <setting id="titlelanguage" type="integer" label="30301" help="">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints>
+                        <options>
+                            <option label="Romaji (Shingeki no Kyojin)">0</option>
+                            <option label="English (Attack on Titan)">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="searchhistory" type="integer" label="30302" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Yes">0</option>
+                            <option label="No">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="showchangelog" type="integer" label="30529" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Yes">0</option>
+							<option label="No">1</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="general.smart.scroll.enable" type="boolean" label="30303" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="smart.scroll.direction" type="integer" label="30531" help="" parent="general.smart.scroll.enable">
+					<level>0</level>
+					<default>0</default>
+                    <dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.smart.scroll.enable">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="30532">0</option>
+							<option label="30533">1</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="interface.watchlist.data" type="boolean" label="30314" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="interface.cleantitles" type="boolean" label="30315" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="interface.content_type" type="boolean" label="30642" help="30643">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+                <setting id="interface.viewtype" type="boolean" label="30537" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="interface.viewidswitch" type="boolean" label="30513" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="interface.viewtype">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="interface.addon.view" type="string" label="30514" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>Default</default>
+					<constraints>
+						<options>
+							<option label="30520">Default</option>
+							<option label="30521">Poster</option>
+							<option label="30522">Icon Wall</option>
+							<option label="30523">Shift</option>
+							<option label="30524">Info Wall</option>
+							<option label="30525">Wide List</option>
+							<option label="30526">Wall</option>
+							<option label="30527">Banner</option>
+							<option label="30528">Fanart</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">false</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="interface.show.view" type="string" label="30515" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>Default</default>
+					<constraints>
+						<options>
+							<option label="30520">Default</option>
+							<option label="30521">Poster</option>
+							<option label="30522">Icon Wall</option>
+							<option label="30523">Shift</option>
+							<option label="30524">Info Wall</option>
+							<option label="30525">Wide List</option>
+							<option label="30526">Wall</option>
+							<option label="30527">Banner</option>
+							<option label="30528">Fanart</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">false</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="interface.episode.view" type="string" label="30516" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>Default</default>
+					<constraints>
+						<options>
+							<option label="30520">Default</option>
+							<option label="30521">Poster</option>
+							<option label="30522">Icon Wall</option>
+							<option label="30523">Shift</option>
+							<option label="30524">Info Wall</option>
+							<option label="30525">Wide List</option>
+							<option label="30526">Wall</option>
+							<option label="30527">Banner</option>
+							<option label="30528">Fanart</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">false</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="interface.addon.view.id" type="integer" label="30517" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">true</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>30517</heading>
+					</control>
+				</setting>
+				<setting id="interface.show.view.id" type="integer" label="30518" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">true</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>30518</heading>
+					</control>
+				</setting>
+				<setting id="interface.episode.view.id" type="integer" label="30519" help="" parent="interface.viewtype">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="interface.viewidswitch">true</condition>
+								<condition operator="is" setting="interface.viewtype">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>30519</heading>
+					</control>
+				</setting>
+            </group>
+
+            <!-- Meta Api Customization -->
+            <group id="2" label="30330" help="">
+                <setting id="browser.api" type="string" label="30330" help="">
+                    <level>3</level>
+                    <default>mal</default>
+                    <constraints>
+                        <options>
+                            <option label="MAL">mal</option>
+                            <option label="Anilist">anilist</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="override.meta.api" type="boolean" label="30305" help="">
+                    <level>3</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="meta.api" type="string" label="30305" help="" parent="override.meta.api">
+                    <level>3</level>
+                    <default>simkl</default>
+                    <constraints>
+                        <options>
+                            <option label="simkl">simkl</option>
+                            <option label="anizip">anizip</option>
+                            <option label="jikanmoe">jikanmoe</option>
+                            <option label="anidb">anidb</option>
+                            <option label="kitsu">kitsu</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="override.meta.api">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="override.meta.notify" type="boolean" label="30575" help="" parent="override.meta.api">
+                    <level>3</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="override.meta.api">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Content Customization -->
+            <group id="3" label="30382" help="">
+                <setting id="interface.perpage.general.anilist" type="integer" label="30307" help="">
+                    <level>0</level>
+                    <default>20</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>50</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="browser.api">anilist</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="interface.perpage.general.mal" type="integer" label="30307" help="">
+                    <level>0</level>
+                    <default>20</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>25</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="browser.api">mal</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="interface.perpage.watchlist" type="integer" label="30308" help="">
+                    <level>0</level>
+                    <default>100</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>100</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                <setting id="interface.check.updates" type="integer" label="30309" help="">
+                    <level>0</level>
+                    <default>5</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>30</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                <setting id="divflavors.dubonly" type="boolean" label="30393" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="divflavors.showdub" type="boolean" label="30394" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+				<setting id="contentyear.bool" type="boolean" label="30607" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="contentyear.menu" type="integer" label="30608" help="" parent="contentyear.bool">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="contentyear.bool">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>30608</heading>
+					</control>
+				</setting>
+				<setting id="contentseason.bool" type="boolean" label="30609" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="contentseason.menu" type="integer" label="30610" help="" parent="contentseason.bool">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30611">0</option>
+							<option label="30612">1</option>
+							<option label="30613">2</option>
+							<option label="30614">3</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="contentseason.bool">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="contentformat.bool" type="boolean" label="30372" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="contentformat.menu" type="integer" label="30373" help="" parent="contentformat.bool">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30374">0</option>
+                            <option label="30375">1</option>
+                            <option label="30376">2</option>
+                            <option label="30377">3</option>
+                            <option label="30378">4</option>
+                            <option label="30379">5</option>
+                            <option label="30380">6</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  	<dependencies>
+                        <dependency type="visible" setting="contentformat.bool">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentstatus.bool" type="boolean" label="30581" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="contentstatus.menu.anilist" type="integer" label="30582" help="" parent="contentstatus.bool">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30583">0</option>
+                            <option label="30586">1</option>
+                            <option label="30587">2</option>
+                            <option label="30588">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  	<dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="browser.api">anilist</condition>
+                                <condition setting="contentstatus.bool">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentstatus.menu.mal" type="integer" label="30582" help="" parent="contentstatus.bool">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30583">0</option>
+                            <option label="30584">1</option>
+                            <option label="30585">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  	<dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="browser.api">mal</condition>
+                                <condition setting="contentstatus.bool">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentrating.bool" type="boolean" label="30589" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="browser.api">mal</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentrating.menu.mal" type="integer" label="30590" help="" parent="contentrating.bool">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30591">0</option>
+                            <option label="30592">1</option>
+                            <option label="30593">2</option>
+                            <option label="30594">3</option>
+                            <option label="30595">4</option>
+                            <option label="30596">5</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  	<dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="browser.api">mal</condition>
+                                <condition setting="contentrating.bool">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentorigin.bool" type="boolean" label="30385" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="browser.api">anilist</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="contentorigin.menu" type="integer" label="30386" help="" parent="contentorigin.bool">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30387">0</option>
+                            <option label="30388">1</option>
+                            <option label="30389">2</option>
+                            <option label="30390">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  	<dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="browser.api">anilist</condition>
+                                <condition setting="contentorigin.bool">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+				<setting id="contentgenre.bool" type="boolean" label="30615" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+                <setting id="contentgenre.menu" type="action" label="30616" help="" parent="contentgenre.bool">
+					<level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/update_genre_settings?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>false</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="contentgenre.bool">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="jz.dub" type="boolean" label="30320" help="">
+                    <level>3</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="jz.dub.api" type="integer" label="30321" help="" parent="jz.dub">
+                    <level>3</level>
+                    <default>1</default>
+                    <constraints>
+                        <options>
+                            <option label="Teamup">0</option>
+                            <option label="Animeschedule">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="integer"/>
+                    <dependencies>
+                        <dependency type="visible" setting="jz.dub">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="jz.filler" type="boolean" label="30322" help="">
+                    <level>3</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <!-- Artwork Customization -->
+            <group id="4" label="30306" help="">
+                <setting id="interface.icons" type="string" label="30319" help="">
+					<level>0</level>
+					<default>colouredv2</default>
+					<constraints>
+						<options>
+							<option label="Coloured">coloured</option>
+							<option label="White">white</option>
+							<option label="Exodus">exodus</option>
+							<option label="Seren">seren</option>
+							<option label="ColouredV2">colouredv2</option>
+							<option label="WhiteV2">whitev2</option>
+							<option label="ExodusV2">exodusv2</option>
+							<option label="SerenV2">serenv2</option>
+						</options>
+					</constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="general.dialog" type="integer" label="30534" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Default">0</option>
+							<option label="Arctic Horizon 2">1</option>
+							<option label="AuraMod">2</option>
+							<option label="Arctic Fuse">3</option>
+                            <option label="Arctic Fuse 2">4</option>
+							<option label="Arctic Zephyr - Reloaded">5</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="general.malposters" type="boolean" label="30645" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="browser.api">anilist</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="interface.fanart.disable" type="boolean" label="30317" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="interface.clearlogo.disable" type="boolean" label="30318" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <!-- Widgets -->
+            <group id="5" label="30510" help="">
+                <setting id="widget.hide.nextpage" type="boolean" label="30511" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <!-- Miscellaneous -->
+            <group id="6" label="30536">
+				<setting id="download_manager_miscellaneous" type="action" label="30016" help="">
+					<level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+				</setting>
+				<setting id="download.location" type="path" label="30304" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+                        <writable>true</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="path">
+						<heading>30304</heading>
+					</control>
+				</setting>
+            </group>
+        </category>
+
+        <!-- Providers -->
+        <category id="Providers" label="30045" help="">
+            <!-- Torrents -->
+            <group id="1" label="30332" help="">
+                <setting id="provider.nyaa" type="boolean" label="30400" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="provider.nyaaalt" type="boolean" label="30414" help="" parent="provider.nyaa">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.nyaa">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="provider.animetosho" type="boolean" label="30401" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="animetosho.paging" type="integer" label="30640" help="30641" parent="provider.animetosho">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>15</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.animetosho">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Embeds -->
+            <group id="2" label="30333" help="">
+                <setting id="embed.config" type="list[string]" label="30644" help="">
+                    <level>0</level>
+                    <default>doodstream,filelions,filemoon,hd-2,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</default>
+                    <constraints>
+                        <options sort="ascending">
+                            <option>doodstream</option>
+                            <option>filelions</option>
+                            <option>filemoon</option>
+                            <option>hd-2</option>
+                            <option>iga</option>
+                            <option>kwik</option>
+                            <option>megaf</option>
+                            <option>moonf</option>
+                            <option>mp4upload</option>
+                            <option>mp4u</option>
+                            <option>mycloud</option>
+                            <option>noads</option>
+                            <option>noadsalt</option>
+                            <option>swish</option>
+                            <option>streamtape</option>
+                            <option>streamwish</option>
+                            <option>vidcdn</option>
+                            <option>vidhide</option>
+                            <option>vidplay</option>
+                            <option>vidstream</option>
+                            <option>yourupload</option>
+                            <option>zto</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30644</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="provider.animepahe" type="boolean" label="30404" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <!-- <setting id="provider.animix" type="boolean" label="30405" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="provider.animixalt" type="boolean" label="30413" help="" parent="provider.animix">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.animix">true</dependency>
+                    </dependencies>
+                </setting> -->
+                <setting id="provider.aniwave" type="boolean" label="30406" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="provider.gogo" type="boolean" label="30403" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="provider.gogoalt" type="boolean" label="30412" help="" parent="provider.gogo">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.gogo">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="provider.hianime" type="boolean" label="30402" help="30634">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="provider.hianimealt" type="boolean" label="30411" help="30634" parent="provider.hianime">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.hianime">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Scraping -->
+        <category id="Scraping" label="30538" help="">
+            <!-- General Scraping -->
+            <group id="1" label="30539" help="">
+                <setting id="general.autotrynext" type="boolean" label="30350" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="general.timeout" type="integer" label="30392" help="">
+                    <level>0</level>
+                    <default>10</default>
+                    <constraints>
+                        <minimum>2</minimum>
+                        <step>1</step>
+                        <maximum>60</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                        <heading>30392</heading>
+                    </control>
+                </setting>
+                <setting id="general.terminate.oncloud" type="boolean" label="30351" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="general.terminate.onlocal" type="boolean" label="30540" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <!-- Torrent Scraping -->
+            <group id="3" label="30574" help="">
+                <setting id="show.uncached" type="boolean" label="30364" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="uncached.autoruninforground" type="boolean" label="30617" help="" parent="show.uncached">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="show.uncached">true</dependency>
+                        <dependency type="enable" setting="uncached.autoruninbackground">false</dependency>
+                        <dependency type="enable" setting="uncached.autoskipuncached">false</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="uncached.autoruninbackground" type="boolean" label="30635" help="" parent="show.uncached">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="show.uncached">true</dependency>
+                        <dependency type="enable" setting="uncached.autoruninforground">false</dependency>
+                        <dependency type="enable" setting="uncached.autoskipuncached">false</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="uncached.autoskipuncached" type="boolean" label="30652" help="" parent="show.uncached">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="show.uncached">true</dependency>
+                        <dependency type="enable" setting="uncached.autoruninforground">false</dependency>
+                        <dependency type="enable" setting="uncached.autoruninbackground">false</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Cloud Scraping -->
+            <group id="4" label="30541" help="">
+                <setting id="realdebrid.cloudInspection" type="boolean" label="30190" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="premiumize.cloudInspection" type="boolean" label="30191" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="alldebrid.cloudInspection" type="boolean" label="30192" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="torbox.cloudInspection" type="boolean" label="30624" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+				</setting>
+            </group>
+
+            <!-- Local Scraping -->
+            <group id="5" label="30542" help="">
+                <setting id="provider.localfiles" type="boolean" label="30410" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="folder.location" type="path" label="30543" help="" parent="provider.localfiles">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <writable>true</writable>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="path">
+                        <heading>30543</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="provider.localfiles">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Playback -->
+        <category id="Playback" label="30345" help="">
+            <!-- General Playback -->
+            <group id="1" label="30544" help="">
+                <setting id="general.playstyle.movie" type="integer" label="30346" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30348">0</option>
+                            <option label="30349">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="general.playstyle.episode" type="integer" label="30347" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="30348">0</option>
+                            <option label="30349">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+            </group>
+
+            <!-- Media Playback -->
+            <group id="2" label="30530" help="">
+                <setting id="general.kodi_language" type="boolean" label="30550" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.audio" type="integer" label="30551" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Japanese">0</option>
+							<option label="English">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+                        <dependency type="enable" setting="general.kodi_language">false</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.subtitles" type="integer" label="30552" help="">
+					<level>0</level>
+					<default>1</default>
+					<constraints>
+						<options>
+							<option label="None">0</option>
+							<option label="English">1</option>
+							<option label="Japanese">2</option>
+							<option label="Spanish">3</option>
+							<option label="French">4</option>
+							<option label="German">5</option>
+							<option label="Italian">6</option>
+							<option label="Dutch">7</option>
+							<option label="Russian">8</option>
+							<option label="Portuguese">9</option>
+							<option label="Korean">10</option>
+							<option label="Chinese">11</option>
+							<option label="Arabic">12</option>
+							<option label="Hindi">13</option>
+							<option label="Turkish">14</option>
+							<option label="Polish">15</option>
+							<option label="Swedish">16</option>
+							<option label="Norwegian">17</option>
+							<option label="Danish">18</option>
+							<option label="Finnish">19</option>
+						</options>
+					</constraints>
+					<dependencies>
+                        <dependency type="enable" setting="general.kodi_language">false</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="general.subtitles.keyword" type="boolean" label="30625" help="">
+                    <level>1</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+					<dependencies>
+                        <dependency type="enable" setting="general.kodi_language">false</dependency>
+					</dependencies>
+                </setting>
+                <setting id="subtitles.keywords" type="integer" label="30626" help="" parent="general.subtitles.keyword">
+                    <level>1</level>
+                    <default>1</default>
+                    <constraints>
+                        <options>
+                            <option label="30627">1</option>
+                            <option label="30628">2</option>
+                            <option label="30629">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="general.subtitles.keyword">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="subtitles.customkeyword" type="string" label="30630" help="" parent="general.subtitles.keyword">
+                    <level>1</level>
+                    <default/>
+	                <constraints>
+	                	<allowempty>true</allowempty>
+	                </constraints>
+	                <control type="edit" format="string">
+	                	<heading>30630</heading>
+	                	<hidden>false</hidden>
+	                </control>
+                    <dependencies>
+                        <dependency type="visible" setting="general.subtitles.keyword">true</dependency>
+                        <dependency type="visible" setting="subtitles.keywords">3</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="general.dubsubtitles" type="boolean" label="30553" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="general.kodi_language">false</condition>
+						</dependency>
+					</dependencies>
+				</setting>
+                <setting id="playlist.unaired" type="boolean" label="30646" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+            </group>
+
+            <!-- Skip Intro Dialog -->
+            <group id="3" label="30355" help="">
+                <setting id="smartplay.skipintrodialog" type="boolean" label="30356" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="skipintro.aniskip.enable" type="boolean" label="30396" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.skipintrodialog">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="skipintro.aniskip.offset" type="integer" label="30397" help="">
+                    <level>0</level>
+                    <default>-3</default>
+                    <constraints>
+                        <minimum>-10</minimum>
+                        <step>1</step>
+                        <maximum>10</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="smartplay.skipintrodialog">true</condition>
+                                <condition setting="skipintro.aniskip.enable">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+                <setting id="skipintro.time" type="integer" label="30357" help="">
+                    <level>0</level>
+                    <default>80</default>
+                    <constraints>
+                        <minimum>10</minimum>
+                        <step>1</step>
+                        <maximum>120</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.skipintrodialog">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="skipintro.delay" type="integer" label="30391" help="">
+                    <level>0</level>
+                    <default>2</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>120</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.skipintrodialog">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="skipintro.duration" type="integer" label="30395" help="">
+                    <level>0</level>
+                    <default>2</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>5</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.skipintrodialog">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Playing Next Dialog -->
+            <group id="4" label="30352" help="">
+                <setting id="smartplay.playingnextdialog" type="boolean" label="30353" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="skipoutro.aniskip.enable" type="boolean" label="30396" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.playingnextdialog">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="skipoutro.aniskip.offset" type="integer" label="30397" help="">
+                    <level>0</level>
+                    <default>-3</default>
+                    <constraints>
+                        <minimum>-10</minimum>
+                        <step>1</step>
+                        <maximum>10</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible">
+                            <and>
+                                <condition setting="smartplay.playingnextdialog">true</condition>
+                                <condition setting="skipoutro.aniskip.enable">true</condition>
+                            </and>
+                        </dependency>
+                    </dependencies>
+                </setting>
+                <setting id="playingnext.time" type="integer" label="30354" help="">
+                    <level>0</level>
+                    <default>120</default>
+                    <constraints>
+                        <minimum>10</minimum>
+                        <step>1</step>
+                        <maximum>180</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="smartplay.playingnextdialog">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Sort & Filter -->
+        <category id="Sort and Filter" label="30358" help="">
+            <group id="1" label="30359" help="">
+				<setting id="general.maxResolution" type="integer" label="30360" help="">
+					<level>0</level>
+					<default>4</default>
+					<constraints>
+						<options>
+                            <option label="30340">0</option>
+                            <option label="30341">1</option>
+                            <option label="30342">2</option>
+                            <option label="30343">3</option>
+                            <option label="30344">4</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.minResolution" type="integer" label="30548" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+                            <option label="30340">0</option>
+                            <option label="30341">1</option>
+                            <option label="30342">2</option>
+                            <option label="30343">3</option>
+                            <option label="30344">4</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+                <setting id="general.disable265" type="boolean" label="30361" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="general.disablebatch" type="boolean" label="30549" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="general.fileFilter">0</condition>
+						</dependency>
+					</dependencies>
+                    <control type="toggle"/>
+                </setting>
+				<setting id="general.fileFilter" type="integer" label="30554" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30560">0</option>
+							<option label="30561">1</option>
+							<option label="30562">2</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.webspeed" type="integer" label="30555" help="" parent="general.fileFilter">
+					<level>0</level>
+					<default>20</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.fileFilter">1</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>40490</heading>
+					</control>
+				</setting>
+				<setting id="general.movie.maxGB" type="integer" label="30556" help="" parent="general.fileFilter">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>0</minimum>
+						<maximum>300</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.fileFilter">2</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.movie.minGB" type="number" label="30557" help="" parent="general.fileFilter">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>0.1</step>
+						<maximum>30</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.fileFilter">2</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="number">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.episode.maxGB" type="integer" label="30558" help="" parent="general.fileFilter">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>0</minimum>
+						<maximum>300</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.fileFilter">2</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.episode.minGB" type="number" label="30559" help="" parent="general.fileFilter">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>0.1</step>
+						<maximum>30</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.fileFilter">2</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="number">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.enabled" type="boolean" label="30563" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.release_title_filter.selection" type="integer" label="30564" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30565">0</option>
+							<option label="30566">1</option>
+							<option label="30567">2</option>
+							<option label="30568">3</option>
+							<option label="30569">4</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.release_title_filter.logic" type="integer" label="30570" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30571">0</option>
+							<option label="30572">1</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.release_title_filter.value1" type="string" label="30565" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">0</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30565</heading>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.value2" type="string" label="30566" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">1</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30566</heading>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.value3" type="string" label="30567" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">2</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30567</heading>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.value4" type="string" label="30568" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">3</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30568</heading>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.value5" type="string" label="30569" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">4</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30569</heading>
+					</control>
+				</setting>
+				<setting id="general.release_title_filter.exclude1" type="boolean" label="30573" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">0</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.release_title_filter.exclude2" type="boolean" label="30573" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">1</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.release_title_filter.exclude3" type="boolean" label="30573" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">2</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.release_title_filter.exclude4" type="boolean" label="30573" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">3</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.release_title_filter.exclude5" type="boolean" label="30573" help="" parent="general.release_title_filter.enabled">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="general.release_title_filter.selection">4</condition>
+								<condition operator="is" setting="general.release_title_filter.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+            </group>
+
+            <!-- Sort Sourcing -->
+            <group id="3" label="30363" help="">
+                <setting id="sort_select" type="action" label="30017" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/sort_select?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="general.source" type="integer" label="30362" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Both">0</option>
+                            <option label="Sub">1</option>
+                            <option label="Dub">2</option>
+
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+            </group>
+
+             <!-- Search Filter -->
+            <group id="4" label="30547" help="">
+                <setting id="search.adult" type="boolean" label="30383" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Accounts -->
+        <category id="Accounts" label="30365" help="">
+            <!-- Real-Debrid -->
+            <group id="1" label="30100" help="">
+                <setting id="realdebrid.enabled" type="boolean" label="30101" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="realdebrid.username" type="string" label="30102" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                    <setting id="realdebrid.auth.status" type="string" label="30103" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="realdebrid.auth_start" type="action" label="30104" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/realdebrid)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="realdebrid.refresh.token" type="action" label="30105" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/realdebrid)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="realdebrid.autodelete" type="boolean" label="30636" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="realdebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Premiumize -->
+            <group id="2" label="30130" help="">
+                <setting id="premiumize.enabled" type="boolean" label="30131" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="premiumize.username" type="string" label="30132" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="premiumize.auth.status" type="string" label="30133" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="premiumize.auth_start" type="action" label="30134" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/premiumize)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+<!--                <setting id="premiumize.refresh.token" type="action" label="30135" help="">-->
+<!--                    <level>0</level>-->
+<!--                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/premiumize)</data>-->
+<!--                    <control type="button" format="action">-->
+<!--                        <close>true</close>-->
+<!--                    </control>-->
+<!--                    <dependencies>-->
+<!--                        <dependency type="visible" setting="premiumize.enabled">true</dependency>-->
+<!--                    </dependencies>-->
+<!--                </setting>-->
+				<setting id="premiumize.addToCloud" type="boolean" label="30637" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+				</setting>
+                <setting id="premiumize.autodelete" type="boolean" label="30638" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="premiumize.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="premiumize.threshold" type="integer" label="30639" help="" parent="">
+					<level>0</level>
+					<default>750</default>
+					<constraints>
+						<minimum>50</minimum>
+						<step>50</step>
+						<maximum>1000</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="premiumize.autodelete">true</condition>
+								<condition operator="is" setting="premiumize.enabled">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+            </group>
+
+            <!-- ALLDebrid -->
+            <group id="3" label="30110" help="">
+                <setting id="alldebrid.enabled" type="boolean" label="30111" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="alldebrid.username" type="string" label="30112" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="alldebrid.auth.status" type="string" label="30113" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="alldebrid.auth_start" type="action" label="30114" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/alldebrid)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+<!--                <setting id="alldebrid.refresh.token" type="action" label="30115" help="">-->
+<!--                    <level>0</level>-->
+<!--                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/alldebrid)</data>-->
+<!--                    <control type="button" format="action">-->
+<!--                        <close>true</close>-->
+<!--                    </control>-->
+<!--                    <dependencies>-->
+<!--                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>-->
+<!--                    </dependencies>-->
+<!--                </setting>-->
+                <setting id="alldebrid.autodelete" type="boolean" label="30636" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="alldebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Debrid-Link -->
+            <group id="4" label="30120" help="">
+                <setting id="debridlink.enabled" type="boolean" label="30121" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="debridlink.username" type="string" label="30122" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="debridlink.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="debridlink.auth.status" type="string" label="30123" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="debridlink.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="debridlink.auth_start" type="action" label="30124" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/debridlink)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="debridlink.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="dl.refresh.token" type="action" label="30125" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/debridlink)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="debridlink.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="debridlink.autodelete" type="boolean" label="30636" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="debridlink.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- TorBox -->
+            <group id="5" label="30618" help="">
+                <setting id="torbox.enabled" type="boolean" label="30619" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="torbox.username" type="string" label="30620" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="torbox.auth.status" type="string" label="30621" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="torbox.auth_start" type="action" label="30622" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/torbox)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <!-- <setting id="torbox.refresh.token" type="action" label="30623" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/torbox)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+                </setting> -->
+                <setting id="torbox.autodelete" type="boolean" label="30636" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="torbox.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+            
+            <!-- EasyDebrid -->
+            <group id="6" label="30653" help="">
+                <setting id="easydebrid.enabled" type="boolean" label="30654" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="easydebrid.username" type="string" label="30655" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="easydebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="easydebrid.auth.status" type="string" label="30656" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string"/>
+                    <enable>false</enable>
+                    <dependencies>
+                        <dependency type="visible" setting="easydebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="easydebrid.auth_start" type="action" label="30657" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/auth/easydebrid)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="easydebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <!-- <setting id="easydebrid.refresh.token" type="action" label="30658" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/refresh/easydebrid)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="easydebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="easydebrid.autodelete" type="boolean" label="30636" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="easydebrid.enabled">true</dependency>
+                    </dependencies>
+                </setting> -->
+            </group>
+        </category>
+
+        <!-- Watchlist -->
+        <category id="Watchlist" label="30369" help="">
+            <group id="1" label="30300" help="">
+                <setting id="watchlist.update.enabled" type="boolean" label="30370" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="watchlist.update.flavor" type="string" label="30371" help="">
+                    <level>0</level>
+                    <default>MAL</default>
+                    <constraints>
+                        <options>
+                            <option>AniList</option>
+                            <option>MAL</option>
+                            <option>Kitsu</option>
+                            <option>Simkl</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                  <dependencies>
+                      <dependency type="visible" setting="watchlist.update.enabled">true</dependency>
+                  </dependencies>
+                </setting>
+                <setting id="watchlist.update.percent" type="integer" label="30366" help="30367">
+                    <level>0</level>
+                    <default>80</default>
+                    <constraints>
+                        <minimum>70</minimum>
+                        <step>1</step>
+                        <maximum>90</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="watchlist.update.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="watchlist.sync.enabled" type="boolean" label="30368" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="watchlist.update.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Anilist -->
+            <group id="2" label="30210" help="">
+                <setting id="anilist.enabled" type="boolean" label="30211" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="anilist.username" type="string" label="30290" help="">
+                    <level>0</level>
+                    <default/>
+                    <enable>false</enable>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+					<control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="anilist.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="anilist.login" type="action" label="30291" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/anilist?auth_dialog=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="anilist.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="anilist.sort" type="integer" label="30292" help="">
+                    <level>0</level>
+                    <default>4</default>
+                    <constraints>
+                        <options>
+                            <option label="Romaji Title">0</option>
+                            <option label="English Title">1</option>
+                            <option label="Score">2</option>
+                            <option label="Progress">3</option>
+                            <option label="Last Updated">4</option>
+                            <option label="Last Added">5</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="anilist.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- MyAnimeList -->
+            <group id="3" label="30200" help="">
+                <setting id="mal.enabled" type="boolean" label="30201" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="mal.username" type="string" label="30290" help="">
+                    <level>0</level>
+                    <default/>
+                    <enable>false</enable>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+					<control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.login" type="action" label="30291" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/mal?auth_dialog=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.sort" type="integer" label="30292" help="">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints>
+                        <options>
+                            <option label="List Score">0</option>
+                            <option label="Last Updated">1</option>
+                            <option label="Anime Start Date">2</option>
+                            <option label="Anime Title">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Kitsu -->
+            <group id="4" label="30220" help="">
+                <setting id="kitsu.enabled" type="boolean" label="30221" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="kitsu.username" type="string" label="30290"  parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <default/>
+                    <enable>false</enable>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="kitsu.authvar" type="string" label="30223"  parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+					<control type="edit" format="string">
+						<heading>30223</heading>
+					</control>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="kitsu.password" type="string" label="30224"  parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+					<control type="edit" format="string">
+						<heading>30224</heading>
+                        <hidden>true</hidden>
+					</control>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+
+                <setting id="kitsu.login" type="action" label="30291"  parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/kitsu)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="kitsu.sort" type="integer" label="30292" parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints>
+                        <options>
+                            <option label="List Score">0</option>
+                            <option label="Last Updated">1</option>
+                            <option label="Anime Start Date">2</option>
+                            <option label="Anime Title">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+<!--                <setting id="kitsu.titles" type="integer" label="30225" parent="kitsu.enabled" help="">-->
+<!--                    <level>0</level>-->
+<!--                    <default>0</default>-->
+<!--                    <constraints>-->
+<!--                        <options>-->
+<!--                            <option label="Canonical">0</option>-->
+<!--                            <option label="Romanized">1</option>-->
+<!--                            <option label="English">2</option>-->
+<!--                        </options>-->
+<!--                    </constraints>-->
+<!--                    <control type="spinner" format="string" />-->
+<!--                    <dependencies>-->
+<!--                        <dependency type="visible" setting="kitsu.enabled">true</dependency>-->
+<!--                    </dependencies>-->
+<!--                </setting>-->
+            </group>
+
+            <!-- Simkl -->
+            <group id="5" label="30230" help="">
+                <setting id="simkl.enabled" type="boolean" label="30231" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="simkl.username" type="string" label="30290" parent="simkl.enabled" help="">
+                    <level>0</level>
+                    <default/>
+                    <enable>false</enable>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                        <control type="edit" format="string">
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="simkl.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="simkl.login" type="action" label="30291"  parent="simkl.enabled" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/simkl)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="simkl.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="simkl.sort" type="integer" label="30292"  parent="simkl.enabled" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Last Updated">0</option>
+                            <option label="Last Added">1</option>
+                            <option label="Anime Title">2</option>
+                            <option label="User Rating">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="simkl.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="simkl.sort" type="integer" label="30292"  parent="simkl.enabled" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Last Updated">0</option>
+                            <option label="Last Added">1</option>
+                            <option label="Anime Title">2</option>
+                            <option label="User Rating">3</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="simkl.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- Trakt -->
+            <group id="6" label="30647" help="">
+                <setting id="trakt.enabled" type="boolean" label="30648" help="30649">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="trakt.settings" type="action" label="30650" help="" parent="trakt.enabled">
+                    <level>0</level>
+                    <dependencies>
+                        <dependency type="visible" setting="trakt.enabled">true</dependency>
+                    </dependencies>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/trakt_settings?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="trakt.script" type="action" label="30651" help="" parent="trakt.enabled">
+                    <level>0</level>
+                    <dependencies>
+                        <dependency type="visible" setting="trakt.enabled">true</dependency>
+                    </dependencies>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/trakt_script?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Menu Customization -->
+        <category id="Menu Customization" label="30546" help="">
+            <!-- Main Menus -->
+            <group id="1" label="30662" help="">
+                <setting id="menu.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched,airing_calendar,airing_last_season,airing_this_season,airing_next_season,trending,popular,voted,favourites,top_100,genres,search,tools</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched</option>
+                            <option label="30901">airing_calendar</option>
+                            <option label="30902">airing_last_season</option>
+                            <option label="30903">airing_this_season</option>
+                            <option label="30904">airing_next_season</option>
+                            <option label="30905">movies</option>
+                            <option label="30906">tv_shows</option>
+                            <option label="30907">tv_shorts</option>
+                            <option label="30908">specials</option>
+                            <option label="30909">ovas</option>
+                            <option label="30910">onas</option>
+                            <option label="30911">music</option>
+                            <option label="30912">trending</option>
+                            <option label="30913">popular</option>
+                            <option label="30914">voted</option>
+                            <option label="30915">favourites</option>
+                            <option label="30916">top_100</option>
+                            <option label="30917">genres</option>
+                            <option label="30918">search</option>
+                            <option label="30919">tools</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="menu.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year,trending_this_year,trending_last_season,trending_this_season,all_time_trending,popular_last_year,popular_this_year,popular_last_season,popular_this_season,all_time_popular,voted_last_year,voted_this_year,voted_last_season,voted_this_season,all_time_voted,favourites_last_year,favourites_this_year,favourites_last_season,favourites_this_season,all_time_favourites</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year</option>
+                            <option label="30921">trending_this_year</option>
+                            <option label="30922">trending_last_season</option>
+                            <option label="30923">trending_this_season</option>
+                            <option label="30924">all_time_trending</option>
+                            <option label="30925">popular_last_year</option>
+                            <option label="30926">popular_this_year</option>
+                            <option label="30927">popular_last_season</option>
+                            <option label="30928">popular_this_season</option>
+                            <option label="30929">all_time_popular</option>
+                            <option label="30930">voted_last_year</option>
+                            <option label="30931">voted_this_year</option>
+                            <option label="30932">voted_last_season</option>
+                            <option label="30933">voted_this_season</option>
+                            <option label="30934">all_time_voted</option>
+                            <option label="30935">favourites_last_year</option>
+                            <option label="30936">favourites_this_year</option>
+                            <option label="30937">favourites_last_season</option>
+                            <option label="30938">favourites_this_season</option>
+                            <option label="30939">all_time_favourites</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="menu.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres//,genre_action,genre_adventure,genre_comedy,genre_drama,genre_ecchi,genre_fantasy,genre_horror,genre_shoujo,genre_mecha,genre_music,genre_mystery,genre_psychological,genre_romance,genre_sci_fi,genre_slice_of_life,genre_sports,genre_supernatural,genre_thriller</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres//</option>
+                            <option label="30941">genre_action</option>
+                            <option label="30942">genre_adventure</option>
+                            <option label="30943">genre_comedy</option>
+                            <option label="30944">genre_drama</option>
+                            <option label="30945">genre_ecchi</option>
+                            <option label="30946">genre_fantasy</option>
+                            <option label="30947">genre_hentai</option>
+                            <option label="30948">genre_horror</option>
+                            <option label="30949">genre_shoujo</option>
+                            <option label="30950">genre_mecha</option>
+                            <option label="30951">genre_music</option>
+                            <option label="30952">genre_mystery</option>
+                            <option label="30953">genre_psychological</option>
+                            <option label="30954">genre_romance</option>
+                            <option label="30955">genre_sci_fi</option>
+                            <option label="30956">genre_slice_of_life</option>
+                            <option label="30957">genre_sports</option>
+                            <option label="30958">genre_supernatural</option>
+                            <option label="30959">genre_thriller</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- Movies -->
+            <group id="2" label="30663" help="">
+                <setting id="movie.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_movie,airing_last_season_movie,airing_this_season_movie,airing_next_season_movie,trending_movie,popular_movie,voted_movie,favourites_movie,top_100_movie,genres_movie,search_history_movie</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_movie</option>
+                            <option label="30902">airing_last_season_movie</option>
+                            <option label="30903">airing_this_season_movie</option>
+                            <option label="30904">airing_next_season_movie</option>
+                            <option label="30912">trending_movie</option>
+                            <option label="30913">popular_movie</option>
+                            <option label="30914">voted_movie</option>
+                            <option label="30915">favourites_movie</option>
+                            <option label="30916">top_100_movie</option>
+                            <option label="30917">genres_movie</option>
+                            <option label="30918">search_history_movie</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="movie.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_movie,trending_this_year_movie,trending_last_season_movie,trending_this_season_movie,all_time_trending_movie,popular_last_year_movie,popular_this_year_movie,popular_last_season_movie,popular_this_season_movie,all_time_popular_movie,voted_last_year_movie,voted_this_year_movie,voted_last_season_movie,voted_this_season_movie,all_time_voted_movie,favourites_last_year_movie,favourites_this_year_movie,favourites_last_season_movie,favourites_this_season_movie,all_time_favourites_movie</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_movie</option>
+                            <option label="30921">trending_this_year_movie</option>
+                            <option label="30922">trending_last_season_movie</option>
+                            <option label="30923">trending_this_season_movie</option>
+                            <option label="30924">all_time_trending_movie</option>
+                            <option label="30925">popular_last_year_movie</option>
+                            <option label="30926">popular_this_year_movie</option>
+                            <option label="30927">popular_last_season_movie</option>
+                            <option label="30928">popular_this_season_movie</option>
+                            <option label="30929">all_time_popular_movie</option>
+                            <option label="30930">voted_last_year_movie</option>
+                            <option label="30931">voted_this_year_movie</option>
+                            <option label="30932">voted_last_season_movie</option>
+                            <option label="30933">voted_this_season_movie</option>
+                            <option label="30934">all_time_voted_movie</option>
+                            <option label="30935">favourites_last_year_movie</option>
+                            <option label="30936">favourites_this_year_movie</option>
+                            <option label="30937">favourites_last_season_movie</option>
+                            <option label="30938">favourites_this_season_movie</option>
+                            <option label="30939">all_time_favourites_movie</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list"
+                        format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting> 
+                <setting id="movie.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_movie//,genre_action_movie,genre_adventure_movie,genre_comedy_movie,genre_drama_movie,genre_ecchi_movie,genre_fantasy_movie,genre_horror_movie,genre_shoujo_movie,genre_mecha_movie,genre_music_movie,genre_mystery_movie,genre_psychological_movie,genre_romance_movie,genre_sci_fi_movie,genre_slice_of_life_movie,genre_sports_movie,genre_supernatural_movie,genre_thriller_movie</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_movie//</option>
+                            <option label="30941">genre_action_movie</option>
+                            <option label="30942">genre_adventure_movie</option>
+                            <option label="30943">genre_comedy_movie</option>
+                            <option label="30944">genre_drama_movie</option>
+                            <option label="30945">genre_ecchi_movie</option>
+                            <option label="30946">genre_fantasy_movie</option>
+                            <option label="30947">genre_hentai_movie</option>
+                            <option label="30948">genre_horror_movie</option>
+                            <option label="30949">genre_shoujo_movie</option>
+                            <option label="30950">genre_mecha_movie</option>
+                            <option label="30951">genre_music_movie</option>
+                            <option label="30952">genre_mystery_movie</option>
+                            <option label="30953">genre_psychological_movie</option>
+                            <option label="30954">genre_romance_movie</option>
+                            <option label="30955">genre_sci_fi_movie</option>
+                            <option label="30956">genre_slice_of_life_movie</option>
+                            <option label="30957">genre_sports_movie</option>
+                            <option label="30958">genre_supernatural_movie</option>
+                            <option label="30959">genre_thriller_movie</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- TV Shows -->
+            <group id="3" label="30664" help="">
+                <setting id="tvshow.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_tv_show,airing_last_season_tv_show,airing_this_season_tv_show,airing_next_season_tv_show,trending_tv_show,popular_tv_show,voted_tv_show,favourites_tv_show,top_100_tv_show,genres_tv_show,search_history_tv_show</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_tv_show</option>
+                            <option label="30902">airing_last_season_tv_show</option>
+                            <option label="30903">airing_this_season_tv_show</option>
+                            <option label="30904">airing_next_season_tv_show</option>
+                            <option label="30912">trending_tv_show</option>
+                            <option label="30913">popular_tv_show</option>
+                            <option label="30914">voted_tv_show</option>
+                            <option label="30915">favourites_tv_show</option>
+                            <option label="30916">top_100_tv_show</option>
+                            <option label="30917">genres_tv_show</option>
+                            <option label="30918">search_history_tv_show</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="tvshow.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_tv_show,trending_this_year_tv_show,trending_last_season_tv_show,trending_this_season_tv_show,all_time_trending_tv_show,popular_last_year_tv_show,popular_this_year_tv_show,popular_last_season_tv_show,popular_this_season_tv_show,all_time_popular_tv_show,voted_last_year_tv_show,voted_this_year_tv_show,voted_last_season_tv_show,voted_this_season_tv_show,all_time_voted_tv_show,favourites_last_year_tv_show,favourites_this_year_tv_show,favourites_last_season_tv_show,favourites_this_season_tv_show,all_time_favourites_tv_show</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_tv_show</option>
+                            <option label="30921">trending_this_year_tv_show</option>
+                            <option label="30922">trending_last_season_tv_show</option>
+                            <option label="30923">trending_this_season_tv_show</option>
+                            <option label="30924">all_time_trending_tv_show</option>
+                            <option label="30925">popular_last_year_tv_show</option>
+                            <option label="30926">popular_this_year_tv_show</option>
+                            <option label="30927">popular_last_season_tv_show</option>
+                            <option label="30928">popular_this_season_tv_show</option>
+                            <option label="30929">all_time_popular_tv_show</option>
+                            <option label="30930">voted_last_year_tv_show</option>
+                            <option label="30931">voted_this_year_tv_show</option>
+                            <option label="30932">voted_last_season_tv_show</option>
+                            <option label="30933">voted_this_season_tv_show</option>
+                            <option label="30934">all_time_voted_tv_show</option>
+                            <option label="30935">favourites_last_year_tv_show</option>
+                            <option label="30936">favourites_this_year_tv_show</option>
+                            <option label="30937">favourites_last_season_tv_show</option>
+                            <option label="30938">favourites_this_season_tv_show</option>
+                            <option label="30939">all_time_favourites_tv_show</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="tvshow.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_tv_show//,genre_action_tv_show,genre_adventure_tv_show,genre_comedy_tv_show,genre_drama_tv_show,genre_ecchi_tv_show,genre_fantasy_tv_show,genre_horror_tv_show,genre_shoujo_tv_show,genre_mecha_tv_show,genre_music_tv_show,genre_mystery_tv_show,genre_psychological_tv_show,genre_romance_tv_show,genre_sci_fi_tv_show,genre_slice_of_life_tv_show,genre_sports_tv_show,genre_supernatural_tv_show,genre_thriller_tv_show</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_tv_show//</option>
+                            <option label="30941">genre_action_tv_show</option>
+                            <option label="30942">genre_adventure_tv_show</option>
+                            <option label="30943">genre_comedy_tv_show</option>
+                            <option label="30944">genre_drama_tv_show</option>
+                            <option label="30945">genre_ecchi_tv_show</option>
+                            <option label="30946">genre_fantasy_tv_show</option>
+                            <option label="30947">genre_hentai_tv_show</option>
+                            <option label="30948">genre_horror_tv_show</option>
+                            <option label="30949">genre_shoujo_tv_show</option>
+                            <option label="30950">genre_mecha_tv_show</option>
+                            <option label="30951">genre_music_tv_show</option>
+                            <option label="30952">genre_mystery_tv_show</option>
+                            <option label="30953">genre_psychological_tv_show</option>
+                            <option label="30954">genre_romance_tv_show</option>
+                            <option label="30955">genre_sci_fi_tv_show</option>
+                            <option label="30956">genre_slice_of_life_tv_show</option>
+                            <option label="30957">genre_sports_tv_show</option>
+                            <option label="30958">genre_supernatural_tv_show</option>
+                            <option label="30959">genre_thriller_tv_show</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- TV Shorts -->
+            <group id="4" label="30665" help="">
+                <setting id="tvshort.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_tv_short,airing_last_season_tv_short,airing_this_season_tv_short,airing_next_season_tv_short,trending_tv_short,popular_tv_short,voted_tv_short,favourites_tv_short,top_100_tv_short,genres_tv_short,search_history_tv_short</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_tv_short</option>
+                            <option label="30902">airing_last_season_tv_short</option>
+                            <option label="30903">airing_this_season_tv_short</option>
+                            <option label="30904">airing_next_season_tv_short</option>
+                            <option label="30912">trending_tv_short</option>
+                            <option label="30913">popular_tv_short</option>
+                            <option label="30914">voted_tv_short</option>
+                            <option label="30915">favourites_tv_short</option>
+                            <option label="30916">top_100_tv_short</option>
+                            <option label="30917">genres_tv_short</option>
+                            <option label="30918">search_history_tv_short</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="tvshorts.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_tv_short,trending_this_year_tv_short,trending_last_season_tv_short,trending_this_season_tv_short,all_time_trending_tv_short,popular_last_year_tv_short,popular_this_year_tv_short,popular_last_season_tv_short,popular_this_season_tv_short,all_time_popular_tv_short,voted_last_year_tv_short,voted_this_year_tv_short,voted_last_season_tv_short,voted_this_season_tv_short,all_time_voted_tv_short,favourites_last_year_tv_short,favourites_this_year_tv_short,favourites_last_season_tv_short,favourites_this_season_tv_short,all_time_favourites_tv_short</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_tv_short</option>
+                            <option label="30921">trending_this_year_tv_short</option>
+                            <option label="30922">trending_last_season_tv_short</option>
+                            <option label="30923">trending_this_season_tv_short</option>
+                            <option label="30924">all_time_trending_tv_short</option>
+                            <option label="30925">popular_last_year_tv_short</option>
+                            <option label="30926">popular_this_year_tv_short</option>
+                            <option label="30927">popular_last_season_tv_short</option>
+                            <option label="30928">popular_this_season_tv_short</option>
+                            <option label="30929">all_time_popular_tv_short</option>
+                            <option label="30930">voted_last_year_tv_short</option>
+                            <option label="30931">voted_this_year_tv_short</option>
+                            <option label="30932">voted_last_season_tv_short</option>
+                            <option label="30933">voted_this_season_tv_short</option>
+                            <option label="30934">all_time_voted_tv_short</option>
+                            <option label="30935">favourites_last_year_tv_short</option>
+                            <option label="30936">favourites_this_year_tv_short</option>
+                            <option label="30937">favourites_last_season_tv_short</option>
+                            <option label="30938">favourites_this_season_tv_short</option>
+                            <option label="30939">all_time_favourites_tv_short</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="tvshorts.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_tv_short//,genre_action_tv_short,genre_adventure_tv_short,genre_comedy_tv_short,genre_drama_tv_short,genre_ecchi_tv_short,genre_fantasy_tv_short,genre_horror_tv_short,genre_shoujo_tv_short,genre_mecha_tv_short,genre_music_tv_short,genre_mystery_tv_short,genre_psychological_tv_short,genre_romance_tv_short,genre_sci_fi_tv_short,genre_slice_of_life_tv_short,genre_sports_tv_short,genre_supernatural_tv_short,genre_thriller_tv_short</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_tv_short//</option>
+                            <option label="30941">genre_action_tv_short</option>
+                            <option label="30942">genre_adventure_tv_short</option>
+                            <option label="30943">genre_comedy_tv_short</option>
+                            <option label="30944">genre_drama_tv_short</option>
+                            <option label="30945">genre_ecchi_tv_short</option>
+                            <option label="30946">genre_fantasy_tv_short</option>
+                            <option label="30947">genre_hentai_tv_short</option>
+                            <option label="30948">genre_horror_tv_short</option>
+                            <option label="30949">genre_shoujo_tv_short</option>
+                            <option label="30950">genre_mecha_tv_short</option>
+                            <option label="30951">genre_music_tv_short</option>
+                            <option label="30952">genre_mystery_tv_short</option>
+                            <option label="30953">genre_psychological_tv_short</option>
+                            <option label="30954">genre_romance_tv_short</option>
+                            <option label="30955">genre_sci_fi_tv_short</option>
+                            <option label="30956">genre_slice_of_life_tv_short</option>
+                            <option label="30957">genre_sports_tv_short</option>
+                            <option label="30958">genre_supernatural_tv_short</option>
+                            <option label="30959">genre_thriller_tv_short</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- Specials -->
+            <group id="5" label="30666" help="">
+                <setting id="special.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_special,airing_last_season_special,airing_this_season_special,airing_next_season_special,trending_special,popular_special,voted_special,favourites_special,top_100_special,genres_special,search_history_special</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_special</option>
+                            <option label="30902">airing_last_season_special</option>
+                            <option label="30903">airing_this_season_special</option>
+                            <option label="30904">airing_next_season_special</option>
+                            <option label="30912">trending_special</option>
+                            <option label="30913">popular_special</option>
+                            <option label="30914">voted_special</option>
+                            <option label="30915">favourites_special</option>
+                            <option label="30916">top_100_special</option>
+                            <option label="30917">genres_special</option>
+                            <option label="30918">search_history_special</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="specials.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_special,trending_this_year_special,trending_last_season_special,trending_this_season_special,all_time_trending_special,popular_last_year_special,popular_this_year_special,popular_last_season_special,popular_this_season_special,all_time_popular_special,voted_last_year_special,voted_this_year_special,voted_last_season_special,voted_this_season_special,all_time_voted_special,favourites_last_year_special,favourites_this_year_special,favourites_last_season_special,favourites_this_season_special,all_time_favourites_special</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_special</option>
+                            <option label="30921">trending_this_year_special</option>
+                            <option label="30922">trending_last_season_special</option>
+                            <option label="30923">trending_this_season_special</option>
+                            <option label="30924">all_time_trending_special</option>
+                            <option label="30925">popular_last_year_special</option>
+                            <option label="30926">popular_this_year_special</option>
+                            <option label="30927">popular_last_season_special</option>
+                            <option label="30928">popular_this_season_special</option>
+                            <option label="30929">all_time_popular_special</option>
+                            <option label="30930">voted_last_year_special</option>
+                            <option label="30931">voted_this_year_special</option>
+                            <option label="30932">voted_last_season_special</option>
+                            <option label="30933">voted_this_season_special</option>
+                            <option label="30934">all_time_voted_special</option>
+                            <option label="30935">favourites_last_year_special</option>
+                            <option label="30936">favourites_this_year_special</option>
+                            <option label="30937">favourites_last_season_special</option>
+                            <option label="30938">favourites_this_season_special</option>
+                            <option label="30939">all_time_favourites_special</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="specials.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_special//,genre_action_special,genre_adventure_special,genre_comedy_special,genre_drama_special,genre_ecchi_special,genre_fantasy_special,genre_horror_special,genre_shoujo_special,genre_mecha_special,genre_music_special,genre_mystery_special,genre_psychological_special,genre_romance_special,genre_sci_fi_special,genre_slice_of_life_special,genre_sports_special,genre_supernatural_special,genre_thriller_special</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_special//</option>
+                            <option label="30941">genre_action_special</option>
+                            <option label="30942">genre_adventure_special</option>
+                            <option label="30943">genre_comedy_special</option>
+                            <option label="30944">genre_drama_special</option>
+                            <option label="30945">genre_ecchi_special</option>
+                            <option label="30946">genre_fantasy_special</option>
+                            <option label="30947">genre_hentai_special</option>
+                            <option label="30948">genre_horror_special</option>
+                            <option label="30949">genre_shoujo_special</option>
+                            <option label="30950">genre_mecha_special</option>
+                            <option label="30951">genre_music_special</option>
+                            <option label="30952">genre_mystery_special</option>
+                            <option label="30953">genre_psychological_special</option>
+                            <option label="30954">genre_romance_special</option>
+                            <option label="30955">genre_sci_fi_special</option>
+                            <option label="30956">genre_slice_of_life_special</option>
+                            <option label="30957">genre_sports_special</option>
+                            <option label="30958">genre_supernatural_special</option>
+                            <option label="30959">genre_thriller_special</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- OVA -->
+            <group id="6" label="30667" help="">
+                <setting id="ova.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_ova,airing_last_season_ova,airing_this_season_ova,airing_next_season_ova,trending_ova,popular_ova,voted_ova,favourites_ova,top_100_ova,genres_ova,search_history_ova</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_ova</option>
+                            <option label="30902">airing_last_season_ova</option>
+                            <option label="30903">airing_this_season_ova</option>
+                            <option label="30904">airing_next_season_ova</option>
+                            <option label="30912">trending_ova</option>
+                            <option label="30913">popular_ova</option>
+                            <option label="30914">voted_ova</option>
+                            <option label="30915">favourites_ova</option>
+                            <option label="30916">top_100_ova</option>
+                            <option label="30917">genres_ova</option>
+                            <option label="30918">search_history_ova</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="ova.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_ova,trending_this_year_ova,trending_last_season_ova,trending_this_season_ova,all_time_trending_ova,popular_last_year_ova,popular_this_year_ova,popular_last_season_ova,popular_this_season_ova,all_time_popular_ova,voted_last_year_ova,voted_this_year_ova,voted_last_season_ova,voted_this_season_ova,all_time_voted_ova,favourites_last_year_ova,favourites_this_year_ova,favourites_last_season_ova,favourites_this_season_ova,all_time_favourites_ova</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_ova</option>
+                            <option label="30921">trending_this_year_ova</option>
+                            <option label="30922">trending_last_season_ova</option>
+                            <option label="30923">trending_this_season_ova</option>
+                            <option label="30924">all_time_trending_ova</option>
+                            <option label="30925">popular_last_year_ova</option>
+                            <option label="30926">popular_this_year_ova</option>
+                            <option label="30927">popular_last_season_ova</option>
+                            <option label="30928">popular_this_season_ova</option>
+                            <option label="30929">all_time_popular_ova</option>
+                            <option label="30930">voted_last_year_ova</option>
+                            <option label="30931">voted_this_year_ova</option>
+                            <option label="30932">voted_last_season_ova</option>
+                            <option label="30933">voted_this_season_ova</option>
+                            <option label="30934">all_time_voted_ova</option>
+                            <option label="30935">favourites_last_year_ova</option>
+                            <option label="30936">favourites_this_year_ova</option>
+                            <option label="30937">favourites_last_season_ova</option>
+                            <option label="30938">favourites_this_season_ova</option>
+                            <option label="30939">all_time_favourites_ova</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="ova.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_ova//,genre_action_ova,genre_adventure_ova,genre_comedy_ova,genre_drama_ova,genre_ecchi_ova,genre_fantasy_ova,genre_horror_ova,genre_shoujo_ova,genre_mecha_ova,genre_music_ova,genre_mystery_ova,genre_psychological_ova,genre_romance_ova,genre_sci_fi_ova,genre_slice_of_life_ova,genre_sports_ova,genre_supernatural_ova,genre_thriller_ova</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_ova//</option>
+                            <option label="30941">genre_action_ova</option>
+                            <option label="30942">genre_adventure_ova</option>
+                            <option label="30943">genre_comedy_ova</option>
+                            <option label="30944">genre_drama_ova</option>
+                            <option label="30945">genre_ecchi_ova</option>
+                            <option label="30946">genre_fantasy_ova</option>
+                            <option label="30947">genre_hentai_ova</option>
+                            <option label="30948">genre_horror_ova</option>
+                            <option label="30949">genre_shoujo_ova</option>
+                            <option label="30950">genre_mecha_ova</option>
+                            <option label="30951">genre_music_ova</option>
+                            <option label="30952">genre_mystery_ova</option>
+                            <option label="30953">genre_psychological_ova</option>
+                            <option label="30954">genre_romance_ova</option>
+                            <option label="30955">genre_sci_fi_ova</option>
+                            <option label="30956">genre_slice_of_life_ova</option>
+                            <option label="30957">genre_sports_ova</option>
+                            <option label="30958">genre_supernatural_ova</option>
+                            <option label="30959">genre_thriller_ova</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- ONA -->
+            <group id="7" label="30668" help="">
+                <setting id="ona.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_ona,airing_last_season_ona,airing_this_season_ona,airing_next_season_ona,trending_ona,popular_ona,voted_ona,favourites_ona,top_100_ona,genres_ona,search_history_ona</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_ona</option>
+                            <option label="30902">airing_last_season_ona</option>
+                            <option label="30903">airing_this_season_ona</option>
+                            <option label="30904">airing_next_season_ona</option>
+                            <option label="30912">trending_ona</option>
+                            <option label="30913">popular_ona</option>
+                            <option label="30914">voted_ona</option>
+                            <option label="30915">favourites_ona</option>
+                            <option label="30916">top_100_ona</option>
+                            <option label="30917">genres_ona</option>
+                            <option label="30918">search_history_ona</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="ona.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_ona,trending_this_year_ona,trending_last_season_ona,trending_this_season_ona,all_time_trending_ona,popular_last_year_ona,popular_this_year_ona,popular_last_season_ona,popular_this_season_ona,all_time_popular_ona,voted_last_year_ona,voted_this_year_ona,voted_last_season_ona,voted_this_season_ona,all_time_voted_ona,favourites_last_year_ona,favourites_this_year_ona,favourites_last_season_ona,favourites_this_season_ona,all_time_favourites_ona</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_ona</option>
+                            <option label="30921">trending_this_year_ona</option>
+                            <option label="30922">trending_last_season_ona</option>
+                            <option label="30923">trending_this_season_ona</option>
+                            <option label="30924">all_time_trending_ona</option>
+                            <option label="30925">popular_last_year_ona</option>
+                            <option label="30926">popular_this_year_ona</option>
+                            <option label="30927">popular_last_season_ona</option>
+                            <option label="30928">popular_this_season_ona</option>
+                            <option label="30929">all_time_popular_ona</option>
+                            <option label="30930">voted_last_year_ona</option>
+                            <option label="30931">voted_this_year_ona</option>
+                            <option label="30932">voted_last_season_ona</option>
+                            <option label="30933">voted_this_season_ona</option>
+                            <option label="30934">all_time_voted_ona</option>
+                            <option label="30935">favourites_last_year_ona</option>
+                            <option label="30936">favourites_this_year_ona</option>
+                            <option label="30937">favourites_last_season_ona</option>
+                            <option label="30938">favourites_this_season_ona</option>
+                            <option label="30939">all_time_favourites_ona</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="ona.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_ona//,genre_action_ona,genre_adventure_ona,genre_comedy_ona,genre_drama_ona,genre_ecchi_ona,genre_fantasy_ona,genre_horror_ona,genre_shoujo_ona,genre_mecha_ona,genre_music_ona,genre_mystery_ona,genre_psychological_ona,genre_romance_ona,genre_sci_fi_ona,genre_slice_of_life_ona,genre_sports_ona,genre_supernatural_ona,genre_thriller_ona</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_ona//</option>
+                            <option label="30941">genre_action_ona</option>
+                            <option label="30942">genre_adventure_ona</option>
+                            <option label="30943">genre_comedy_ona</option>
+                            <option label="30944">genre_drama_ona</option>
+                            <option label="30945">genre_ecchi_ona</option>
+                            <option label="30946">genre_fantasy_ona</option>
+                            <option label="30947">genre_hentai_ona</option>
+                            <option label="30948">genre_horror_ona</option>
+                            <option label="30949">genre_shoujo_ona</option>
+                            <option label="30950">genre_mecha_ona</option>
+                            <option label="30951">genre_music_ona</option>
+                            <option label="30952">genre_mystery_ona</option>
+                            <option label="30953">genre_psychological_ona</option>
+                            <option label="30954">genre_romance_ona</option>
+                            <option label="30955">genre_sci_fi_ona</option>
+                            <option label="30956">genre_slice_of_life_ona</option>
+                            <option label="30957">genre_sports_ona</option>
+                            <option label="30958">genre_supernatural_ona</option>
+                            <option label="30959">genre_thriller_ona</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- Music -->
+            <group id="8" label="30669" help="">
+                <setting id="music.mainmenu.config" type="list[string]" label="30659" help="">
+                    <level>0</level>
+                    <default>last_watched_music,airing_last_season_music,airing_this_season_music,airing_next_season_music,trending_music,popular_music,voted_music,favourites_music,top_100_music,genres_music,search_history_music</default>
+                    <constraints>
+                        <options>
+                            <option label="30900">last_watched_music</option>
+                            <option label="30902">airing_last_season_music</option>
+                            <option label="30903">airing_this_season_music</option>
+                            <option label="30904">airing_next_season_music</option>
+                            <option label="30912">trending_music</option>
+                            <option label="30913">popular_music</option>
+                            <option label="30914">voted_music</option>
+                            <option label="30915">favourites_music</option>
+                            <option label="30916">top_100_music</option>
+                            <option label="30917">genres_music</option>
+                            <option label="30918">search_history_music</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30659</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="music.submenu.config" type="list[string]" label="30660" help="">
+                    <level>0</level>
+                    <default>trending_last_year_music,trending_this_year_music,trending_last_season_music,trending_this_season_music,all_time_trending_music,popular_last_year_music,popular_this_year_music,popular_last_season_music,popular_this_season_music,all_time_popular_music,voted_last_year_music,voted_this_year_music,voted_last_season_music,voted_this_season_music,all_time_voted_music,favourites_last_year_music,favourites_this_year_music,favourites_last_season_music,favourites_this_season_music,all_time_favourites_music</default>
+                    <constraints>
+                        <options>
+                            <option label="30920">trending_last_year_music</option>
+                            <option label="30921">trending_this_year_music</option>
+                            <option label="30922">trending_last_season_music</option>
+                            <option label="30923">trending_this_season_music</option>
+                            <option label="30924">all_time_trending_music</option>
+                            <option label="30925">popular_last_year_music</option>
+                            <option label="30926">popular_this_year_music</option>
+                            <option label="30927">popular_last_season_music</option>
+                            <option label="30928">popular_this_season_music</option>
+                            <option label="30929">all_time_popular_music</option>
+                            <option label="30930">voted_last_year_music</option>
+                            <option label="30931">voted_this_year_music</option>
+                            <option label="30932">voted_last_season_music</option>
+                            <option label="30933">voted_this_season_music</option>
+                            <option label="30934">all_time_voted_music</option>
+                            <option label="30935">favourites_last_year_music</option>
+                            <option label="30936">favourites_this_year_music</option>
+                            <option label="30937">favourites_last_season_music</option>
+                            <option label="30938">favourites_this_season_music</option>
+                            <option label="30939">all_time_favourites_music</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30660</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+                <setting id="music.genres.config" type="list[string]" label="30661" help="">
+                    <level>0</level>
+                    <default>genres_music//,genre_action_music,genre_adventure_music,genre_comedy_music,genre_drama_music,genre_ecchi_music,genre_fantasy_music,genre_horror_music,genre_shoujo_music,genre_mecha_music,genre_music_music,genre_mystery_music,genre_psychological_music,genre_romance_music,genre_sci_fi_music,genre_slice_of_life_music,genre_sports_music,genre_supernatural_music,genre_thriller_music</default>
+                    <constraints>
+                        <options>
+                            <option label="30940">genres_music//</option>
+                            <option label="30941">genre_action_music</option>
+                            <option label="30942">genre_adventure_music</option>
+                            <option label="30943">genre_comedy_music</option>
+                            <option label="30944">genre_drama_music</option>
+                            <option label="30945">genre_ecchi_music</option>
+                            <option label="30946">genre_fantasy_music</option>
+                            <option label="30947">genre_hentai_music</option>
+                            <option label="30948">genre_horror_music</option>
+                            <option label="30949">genre_shoujo_music</option>
+                            <option label="30950">genre_mecha_music</option>
+                            <option label="30951">genre_music_music</option>
+                            <option label="30952">genre_mystery_music</option>
+                            <option label="30953">genre_psychological_music</option>
+                            <option label="30954">genre_romance_music</option>
+                            <option label="30955">genre_sci_fi_music</option>
+                            <option label="30956">genre_slice_of_life_music</option>
+                            <option label="30957">genre_sports_music</option>
+                            <option label="30958">genre_supernatural_music</option>
+                            <option label="30959">genre_thriller_music</option>
+                        </options>
+                        <allowempty>true</allowempty>
+                        <delimiter>,</delimiter>
+                    </constraints>
+                    <control type="list" format="string">
+                        <heading>30661</heading>
+                        <multiselect>true</multiselect>
+                        <hidevalue>true</hidevalue>
+                    </control>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Context Customization -->
+        <category id="Context Customization" label="30500" help="" >
+            <group id="1" label="30512" help="">
+                <setting id="context.otaku.testing.findrecommendations" type="boolean" label="30501" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.findrelations" type="boolean" label="30502" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.getwatchorder" type="boolean" label="30606" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.rescrape" type="boolean" label="30503" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.sourceselect" type="boolean" label="30504" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.logout" type="boolean" label="30505" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.deletefromdatabase" type="boolean" label="30506" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.watchlist" type="boolean" label="30507" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.markedaswatched" type="boolean" label="30508" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="context.otaku.testing.fanartselect" type="boolean" label="30509" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+
+        <!-- Maintenance -->
+        <category id="Maintenance" label="30384" help="">
+            <!-- Tools -->
+            <group id="1" label="30384" help="">
+                <setting id="change_log" type="action" label="30010" help="">
+                    <level>1</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/change_log?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="clear_cache" type="action" label="30012" help="">
+                    <level>1</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_cache?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="clear_search_history" type="action" label="30013" help="">
+                    <level>2</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_search_history?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="rebuild_database" type="action" label="30014" help="">
+                    <level>2</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/rebuild_database?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="completed_sync" type="action" label="30015" help="">
+                    <level>2</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/completed_sync?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="download_manager" type="action" label="30016" help="">
+                    <level>2</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="clear_selected_fanart" type="action" label="30018" help="">
+                    <level>2</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_selected_fanart?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- InputStream Adaptive -->
+            <group id="2" label="30597" help="">
+                <setting id="inputstreamadaptive.enabled" type="boolean" label="30598" help="">
+                    <level>3</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="inputstreamadaptive.settings" type="action" label="30599" help="" parent="inputstreamadaptive.enabled">
+                    <level>3</level>
+                    <dependencies>
+                        <dependency type="enable">
+                            <condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
+                        </dependency>
+                    </dependencies>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamadaptive?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="inputstreamhelper" type="action" label="30600" help="" parent="inputstreamadaptive.enabled">
+                    <level>3</level>
+                    <dependencies>
+                        <dependency type="enable">
+                            <condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
+                        </dependency>
+                    </dependencies>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamhelper?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- Language Invoker -->
+            <group id="3" label="30324" help="">
+                <setting id="reuselanguageinvoker.toggle" type="action" label="30325" help="">
+                    <level>3</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/toggleLanguageInvoker?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="reuselanguageinvoker.status" type="string" label="30326" help="">
+                    <level>3</level>
+                    <default>Disabled</default>
+                    <enable>false</enable>
+                    <control type="edit" format="string"/>
+                </setting>
+            </group>
+
+            <!-- Cloudflare & DDoS-GUARD Solver -->
+			<group id="4" label="30601">
+				<setting id="fs_enable" type="boolean" label="30602" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="fs_inst" type="action" label="30605" help="" parent="fs_enable">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="fs_url" type="string" label="30603" help="" parent="fs_enable">
+					<level>0</level>
+					<default>http://localhost:8191/v1</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30603</heading>
+					</control>
+				</setting>
+				<setting id="fs_timeout" type="integer" label="30604" help="" parent="fs_enable">
+					<level>0</level>
+					<default>60</default>
+					<constraints>
+						<minimum>30</minimum>
+						<step>30</step>
+						<maximum>180</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+			</group>
+
+            <!-- Megacloud Solver -->
+            <group id="5" label="30631" help="">
+				<setting id="ms_enable" type="boolean" label="30632" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="ms_inst" type="action" label="30605" help="" parent="ms_enable">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="ms_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="ms_url" type="string" label="30633" help="" parent="ms_enable">
+					<level>0</level>
+					<default>http://localhost:4000/</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="ms_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30633</heading>
+					</control>
+				</setting>
+            </group>
+
+            <!-- Import/Export -->
+            <group id="6" label="30327" help="">
+                <setting id="import_settings" type="action" label="30328" help="">
+                    <level>3</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/import_settings?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+                <setting id="export_settings" type="action" label="30329" help="">
+                    <level>3</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/export_settings?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>false</close>
+                    </control>
+                </setting>
+            </group>
+
+            <!-- Integer Settings -->
+            <group id="7" label="" help="">
+                <setting id="otaku.version" type="string" label="" help="">
+                    <level>4</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                </setting>
+                <setting id="fanart.all" type="list[String]" help="">
+                    <level>4</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                </setting>
+                <setting id="DMIndex" type="list[String]" help="">
+                    <level>4</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                </setting>
+                <setting id="last_played" type="string" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                </setting>
+                <setting id="addon.last_watched" type="string" label="" help="">
+                    <level>4</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                </setting>
+                <setting id="update.time.30" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="update.time.7" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="realdebrid.expiry" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="debridlink.expiry" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="kitsu.expiry" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="mal.expiry" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>0</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="aniwave.skipintro.start" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="aniwave.skipintro.end" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="aniwave.skipoutro.start" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="aniwave.skipoutro.end" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="hianime.skipintro.start" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="hianime.skipintro.end" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="hianime.skipoutro.start" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+                <setting id="hianime.skipoutro.end" type="integer" label="" help="">
+                    <level>4</level>
+                    <default>-1</default>
+                    <control type="edit" format="integer" />
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>

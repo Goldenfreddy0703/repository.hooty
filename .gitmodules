@@ -71,3 +71,7 @@
 	path = repo/skin.arctic.fuse
 	url = https://github.com/jurialmunkey/skin.arctic.fuse.git
 	branch = omega
+[submodule "repo/plugin.program.openwizard"]
+	path = repo/plugin.program.openwizard
+	url = https://github.com/a4k-openproject/plugin.program.openwizard.git
+	branch = matrix

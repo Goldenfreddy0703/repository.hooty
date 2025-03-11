@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.opendevtools" name="OpenDevTools" version="1.6.0" provider-name="drinfernoo">
+	<requires>
+		<import addon="script.module.dateutil"/>
+		<import addon="script.module.pil"/>
+		<import addon="script.module.pyqrcode"/>
+		<import addon="script.module.requests"/>
+	</requires>
+	<extension point="xbmc.python.script" library="default.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<language/>
+		<summary lang="en">Ease of access for Devs and Testers</summary>
+		<description lang="en">Provides ease of access tools for Devs and Testers</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.png</fanart>
+		</assets>
+		<news>
+1.6.0
+ - Support plugins in repo subfolders
+ - Fix choosing commit when only one branch exists
+ - Cleanup orphaned files after update
+ - Reload add-on localizations if changed during update
+1.5.5
+ - Add release automation via GitHub Actions
+1.5.4
+ - Fix error when "Install Dependencies" is disabled
+1.5.3
+ - Fix Web-PDB setting not being respected
+1.5.2
+ - Only read .json files for repo definitions
+ - Fix already installed addons downloading icons again
+1.5.1
+ - Allow automatically adding Web-PDB to installed add-ons
+1.5.0
+ - Reorganization of most functions
+ - Scannable QR code dialogs for GitHub authorization and uploaded logs
+ - Limit on number of fetched commits
+ - Add "Most Recently Used" sorting method for repos
+ - Exclusions manager
+ - Speed and performance increases
+1.4.3
+ - Add OpenDevTools as bundled repository
+1.4.2
+ - Add bare log uploading without authorization or issue
+1.4.1
+ - Fix skin installs
+ - Use regional time formatting
+ - Fix time formatting on Android (all platforms?)
+1.4.0
+ - Change format of raised issues
+ - More comprehensive XML checking
+ - More intelligent profile reloads
+ - More intelligent enabling/disabling of updated add-ons
+ - Fix clearing temp files
+ - Show add-on type(s) before install
+ - Show repository name as well as add-on name
+1.3.0
+ - Fix repo listings
+ - Minimize profile reloads
+1.2.0
+ - List repos by user
+ - Better enabling of addons after install
+ - Fix timestamps with correct time zone
+1.1.0
+ - Add string localization
+ - Add support for multiple repositories containing the same add-on
+ - Offer to update add-on after adding
+1.0.3
+ - Better formatting for timestamps
+1.0.2
+ - Fix for existing folders
+1.0.1
+ - Some performance fixes
+1.0.0
+ - Initial Release
+		</news>
+	</extension>
+</addon>

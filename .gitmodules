@@ -42,9 +42,6 @@
 [submodule "repo/script.module.archive_tool"]
 	path = repo/script.module.archive_tool
 	url = https://github.com/zach-morris/script.module.archive_tool.git
-[submodule "repo/plugin.program.openwizard"]
-	path = repo/plugin.program.openwizard
-	url = https://github.com/a4k-openproject/plugin.program.openwizard.git
 [submodule "repo/plugin.program.opendevtools"]
 	path = repo/plugin.program.opendevtools
 	url = https://github.com/drinfernoo/plugin.program.opendevtools.git

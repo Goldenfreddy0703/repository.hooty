@@ -136,7 +136,7 @@ class Sources(GetSources):
         else:
             self.remainingProviders.remove('gogo')
 
-        if control.getBool('provider.hianime') and control.settingids.ms_enabled:
+        if control.getBool('provider.hianime'):
             t = threading.Thread(target=self.hianime_worker, args=(mal_id, episode, rescrape))
             t.start()
             self.threads.append(t)

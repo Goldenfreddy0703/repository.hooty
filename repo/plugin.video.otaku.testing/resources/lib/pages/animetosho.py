@@ -148,14 +148,29 @@ class Sources(BrowserBase):
         return []
 
     def append_cache_uncached_noduplicates(self):
-        seen_sources = []
+        unique = {}
         for source in self.sources:
-            if source not in seen_sources:
-                seen_sources.append(source)
-                if source['cached']:
-                    self.cached.append(source)
-                else:
-                    self.uncached.append(source)
+            key = source.get('hash')
+            if not key:
+                continue
+            if key in unique:
+                current = unique[key]
+                # Compare seeders first; if equal, compare byte_size
+                if source.get('seeders', -1) > current.get('seeders', -1):
+                    unique[key] = source
+                elif (source.get('seeders', -1) == current.get('seeders', -1) and
+                      source.get('byte_size', 0) > current.get('byte_size', 0)):
+                    unique[key] = source
+            else:
+                unique[key] = source
+    
+        self.cached = []
+        self.uncached = []
+        for source in unique.values():
+            if source['cached']:
+                self.cached.append(source)
+            else:
+                self.uncached.append(source)
 
 
 def parse_animetosho_view(res, episode, cached=True):

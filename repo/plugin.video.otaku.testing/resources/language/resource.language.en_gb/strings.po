@@ -1510,7 +1510,7 @@ msgid "Megacloud Solver url"
 msgstr ""
 
 msgctxt "#30634"
-msgid "Requires Megacloud Solver"
+msgid ""
 msgstr ""
 
 msgctxt "#30635"

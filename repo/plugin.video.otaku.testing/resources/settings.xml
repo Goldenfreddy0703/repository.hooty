@@ -219,7 +219,7 @@
             <!-- Meta Api Customization -->
             <group id="2" label="30330" help="">
                 <setting id="browser.api" type="string" label="30330" help="">
-                    <level>3</level>
+                    <level>1</level>
                     <default>mal</default>
                     <constraints>
                         <options>
@@ -230,12 +230,12 @@
                     <control type="spinner" format="string"/>
                 </setting>
                 <setting id="override.meta.api" type="boolean" label="30305" help="">
-                    <level>3</level>
+                    <level>1</level>
                     <default>false</default>
                     <control type="toggle"/>
                 </setting>
                 <setting id="meta.api" type="string" label="30305" help="" parent="override.meta.api">
-                    <level>3</level>
+                    <level>1</level>
                     <default>simkl</default>
                     <constraints>
                         <options>
@@ -252,7 +252,7 @@
                     </dependencies>
                 </setting>
                 <setting id="override.meta.notify" type="boolean" label="30575" help="" parent="override.meta.api">
-                    <level>3</level>
+                    <level>1</level>
                     <default>false</default>
                     <control type="toggle"/>
                     <dependencies>
@@ -738,12 +738,12 @@
                         <dependency type="visible" setting="provider.gogo">true</dependency>
                     </dependencies>
                 </setting>
-                <setting id="provider.hianime" type="boolean" label="30402" help="30634">
+                <setting id="provider.hianime" type="boolean" label="30402" help="">
                     <level>0</level>
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="provider.hianimealt" type="boolean" label="30411" help="30634" parent="provider.hianime">
+                <setting id="provider.hianimealt" type="boolean" label="30411" help="" parent="provider.hianime">
                     <level>0</level>
                     <default>false</default>
                     <control type="toggle"/>

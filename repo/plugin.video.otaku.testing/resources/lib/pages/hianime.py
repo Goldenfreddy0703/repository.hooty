@@ -11,6 +11,7 @@ from resources.lib.endpoints import malsync
 
 class Sources(BrowserBase):
     _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianime.to/'
+    _MEGA_URL = 'https://mega-embed-2.vercel.app/'
 
     def get_sources(self, mal_id, episode):
         show = database.get_show(mal_id)
@@ -132,7 +133,13 @@ class Sources(BrowserBase):
                         else:
                             srclink = False
                             params = {'url': slink, 'referer': self._BASE_URL}
-                            mcs_url = urllib.parse.urljoin(control.getSetting('ms_url'), '/get')
+
+                            if control.getBool('ms_enable'):
+                                ms_url = control.getSetting('ms_url')
+                                mcs_url = urllib.parse.urljoin(ms_url, '/get')
+                            else:
+                                mcs_url = urllib.parse.urljoin(self._MEGA_URL, '/get')
+
                             res = self._get_request(mcs_url, data=params)
                             res = json.loads(res)
                             subs = res.get('tracks')

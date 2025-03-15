@@ -1,3 +1,7 @@
+Changelog v5.1.77 (2024-03-14):
+- H!Anime does not require Mega Cloud Solver
+- Modified Duplicate Sources Function
+
 Changelog v5.1.76 (2024-03-08):
 - Added FlareSolverr Support to AnimePahe
 

@@ -491,7 +491,6 @@ class SettingIDs:
         self.clean_titles = getBool('interface.cleantitles')
         self.terminateoncloud = getBool('general.terminate.oncloud')
         self.terminateonlocal = getBool('general.terminate.onlocal')
-        self.ms_enabled = getBool('ms_enable')
         self.dubonly = getBool("divflavors.dubonly")
         self.showdub = getBool("divflavors.showdub")
         self.watchlist_data = getBool('interface.watchlist.data')

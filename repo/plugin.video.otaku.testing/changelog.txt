@@ -1,3 +1,9 @@
+Changelog v5.1.79 (2024-03-15):
+- Fixed Resolution again
+
+Changelog v5.1.78 (2024-03-15):
+- Fixed Resolution with Aniwave and H!Anime
+
 Changelog v5.1.77 (2024-03-14):
 - H!Anime does not require Mega Cloud Solver
 - Modified Duplicate Sources Function

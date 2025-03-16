@@ -157,16 +157,16 @@ class Sources(BrowserBase):
                             if not srclink:
                                 continue
                             res = self._get_request(srclink, headers=headers)
-                            quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).+\n(?!#)(.+)', res)
+                            quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
 
                             for qual, qlink in quals:
                                 qual = int(qual)
-                                if qual > 1080:
-                                    quality = 3
-                                elif qual > 720:
-                                    quality = 2
-                                elif qual > 480:
+                                if qual <= 480:
                                     quality = 1
+                                elif qual <= 720:
+                                    quality = 2
+                                elif qual <= 1080:
+                                    quality = 3
                                 else:
                                     quality = 0
 

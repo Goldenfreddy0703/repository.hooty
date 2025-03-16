@@ -162,17 +162,17 @@ class Sources(BrowserBase):
                                         subs = {}
                                     headers.update({'Origin': self._BASE_URL[:-1]})
                                     res = self._get_request(srclink, headers=headers)
-                                    quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).+\n(?!#)(.+)', res)
+                                    quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
                                     for qual, qlink in quals:
                                         qual = int(qual)
-                                        if qual < 577:
+                                        if qual <= 577:
                                             quality = 1
-                                        elif qual < 721:
+                                        elif qual <= 721:
                                             quality = 2
-                                        elif qual < 1081:
+                                        elif qual <= 1081:
                                             quality = 3
                                         else:
-                                            quality = 4
+                                            quality = 0
 
                                         source = {
                                             'release_title': '{0} - Ep {1}'.format(title, episode),

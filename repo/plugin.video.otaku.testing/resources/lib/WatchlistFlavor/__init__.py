@@ -46,6 +46,7 @@ class WatchlistFlavor:
         control.setSetting('%s.username' % flavor, '')
         control.setSetting('%s.password' % flavor, '')
         control.setSetting('%s.sort' % flavor, '')
+        control.setSetting('%s.order' % flavor, '')
         control.setSetting('%s.titles' % flavor, '')
         return control.refresh()
 
@@ -68,9 +69,10 @@ class WatchlistFlavor:
         username = control.getSetting(f'{name}.username')
         password = control.getSetting(f'{name}.password')
         sort = control.getSetting(f'{name}.sort')
+        order = control.getSetting(f'{name}.order')
 
         flavor_class = WatchlistFlavor.__get_flavor_class(name)
-        return flavor_class(auth_var, username, password, user_id, token, refresh, sort)
+        return flavor_class(auth_var, username, password, user_id, token, refresh, sort, order)
 
     @staticmethod
     def __set_login(flavor, res):

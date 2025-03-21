@@ -48,7 +48,7 @@ class AniListWLF(WatchlistFlavorBase):
         return login_data
 
     def __get_sort(self):
-        sort_types = ['MEDIA_TITLE_ROMAJI_DESC', 'MEDIA_TITLE_ENGLISH_DESC', 'SCORE', 'PROGRESS', 'UPDATED_TIME', 'ADDED_TIME']
+        sort_types = [None, None, 'PROGRESS', 'UPDATED_TIME_DESC', 'ADDED_TIME_DESC']
         return sort_types[int(self.sort)]
 
     def watchlist(self):
@@ -186,12 +186,16 @@ class AniListWLF(WatchlistFlavorBase):
         get_meta.collect_meta(entries)
 
         # If sorting by title, sort manually alphabetically.
-        sort_type = self.__get_sort()
-        if sort_type in ['MEDIA_TITLE_ROMAJI_DESC', 'MEDIA_TITLE_ENGLISH_DESC']:
-            if sort_type == 'MEDIA_TITLE_ROMAJI_DESC':
-                entries.sort(key=lambda entry: (entry['media']['title'].get('romaji') or "").lower())
-            else:  # MEDIA_TITLE_ENGLISH_DESC
-                entries.sort(key=lambda entry: (entry['media']['title'].get('english') or entry['media']['title'].get('userPreferred') or "").lower())
+        if int(self.sort) == 0:
+            entries.sort(key=lambda entry: (entry['media']['title'].get(self.title_lang) or "").lower())
+
+        # If sorting by score, sort manually by score.
+        if int(self.sort) == 1:
+            entries.sort(key=lambda entry: entry['media']['averageScore'], reverse=True)
+
+        # If oder is descending, reverse the order.
+        if int(self.order) == 1:
+            entries.reverse()
 
         # If next_up is True, reverse the order if needed.
         all_results = map(self._base_next_up_view, entries) if next_up else map(self.base_watchlist_status_view, entries)

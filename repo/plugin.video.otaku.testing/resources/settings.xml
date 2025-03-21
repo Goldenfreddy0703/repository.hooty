@@ -2129,10 +2129,11 @@
                     <default>1</default>
                     <constraints>
                         <options>
-                            <option label="List Score">0</option>
-                            <option label="Last Updated">1</option>
-                            <option label="Anime Start Date">2</option>
-                            <option label="Anime Title">3</option>
+                            <option label="Anime Title">0</option>
+                            <option label="Score">1</option>
+                            <option label="Progress">2</option>
+                            <option label="Last Updated">3</option>
+                            <option label="Last Added">4</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>

@@ -2002,15 +2002,28 @@
                 </setting>
                 <setting id="anilist.sort" type="integer" label="30292" help="">
                     <level>0</level>
-                    <default>4</default>
+                    <default>3</default>
                     <constraints>
                         <options>
-                            <option label="Romaji Title">0</option>
-                            <option label="English Title">1</option>
-                            <option label="Score">2</option>
-                            <option label="Progress">3</option>
-                            <option label="Last Updated">4</option>
-                            <option label="Last Added">5</option>
+                            <option label="Anime Title">0</option>
+                            <option label="Score">1</option>
+                            <option label="Progress">2</option>
+                            <option label="Last Updated">3</option>
+                            <option label="Last Added">4</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="anilist.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="anilist.order" type="integer" label="30293" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Ascending">0</option>
+                            <option label="Descending">1</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>
@@ -2051,13 +2064,28 @@
                 </setting>
                 <setting id="mal.sort" type="integer" label="30292" help="">
                     <level>0</level>
-                    <default>1</default>
+                    <default>3</default>
                     <constraints>
                         <options>
-                            <option label="List Score">0</option>
-                            <option label="Last Updated">1</option>
-                            <option label="Anime Start Date">2</option>
-                            <option label="Anime Title">3</option>
+                            <option label="Anime Title">0</option>
+                            <option label="Score">1</option>
+                            <option label="Progress">2</option>
+                            <option label="Last Updated">3</option>
+                            <option label="Anime Start Date">4</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.order" type="integer" label="30293" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Ascending">0</option>
+                            <option label="Descending">1</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>
@@ -2113,7 +2141,6 @@
                         <dependency type="visible" setting="kitsu.enabled">true</dependency>
                     </dependencies>
                 </setting>
-
                 <setting id="kitsu.login" type="action" label="30291"  parent="kitsu.enabled" help="">
                     <level>0</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/kitsu)</data>
@@ -2126,7 +2153,7 @@
                 </setting>
                 <setting id="kitsu.sort" type="integer" label="30292" parent="kitsu.enabled" help="">
                     <level>0</level>
-                    <default>1</default>
+                    <default>3</default>
                     <constraints>
                         <options>
                             <option label="Anime Title">0</option>
@@ -2134,6 +2161,20 @@
                             <option label="Progress">2</option>
                             <option label="Last Updated">3</option>
                             <option label="Last Added">4</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="kitsu.order" type="integer" label="30293" parent="kitsu.enabled" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Ascending">0</option>
+                            <option label="Descending">1</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>

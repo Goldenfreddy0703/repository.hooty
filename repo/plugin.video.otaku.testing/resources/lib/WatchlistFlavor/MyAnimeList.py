@@ -86,7 +86,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         return [utils.allocate_item(name, f'{base_url}/{offset}?page={next_page}', True, False, [], 'next.png', {'plot': name}, fanart='next.png')]
 
     def __get_sort(self):
-        sort_types = ['list_score', 'list_updated_at', 'anime_start_date', 'anime_title']
+        sort_types = ['anime_title', 'list_score', "", 'list_updated_at', 'anime_start_date']
         return sort_types[int(self.sort)]
 
     def watchlist(self):
@@ -147,10 +147,18 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         # Extract mal_ids and create a list of dictionaries with 'mal_id' keys
         mal_ids = [{'mal_id': item['node']['id']} for item in results.get('data', [])]
         get_meta.collect_meta(mal_ids)
-        
+
         # If sorting by anime_title and language is english, sort manually by english title.
         if self.__get_sort() == 'anime_title' and self.title_lang == 'english':
             results['data'].sort(key=lambda item: (item['node'].get('alternative_titles', {}).get('en') or item['node'].get('title')).lower())
+
+        # If sorting by progress, sort manually by progress:
+        if int(self.sort) == 2:
+            results['data'].sort(key=lambda item: item['list_status']['num_episodes_watched'])
+
+        # If oder is descending, reverse the order.
+        if int(self.order) == 1:
+            results['data'].reverse()
 
         all_results = list(map(self._base_next_up_view, results['data'])) if next_up else list(map(self._base_watchlist_status_view, results['data']))
         all_results += self.handle_paging(results.get('paging', {}).get('next'), base_plugin_url, page)

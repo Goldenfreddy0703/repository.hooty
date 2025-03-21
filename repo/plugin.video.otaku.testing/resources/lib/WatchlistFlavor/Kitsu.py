@@ -87,7 +87,7 @@ class KitsuWLF(WatchlistFlavorBase):
         sort_options = [
             f"anime.titles.{self.__get_title_lang()}",
             "-anime.averageRating",
-            "-progress",
+            "progress",
             "-progressed_at",
             "-started_at",
         ]
@@ -152,6 +152,11 @@ class KitsuWLF(WatchlistFlavorBase):
         # Extract mal_ids from the new API response structure
         mal_ids = [{'mal_id': item['attributes']['externalId']} for item in self.mapping if item['attributes']['externalSite'] == 'myanimelist/anime']
         get_meta.collect_meta(mal_ids)
+
+        # If oder is descending, reverse the order.
+        if int(self.order) == 1:
+            _list = _list[::-1]
+            el = el[::-1]
 
         if next_up:
             all_results = map(self._base_next_up_view, _list, el)

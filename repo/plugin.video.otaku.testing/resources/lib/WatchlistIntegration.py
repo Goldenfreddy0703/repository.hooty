@@ -58,7 +58,11 @@ def WATCHLIST_STATUS_TYPE_PAGES(payload, params):
 @Route('watchlist_to_ep/*')
 def WATCHLIST_TO_EP(payload, params):
     payload_list = payload.rsplit("/")
-    mal_id, eps_watched = payload_list
+    # todo needs to be fixed
+    if len(payload_list) == 2:
+        mal_id, eps_watched = payload_list
+    else:
+        mal_id, eps_watched, extra = payload_list
     show_meta = database.get_show(mal_id)
     if not show_meta:
         show_meta = BROWSER.get_anime(mal_id)

@@ -147,6 +147,10 @@ class MyAnimeListWLF(WatchlistFlavorBase):
         # Extract mal_ids and create a list of dictionaries with 'mal_id' keys
         mal_ids = [{'mal_id': item['node']['id']} for item in results.get('data', [])]
         get_meta.collect_meta(mal_ids)
+        
+        # If sorting by anime_title and language is english, sort manually by english title.
+        if self.__get_sort() == 'anime_title' and self.title_lang == 'english':
+            results['data'].sort(key=lambda item: (item['node'].get('alternative_titles', {}).get('en') or item['node'].get('title')).lower())
 
         all_results = list(map(self._base_next_up_view, results['data'])) if next_up else list(map(self._base_watchlist_status_view, results['data']))
         all_results += self.handle_paging(results.get('paging', {}).get('next'), base_plugin_url, page)

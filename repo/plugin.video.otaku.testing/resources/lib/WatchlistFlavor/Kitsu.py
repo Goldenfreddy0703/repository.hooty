@@ -78,8 +78,20 @@ class KitsuWLF(WatchlistFlavorBase):
         return [utils.allocate_item(name, f'{base_url}/{offset}?page={next_page}', True, False, [], 'next.png', {'plot': name}, fanart='next.png')]
 
     def __get_sort(self):
-        sort_types = ['-progressed_at', '-progress', f"anime.titles.{self.__get_title_lang()}"]
-        return sort_types[int(self.sort)]
+        # Mapping:
+        # 0: Anime Title -> sort by anime.titles.{language} alphabetically
+        # 1: Score -> sort by anime.averageRating descending
+        # 2: Progress -> sort by progress descending
+        # 3: Last Updated -> sort by progressed_at descending
+        # 4: Last Added -> sort by started_at descending
+        sort_options = [
+            f"anime.titles.{self.__get_title_lang()}",
+            "-anime.averageRating",
+            "-progress",
+            "-progressed_at",
+            "-started_at",
+        ]
+        return sort_options[int(self.sort)]
 
     def __get_title_lang(self):
         title_langs = {

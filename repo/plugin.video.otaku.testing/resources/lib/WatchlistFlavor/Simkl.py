@@ -61,10 +61,6 @@ class SimklWLF(WatchlistFlavorBase):
             new_display_dialog = f"{display_dialog}[CR]Code Valid for {control.colorstr(device_code['expires_in'] - i * device_code['interval'])} Seconds"
             control.progressDialog.update(int((inter - i) / inter * 100), new_display_dialog)
 
-    def __get_sort(self):
-        sort_types = ['anime_title', 'list_updated_at', 'last_added', 'user_rating']
-        return sort_types[int(self.sort)]
-
     def watchlist(self):
         statuses = [
             ("Next Up", "watching?next_up=true", 'next_up.png'),
@@ -102,22 +98,41 @@ class SimklWLF(WatchlistFlavorBase):
         if not results:
             return []
 
+        # Get the progress of the item
+        def get_progress(item):
+            try:
+                # Expected format: "Title - current/total"
+                text = item['name']
+                # Get the part after the last " - "
+                progress_parts = text.rsplit(" - ", 1)
+                if len(progress_parts) == 2:
+                    current = int(progress_parts[1].split("/")[0])
+                else:
+                    current = 0
+            except Exception:
+                current = 0
+            return current
+
         # Extract mal_ids from the new API response structure
         mal_ids = [{'mal_id': anime['show']['ids']['mal']} for anime in results['anime']]
         get_meta.collect_meta(mal_ids)
 
         all_results = list(map(self._base_next_up_view, results['anime'])) if next_up else list(map(self._base_watchlist_status_view, results['anime']))
 
-        sort_pref = self.__get_sort()
-
-        if sort_pref == '2':  # anime_title
+        if int(self.sort) == 0:  # anime_title
             all_results = sorted(all_results, key=lambda x: x['info']['title'])
-        elif sort_pref == '0':    # list_updated_at
-            all_results = sorted(all_results, key=lambda x: x['info']['last_watched'] or "0", reverse=True)
-        elif sort_pref == '3':    # user_rating
+        elif int(self.sort) == 1:    # user_rating
             all_results = sorted(all_results, key=lambda x: x['info']['user_rating'] or 0, reverse=True)
-        elif sort_pref == '1':    # last_added
+        elif int(self.sort) == 2:    # progress
+            all_results = sorted(all_results, key=get_progress)
+        elif int(self.sort) == 3:    # list_updated_at
+            all_results = sorted(all_results, key=lambda x: x['info']['last_watched'] or "0", reverse=True)
+        elif int(self.sort) == 4:    # last_added
             all_results.reverse()
+
+        if int(self.order) == 1:
+            all_results.reverse()
+
         return all_results
 
     @div_flavor

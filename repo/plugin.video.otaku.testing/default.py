@@ -2038,10 +2038,11 @@ def get_menu_items(menu_type):
             (control.lang(30012), "clear_cache", 'clear_cache.png', {}),
             (control.lang(30013), "clear_search_history", 'clear_search_history.png', {}),
             (control.lang(30014), "rebuild_database", 'rebuild_database.png', {}),
-            (control.lang(30015), "completed_sync", "sync_completed.png", {}),
-            (control.lang(30016), 'download_manager', 'download_manager.png', {}),
-            (control.lang(30017), 'sort_select', 'sort_select.png', {}),
-            (control.lang(30018), 'clear_selected_fanart', 'wipe_addon_data.png', {}),
+            (control.lang(30015), "wipe_addon_data", 'wipe_addon_data.png', {}),
+            (control.lang(30016), "completed_sync", 'sync_completed.png', {}),
+            (control.lang(30017), 'download_manager', 'download_manager.png', {}),
+            (control.lang(30018), 'sort_select', 'sort_select.png', {}),
+            (control.lang(30019), 'clear_selected_fanart', 'wipe_addon_data.png', {}),
         ],
     }
     return items.get(menu_type, [])
@@ -2987,6 +2988,11 @@ def CLEAR_SELECTED_FANART(payload, params):
 def REBUILD_DATABASE(payload, params):
     from resources.lib.ui.database_sync import SyncDatabase
     SyncDatabase().re_build_database()
+
+
+@Route('wipe_addon_data')
+def WIPE_ADDON_DATA(payload, params):
+    control.clear_settings()
 
 
 @Route('completed_sync')

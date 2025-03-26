@@ -45,7 +45,7 @@
 					<scrolltime tween="sine">400</scrolltime>
 					<font>font14</font>
 					<textcolor>white</textcolor>
-					<label>$INFO[Window().Property(otaku.instructions_text)]</label>
+					<label>$INFO[Window().Property(otaku.text)]</label>
 					<pagecontrol>2060</pagecontrol>
 				</control>
 				<control type="scrollbar" id="2060">

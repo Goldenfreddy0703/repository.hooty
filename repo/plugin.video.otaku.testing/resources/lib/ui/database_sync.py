@@ -38,6 +38,8 @@ class SyncDatabase:
         if not self.activites or self.activites.get('otaku_version') != self.last_meta_update:
             # xbmcvfs.delete(control.sort_options_json)
             # xbmcvfs.delete(control.searchHistoryDB)
+            if control.getSetting('version') == '0.5.43':
+                self.migration_process()
             self.re_build_database(True)
 
     @staticmethod
@@ -117,3 +119,77 @@ class SyncDatabase:
         self.refresh_activites()
         if not silent:
             control.notify(f'{control.ADDON_NAME}: Database', 'Metadata Database Successfully Cleared', sound=False)
+
+    def migration_process(self):
+        import json
+        import xbmc
+
+        # Retrieve current settings
+        watchlist_update_enabled = control.getSetting('watchlist.update.enabled')
+        watchlist_update_flavor = control.getSetting('watchlist.update.flavor')
+        watchlist_update_percent = control.getSetting('watchlist.update.percent')
+        watchlist_sync_enabled = control.getSetting('watchlist.sync.enabled')
+        anilist_enabled = control.getSetting('anilist.enabled')
+        anilist_username = control.getSetting('anilist.username')
+        anilist_token = control.getSetting('anilist.token')
+        anilist_userid = control.getSetting('anilist.userid')
+        mal_enabled = control.getSetting('mal.enabled')
+        mal_username = control.getSetting('mal.username')
+        mal_authvar = control.getSetting('mal.authvar')
+        mal_refresh = control.getSetting('mal.refresh')
+        mal_token = control.getSetting('mal.token')
+        mal_expiry = control.getSetting('mal.expiry')
+        kitsu_enabled = control.getSetting('kitsu.enabled')
+        kitsu_username = control.getSetting('kitsu.username')
+        kitsu_authvar = control.getSetting('kitsu.authvar')
+        kitsu_password = control.getSetting('kitsu.password')
+        kitsu_refresh = control.getSetting('kitsu.refresh')
+        kitsu_token = control.getSetting('kitsu.token')
+        kitsu_userid = control.getSetting('kitsu.userid')
+        kitsu_expiry = control.getSetting('kitsu.expiry')
+        simkl_enabled = control.getSetting('simkl.enabled')
+        simkl_username = control.getSetting('simkl.username')
+        simkl_token = control.getSetting('simkl.token')
+        version = control.ADDON_VERSION
+
+        # First, clear existing settings
+        control.clear_settings(True)
+
+        # Save all these settings to migrationSettings (migration.json)
+        migration_data = {
+            "watchlist.update.enabled": watchlist_update_enabled,
+            "watchlist.update.flavor": watchlist_update_flavor,
+            "watchlist.update.percent": watchlist_update_percent,
+            "watchlist.sync.enabled": watchlist_sync_enabled,
+            "anilist.enabled": anilist_enabled,
+            "anilist.username": anilist_username,
+            "anilist.token": anilist_token,
+            "anilist.userid": anilist_userid,
+            "mal.enabled": mal_enabled,
+            "mal.username": mal_username,
+            "mal.authvar": mal_authvar,
+            "mal.refresh": mal_refresh,
+            "mal.token": mal_token,
+            "mal.expiry": mal_expiry,
+            "kitsu.enabled": kitsu_enabled,
+            "kitsu.username": kitsu_username,
+            "kitsu.authvar": kitsu_authvar,
+            "kitsu.password": kitsu_password,
+            "kitsu.refresh": kitsu_refresh,
+            "kitsu.token": kitsu_token,
+            "kitsu.userid": kitsu_userid,
+            "kitsu.expiry": kitsu_expiry,
+            "simkl.enabled": simkl_enabled,
+            "simkl.username": simkl_username,
+            "simkl.token": simkl_token,
+            "version": version,
+        }
+        try:
+            with open(control.migrationSettings, 'w', encoding='utf-8') as f:
+                json.dump(migration_data, f, indent=4, sort_keys=True)
+        except Exception as e:
+            control.log(f"Error writing migration settings: {e}")
+
+        # Inform user and force restart Kodi
+        control.ok_dialog(control.ADDON_NAME, "Otaku has gotten a major update and requires a force restart to complete the watchlist migration.\nPlease restart Otaku to complete the migration.")
+        xbmc.executebuiltin('Quit')

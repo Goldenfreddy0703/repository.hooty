@@ -306,18 +306,22 @@ msgid "Rebuild Database"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Sync Completed List"
+msgid "Wipe Addon Data"
 msgstr ""
 
 msgctxt "#30016"
-msgid "Download Manager"
+msgid "Sync Completed List"
 msgstr ""
 
 msgctxt "#30017"
-msgid "Choose Sorting.."
+msgid "Download Manager"
 msgstr ""
 
 msgctxt "#30018"
+msgid "Choose Sorting.."
+msgstr ""
+
+msgctxt "#30019"
 msgid "Clear Selected Fanart"
 msgstr ""
 
@@ -359,6 +363,10 @@ msgctxt "#30033"
 msgid "[COLOR red]WARNING[/COLOR]\nThis will clear all selected fanart, are you sure?"
 msgstr ""
 
+msgctxt "#30034"
+msgid "[COLOR red]WARNING[/COLOR]\nThis will completely clear your addon settings. Are you sure you want to do this?"
+msgstr ""
+
 ######SKINS DIRECTORY######
 msgctxt "#30040"
 msgid "[B]Open this link in a browser: [COLOR deepskyblue]https://armkai.vercel.app/api/mal[/COLOR][/B]"
@@ -385,308 +393,1128 @@ msgid "Providers"
 msgstr ""
 
 ######SETTINGS.XML VALUES######
-msgctxt "#30300"
+msgctxt "#30100"
 msgid "General"
 msgstr ""
 
-msgctxt "#30301"
+msgctxt "#30101"
 msgid "Title Language"
 msgstr ""
 
-msgctxt "#30302"
+msgctxt "#30102"
 msgid "Enable search history"
 msgstr ""
 
-msgctxt "#30303"
+msgctxt "#30103"
 msgid "Smart Episode Scrolling (Only works in List View)"
 msgstr ""
 
-msgctxt "#30304"
+msgctxt "#30104"
 msgid "Download Location"
 msgstr ""
 
-msgctxt "#30305"
+msgctxt "#30105"
 msgid "Meta Episode API"
 msgstr ""
 
-msgctxt "#30306"
+msgctxt "#30106"
 msgid "Artwork Customization"
 msgstr ""
 
-msgctxt "#30307"
+msgctxt "#30107"
 msgid "Per Page General View"
 msgstr ""
 
-msgctxt "#30308"
+msgctxt "#30108"
 msgid "Per Page Watchlist View (does not work on Anilist or Simkl)"
 msgstr ""
 
-msgctxt "#30309"
+msgctxt "#30109"
 msgid "How Long Before Checking for New Episodes (days)"
 msgstr ""
 
-msgctxt "#30310"
+msgctxt "#30110"
 msgid "Force View Types on Menus"
 msgstr ""
 
-msgctxt "#30311"
+msgctxt "#30111"
 msgid "General Menu View"
 msgstr ""
 
-msgctxt "#30312"
+msgctxt "#30112"
 msgid "TV Show View"
 msgstr ""
 
-msgctxt "#30313"
+msgctxt "#30113"
 msgid "Episode View"
 msgstr ""
 
-msgctxt "#30314"
+msgctxt "#30114"
 msgid "Fetch Watchlist Episode Data"
 msgstr ""
 
-msgctxt "#30315"
+msgctxt "#30115"
 msgid "Hide Episode Info and Plot"
 msgstr ""
 
-msgctxt "#30316"
+msgctxt "#30116"
 msgid "Show Empty Episode Meta"
 msgstr ""
 
-msgctxt "#30317"
+msgctxt "#30117"
 msgid "Disable Fanart"
 msgstr ""
 
-msgctxt "#30318"
+msgctxt "#30118"
 msgid "Disable Clearlogo"
 msgstr ""
 
-msgctxt "#30319"
+msgctxt "#30119"
 msgid "Theme"
 msgstr ""
 
-msgctxt "#30320"
+msgctxt "#30120"
 msgid "Show Dub Upcoming Dates"
 msgstr ""
 
-msgctxt "#30321"
+msgctxt "#30121"
 msgid "API to be used for getting Dub times"
 msgstr ""
 
-msgctxt "#30322"
+msgctxt "#30122"
 msgid "Show Filler Info If Found"
 msgstr ""
 
-msgctxt "#30323"
+msgctxt "#30123"
 msgid "JZ Settings"
 msgstr ""
 
-msgctxt "#30324"
+msgctxt "#30124"
 msgid "Language Invoker"
 msgstr ""
 
-msgctxt "#30325"
+msgctxt "#30125"
 msgid "Toggle Re-Use Language Invoker:              Enable For Much Faster Speeds"
 msgstr ""
 
-msgctxt "#30326"
+msgctxt "#30126"
 msgid "Re-Use Language Invoker Status: "
 msgstr ""
 
-msgctxt "#30327"
+msgctxt "#30127"
 msgid "Import/Export"
 msgstr ""
 
-msgctxt "#30328"
+msgctxt "#30128"
 msgid "Import Settings"
 msgstr ""
 
-msgctxt "#30329"
+msgctxt "#30129"
 msgid "Export Settings"
 msgstr ""
 
-msgctxt "#30330"
+msgctxt "#30130"
 msgid "Meta API"
 msgstr ""
 
-msgctxt "#30331"
+msgctxt "#30131"
 msgid ""
 msgstr ""
 
-msgctxt "#30332"
+msgctxt "#30132"
 msgid "Torrents"
 msgstr ""
 
-msgctxt "#30333"
+msgctxt "#30133"
 msgid "Embeds"
 msgstr ""
 
-msgctxt "#30334"
+msgctxt "#30134"
 msgid "Other"
 msgstr ""
 
-msgctxt "#30340"
+msgctxt "#30135"
 msgid "EQ"
 msgstr ""
 
-msgctxt "#30341"
+msgctxt "#30136"
 msgid "SD"
 msgstr ""
 
-msgctxt "#30342"
+msgctxt "#30137"
 msgid "720p"
 msgstr ""
 
-msgctxt "#30343"
+msgctxt "#30138"
 msgid "1080p"
 msgstr ""
 
-msgctxt "#30344"
+msgctxt "#30139"
 msgid "4k"
 msgstr ""
 
-msgctxt "#30345"
+msgctxt "#30140"
 msgid "Playback"
 msgstr ""
 
-msgctxt "#30346"
+msgctxt "#30141"
 msgid "Movie Play Style"
 msgstr ""
 
-msgctxt "#30347"
+msgctxt "#30142"
 msgid "Episode Play Style"
 msgstr ""
 
-msgctxt "#30348"
+msgctxt "#30143"
 msgid "Auto Play"
 msgstr ""
 
-msgctxt "#30349"
+msgctxt "#30144"
 msgid "Source Select"
 msgstr ""
 
-msgctxt "#30350"
+msgctxt "#30145"
 msgid "Auto try next link on resolve failure (Source Select)"
 msgstr ""
 
-msgctxt "#30351"
+msgctxt "#30146"
 msgid "Terminate on Cloud Sources"
 msgstr ""
 
-msgctxt "#30352"
+msgctxt "#30147"
 msgid "Playing Next Dialog"
 msgstr ""
 
-msgctxt "#30353"
+msgctxt "#30148"
 msgid "Enable Playing Next Dialog"
 msgstr ""
 
-msgctxt "#30354"
+msgctxt "#30149"
 msgid "Minimum Seconds Left Before Showing Dialog"
 msgstr ""
 
-msgctxt "#30355"
+msgctxt "#30150"
 msgid "Skip Intro Dialog"
 msgstr ""
 
-msgctxt "#30356"
+msgctxt "#30151"
 msgid "Enable Skip Intro Dialog"
 msgstr ""
 
-msgctxt "#30357"
+msgctxt "#30152"
 msgid "Seconds to skip"
 msgstr ""
 
-msgctxt "#30358"
+msgctxt "#30153"
 msgid "Sort & Filter"
 msgstr ""
 
-msgctxt "#30359"
+msgctxt "#30154"
 msgid "Source Filters"
 msgstr ""
 
-msgctxt "#30360"
+msgctxt "#30155"
 msgid "Max Resolution"
 msgstr ""
 
-msgctxt "#30361"
+msgctxt "#30156"
 msgid "Hide HEVC Items"
 msgstr ""
 
-msgctxt "#30362"
+msgctxt "#30157"
 msgid "Source Type"
 msgstr ""
 
-msgctxt "#30363"
+msgctxt "#30158"
 msgid "Sort Sourcing"
 msgstr ""
 
-msgctxt "#30364"
+msgctxt "#30159"
 msgid "Scrape UnCached Sources"
 msgstr ""
 
-msgctxt "#30365"
+msgctxt "#30160"
 msgid "Accounts"
 msgstr ""
 
-msgctxt "#30366"
+msgctxt "#30161"
 msgid "Set Percent to Mark as Watched"
 msgstr ""
 
-msgctxt "#30367"
+msgctxt "#30162"
 msgid "NOTE: Next up Dialog will not begin until this percentage is met"
 msgstr ""
 
-msgctxt "#30368"
+msgctxt "#30163"
 msgid "Enable Sync Completed"
 msgstr ""
 
-msgctxt "#30369"
+msgctxt "#30164"
 msgid "Watchlist"
 msgstr ""
 
-msgctxt "#30370"
+msgctxt "#30165"
 msgid "Update Watchlist"
 msgstr ""
 
-msgctxt "#30371"
+msgctxt "#30166"
 msgid "Watchlist to update"
 msgstr ""
 
-msgctxt "#30372"
+msgctxt "#30167"
 msgid "Set Content Filter"
 msgstr ""
 
-msgctxt "#30373"
+msgctxt "#30168"
 msgid "Format"
 msgstr ""
 
-msgctxt "#30374"
+msgctxt "#30169"
 msgid "TV"
 msgstr ""
 
-msgctxt "#30375"
+msgctxt "#30170"
 msgid "MOVIE"
 msgstr ""
 
-msgctxt "#30376"
+msgctxt "#30171"
 msgid "TV_SHORT"
 msgstr ""
 
-msgctxt "#30377"
+msgctxt "#30172"
 msgid "SPECIAL"
 msgstr ""
 
+msgctxt "#30173"
+msgid "OV"
+msgstr ""
+
+msgctxt "#30174"
+msgid "ON"
+msgstr ""
+
+msgctxt "#30175"
+msgid "MUSIC"
+msgstr ""
+
+msgctxt "#30176"
+msgid ""
+msgstr ""
+
+msgctxt "#30177"
+msgid "Content Customization"
+msgstr ""
+
+msgctxt "#30178"
+msgid "Enable searching mature titles"
+msgstr ""
+
+msgctxt "#30179"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "#30180"
+msgid "Set Country Filter"
+msgstr ""
+
+msgctxt "#30181"
+msgid "Country"
+msgstr ""
+
+msgctxt "#30182"
+msgid "Japan"
+msgstr ""
+
+msgctxt "#30183"
+msgid "South Korea"
+msgstr ""
+
+msgctxt "#30184"
+msgid "China"
+msgstr ""
+
+msgctxt "#30185"
+msgid "Taiwan"
+msgstr ""
+
+msgctxt "#30186"
+msgid "Set Delay in Seconds Before Showing Dialog"
+msgstr ""
+
+msgctxt "#30187"
+msgid "Timeout for Source Scraping (seconds)"
+msgstr ""
+
+msgctxt "#30188"
+msgid "Filter Only Dubs"
+msgstr ""
+
+msgctxt "#30189"
+msgid "Show [COLOR blue](DUB)[/COLOR] in titles for dubbed content"
+msgstr ""
+
+msgctxt "#30190"
+msgid "Duration of how long the Dialog will appear"
+msgstr ""
+
+msgctxt "#30191"
+msgid "Enable Smart Skip"
+msgstr ""
+
+msgctxt "#30192"
+msgid "Offset for Smart Skip (seconds)"
+msgstr ""
+
+msgctxt "#30193"
+msgid "Real-Debrid"
+msgstr ""
+
+msgctxt "#30194"
+msgid "Enable Real-Debrid..."
+msgstr ""
+
+msgctxt "#30195"
+msgid "Real-Debrid Username"
+msgstr ""
+
+msgctxt "#30196"
+msgid "Real-Debrid Status"
+msgstr ""
+
+msgctxt "#30197"
+msgid "Authorize Real-Debrid..."
+msgstr ""
+
+msgctxt "#30198"
+msgid "Refresh Real-Debrid Token"
+msgstr ""
+
+msgctxt "#30199"
+msgid "AllDebrid"
+msgstr ""
+
+msgctxt "#30200"
+msgid "Enable AllDebrid..."
+msgstr ""
+
+msgctxt "#30201"
+msgid "AllDebrid Username"
+msgstr ""
+
+msgctxt "#30202"
+msgid "AllDebrid Status"
+msgstr ""
+
+msgctxt "#30203"
+msgid "Authorize AllDebrid..."
+msgstr ""
+
+msgctxt "#30204"
+msgid "Refresh AllDebrid Token"
+msgstr ""
+
+msgctxt "#30205"
+msgid "Debrid-Link"
+msgstr ""
+
+msgctxt "#30206"
+msgid "Enable Debrid-Link..."
+msgstr ""
+
+msgctxt "#30207"
+msgid "Debrid-Link Username"
+msgstr ""
+
+msgctxt "#30208"
+msgid "Debrid-Link Status"
+msgstr ""
+
+msgctxt "#30209"
+msgid "Authorize Debrid-Link..."
+msgstr ""
+
+msgctxt "#30210"
+msgid "Refresh Debrid-Link Token"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Premiumize"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Enable Premiumize..."
+msgstr ""
+
+msgctxt "#30213"
+msgid "Premiumize Username"
+msgstr ""
+
+msgctxt "#30214"
+msgid "Premiumize Status"
+msgstr ""
+
+msgctxt "#30215"
+msgid "Authorize Premiumize..."
+msgstr ""
+
+msgctxt "#30216"
+msgid "Scrape Real-Debrid Cloud"
+msgstr ""
+
+msgctxt "#30217"
+msgid "Scrape Premiumize Cloud"
+msgstr ""
+
+msgctxt "#30218"
+msgid "Scrape AllDebrid Cloud"
+msgstr ""
+
+msgctxt "#30219"
+msgid "Scrape Debrid-Link Cloud"
+msgstr ""
+
+msgctxt "#30220"
+msgid "MyAnimeList"
+msgstr ""
+
+msgctxt "#30221"
+msgid "Enable MyAnimeList"
+msgstr ""
+
+msgctxt "#30222"
+msgid "AniList"
+msgstr ""
+
+msgctxt "#30223"
+msgid "Enable AniList"
+msgstr ""
+
+msgctxt "#30224"
+msgid "Kitsu"
+msgstr ""
+
+msgctxt "#30225"
+msgid "Enable Kitsu"
+msgstr ""
+
+msgctxt "#30226"
+msgid "Email:"
+msgstr "Email:"
+
+msgctxt "#30227"
+msgid "Password:"
+msgstr ""
+
+msgctxt "#30228"
+msgid "How titles will be displayed:"
+msgstr ""
+
+msgctxt "#30229"
+msgid "Simkl"
+msgstr ""
+
+msgctxt "#30230"
+msgid "Enable Simkl"
+msgstr ""
+
+msgctxt "#30231"
+msgid "Username:"
+msgstr ""
+
+msgctxt "#30232"
+msgid "Click to Authorize..."
+msgstr ""
+
+msgctxt "#30233"
+msgid "Sort by:"
+msgstr ""
+
+msgctxt "#30234"
+msgid "Order by:"
+msgstr ""
+
+msgctxt "#30235"
+msgid "Nyaa"
+msgstr ""
+
+msgctxt "#30236"
+msgid "AnimeTosho"
+msgstr ""
+
+msgctxt "#30237"
+msgid "H!Anime"
+msgstr ""
+
+msgctxt "#30238"
+msgid "Gogo"
+msgstr ""
+
+msgctxt "#30239"
+msgid "AnimePahe"
+msgstr ""
+
+msgctxt "#30240"
+msgid "Animix"
+msgstr ""
+
+msgctxt "#30241"
+msgid "AniWave"
+msgstr ""
+
+msgctxt "#30242"
+msgid "Scrape Local Files"
+msgstr ""
+
+msgctxt "#30243"
+msgid "H!Anime Proxies (Region Problem)"
+msgstr ""
+
+msgctxt "#30244"
+msgid "Gogo Proxies (Region Problem)"
+msgstr ""
+
+msgctxt "#30245"
+msgid "Animix Proxies (Region Problem)"
+msgstr ""
+
+msgctxt "#30246"
+msgid "Nyaa Alt (For Verizon Users)"
+msgstr ""
+
+msgctxt "#30247"
+msgid "Context Customization"
+msgstr ""
+
+msgctxt "#30248"
+msgid "Find Recommendations"
+msgstr ""
+
+msgctxt "#30249"
+msgid "Find Relations"
+msgstr ""
+
+msgctxt "#30250"
+msgid "Rescrape"
+msgstr ""
+
+msgctxt "#30251"
+msgid "Source Select"
+msgstr ""
+
+msgctxt "#30252"
+msgid "Logout"
+msgstr ""
+
+msgctxt "#30253"
+msgid "Delete from Database"
+msgstr ""
+
+msgctxt "#30254"
+msgid "WatchList manager"
+msgstr ""
+
+msgctxt "#30255"
+msgid "Marked as Watched [COLOR deepskyblue]WatchList[/COLOR]"
+msgstr ""
+
+msgctxt "#30256"
+msgid "Select Fanart"
+msgstr ""
+
+msgctxt "#30257"
+msgid "Widgets"
+msgstr ""
+
+msgctxt "#30258"
+msgid "Hide Next Item in Widgets"
+msgstr ""
+
+msgctxt "#30259"
+msgid "Context"
+msgstr ""
+
+msgctxt "#30260"
+msgid "Use Custom View IDs (Advanced)"
+msgstr ""
+
+msgctxt "#30261"
+msgid "General Menu View"
+msgstr ""
+
+msgctxt "#30262"
+msgid "Anime View"
+msgstr ""
+
+msgctxt "#30263"
+msgid "Episode View"
+msgstr ""
+
+msgctxt "#30264"
+msgid "General Menu View ID"
+msgstr ""
+
+msgctxt "#30265"
+msgid "Anime View ID"
+msgstr ""
+
+msgctxt "#30266"
+msgid "Episode View ID"
+msgstr ""
+
+msgctxt "#30267"
+msgid "Default"
+msgstr ""
+
+msgctxt "#30268"
+msgid "Poster"
+msgstr ""
+
+msgctxt "#30269"
+msgid "Icon Wall"
+msgstr ""
+
+msgctxt "#30270"
+msgid "Shift"
+msgstr ""
+
+msgctxt "#30271"
+msgid "Info Wall"
+msgstr ""
+
+msgctxt "#30272"
+msgid "Wide List"
+msgstr ""
+
+msgctxt "#30273"
+msgid "Wall"
+msgstr ""
+
+msgctxt "#30274"
+msgid "Banner"
+msgstr ""
+
+msgctxt "#30275"
+msgid "Fanart"
+msgstr ""
+
+msgctxt "#30276"
+msgid "Show Changelog every update"
+msgstr ""
+
+msgctxt "#30277"
+msgid "Media Playback"
+msgstr ""
+
+msgctxt "#30278"
+msgid "Smart Scroll Direction"
+msgstr ""
+
+msgctxt "#30279"
+msgid "Vertical"
+msgstr ""
+
+msgctxt "#30280"
+msgid "Horizontal"
+msgstr ""
+
+msgctxt "#30281"
+msgid "Dialog Theme (Use only if you're on the skin)"
+msgstr ""
+
+msgctxt "#30282"
+msgid "Get Watch Order"
+msgstr ""
+
+msgctxt "#30283"
+msgid "Miscellaneous"
+msgstr ""
+
+msgctxt "#30284"
+msgid "Force view types on menus"
+msgstr ""
+
+msgctxt "#30285"
+msgid "Scraping"
+msgstr ""
+
+msgctxt "#30286"
+msgid "General Scraping"
+msgstr ""
+
+msgctxt "#30287"
+msgid "Terminate on Local Sources"
+msgstr ""
+
+msgctxt "#30288"
+msgid "Cloud Scraping"
+msgstr ""
+
+msgctxt "#30289"
+msgid "Local Scraping"
+msgstr ""
+
+msgctxt "#30290"
+msgid "Local File Directory"
+msgstr ""
+
+msgctxt "#30291"
+msgid "General Playback"
+msgstr ""
+
+msgctxt "#30292"
+msgid "General Customization"
+msgstr ""
+
+msgctxt "#30293"
+msgid "Menu Customization"
+msgstr ""
+
+msgctxt "#30294"
+msgid "Search Filter"
+msgstr ""
+
+msgctxt "#30295"
+msgid "Min Resolution"
+msgstr ""
+
+msgctxt "#30296"
+msgid "Hide BATCH Items"
+msgstr ""
+
+msgctxt "#30297"
+msgid "Use Kodi's Preferred Language Settings"
+msgstr ""
+
+msgctxt "#30298"
+msgid "Preferred Audio Playback"
+msgstr ""
+
+msgctxt "#30299"
+msgid "Preferred Subtitle Language"
+msgstr ""
+
+msgctxt "#30300"
+msgid "Enable Automatic Subtitles for Dub Streams"
+msgstr ""
+
+msgctxt "#30301"
+msgid "Source Filtering by Size"
+msgstr ""
+
+msgctxt "#30302"
+msgid "Internet Speed (Mbps)"
+msgstr ""
+
+msgctxt "#30303"
+msgid "Movie Max Size (GB)"
+msgstr ""
+
+msgctxt "#30304"
+msgid "Movie Min Size (GB)"
+msgstr ""
+
+msgctxt "#30305"
+msgid "Episode Max Size (GB)"
+msgstr ""
+
+msgctxt "#30306"
+msgid "Episode Min Size (GB)"
+msgstr ""
+
+msgctxt "#30307"
+msgid "Off"
+msgstr ""
+
+msgctxt "#30308"
+msgid "Internet Speed"
+msgstr ""
+
+msgctxt "#30309"
+msgid "Hard Limit"
+msgstr ""
+
+msgctxt "#30310"
+msgid "Source Filtering by Release Title"
+msgstr ""
+
+msgctxt "#30311"
+msgid "Filter Selection"
+msgstr ""
+
+msgctxt "#30312"
+msgid "Release Title Filter 1"
+msgstr ""
+
+msgctxt "#30313"
+msgid "Release Title Filter 2"
+msgstr ""
+
+msgctxt "#30314"
+msgid "Release Title Filter 3"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Release Title Filter 4"
+msgstr ""
+
+msgctxt "#30316"
+msgid "Release Title Filter 5"
+msgstr ""
+
+msgctxt "#30317"
+msgid "Filter Logic for Multiple Filters"
+msgstr ""
+
+msgctxt "#30318"
+msgid "AND"
+msgstr ""
+
+msgctxt "#30319"
+msgid "OR"
+msgstr ""
+
+msgctxt "#30320"
+msgid "Exclude Keywords"
+msgstr ""
+
+msgctxt "#30321"
+msgid "Torrent Scraping"
+msgstr ""
+
+msgctxt "#30322"
+msgid "Notify When Anime is Added to Database"
+msgstr ""
+
+msgctxt "#30323"
+msgid ""
+msgstr ""
+
+msgctxt "#30324"
+msgid ""
+msgstr ""
+
+msgctxt "#30325"
+msgid ""
+msgstr ""
+
+msgctxt "#30326"
+msgid ""
+msgstr ""
+
+msgctxt "#30327"
+msgid ""
+msgstr ""
+
+msgctxt "#30328"
+msgid "Set Content Status"
+msgstr ""
+
+msgctxt "#30329"
+msgid "Status"
+msgstr ""
+
+msgctxt "#30330"
+msgid "Airing"
+msgstr ""
+
+msgctxt "#30331"
+msgid "Complete"
+msgstr ""
+
+msgctxt "#30332"
+msgid "Upcoming"
+msgstr ""
+
+msgctxt "#30333"
+msgid "Finished"
+msgstr ""
+
+msgctxt "#30334"
+msgid "Not Yet Aired"
+msgstr ""
+
+msgctxt "#30335"
+msgid "Cancelled"
+msgstr ""
+
+msgctxt "#30336"
+msgid "Set Content Rating"
+msgstr ""
+
+msgctxt "#30337"
+msgid "Rating"
+msgstr ""
+
+msgctxt "#30338"
+msgid "G - All Ages"
+msgstr ""
+
+msgctxt "#30339"
+msgid "PG - Children"
+msgstr ""
+
+msgctxt "#30340"
+msgid "PG-13 - Teens 13 or older"
+msgstr ""
+
+msgctxt "#30341"
+msgid "R - 17+ (violence & profanity)"
+msgstr ""
+
+msgctxt "#30342"
+msgid "R+ - Mild Nudity"
+msgstr ""
+
+msgctxt "#30343"
+msgid "Rx - Hentai"
+msgstr ""
+
+msgctxt "#30344"
+msgid "InputStream Adaptive"
+msgstr ""
+
+msgctxt "#30345"
+msgid "Use InputStream Adaptive"
+msgstr ""
+
+msgctxt "#30346"
+msgid "Configure InputStream Adaptive"
+msgstr ""
+
+msgctxt "#30347"
+msgid "Install InputStream Adaptive"
+msgstr ""
+
+msgctxt "#30348"
+msgid "Cloudflare & DDoS-GUARD Solver"
+msgstr ""
+
+msgctxt "#30349"
+msgid "Enable FlareSolverr"
+msgstr ""
+
+msgctxt "#30350"
+msgid "FlareSolverr Url"
+msgstr ""
+
+msgctxt "#30351"
+msgid "FlareSolverr Timeout"
+msgstr ""
+
+msgctxt "#30352"
+msgid "Hosting Instructions"
+msgstr ""
+
+msgctxt "#30353"
+msgid "Get Watch Order"
+msgstr ""
+
+msgctxt "#30354"
+msgid "Set Content Year"
+msgstr ""
+
+msgctxt "#30355"
+msgid "Year"
+msgstr ""
+
+msgctxt "#30356"
+msgid "Set Content Season"
+msgstr ""
+
+msgctxt "#30357"
+msgid "Season"
+msgstr ""
+
+msgctxt "#30358"
+msgid "Winter"
+msgstr ""
+
+msgctxt "#30359"
+msgid "Spring"
+msgstr ""
+
+msgctxt "#30360"
+msgid "Summer"
+msgstr ""
+
+msgctxt "#30361"
+msgid "Fall"
+msgstr ""
+
+msgctxt "#30362"
+msgid "Set Content Genres"
+msgstr ""
+
+msgctxt "#30363"
+msgid "Genres"
+msgstr ""
+
+msgctxt "#30364"
+msgid "Run All UnCached Sources in Forground"
+msgstr ""
+
+msgctxt "#30365"
+msgid "TorBox"
+msgstr ""
+
+msgctxt "#30366"
+msgid "Enable TorBox"
+msgstr ""
+
+msgctxt "#30367"
+msgid "TorBox Username"
+msgstr ""
+
+msgctxt "#30368"
+msgid "TorBox Status"
+msgstr ""
+
+msgctxt "#30369"
+msgid "Authorize TorBox..."
+msgstr ""
+
+msgctxt "#30370"
+msgid "Refresh TorBox Token"
+msgstr ""
+
+msgctxt "#30371"
+msgid "Scrape TorBox Cloud"
+msgstr ""
+
+msgctxt "#30372"
+msgid "Enable Subtitle Keywords for Streams"
+msgstr ""
+
+msgctxt "#30373"
+msgid "Subtitle Keywords"
+msgstr ""
+
+msgctxt "#30374"
+msgid "Dialog"
+msgstr ""
+
+msgctxt "#30375"
+msgid "Signs & Songs"
+msgstr ""
+
+msgctxt "#30376"
+msgid "Custom"
+msgstr ""
+
+msgctxt "#30377"
+msgid "Custom Keyword"
+msgstr ""
+
 msgctxt "#30378"
-msgid "OVA"
+msgid "Megacloud Solver"
 msgstr ""
 
 msgctxt "#30379"
-msgid "ONA"
+msgid "Enable Megacloud Solver"
 msgstr ""
 
 msgctxt "#30380"
-msgid "MUSIC"
+msgid "Megacloud Solver url"
 msgstr ""
 
 msgctxt "#30381"
@@ -694,965 +1522,141 @@ msgid ""
 msgstr ""
 
 msgctxt "#30382"
-msgid "Content Customization"
-msgstr ""
-
-msgctxt "#30383"
-msgid "Enable searching mature titles"
-msgstr ""
-
-msgctxt "#30384"
-msgid "Maintenance"
-msgstr ""
-
-msgctxt "#30385"
-msgid "Set Country Filter"
-msgstr ""
-
-msgctxt "#30386"
-msgid "Country"
-msgstr ""
-
-msgctxt "#30387"
-msgid "Japan"
-msgstr ""
-
-msgctxt "#30388"
-msgid "South Korea"
-msgstr ""
-
-msgctxt "#30389"
-msgid "China"
-msgstr ""
-
-msgctxt "#30390"
-msgid "Taiwan"
-msgstr ""
-
-msgctxt "#30391"
-msgid "Set Delay in Seconds Before Showing Dialog"
-msgstr ""
-
-msgctxt "#30392"
-msgid "Timeout for Source Scraping (seconds)"
-msgstr ""
-
-msgctxt "#30393"
-msgid "Filter Only Dubs"
-msgstr ""
-
-msgctxt "#30394"
-msgid "Show [COLOR blue](DUB)[/COLOR] in titles for dubbed content"
-msgstr ""
-
-msgctxt "#30395"
-msgid "Duration of how long the Dialog will appear"
-msgstr ""
-
-msgctxt "#30396"
-msgid "Enable Smart Skip"
-msgstr ""
-
-msgctxt "#30397"
-msgid "Offset for Smart Skip (seconds)"
-msgstr ""
-
-######Debrid######
-msgctxt "#30100"
-msgid "Real-Debrid"
-msgstr ""
-
-msgctxt "#30101"
-msgid "Enable Real-Debrid..."
-msgstr ""
-
-msgctxt "#30102"
-msgid "Real-Debrid Username"
-msgstr ""
-
-msgctxt "#30103"
-msgid "Real-Debrid Status"
-msgstr ""
-
-msgctxt "#30104"
-msgid "Authorize Real-Debrid..."
-msgstr ""
-
-msgctxt "#30105"
-msgid "Refresh Real-Debrid Token"
-msgstr ""
-
-msgctxt "#30110"
-msgid "AllDebrid"
-msgstr ""
-
-msgctxt "#30111"
-msgid "Enable AllDebrid..."
-msgstr ""
-
-msgctxt "#30112"
-msgid "AllDebrid Username"
-msgstr ""
-
-msgctxt "#30113"
-msgid "AllDebrid Status"
-msgstr ""
-
-msgctxt "#30114"
-msgid "Authorize AllDebrid..."
-msgstr ""
-
-msgctxt "#30115"
-msgid "Refresh AllDebrid Token"
-msgstr ""
-
-msgctxt "#30120"
-msgid "Debrid-Link"
-msgstr ""
-
-msgctxt "#30121"
-msgid "Enable Debrid-Link..."
-msgstr ""
-
-msgctxt "#30122"
-msgid "Debrid-Link Username"
-msgstr ""
-
-msgctxt "#30123"
-msgid "Debrid-Link Status"
-msgstr ""
-
-msgctxt "#30124"
-msgid "Authorize Debrid-Link..."
-msgstr ""
-
-msgctxt "#30125"
-msgid "Refresh Debrid-Link Token"
-msgstr ""
-
-msgctxt "#30130"
-msgid "Premiumize"
-msgstr ""
-
-msgctxt "#30131"
-msgid "Enable Premiumize..."
-msgstr ""
-
-msgctxt "#30132"
-msgid "Premiumize Username"
-msgstr ""
-
-msgctxt "#30133"
-msgid "Premiumize Status"
-msgstr ""
-
-msgctxt "#30134"
-msgid "Authorize Premiumize..."
-msgstr ""
-
-msgctxt "#30190"
-msgid "Scrape Real-Debrid Cloud"
-msgstr ""
-
-msgctxt "#30191"
-msgid "Scrape Premiumize Cloud"
-msgstr ""
-
-msgctxt "#30192"
-msgid "Scrape AllDebrid Cloud"
-msgstr ""
-
-msgctxt "#30193"
-msgid "Scrape Debrid-Link Cloud"
-msgstr ""
-
-######WatchLists######
-msgctxt "#30200"
-msgid "MyAnimeList"
-msgstr ""
-
-msgctxt "#30201"
-msgid "Enable MyAnimeList"
-msgstr ""
-
-msgctxt "#30210"
-msgid "AniList"
-msgstr ""
-
-msgctxt "#30211"
-msgid "Enable AniList"
-msgstr ""
-
-msgctxt "#30220"
-msgid "Kitsu"
-msgstr ""
-
-msgctxt "#30221"
-msgid "Enable Kitsu"
-msgstr ""
-
-msgctxt "#30223"
-msgid "Email:"
-msgstr "Email:"
-
-msgctxt "#30224"
-msgid "Password:"
-msgstr ""
-
-msgctxt "#30225"
-msgid "How titles will be displayed:"
-msgstr ""
-
-msgctxt "#30230"
-msgid "Simkl"
-msgstr ""
-
-msgctxt "#30231"
-msgid "Enable Simkl"
-msgstr ""
-
-msgctxt "#30290"
-msgid "Username:"
-msgstr ""
-
-msgctxt "#30291"
-msgid "Click to Authorize..."
-msgstr ""
-
-msgctxt "#30292"
-msgid "Sort by:"
-msgstr ""
-
-msgctxt "#30293"
-msgid "Order by:"
-msgstr ""
-
-######Providers######
-msgctxt "#30400"
-msgid "Nyaa"
-msgstr ""
-
-msgctxt "#30401"
-msgid "AnimeTosho"
-msgstr ""
-
-msgctxt "#30402"
-msgid "H!Anime"
-msgstr ""
-
-msgctxt "#30403"
-msgid "Gogo"
-msgstr ""
-
-msgctxt "#30404"
-msgid "AnimePahe"
-msgstr ""
-
-msgctxt "#30405"
-msgid "Animix"
-msgstr ""
-
-msgctxt "#30406"
-msgid "AniWave"
-msgstr ""
-
-msgctxt "#30410"
-msgid "Scrape Local Files"
-msgstr ""
-
-msgctxt "#30411"
-msgid "H!Anime Proxies (Region Problem)"
-msgstr ""
-
-msgctxt "#30412"
-msgid "Gogo Proxies (Region Problem)"
-msgstr ""
-
-msgctxt "#30413"
-msgid "Animix Proxies (Region Problem)"
-msgstr ""
-
-msgctxt "#30414"
-msgid "Nyaa Alt (For Verizon Users)"
-msgstr ""
-
-######Context & Widgets#####
-msgctxt "#30500"
-msgid "Context Customization"
-msgstr ""
-
-msgctxt "#30501"
-msgid "Find Recommendations"
-msgstr ""
-
-msgctxt "#30502"
-msgid "Find Relations"
-msgstr ""
-
-msgctxt "#30503"
-msgid "Rescrape"
-msgstr ""
-
-msgctxt "#30504"
-msgid "Source Select"
-msgstr ""
-
-msgctxt "#30505"
-msgid "Logout"
-msgstr ""
-
-msgctxt "#30506"
-msgid "Delete from Database"
-msgstr ""
-
-msgctxt "#30507"
-msgid "WatchList manager"
-msgstr ""
-
-msgctxt "#30508"
-msgid "Marked as Watched [COLOR deepskyblue]WatchList[/COLOR]"
-msgstr ""
-
-msgctxt "#30509"
-msgid "Select Fanart"
-msgstr ""
-
-msgctxt "#30510"
-msgid "Widgets"
-msgstr ""
-
-msgctxt "#30511"
-msgid "Hide Next Item in Widgets"
-msgstr ""
-
-msgctxt "#30512"
-msgid "Context"
-msgstr ""
-
-msgctxt "#30513"
-msgid "Use Custom View IDs (Advanced)"
-msgstr ""
-
-msgctxt "#30514"
-msgid "General Menu View"
-msgstr ""
-
-msgctxt "#30515"
-msgid "Anime View"
-msgstr ""
-
-msgctxt "#30516"
-msgid "Episode View"
-msgstr ""
-
-msgctxt "#30517"
-msgid "General Menu View ID"
-msgstr ""
-
-msgctxt "#30518"
-msgid "Anime View ID"
-msgstr ""
-
-msgctxt "#30519"
-msgid "Episode View ID"
-msgstr ""
-
-msgctxt "#30520"
-msgid "Default"
-msgstr ""
-
-msgctxt "#30521"
-msgid "Poster"
-msgstr ""
-
-msgctxt "#30522"
-msgid "Icon Wall"
-msgstr ""
-
-msgctxt "#30523"
-msgid "Shift"
-msgstr ""
-
-msgctxt "#30524"
-msgid "Info Wall"
-msgstr ""
-
-msgctxt "#30525"
-msgid "Wide List"
-msgstr ""
-
-msgctxt "#30526"
-msgid "Wall"
-msgstr ""
-
-msgctxt "#30527"
-msgid "Banner"
-msgstr ""
-
-msgctxt "#30528"
-msgid "Fanart"
-msgstr ""
-
-msgctxt "#30529"
-msgid "Show Changelog every update"
-msgstr ""
-
-msgctxt "#30530"
-msgid "Media Playback"
-msgstr ""
-
-msgctxt "#30531"
-msgid "Smart Scroll Direction"
-msgstr ""
-
-msgctxt "#30532"
-msgid "Vertical"
-msgstr ""
-
-msgctxt "#30533"
-msgid "Horizontal"
-msgstr ""
-
-msgctxt "#30534"
-msgid "Dialog Theme (Use only if you're on the skin)"
-msgstr ""
-
-msgctxt "#30535"
-msgid "Get Watch Order"
-msgstr ""
-
-msgctxt "#30536"
-msgid "Miscellaneous"
-msgstr ""
-
-msgctxt "#30537"
-msgid "Force view types on menus"
-msgstr ""
-
-msgctxt "#30538"
-msgid "Scraping"
-msgstr ""
-
-msgctxt "#30539"
-msgid "General Scraping"
-msgstr ""
-
-msgctxt "#30540"
-msgid "Terminate on Local Sources"
-msgstr ""
-
-msgctxt "#30541"
-msgid "Cloud Scraping"
-msgstr ""
-
-msgctxt "#30542"
-msgid "Local Scraping"
-msgstr ""
-
-msgctxt "#30543"
-msgid "Local File Directory"
-msgstr ""
-
-msgctxt "#30544"
-msgid "General Playback"
-msgstr ""
-
-msgctxt "#30545"
-msgid "General Customization"
-msgstr ""
-
-msgctxt "#30546"
-msgid "Menu Customization"
-msgstr ""
-
-msgctxt "#30547"
-msgid "Search Filter"
-msgstr ""
-
-msgctxt "#30548"
-msgid "Min Resolution"
-msgstr ""
-
-msgctxt "#30549"
-msgid "Hide BATCH Items"
-msgstr ""
-
-msgctxt "#30550"
-msgid "Use Kodi's Preferred Language Settings"
-msgstr ""
-
-msgctxt "#30551"
-msgid "Preferred Audio Playback"
-msgstr ""
-
-msgctxt "#30552"
-msgid "Preferred Subtitle Language"
-msgstr ""
-
-msgctxt "#30553"
-msgid "Enable Automatic Subtitles for Dub Streams"
-msgstr ""
-
-msgctxt "#30554"
-msgid "Source Filtering by Size"
-msgstr ""
-
-msgctxt "#30555"
-msgid "Internet Speed (Mbps)"
-msgstr ""
-
-msgctxt "#30556"
-msgid "Movie Max Size (GB)"
-msgstr ""
-
-msgctxt "#30557"
-msgid "Movie Min Size (GB)"
-msgstr ""
-
-msgctxt "#30558"
-msgid "Episode Max Size (GB)"
-msgstr ""
-
-msgctxt "#30559"
-msgid "Episode Min Size (GB)"
-msgstr ""
-
-msgctxt "#30560"
-msgid "Off"
-msgstr ""
-
-msgctxt "#30561"
-msgid "Internet Speed"
-msgstr ""
-
-msgctxt "#30562"
-msgid "Hard Limit"
-msgstr ""
-
-msgctxt "#30563"
-msgid "Source Filtering by Release Title"
-msgstr ""
-
-msgctxt "#30564"
-msgid "Filter Selection"
-msgstr ""
-
-msgctxt "#30565"
-msgid "Release Title Filter 1"
-msgstr ""
-
-msgctxt "#30566"
-msgid "Release Title Filter 2"
-msgstr ""
-
-msgctxt "#30567"
-msgid "Release Title Filter 3"
-msgstr ""
-
-msgctxt "#30568"
-msgid "Release Title Filter 4"
-msgstr ""
-
-msgctxt "#30569"
-msgid "Release Title Filter 5"
-msgstr ""
-
-msgctxt "#30570"
-msgid "Filter Logic for Multiple Filters"
-msgstr ""
-
-msgctxt "#30571"
-msgid "AND"
-msgstr ""
-
-msgctxt "#30572"
-msgid "OR"
-msgstr ""
-
-msgctxt "#30573"
-msgid "Exclude Keywords"
-msgstr ""
-
-msgctxt "#30574"
-msgid "Torrent Scraping"
-msgstr ""
-
-msgctxt "#30575"
-msgid "Notify When Anime is Added to Database"
-msgstr ""
-
-msgctxt "#30576"
-msgid ""
-msgstr ""
-
-msgctxt "#30577"
-msgid ""
-msgstr ""
-
-msgctxt "#30578"
-msgid ""
-msgstr ""
-
-msgctxt "#30579"
-msgid ""
-msgstr ""
-
-msgctxt "#30580"
-msgid ""
-msgstr ""
-
-msgctxt "#30581"
-msgid "Set Content Status"
-msgstr ""
-
-msgctxt "#30582"
-msgid "Status"
-msgstr ""
-
-msgctxt "#30583"
-msgid "Airing"
-msgstr ""
-
-msgctxt "#30584"
-msgid "Complete"
-msgstr ""
-
-msgctxt "#30585"
-msgid "Upcoming"
-msgstr ""
-
-msgctxt "#30586"
-msgid "Finished"
-msgstr ""
-
-msgctxt "#30587"
-msgid "Not Yet Aired"
-msgstr ""
-
-msgctxt "#30588"
-msgid "Cancelled"
-msgstr ""
-
-msgctxt "#30589"
-msgid "Set Content Rating"
-msgstr ""
-
-msgctxt "#30590"
-msgid "Rating"
-msgstr ""
-
-msgctxt "#30591"
-msgid "G - All Ages"
-msgstr ""
-
-msgctxt "#30592"
-msgid "PG - Children"
-msgstr ""
-
-msgctxt "#30593"
-msgid "PG-13 - Teens 13 or older"
-msgstr ""
-
-msgctxt "#30594"
-msgid "R - 17+ (violence & profanity)"
-msgstr ""
-
-msgctxt "#30595"
-msgid "R+ - Mild Nudity"
-msgstr ""
-
-msgctxt "#30596"
-msgid "Rx - Hentai"
-msgstr ""
-
-msgctxt "#30597"
-msgid "InputStream Adaptive"
-msgstr ""
-
-msgctxt "#30598"
-msgid "Use InputStream Adaptive"
-msgstr ""
-
-msgctxt "#30599"
-msgid "Configure InputStream Adaptive"
-msgstr ""
-
-msgctxt "#30600"
-msgid "Install InputStream Adaptive"
-msgstr ""
-
-msgctxt "#30601"
-msgid "Cloudflare & DDoS-GUARD Solver"
-msgstr ""
-
-msgctxt "#30602"
-msgid "Enable FlareSolverr"
-msgstr ""
-
-msgctxt "#30603"
-msgid "FlareSolverr Url"
-msgstr ""
-
-msgctxt "#30604"
-msgid "FlareSolverr Timeout"
-msgstr ""
-
-msgctxt "#30605"
-msgid "Hosting Instructions"
-msgstr ""
-
-msgctxt "#30606"
-msgid "Get Watch Order"
-msgstr ""
-
-msgctxt "#30607"
-msgid "Set Content Year"
-msgstr ""
-
-msgctxt "#30608"
-msgid "Year"
-msgstr ""
-
-msgctxt "#30609"
-msgid "Set Content Season"
-msgstr ""
-
-msgctxt "#30610"
-msgid "Season"
-msgstr ""
-
-msgctxt "#30611"
-msgid "Winter"
-msgstr ""
-
-msgctxt "#30612"
-msgid "Spring"
-msgstr ""
-
-msgctxt "#30613"
-msgid "Summer"
-msgstr ""
-
-msgctxt "#30614"
-msgid "Fall"
-msgstr ""
-
-msgctxt "#30615"
-msgid "Set Content Genres"
-msgstr ""
-
-msgctxt "#30616"
-msgid "Genres"
-msgstr ""
-
-msgctxt "#30617"
-msgid "Run All UnCached Sources in Forground"
-msgstr ""
-
-msgctxt "#30618"
-msgid "TorBox"
-msgstr ""
-
-msgctxt "#30619"
-msgid "Enable TorBox"
-msgstr ""
-
-msgctxt "#30620"
-msgid "TorBox Username"
-msgstr ""
-
-msgctxt "#30621"
-msgid "TorBox Status"
-msgstr ""
-
-msgctxt "#30622"
-msgid "Authorize TorBox..."
-msgstr ""
-
-msgctxt "#30623"
-msgid "Refresh TorBox Token"
-msgstr ""
-
-msgctxt "#30624"
-msgid "Scrape TorBox Cloud"
-msgstr ""
-
-msgctxt "#30625"
-msgid "Enable Subtitle Keywords for Streams"
-msgstr ""
-
-msgctxt "#30626"
-msgid "Subtitle Keywords"
-msgstr ""
-
-msgctxt "#30627"
-msgid "Dialog"
-msgstr ""
-
-msgctxt "#30628"
-msgid "Signs & Songs"
-msgstr ""
-
-msgctxt "#30629"
-msgid "Custom"
-msgstr ""
-
-msgctxt "#30630"
-msgid "Custom Keyword"
-msgstr ""
-
-msgctxt "#30631"
-msgid "Megacloud Solver"
-msgstr ""
-
-msgctxt "#30632"
-msgid "Enable Megacloud Solver"
-msgstr ""
-
-msgctxt "#30633"
-msgid "Megacloud Solver url"
-msgstr ""
-
-msgctxt "#30634"
-msgid ""
-msgstr ""
-
-msgctxt "#30635"
 msgid "Run All UnCached Sources in Background"
 msgstr ""
 
-msgctxt "#30636"
+msgctxt "#30383"
 msgid "Auto-Delete Torrents"
 msgstr ""
 
-msgctxt "#30637"
+msgctxt "#30384"
 msgid "Store resolved items in cloud"
 msgstr ""
 
-msgctxt "#30638"
+msgctxt "#30385"
 msgid "Automatic Cloud Removal"
 msgstr ""
 
-msgctxt "#30639"
+msgctxt "#30386"
 msgid "Max Storage Space Used Before Deletion (GB)"
 msgstr ""
 
-msgctxt "#30640"
+msgctxt "#30387"
 msgid "Number of Pages to Scrape"
 msgstr ""
 
-msgctxt "#30641"
+msgctxt "#30388"
 msgid "Provides more sources but will increase scraping time"
 msgstr ""
 
-msgctxt "#30642"
+msgctxt "#30389"
 msgid "Use Addon Content Type for Menus"
 msgstr ""
 
-msgctxt "#30643"
+msgctxt "#30390"
 msgid "Changes Viewtypes for Main Menu. Note: This will disable plot or description."
 msgstr ""
 
-msgctxt "#30644"
+msgctxt "#30391"
 msgid "Configure Embed Servers"
 msgstr ""
 
-msgctxt "#30645"
+msgctxt "#30392"
 msgid "Replace Anilist Posters with Mal Posters"
 msgstr ""
 
-msgctxt "#30646"
+msgctxt "#30393"
 msgid "Allow Unaired Episodes in the Playlist"
 msgstr ""
 
-msgctxt "#30647"
+msgctxt "#30394"
 msgid "Trakt"
 msgstr ""
 
-msgctxt "#30648"
+msgctxt "#30395"
 msgid "Enable Trakt Scrobbling"
 msgstr ""
 
-msgctxt "#30649"
+msgctxt "#30396"
 msgid "Note: Will only scrobble certain animes that support trakt."
 msgstr ""
 
-msgctxt "#30650"
+msgctxt "#30397"
 msgid "Configure Trakt Script"
 msgstr ""
 
-msgctxt "#30651"
+msgctxt "#30398"
 msgid "Install Trakt Script"
 msgstr ""
 
-msgctxt "#30652"
+msgctxt "#30399"
 msgid "Skip UnCached Sources (Real-Debrid, AllDebrid)"
 msgstr ""
 
-msgctxt "#30653"
+msgctxt "#30400"
 msgid "EasyDebrid"
 msgstr ""
 
-msgctxt "#30654"
+msgctxt "#30401"
 msgid "Enable EasyDebrid"
 msgstr ""
 
-msgctxt "#30655"
+msgctxt "#30402"
 msgid "EasyDebrid Username"
 msgstr ""
 
-msgctxt "#30656"
+msgctxt "#30403"
 msgid "EasyDebrid Status"
 msgstr ""
 
-msgctxt "#30657"
+msgctxt "#30404"
 msgid "Authorize EasyDebrid..."
 msgstr ""
 
-msgctxt "#30658"
+msgctxt "#30405"
 msgid "Refresh EasyDebrid Token"
 msgstr ""
 
-msgctxt "#30659"
+msgctxt "#30406"
 msgid "Main Menu Items"
 msgstr ""
 
-msgctxt "#30660"
+msgctxt "#30407"
 msgid "Sub Menu Items"
 msgstr ""
 
-msgctxt "#30661"
+msgctxt "#30408"
 msgid "Genre Menu Items"
 msgstr ""
 
-msgctxt "#30662"
+msgctxt "#30409"
 msgid "Main Menus"
 msgstr ""
 
-msgctxt "#30663"
+msgctxt "#30410"
 msgid "Movies"
 msgstr ""
 
-msgctxt "#30664"
+msgctxt "#30411"
 msgid "TV Shows"
 msgstr ""
 
-msgctxt "#30665"
+msgctxt "#30412"
 msgid "TV Shorts"
 msgstr ""
 
-msgctxt "#30666"
+msgctxt "#30413"
 msgid "Specials"
 msgstr ""
 
-msgctxt "#30667"
+msgctxt "#30414"
 msgid "OVAs"
 msgstr ""
 
-msgctxt "#30668"
+msgctxt "#30415"
 msgid "ONAs"
 msgstr ""
 
-msgctxt "#30669"
+msgctxt "#30416"
 msgid "Music Videos"
 msgstr ""

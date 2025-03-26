@@ -125,6 +125,19 @@ def getInstructions():
     del windows
 
 
+def getMigration():
+    migration_path = os.path.join(control.ADDON_PATH, 'migration.txt')
+
+    with open(migration_path, encoding='utf-8') as migration_file:
+        migration_text = migration_file.read()
+
+    heading = '[B]%s -  v%s - Migration[/B]' % (control.ADDON_NAME, control.ADDON_VERSION)
+    from resources.lib.windows.textviewer import TextViewerXML
+    windows = TextViewerXML('textviewer_1.xml', control.ADDON_PATH, heading=heading, migration_text=migration_text)
+    windows.run()
+    del windows
+
+
 def toggle_reuselanguageinvoker(forced_state=None):
     def _store_and_reload(output):
         with open(file_path, "w+") as addon_xml_:
@@ -163,7 +176,24 @@ def version_check():
         control.log(f"### {reuselang} Re-uselanguageinvoker")
 
 
+def apply_migration_settings():
+    if os.path.exists(control.migrationSettings):
+        try:
+            with open(control.migrationSettings, 'r', encoding='utf-8') as f:
+                migration_data = json.load(f)
+            # Restore each setting from the migration file
+            for key, value in migration_data.items():
+                control.setSetting(key, value)
+            os.remove(control.migrationSettings)
+            control.ok_dialog(control.ADDON_NAME, "Migration complete. Watchlist Settings have been restored.")
+            getMigration()
+            control.log("Migration settings successfully applied and file removed.")
+        except Exception as e:
+            control.log(f"Error applying migration settings: {e}")
+
+
 if __name__ == "__main__":
+    apply_migration_settings()  # Apply migration settings if available
     control.log('##################  RUNNING MAINTENANCE  ######################')
     version_check()
     database_sync.SyncDatabase()

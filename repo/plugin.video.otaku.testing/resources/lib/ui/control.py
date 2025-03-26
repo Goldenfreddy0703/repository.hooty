@@ -7,6 +7,7 @@ import xbmcvfs
 import os
 import sys
 import json
+import shutil
 
 from urllib import parse
 
@@ -39,6 +40,7 @@ cacheFile = os.path.join(dataPath, 'cache.db')
 searchHistoryDB = os.path.join(dataPath, 'search.db')
 malSyncDB = os.path.join(dataPath, 'malSync.db')
 mappingDB = os.path.join(dataPath, 'mappings.db')
+migrationSettings = os.path.join(dataPath, 'migration.json')
 
 maldubFile = os.path.join(dataPath, 'mal_dub.json')
 downloads_json = os.path.join(dataPath, 'downloads.json')
@@ -430,6 +432,23 @@ def get_view_type(viewtype):
         'List': 0
     }
     return viewTypes[viewtype]
+
+
+def clear_settings(silent=False):
+    from resources.lib.ui.database_sync import SyncDatabase
+    if not silent:
+        confirm = yesno_dialog(ADDON_NAME, lang(30034))
+        if confirm == 0:
+            return
+
+    if os.path.exists(dataPath):
+        shutil.rmtree(dataPath)
+
+    os.mkdir(dataPath)
+    refresh()
+
+    if getSetting('version') != '0.5.43':
+        SyncDatabase().re_build_database(True)
 
 
 def exit_(code):

@@ -156,6 +156,8 @@ class Sources(BrowserBase):
                                 srclink = res.get('sources')[0].get('file')
                             if not srclink:
                                 continue
+                            netloc = urllib.parse.urljoin(slink, '/')
+                            headers = {'Referer': netloc, 'Origin': netloc[:-1]}
                             res = self._get_request(srclink, headers=headers)
                             quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
 
@@ -172,7 +174,7 @@ class Sources(BrowserBase):
 
                                 source = {
                                     'release_title': '{0} - Ep {1}'.format(title, episode),
-                                    'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad',
+                                    'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
                                     'type': 'direct',
                                     'quality': quality,
                                     'debrid_provider': '',

@@ -1,3 +1,9 @@
+Changelog v5.1.85 (2025-03-31):
+- Fixed Bugs with Playlist & Resume times
+- Optimized Playback again
+- Made Scrapping Faster
+- Sadly removed Gogo
+
 Changelog v5.1.84 (2025-03-27):
 - Small fix to HiAnime
 

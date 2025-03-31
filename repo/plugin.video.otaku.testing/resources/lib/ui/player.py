@@ -28,6 +28,7 @@ class WatchlistPlayer(player):
         self.updated = False
         self.media_type = None
         self.update_percent = control.getInt('watchlist.update.percent')
+        self.resume = None
         self.path = ''
         self.context = False
 
@@ -50,10 +51,11 @@ class WatchlistPlayer(player):
         self.preferred_subtitle_keyword = control.getInt('subtitles.keywords')
 
 
-    def handle_player(self, mal_id, watchlist_update, episode, path, context):
+    def handle_player(self, mal_id, watchlist_update, episode, resume, path, context):
         self.mal_id = mal_id
         self._watchlist_update = watchlist_update
         self.episode = episode
+        self.resume = resume
         self.path = path
         self.context = context
 
@@ -150,7 +152,7 @@ class WatchlistPlayer(player):
 
 
     def keepAlive(self):
-        # Use xbmc.Monitor to handle aborts and playback errors
+        # Monitor the Playback
         monitor = Monitor()
         for _ in range(20):
             if monitor.playbackerror:
@@ -160,25 +162,19 @@ class WatchlistPlayer(player):
             monitor.waitForAbort(0.25)
         del monitor
 
-        # Don't try to get video info until we're sure playback has started
-        playback_started = False
-        for _ in range(30):  # Increase timeout for slower systems
-            try:
-                if self.isPlayingVideo():
-                    self.vtag = self.getVideoInfoTag()
-                    self.media_type = self.vtag.getMediaType()
-                    self.total_time = int(self.getTotalTime())
-                    if self.total_time > 0:
-                        playback_started = True
-                        break
-            except RuntimeError:
-                # Handle the "not playing" error gracefully
-                pass
-            xbmc.sleep(250)  # Wait longer between checks
-
-        if not playback_started:
+        # Check if the player is playing a video
+        if not self.isPlayingVideo():
             control.log('Failed to start video playback', 'warning')
             return
+
+        # Grab the seek time if available
+        if self.resume:
+            self.seekTime(self.resume)
+
+        # Grab the video tags
+        self.vtag = self.getVideoInfoTag()
+        self.media_type = self.vtag.getMediaType()
+        self.total_time = int(self.getTotalTime())
 
         # Continue with the rest of the method after playback is confirmed
         unique_ids = database.get_mapping_ids(self.mal_id, 'mal_id')
@@ -194,39 +190,39 @@ class WatchlistPlayer(player):
         # Continue with audio/subtitle setup which is needed immediately
         self.setup_audio_and_subtitles()
 
-        # Handle playlist building if needed
-        if self.media_type == 'episode' and playList.size() == 1:
-            self.build_playlist()
-
         # Handle different media types
         if self.media_type == 'movie':
-            return self.onWatchedPercent()
+            self.onWatchedPercent()
+        else:
+            # Handle playlist building if needed
+            if self.media_type == 'episode' and playList.size() == 1:
+                self.build_playlist()
 
-        # Handle skip intro dialog
-        if control.getBool('smartplay.skipintrodialog'):
-            if self.skipintro_start < 1:
-                self.skipintro_start = 1
-            while self.isPlaying():
-                self.current_time = int(self.getTime())
-                if self.current_time > self.skipintro_end:
-                    break
-                elif self.current_time > self.skipintro_start:
-                    PlayerDialogs().show_skip_intro(self.skipintro_aniskip, self.skipintro_end)
-                    break
-                xbmc.sleep(1000)
+            # Handle skip intro dialog
+            if control.getBool('smartplay.skipintrodialog'):
+                if self.skipintro_start < 1:
+                    self.skipintro_start = 1
+                while self.isPlaying():
+                    self.current_time = int(self.getTime())
+                    if self.current_time > self.skipintro_end:
+                        break
+                    elif self.current_time > self.skipintro_start:
+                        PlayerDialogs().show_skip_intro(self.skipintro_aniskip, self.skipintro_end)
+                        break
+                    xbmc.sleep(1000)
 
-        # Handle watchlist updates for episodes
-        self.onWatchedPercent()
+            # Handle watchlist updates for episodes
+            self.onWatchedPercent()
 
-        # Handle playing next or skip outro dialog
-        endpoint = control.getInt('playingnext.time') if control.getBool('smartplay.playingnextdialog') else 0
-        if endpoint != 0:
-            while self.isPlaying():
-                self.current_time = int(self.getTime())
-                if (not self.skipoutro_aniskip and self.total_time - self.current_time <= endpoint) or self.current_time > self.skipoutro_start != 0:
-                    PlayerDialogs().display_dialog(self.skipoutro_aniskip, self.skipoutro_end)
-                    break
-                xbmc.sleep(5000)
+            # Handle playing next or skip outro dialog
+            endpoint = control.getInt('playingnext.time') if control.getBool('smartplay.playingnextdialog') else 0
+            if endpoint != 0:
+                while self.isPlaying():
+                    self.current_time = int(self.getTime())
+                    if (not self.skipoutro_aniskip and self.total_time - self.current_time <= endpoint) or self.current_time > self.skipoutro_start != 0:
+                        PlayerDialogs().display_dialog(self.skipoutro_aniskip, self.skipoutro_end)
+                        break
+                    xbmc.sleep(5000)
 
         while self.isPlaying():
             self.current_time = int(self.getTime())

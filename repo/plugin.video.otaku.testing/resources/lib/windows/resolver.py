@@ -55,7 +55,7 @@ class Resolver(BaseWindow):
         self.episode = int(actionArgs.get('episode', 1))
         self.play = actionArgs.get('play')
         self.source_select_close = actionArgs.get('close')
-        self.resume_time = actionArgs.get('resume_time')
+        self.resume = actionArgs.get('resume')
         self.context = actionArgs.get('context')
         self.silent = actionArgs.get('silent')
         self.params = actionArgs.get('params', {})
@@ -224,11 +224,19 @@ class Resolver(BaseWindow):
                 xbmcplugin.setResolvedUrl(control.HANDLE, True, item)
             monitor = Monitor()
             for _ in range(30):
-                monitor.waitForAbort(1)
-                if monitor.abortRequested() or monitor.playbackerror or monitor.playing:
+                if monitor.waitForAbort(1) or monitor.playbackerror or monitor.abortRequested():
+                    xbmcplugin.setResolvedUrl(control.HANDLE, False, item)
+                    control.playList.clear()
+                    self.abort = True
                     break
+                if monitor.playing:
+                    break
+            else:
+                control.log('no xbmc playing source found; Continuing code', 'warning')
+            del monitor
             self.close()
-            player.WatchlistPlayer().handle_player(self.mal_id, watchlist_update_episode, self.episode, self.params.get('path', ''), self.context)
+            if not self.abort:
+                player.WatchlistPlayer().handle_player(self.mal_id, watchlist_update_episode, self.episode, self.resume, self.params.get('path', ''), self.context)
         else:
             self.close()
 

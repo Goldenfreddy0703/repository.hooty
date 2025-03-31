@@ -1,7 +1,7 @@
 import threading
 import time
 
-from resources.lib.pages import nyaa, animetosho, debrid_cloudfiles, aniwave, animepahe, hianime, gogoanime, localfiles
+from resources.lib.pages import nyaa, animetosho, debrid_cloudfiles, aniwave, animepahe, hianime, localfiles
 from resources.lib.ui import control, database
 from resources.lib.windows.get_sources_window import GetSources
 from resources.lib.windows import sort_select
@@ -21,7 +21,7 @@ class Sources(GetSources):
     def __init__(self, xml_file, location, actionArgs=None):
         super(Sources, self).__init__(xml_file, location, actionArgs)
         self.torrentProviders = ['nyaa', 'animetosho']
-        self.embedProviders = ['animepahe', 'aniwave', 'gogo', 'hianime']
+        self.embedProviders = ['animepahe', 'aniwave', 'hianime']
         self.CloudProviders = ['Cloud Inspection']
         self.localProviders = ['Local Inspection']
         self.remainingProviders = self.embedProviders + self.torrentProviders + self.localProviders + self.CloudProviders
@@ -129,12 +129,12 @@ class Sources(GetSources):
         else:
             self.remainingProviders.remove('aniwave')
 
-        if control.getBool('provider.gogo'):
-            t = threading.Thread(target=self.gogo_worker, args=(mal_id, episode, rescrape))
-            t.start()
-            self.threads.append(t)
-        else:
-            self.remainingProviders.remove('gogo')
+        # if control.getBool('provider.gogo'):
+        #     t = threading.Thread(target=self.gogo_worker, args=(mal_id, episode, rescrape))
+        #     t.start()
+        #     self.threads.append(t)
+        # else:
+        #     self.remainingProviders.remove('gogo')
 
         if control.getBool('provider.hianime'):
             t = threading.Thread(target=self.hianime_worker, args=(mal_id, episode, rescrape))
@@ -161,7 +161,7 @@ class Sources(GetSources):
 
             if (
                 self.canceled
-                or (len(self.remainingProviders) < 1 and runtime > 5)
+                or not self.remainingProviders
                 or (control.settingids.terminateoncloud and len(self.cloud_files) > 0)
                 or (control.settingids.terminateonlocal and len(self.local_files) > 0)
             ):
@@ -229,12 +229,12 @@ class Sources(GetSources):
                     control.setInt('aniwave.skipoutro.end', int(x['skip']['outro']['end']))
         self.remainingProviders.remove('aniwave')
 
-    def gogo_worker(self, mal_id, episode, rescrape):
-        if rescrape:
-            self.embedSources += gogoanime.Sources().get_sources(mal_id, episode)
-        else:
-            self.embedSources += database.get(gogoanime.Sources().get_sources, 8, mal_id, episode, key='gogoanime')
-        self.remainingProviders.remove('gogo')
+    # def gogo_worker(self, mal_id, episode, rescrape):
+    #     if rescrape:
+    #         self.embedSources += gogoanime.Sources().get_sources(mal_id, episode)
+    #     else:
+    #         self.embedSources += database.get(gogoanime.Sources().get_sources, 8, mal_id, episode, key='gogoanime')
+    #     self.remainingProviders.remove('gogo')
 
     def hianime_worker(self, mal_id, episode, rescrape):
         if rescrape:

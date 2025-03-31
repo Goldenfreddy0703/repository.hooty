@@ -1372,20 +1372,20 @@ def PLAY(payload, params):
     mal_id, episode = payload.rsplit("/")
     source_select = bool(params.get('source_select'))
     rescrape = bool(params.get('rescrape'))
-    resume_time = params.get('resume')
+    resume = params.get('resume')
     if rating := params.get('rating'):
         params['rating'] = ast.literal_eval(rating)
     params['path'] = f"{control.addon_url(f'play/{payload}')}"
-    if resume_time:
-        resume_time = float(resume_time)
-        context = control.context_menu([f'Resume from {utils.format_time(resume_time)}', 'Play from beginning'])
+    if resume:
+        resume = float(resume)
+        context = control.context_menu([f'Resume from {utils.format_time(resume)}', 'Play from beginning'])
         if context == -1:
             return control.exit_code()
         elif context == 1:
-            resume_time = None
+            resume = None
 
     sources = OtakuBrowser.get_sources(mal_id, episode, 'show', rescrape, source_select)
-    _mock_args = {"mal_id": mal_id, "episode": episode, 'play': True, 'resume_time': resume_time, 'context': rescrape or source_select, 'params': params}
+    _mock_args = {"mal_id": mal_id, "episode": episode, 'play': True, 'resume': resume, 'context': rescrape or source_select, 'params': params}
     if control.getSetting('general.playstyle.episode') == '1' or source_select or rescrape:
         from resources.lib.windows.source_select import SourceSelect
         if control.getSetting('general.dialog') == '5':
@@ -1406,18 +1406,18 @@ def PLAY_MOVIE(payload, params):
     mal_id, eps_watched = payload.rsplit("/")
     source_select = bool(params.get('source_select'))
     rescrape = bool(params.get('rescrape'))
-    resume_time = params.get('resume')
+    resume = params.get('resume')
     params['path'] = f"{control.addon_url(f'play_movie/{payload}')}"
-    if resume_time:
-        resume_time = float(resume_time)
-        context = control.context_menu([f'Resume from {utils.format_time(resume_time)}', 'Play from beginning'])
+    if resume:
+        resume = float(resume)
+        context = control.context_menu([f'Resume from {utils.format_time(resume)}', 'Play from beginning'])
         if context == -1:
             return
         elif context == 1:
-            resume_time = None
+            resume = None
 
     sources = OtakuBrowser.get_sources(mal_id, 1, 'movie', rescrape, source_select)
-    _mock_args = {'mal_id': mal_id, 'play': True, 'resume_time': resume_time, 'context': rescrape or source_select, 'params': params}
+    _mock_args = {'mal_id': mal_id, 'play': True, 'resume': resume, 'context': rescrape or source_select, 'params': params}
     if control.getSetting('general.playstyle.movie') == '1' or source_select or rescrape:
         from resources.lib.windows.source_select import SourceSelect
         if control.getSetting('general.dialog') == '5':
@@ -3063,12 +3063,6 @@ def EXPORT_SETTINGS(payload, params):
     return control.exit_code()
 
 
-@Route('toggleLanguageInvoker')
-def TOGGLE_LANGUAGE_INVOKER(payload, params):
-    import service
-    service.toggle_reuselanguageinvoker()
-
-
 @Route('inputstreamadaptive')
 def INPUTSTREAMADAPTIVE(payload, params):
     import xbmcaddon
@@ -3100,6 +3094,7 @@ def TRAKT_SETTINGS(payload, params):
 @Route('trakt_script')
 def TRAKT_SCRIPT(payload, params):
     import xbmcaddon
+    import xbmc
     try:
         xbmcaddon.Addon('script.trakt')
         control.ok_dialog(control.ADDON_NAME, "Trakt Script is already installed.")
@@ -3107,14 +3102,18 @@ def TRAKT_SCRIPT(payload, params):
         xbmc.executebuiltin('InstallAddon(script.trakt)')
 
 
+@Route('toggleLanguageInvoker')
+def TOGGLE_LANGUAGE_INVOKER(payload, params):
+    import service
+    service.toggle_reuselanguageinvoker()
+
+
 if __name__ == "__main__":
     plugin_url = control.get_plugin_url()
     plugin_params = control.get_plugin_params()
     router_process(plugin_url, plugin_params)
-    if len(control.playList) > 0:
-        import xbmc
-        if not xbmc.Player().isPlaying():
-            control.playList.clear()
+    control.log(f'Finished Running: {plugin_url=} {plugin_params=}')
+
 
 # t1 = time.perf_counter_ns()
 # totaltime = (t1-t0)/1_000_000

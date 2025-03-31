@@ -725,7 +725,7 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
-                <setting id="provider.gogo" type="boolean" label="30238" help="">
+                <!-- <setting id="provider.gogo" type="boolean" label="30238" help="">
                     <level>0</level>
                     <default>true</default>
                     <control type="toggle"/>
@@ -737,7 +737,7 @@
                     <dependencies>
                         <dependency type="visible" setting="provider.gogo">true</dependency>
                     </dependencies>
-                </setting>
+                </setting> -->
                 <setting id="provider.hianime" type="boolean" label="30237" help="">
                     <level>0</level>
                     <default>true</default>

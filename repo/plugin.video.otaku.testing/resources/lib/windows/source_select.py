@@ -68,25 +68,24 @@ class SourceSelect(BaseWindow):
             self.getControl(15).setLabel("View Cached")
             self.showing_uncached = True
         self.setFocusId(1000)
-
+    
     def populate_sources(self, sources):
         self.display_list.reset()
         self.displayed_sources = sources  # Update the displayed sources list
-        menu_items = []
-        for i in sources:
-            if not i:
+        for source in sources:
+            if source is None:
                 continue
-            menu_item = xbmcgui.ListItem('%s' % i['release_title'], offscreen=False)
-            for info in list(i.keys()):
-                try:
-                    value = i[info]
-                    if isinstance(value, list):
-                        value = [str(k) for k in value]
-                        value = ' '.join(sorted(value))
-                    menu_item.setProperty(info, str(value).replace('_', ' '))
-                except UnicodeEncodeError:
-                    menu_item.setProperty(info, i[info])
-            menu_items.append(menu_item)
+            menu_item = xbmcgui.ListItem(source.get('release_title', ''), offscreen=True)
+            properties = {
+                'type': source.get('type', ''),
+                'debrid_provider': source.get('debrid_provider', ''),
+                'provider': source.get('provider', ''),
+                'quality': str(source.get('quality', '')),
+                'info': ' '.join(source.get('info', [])),
+                'seeders': str(source.get('seeders', '')) if source.get('seeders', -1) != -1 else 'na',
+                'size': source.get('size', '')
+            }
+            menu_item.setProperties(properties)
             self.display_list.addItem(menu_item)
 
     def doModal(self):

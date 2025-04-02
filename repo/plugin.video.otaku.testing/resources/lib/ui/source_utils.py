@@ -308,10 +308,11 @@ def filter_sources(provider, list_, season, episode, anidb_id=None, part=None):
         ep_match = list(map(int, list(filter(None, itertools.chain(*ep_match)))))
 
         if not ep_match:
-            regex_batch = r"(?i)\b(batch|complete|season\s*\d+\b|s\d{1,2}(?:\s*-\s*\d{2,})?(?:\s*\[?\d{2,}])?|\d{2,}\s*episodes?)\b"
-            batch_math = re.search(regex_batch, title)
-            if not batch_math:
-                continue
+            # regex_batch = r"(?i)\b(batch|complete|season\s*\d+\b|s\d{1,2}(?:\s*-\s*\d{2,})?(?:\s*\[?\d{2,}])?|\d{2,}\s*episodes?)\b"
+            # batch_math = re.search(regex_batch, title)
+            # if not batch_math:
+            #     continue
+            pass
         elif ep_match and ep_match[0] != int(episode):
             if not (len(ep_match) > 1 and ep_match[0] <= int(episode) <= ep_match[1]):
                 continue

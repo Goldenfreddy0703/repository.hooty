@@ -1,7 +1,12 @@
+Changelog v5.1.86 (2025-04-02):
+- Fixed Bugs with Scraping
+- Improved Animetosho Scraping
+- Unknown Seeders have NA
+
 Changelog v5.1.85 (2025-03-31):
 - Fixed Bugs with Playlist & Resume times
 - Optimized Playback again
-- Made Scrapping Faster
+- Made Scraping Faster
 - Sadly removed Gogo
 
 Changelog v5.1.84 (2025-03-27):

@@ -4,7 +4,7 @@ import json
 
 from functools import partial
 from bs4 import BeautifulSoup, SoupStrainer
-from resources.lib import debrid
+from resources.lib.debrid import Debrid
 from resources.lib.ui import database, source_utils, control, client
 from resources.lib.ui.BrowserBase import BrowserBase
 
@@ -39,7 +39,7 @@ class Sources(BrowserBase):
             else:
                 filtered_list = list_
 
-            cache_list, uncashed_list_ = debrid.torrentCacheCheck(filtered_list)
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
 
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
@@ -77,7 +77,7 @@ class Sources(BrowserBase):
             for torrent in list_:
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            cache_list, uncashed_list = debrid.torrentCacheCheck(list_)
+            cache_list, uncashed_list = Debrid.torrentCacheCheck(list_)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
 
             mapfunc = partial(self.parse_nyaa_view, episode=episode)
@@ -111,7 +111,7 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            cache_list, uncashed_list = debrid.torrentCacheCheck(list_)
+            cache_list, uncashed_list = Debrid.torrentCacheCheck(list_)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
             mapfunc = partial(self.parse_nyaa_view, episode=1)
             all_results = list(map(mapfunc, cache_list))

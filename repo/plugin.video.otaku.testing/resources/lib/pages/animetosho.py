@@ -131,7 +131,7 @@ class Sources(BrowserBase):
             if season:
                 filtered_list = source_utils.filter_sources('animetosho', list_, int(season), int(episode), anidb_id=self.anidb_id)
             else:
-                filtered_list = list_
+                filtered_list = source_utils.filter_sources('animetosho', list_)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] != 0]

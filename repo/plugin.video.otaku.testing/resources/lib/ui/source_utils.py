@@ -260,7 +260,7 @@ def filter_sources(provider, list_, season, episode, anidb_id=None, part=None):
     regex_season = r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?=\D|$)"
     rex_season = re.compile(regex_season)
 
-    regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4}))?|(?:-\s?(\d{1,4})\b)"
+    regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th)))?|(?:-\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))\b)"
     rex_ep = re.compile(regex_ep)
 
     if part:
@@ -333,6 +333,64 @@ def filter_sources(provider, list_, season, episode, anidb_id=None, part=None):
         # control.log(title)
 
     return filtered_list
+
+
+def filter_out_sources(provider, list_):
+    import itertools
+
+    regex_season = r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?=\D|$)"
+    rex_season = re.compile(regex_season)
+
+    regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th)))?|(?:-\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))\b)"
+    rex_ep = re.compile(regex_ep)
+
+    regex_part = r"part ?(\d+)"
+    rex_part = re.compile(regex_part)
+
+    filtered_out_list = []
+    for torrent in list_:
+        # Set up the torrent hash as in filter_sources
+        if provider == 'animetosho':
+            if 'hash' not in torrent:
+                continue  # Skip if no valid hash is found
+        elif provider == 'nyaa':
+            torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
+        elif provider == 'realdebrid':
+            torrent['hash'] = torrent.get('hash', '')
+        elif provider == 'alldebrid':
+            link = torrent['link']
+            torrent['hash'] = re.search(r'/f/([^/]+)', link).group(1)
+        elif provider == 'premiumize':
+            torrent['hash'] = torrent.get('id', '')
+        elif provider == 'torbox':
+            torrent['hash'] = torrent.get('hash', '')
+        elif provider == 'local':
+            torrent['hash'] = torrent.get('path', '')
+        else:
+            continue
+
+        # Select title based on provider
+        if provider in ['realdebrid', 'alldebrid']:
+            title = torrent['filename'].lower()
+        else:
+            title = torrent['name'].lower()
+
+        # Clean the title for episode lookup
+        clean_title = clean_text(title)
+
+        # Find any episode numbers, season numbers, or parts
+        ep_match = rex_ep.findall(clean_title)
+        ep_match = list(filter(None, itertools.chain(*ep_match)))
+        # Ignore ep_match if it's only a single digit equal to '0'
+        ep_match = [match for match in ep_match if not (len(match) == 1 and match == '0')]
+        season_match = rex_season.findall(title)
+        part_match = rex_part.search(title) if 'part' in title else None
+
+        # If none of the patterns are found add this torrent to the filtered list
+        if not ep_match and not season_match and not part_match:
+            filtered_out_list.append(torrent)
+
+    return filtered_out_list
 
 
 def clean_text(text):

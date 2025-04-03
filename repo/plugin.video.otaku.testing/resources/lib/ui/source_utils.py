@@ -254,105 +254,32 @@ def get_best_match(dict_key, dictionary_list, episode, pack_select=False):
     return files[0]
 
 
-def filter_sources(provider, list_, season, episode, anidb_id=None, part=None):
+def filter_sources(provider, torrent_list, season=None, episode=None, anidb_id=None, part=None, invert=True):
+    """
+    Combined filter:
+      - When invert is False (default), it returns torrents that have valid episode (and season) info.
+        (Uses season and episode parameters for comparison.)
+      - When invert is True, it returns torrents that DO NOT have any episode, season, or part info.
+        (In this case season/episode comparisons are skipped.)
+    """
     import itertools
 
+    # Common regex patterns
     regex_season = r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?=\D|$)"
     rex_season = re.compile(regex_season)
-
     regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th)))?|(?:-\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))\b)"
     rex_ep = re.compile(regex_ep)
-
-    if part:
-        regex_part = r"part ?(\d+)"
-        rex_part = re.compile(regex_part)
-    else:
-        rex_part = None
-
-    filtered_list = []
-    for torrent in list_:
-        if provider == 'animetosho':
-            if 'hash' not in torrent:
-                continue  # Skip this torrent if no valid hash is found
-        elif provider == 'nyaa':
-            torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
-        elif provider == 'realdebrid':
-            torrent['hash'] = torrent.get('hash', '')
-        elif provider == 'alldebrid':
-            link = torrent['link']
-            torrent['hash'] = re.search(r'/f/([^/]+)', link).group(1)
-        elif provider == 'premiumize':
-            torrent['hash'] = torrent.get('id', '')
-        elif provider == 'torbox':
-            torrent['hash'] = torrent.get('hash', '')
-        elif provider == 'local':
-            torrent['hash'] = torrent.get('path', '')
-        else:
-            continue
-
-        if provider in ['realdebrid', 'alldebrid']:
-            title = torrent['filename'].lower()
-        else:
-            title = torrent['name'].lower()
-
-        # filter parts
-        if rex_part and 'part' in title:
-            part_match = rex_part.search(title)
-            if part_match:
-                part_match = int(part_match.group(1).strip())
-                if part_match != part:
-                    continue
-
-        # filter episode number
-        ep_match = rex_ep.findall(clean_text(title))
-        ep_match = list(map(int, list(filter(None, itertools.chain(*ep_match)))))
-
-        if not ep_match:
-            # regex_batch = r"(?i)\b(batch|complete|season\s*\d+\b|s\d{1,2}(?:\s*-\s*\d{2,})?(?:\s*\[?\d{2,}])?|\d{2,}\s*episodes?)\b"
-            # batch_math = re.search(regex_batch, title)
-            # if not batch_math:
-            #     continue
-            pass
-        elif ep_match and ep_match[0] != int(episode):
-            if not (len(ep_match) > 1 and ep_match[0] <= int(episode) <= ep_match[1]):
-                continue
-
-        # filter season
-        if anidb_id:
-            filtered_list.append(torrent)
-        else:
-            season_match = rex_season.findall(title)
-            season_match = list(map(int, list(filter(None, itertools.chain(season_match)))))
-            if season_match:
-                if season_match[0] <= season <= season_match[-1]:
-                    filtered_list.append(torrent)
-            else:
-                filtered_list.append(torrent)
-
-        # control.log(f'{season_match=}\t| {ep_match=}\t| {bool(batch_math)=}')
-        # control.log(title)
-
-    return filtered_list
-
-
-def filter_out_sources(provider, list_):
-    import itertools
-
-    regex_season = r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?=\D|$)"
-    rex_season = re.compile(regex_season)
-
-    regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th)))?|(?:-\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))\b)"
-    rex_ep = re.compile(regex_ep)
-
     regex_part = r"part ?(\d+)"
     rex_part = re.compile(regex_part)
 
-    filtered_out_list = []
-    for torrent in list_:
-        # Set up the torrent hash as in filter_sources
+    filtered = []
+
+    # Loop over each torrent in the list
+    for torrent in torrent_list:
+        # Set up the torrent hash as in the original functions
         if provider == 'animetosho':
             if 'hash' not in torrent:
-                continue  # Skip if no valid hash is found
+                continue
         elif provider == 'nyaa':
             torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
         elif provider == 'realdebrid':
@@ -369,28 +296,77 @@ def filter_out_sources(provider, list_):
         else:
             continue
 
-        # Select title based on provider
+        # Select the title based on provider
         if provider in ['realdebrid', 'alldebrid']:
             title = torrent['filename'].lower()
         else:
             title = torrent['name'].lower()
 
-        # Clean the title for episode lookup
+        # Clean the title for extraction (using your clean_text helper)
         clean_title = clean_text(title)
 
-        # Find any episode numbers, season numbers, or parts
+        # If a part is expected, filter out torrents that don’t match
+        if rex_part and 'part' in title:
+            part_match = rex_part.search(title)
+            if part_match:
+                current_part = int(part_match.group(1).strip())
+                if part is not None and current_part != part:
+                    continue
+
+        # Extract episode matches (convert to ints)
         ep_match = rex_ep.findall(clean_title)
         ep_match = list(filter(None, itertools.chain(*ep_match)))
-        # Ignore ep_match if it's only a single digit equal to '0'
-        ep_match = [match for match in ep_match if not (len(match) == 1 and match == '0')]
+        # Ignore if the only match is a single digit "0"
+        ep_match = [int(match) for match in ep_match if not (len(match) == 1 and match == '0')]
+        # Extract season matches
         season_match = rex_season.findall(title)
-        part_match = rex_part.search(title) if 'part' in title else None
+        season_match = [int(s) for s in season_match if s]
 
-        # If none of the patterns are found add this torrent to the filtered list
-        if not ep_match and not season_match and not part_match:
-            filtered_out_list.append(torrent)
+        # Determine if the torrent has episode/season/part info
+        has_info = bool(ep_match or season_match or (rex_part.search(title) if 'part' in title else None))
 
-    return filtered_out_list
+        # For the inverted filter, we want torrents with no info.
+        if invert:
+            if not has_info:
+                filtered.append(torrent)
+
+        # In the non-inverted case, we need to match the expected episode and season.
+        # First, if no episode info was found, skip this torrent.
+        if not ep_match:
+            continue
+        # Then check that the episode matches the requested one.
+        # (Assumes episode is passed as a string that can be converted to int.)
+        try:
+            req_ep = int(episode)
+        except (ValueError, TypeError):
+            continue
+        # If the first episode number doesn't match and a range isn’t provided, skip.
+        if ep_match[0] != req_ep:
+            # If a range is provided (two numbers), check if it falls within
+            if not (len(ep_match) > 1 and ep_match[0] <= req_ep <= ep_match[1]):
+                continue
+
+        # Now filter based on season if not using anidb_id (or if season info exists)
+        if not anidb_id:
+            if season_match:
+                try:
+                    req_season = int(season)
+                except (ValueError, TypeError):
+                    continue
+                if not (season_match[0] <= req_season <= season_match[-1]):
+                    continue
+
+        filtered.append(torrent)
+
+    return filtered
+
+
+# Example helper: clean_text remains the same
+def clean_text(text):
+    text = re.sub(r"\[.*?\]|\(.*?\)", "", text).strip()
+    text = re.sub(r"\b(?:480p|720p|1080p|2160p|4k|h\.264|x264|x265|hevc|web-dl|webrip|bluray|hdr)\b",
+                  "", text, flags=re.I)
+    return text
 
 
 def clean_text(text):

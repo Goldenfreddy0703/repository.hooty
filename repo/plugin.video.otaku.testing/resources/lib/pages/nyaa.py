@@ -38,13 +38,10 @@ class Sources(BrowserBase):
 
             if self.media_type != 'movie':
                 filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
-                filtered_out_list = source_utils.filter_out_sources('nyaa', list_)
             else:
-                filtered_out_list = source_utils.filter_out_sources('nyaa', list_)
+                filtered_list = source_utils.filter_sources('nyaa', list_)
 
-            sources_list = filtered_list + filtered_out_list
-
-            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(sources_list)
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
 
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]

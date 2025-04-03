@@ -1,3 +1,7 @@
+Changelog v5.1.87 (2025-04-03):
+- Improved the crap out of Nyaa Scraping
+- Added Function to Filter Out Sources
+
 Changelog v5.1.86 (2025-04-02):
 - Fixed Bugs with Scraping
 - Improved Animetosho Scraping

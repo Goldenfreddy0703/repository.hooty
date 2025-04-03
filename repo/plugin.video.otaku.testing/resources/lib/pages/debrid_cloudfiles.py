@@ -38,7 +38,9 @@ class Sources(BrowserBase):
     def rd_cloud_inspection(self, query, episode, season):
         api = real_debrid.RealDebrid()
         torrents = api.list_torrents()
-        torrents = source_utils.filter_sources('realdebrid', torrents, season, episode)
+        filtered_torrents = source_utils.filter_sources('realdebrid', torrents, season, episode)
+        filtered_out_torrents = source_utils.filter_out_sources('realdebrid', torrents)
+        torrents = filtered_torrents + filtered_out_torrents
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -78,7 +80,9 @@ class Sources(BrowserBase):
 
     def premiumize_cloud_inspection(self, query, episode, season):
         cloud_items = premiumize.Premiumize().list_folder()
-        cloud_items = source_utils.filter_sources('premiumize', cloud_items, season, episode)
+        filtered_cloud_items = source_utils.filter_sources('premiumize', cloud_items, season, episode)
+        filtered_out_cloud_items = source_utils.filter_out_sources('premiumize', cloud_items)
+        cloud_items = filtered_cloud_items + filtered_out_cloud_items
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -115,7 +119,9 @@ class Sources(BrowserBase):
 
     def torbox_cloud_inspection(self, query, episode, season):
         cloud_items = torbox.TorBox().list_torrents()
-        cloud_items = source_utils.filter_sources('torbox', cloud_items, season, episode)
+        filtered_cloud_items = source_utils.filter_sources('torbox', cloud_items, season, episode)
+        filtered_out_cloud_items = source_utils.filter_out_sources('torbox', cloud_items)
+        cloud_items = filtered_cloud_items + filtered_out_cloud_items
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -151,7 +157,9 @@ class Sources(BrowserBase):
     def alldebrid_cloud_inspection(self, query, episode, season):
         api = all_debrid.AllDebrid()
         torrents = api.list_torrents()['links']
-        torrents = source_utils.filter_sources('alldebrid', torrents, season, episode)
+        filtered_torrents = source_utils.filter_sources('alldebrid', torrents, season, episode)
+        filtered_out_torrents = source_utils.filter_out_sources('alldebrid', torrents)
+        torrents = filtered_torrents + filtered_out_torrents
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})

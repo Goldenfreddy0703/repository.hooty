@@ -3075,6 +3075,7 @@ def INPUTSTREAMADAPTIVE(payload, params):
 @Route('inputstreamhelper')
 def INPUTSTREAMHELPER(payload, params):
     import xbmcaddon
+    import xbmc
     try:
         xbmcaddon.Addon('inputstream.adaptive')
         control.ok_dialog(control.ADDON_NAME, "InputStream Adaptive is already installed.")

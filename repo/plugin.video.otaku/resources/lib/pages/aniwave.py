@@ -234,10 +234,6 @@ class sources(BrowserBase):
         data = urllib_parse.unquote(data)
         return data
 
-    @staticmethod
-    def clean_title(text):
-        return re.sub(r'\W', '', text).lower()
-
     def __extract_aniwave(self, url):
         page_content = self._get_request(url, headers={'Referer': self._BASE_URL})
         r = re.search(r'''sources["\s]?[:=]\s*\[\{"?file"?:\s*"([^"]+)''', page_content)

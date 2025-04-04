@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 
+import re
 import six
 from resources.lib.ui import client
 from six.moves import urllib_parse
@@ -12,6 +13,10 @@ class BrowserBase(object):
     @staticmethod
     def _clean_title(text):
         return text.replace(u'×'.encode('utf-8') if six.PY2 else u'×', ' x ')
+
+    @staticmethod
+    def clean_title(text):
+        return re.sub(r'\W', '', text).lower()
 
     def _to_url(self, url=''):
         assert self._BASE_URL is not None, "Must be set on inherentance"

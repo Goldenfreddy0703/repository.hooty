@@ -707,7 +707,7 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
-                <!-- <setting id="provider.animix" type="boolean" label="30240" help="">
+                <setting id="provider.animix" type="boolean" label="30240" help="">
                     <level>0</level>
                     <default>true</default>
                     <control type="toggle"/>
@@ -719,7 +719,7 @@
                     <dependencies>
                         <dependency type="visible" setting="provider.animix">true</dependency>
                     </dependencies>
-                </setting> -->
+                </setting>
                 <setting id="provider.aniwave" type="boolean" label="30241" help="">
                     <level>0</level>
                     <default>true</default>

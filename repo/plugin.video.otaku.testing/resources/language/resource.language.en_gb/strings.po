@@ -954,7 +954,7 @@ msgid "AnimePahe"
 msgstr ""
 
 msgctxt "#30240"
-msgid "Animix"
+msgid "AniMixPlay"
 msgstr ""
 
 msgctxt "#30241"
@@ -974,7 +974,7 @@ msgid "Gogo Proxies (Region Problem)"
 msgstr ""
 
 msgctxt "#30245"
-msgid "Animix Proxies (Region Problem)"
+msgid "AniMixPlay Proxies (Region Problem)"
 msgstr ""
 
 msgctxt "#30246"

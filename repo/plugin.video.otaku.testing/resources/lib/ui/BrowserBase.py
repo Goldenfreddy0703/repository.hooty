@@ -52,6 +52,10 @@ class BrowserBase(object):
     @staticmethod
     def _clean_title(text):
         return text.replace(u'×', ' x ')
+    
+    @staticmethod
+    def clean_embed_title(text):
+        return re.sub(r'\W', '', text).lower()
 
     def _to_url(self, url=''):
         assert self._BASE_URL is not None, "Must be set on inherentance"
@@ -121,3 +125,9 @@ class BrowserBase(object):
     @staticmethod
     def embeds():
         return control.getStringList('embed.config')
+
+    # control.setStringList('embed.config', ['bunny', 'doodstream', 'filelions', 'filemoon', 'hd-2',
+    #                       'iga', 'kwik', 'megaf', 'moonf', 'mp4upload', 'mp4u',
+    #                       'mycloud', 'noads', 'noadsalt', 'swish', 'streamtape',
+    #                       'streamwish', 'vidcdn', 'vidhide', 'vidplay', 'vidstream',
+    #                       'yourupload', 'zto'])

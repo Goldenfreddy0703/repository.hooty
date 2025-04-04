@@ -59,13 +59,13 @@ class Sources(BrowserBase):
                 items = [
                     urllib.parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
                     for x in sitems
-                    if self.clean_title(title) == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                    if self.clean_embed_title(title) == self.clean_embed_title(x.find('a', {'class': 'name'}).get('data-jp'))
                 ]
                 if not items:
                     items = [
                         urllib.parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
                         for x in sitems
-                        if self.clean_title(title + 'dub') == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                        if self.clean_embed_title(title + 'dub') == self.clean_embed_title(x.find('a', {'class': 'name'}).get('data-jp'))
                     ]
         elif r:
             r = json.loads(r)
@@ -75,7 +75,7 @@ class Sources(BrowserBase):
                 items = [
                     urllib.parse.urljoin(self._BASE_URL, x.get('href'))
                     for x in sitems
-                    if self.clean_title(title) in self.clean_title(x.find('div', {'class': 'name'}).text)
+                    if self.clean_embed_title(title) in self.clean_embed_title(x.find('div', {'class': 'name'}).text)
                 ]
 
         if items:
@@ -129,7 +129,7 @@ class Sources(BrowserBase):
                     for src in srcs:
                         edata_id = src.get('data-link-id')
                         edata_name = src.text
-                        if any(x in self.clean_title(edata_name) for x in self.embeds()):
+                        if any(x in self.clean_embed_title(edata_name) for x in self.embeds()):
                             vrf = self.generate_vrf(edata_id)
                             params = {'vrf': vrf}
                             r = self._get_request(
@@ -240,10 +240,6 @@ class Sources(BrowserBase):
         data = control.arc4(control.bin(key), base64.urlsafe_b64decode(control.bin(text)))
         data = urllib.parse.unquote(data)
         return data
-
-    @staticmethod
-    def clean_title(text):
-        return re.sub(r'\W', '', text).lower()
 
     def __extract_aniwave(self, url):
         page_content = self._get_request(url, headers={'Referer': self._BASE_URL})

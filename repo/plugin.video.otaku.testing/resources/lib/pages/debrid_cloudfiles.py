@@ -12,7 +12,7 @@ class Sources(BrowserBase):
         self.cloud_files = []
         self.threads = []
 
-    def get_sources(self, query, episode, season):
+    def get_sources(self, query, episode, season=None):
         debrid = control.enabled_debrid()
         cloud = control.enabled_cloud()
         if debrid.get('realdebrid') and cloud.get('realdebrid'):
@@ -35,7 +35,7 @@ class Sources(BrowserBase):
             i.join()
         return self.cloud_files
 
-    def rd_cloud_inspection(self, query, episode, season):
+    def rd_cloud_inspection(self, query, episode, season=None):
         api = real_debrid.RealDebrid()
         torrents = api.list_torrents()
         torrents = source_utils.filter_sources('realdebrid', torrents, season, episode)
@@ -76,7 +76,7 @@ class Sources(BrowserBase):
                 }
             )
 
-    def premiumize_cloud_inspection(self, query, episode, season):
+    def premiumize_cloud_inspection(self, query, episode, season=None):
         cloud_items = premiumize.Premiumize().list_folder()
         cloud_items = source_utils.filter_sources('premiumize', cloud_items, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
@@ -113,7 +113,7 @@ class Sources(BrowserBase):
                 }
             )
 
-    def torbox_cloud_inspection(self, query, episode, season):
+    def torbox_cloud_inspection(self, query, episode, season=None):
         cloud_items = torbox.TorBox().list_torrents()
         cloud_items = source_utils.filter_sources('torbox', cloud_items, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
@@ -148,7 +148,7 @@ class Sources(BrowserBase):
                 }
             )
 
-    def alldebrid_cloud_inspection(self, query, episode, season):
+    def alldebrid_cloud_inspection(self, query, episode, season=None):
         api = all_debrid.AllDebrid()
         torrents = api.list_torrents()['links']
         torrents = source_utils.filter_sources('alldebrid', torrents, season, episode)

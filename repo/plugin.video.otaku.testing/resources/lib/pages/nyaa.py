@@ -36,10 +36,7 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            if self.media_type != 'movie':
-                filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
-            else:
-                filtered_list = source_utils.filter_sources('nyaa', list_)
+            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
@@ -81,7 +78,9 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            cache_list, uncashed_list_ = Debrid.torrentCacheCheck(list_)
+            filtered_list = source_utils.filter_sources('nyaa', list_)
+
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
 
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
@@ -89,6 +88,9 @@ class Sources(BrowserBase):
 
             mapfunc = partial(self.parse_nyaa_view, episode=1)
             all_results = list(map(mapfunc, cache_list))
+            if control.settingids.showuncached:
+                mapfunc2 = partial(self.parse_nyaa_view, episode=1, cached=False)
+                all_results += list(map(mapfunc2, uncashed_list))
             return all_results
 
     def get_sources(self, query, mal_id, episode, status, media_type, rescrape):
@@ -176,11 +178,15 @@ class Sources(BrowserBase):
             if match_2:
                 match_2 = match_2.group(0).strip() + ')'
             query = f'{match_1}|{match_2}'
+        else:
+            season = None
+
         params = {
             'f': '0',
             'c': '1_0',
             'q': query.replace(' ', '+')
         }
+
         nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
         return nyaa_sources
 

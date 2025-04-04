@@ -254,12 +254,14 @@ class Sources(GetSources):
 
     # Local & Cloud #
     def user_local_inspection(self, query, mal_id, episode):
-        season = database.get_episode(mal_id)['season']
-        self.local_files += localfiles.Sources().get_sources(query, mal_id, episode, season)
+        episode_data = database.get_episode(mal_id)
+        season = episode_data.get('season') if episode_data else None
+        self.local_files += localfiles.Sources().get_sources(query, episode, season)
         self.remainingProviders.remove('Local Inspection')
 
     def user_cloud_inspection(self, query, mal_id, episode):
-        season = database.get_episode(mal_id)['season']
+        episode_data = database.get_episode(mal_id)
+        season = episode_data.get('season') if episode_data else None
         self.cloud_files += debrid_cloudfiles.Sources().get_sources(query, episode, season)
         self.remainingProviders.remove('Cloud Inspection')
 

@@ -12,7 +12,7 @@ class Sources(BrowserBase):
     def __init__(self):
         self.local_files = []
 
-    def get_sources(self, query, mal_id, episode, season):
+    def get_sources(self, query, episode, season=None):
         filenames = []
         for root, dirs, files in os.walk(PATH):
             for file in files:

@@ -1,3 +1,7 @@
+Changelog v5.1.91 (2025-04-05):
+- Fix Movies for Animetosho
+- Improve Animetosho Scraping
+
 Changelog v5.1.90 (2025-04-04):
 - Fixed Movies for Nyaa, Local, Cloud
 

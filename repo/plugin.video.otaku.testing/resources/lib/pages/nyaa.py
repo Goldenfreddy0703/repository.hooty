@@ -17,89 +17,13 @@ class Sources(BrowserBase):
         self.uncached = []
         self.sources = []
 
-    def process_nyaa_episodes(self, url, params, episode_zfill, season_zfill, part=None):
-        response = client.request(url, params=params)
-        if response:
-            html = response
-            mlink = SoupStrainer('div', {'class': 'table-responsive'})
-            soup = BeautifulSoup(html, "html.parser", parse_only=mlink)
-            rex = r'(magnet:)+[^"]*'
-            list_ = [
-                {'magnet': i.find('a', {'href': re.compile(rex)}).get('href'),
-                 'name': i.find_all('a', {'class': None})[1].get('title'),
-                 'size': i.find_all('td', {'class': 'text-center'})[1].text.replace('i', ''),
-                 'downloads': int(i.find_all('td', {'class': 'text-center'})[-1].text),
-                 'seeders': int(i.find_all('td', {'class': 'text-center'})[-3].text)
-                 } for i in soup.select("tr.danger,tr.default,tr.success")
-            ]
-
-            for idx, torrent in enumerate(list_):
-                torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
-
-            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
-
-            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
-            cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
-
-            uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
-            uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
-
-            mapfunc = partial(self.parse_nyaa_view, episode=episode_zfill)
-            all_results = list(map(mapfunc, cache_list))
-            if control.settingids.showuncached:
-                mapfunc2 = partial(self.parse_nyaa_view, episode=episode_zfill, cached=False)
-                all_results += list(map(mapfunc2, uncashed_list))
-            return all_results
-
-    def process_nyaa_movie(self, url, params):
-        response = client.request(url, params=params)
-        if response:
-            res = response
-            results = BeautifulSoup(res, 'html.parser')
-            rex = r'(magnet:)+[^"]*'
-            search_results = [
-                (i.find_all('a', {'href': re.compile(rex)})[0].get('href'),
-                 i.find_all('a', {'class': None})[1].get('title'),
-                 i.find_all('td', {'class': 'text-center'})[1].text,
-                 i.find_all('td', {'class': 'text-center'})[-1].text,
-                 i.find_all('td', {'class': 'text-center'})[-3].text
-                 ) for i in results.select("tr.danger,tr.default,tr.success")]
-
-            list_ = [
-                {
-                    'magnet': magnet,
-                    'name': name,
-                    'size': size.replace('i', ''),
-                    'downloads': int(downloads),
-                    'seeders': int(seeders)
-                } for magnet, name, size, downloads, seeders in search_results
-            ]
-
-            for idx, torrent in enumerate(list_):
-                torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
-
-            filtered_list = source_utils.filter_sources('nyaa', list_)
-
-            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
-            cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
-
-            uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
-            uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
-
-            mapfunc = partial(self.parse_nyaa_view, episode=1)
-            all_results = list(map(mapfunc, cache_list))
-            if control.settingids.showuncached:
-                mapfunc2 = partial(self.parse_nyaa_view, episode=1, cached=False)
-                all_results += list(map(mapfunc2, uncashed_list))
-            return all_results
-
-    def get_sources(self, query, mal_id, episode, status, media_type, rescrape):
+    def get_sources(self, query, mal_id, episode, status, media_type):
         query = self._clean_title(query).replace('-', ' ')
         self.media_type = media_type
         if media_type == 'movie':
             return self.get_movie_sources(query, mal_id)
 
-        episode_sources = self.get_episode_sources(query, mal_id, episode, status, rescrape)
+        episode_sources = self.get_episode_sources(query, mal_id, episode, status)
         show_sources = self.get_show_sources(query, mal_id)
         self.sources = episode_sources + show_sources
 
@@ -108,13 +32,13 @@ class Sources(BrowserBase):
             q1 = q1[1:-1].split(':')[0]
             q2 = q2[1:-1].split(':')[0]
             query2 = '({0})|({1})'.format(q1, q2)
-            self.sources = self.get_episode_sources(query2, mal_id, episode, status, rescrape)
+            self.sources = self.get_episode_sources(query2, mal_id, episode, status)
 
         # remove any duplicate sources
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
-    def get_episode_sources(self, show, mal_id, episode, status, rescrape):
+    def get_episode_sources(self, show, mal_id, episode, status):
         nyaa_sources = []
 
         if 'part' in show.lower():
@@ -216,6 +140,82 @@ class Sources(BrowserBase):
         # make sure no duplicate sources
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
+
+    def process_nyaa_episodes(self, url, params, episode_zfill, season_zfill, part=None):
+        response = client.request(url, params=params)
+        if response:
+            html = response
+            mlink = SoupStrainer('div', {'class': 'table-responsive'})
+            soup = BeautifulSoup(html, "html.parser", parse_only=mlink)
+            rex = r'(magnet:)+[^"]*'
+            list_ = [
+                {'magnet': i.find('a', {'href': re.compile(rex)}).get('href'),
+                 'name': i.find_all('a', {'class': None})[1].get('title'),
+                 'size': i.find_all('td', {'class': 'text-center'})[1].text.replace('i', ''),
+                 'downloads': int(i.find_all('td', {'class': 'text-center'})[-1].text),
+                 'seeders': int(i.find_all('td', {'class': 'text-center'})[-3].text)
+                 } for i in soup.select("tr.danger,tr.default,tr.success")
+            ]
+
+            for idx, torrent in enumerate(list_):
+                torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
+
+            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
+
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
+            cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
+
+            uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
+            uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
+
+            mapfunc = partial(self.parse_nyaa_view, episode=episode_zfill)
+            all_results = list(map(mapfunc, cache_list))
+            if control.settingids.showuncached:
+                mapfunc2 = partial(self.parse_nyaa_view, episode=episode_zfill, cached=False)
+                all_results += list(map(mapfunc2, uncashed_list))
+            return all_results
+
+    def process_nyaa_movie(self, url, params):
+        response = client.request(url, params=params)
+        if response:
+            res = response
+            results = BeautifulSoup(res, 'html.parser')
+            rex = r'(magnet:)+[^"]*'
+            search_results = [
+                (i.find_all('a', {'href': re.compile(rex)})[0].get('href'),
+                 i.find_all('a', {'class': None})[1].get('title'),
+                 i.find_all('td', {'class': 'text-center'})[1].text,
+                 i.find_all('td', {'class': 'text-center'})[-1].text,
+                 i.find_all('td', {'class': 'text-center'})[-3].text
+                 ) for i in results.select("tr.danger,tr.default,tr.success")]
+
+            list_ = [
+                {
+                    'magnet': magnet,
+                    'name': name,
+                    'size': size.replace('i', ''),
+                    'downloads': int(downloads),
+                    'seeders': int(seeders)
+                } for magnet, name, size, downloads, seeders in search_results
+            ]
+
+            for idx, torrent in enumerate(list_):
+                torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
+
+            filtered_list = source_utils.filter_sources('nyaa', list_)
+
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
+            cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
+
+            uncashed_list = [i for i in uncashed_list_ if i['seeders'] > 0]
+            uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
+
+            mapfunc = partial(self.parse_nyaa_view, episode=1)
+            all_results = list(map(mapfunc, cache_list))
+            if control.settingids.showuncached:
+                mapfunc2 = partial(self.parse_nyaa_view, episode=1, cached=False)
+                all_results += list(map(mapfunc2, uncashed_list))
+            return all_results
 
     @staticmethod
     def parse_nyaa_view(res, episode, cached=True):

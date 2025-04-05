@@ -180,9 +180,9 @@ class Sources(GetSources):
     # Torrents #
     def nyaa_worker(self, query, mal_id, episode, status, media_type, rescrape):
         if rescrape:
-            all_sources = nyaa.Sources().get_sources(query, mal_id, episode, status, media_type, rescrape)
+            all_sources = nyaa.Sources().get_sources(query, mal_id, episode, status, media_type)
         else:
-            all_sources = database.get(nyaa.Sources().get_sources, 8, query, mal_id, episode, status, media_type, rescrape, key='nyaa')
+            all_sources = database.get(nyaa.Sources().get_sources, 8, query, mal_id, episode, status, media_type, key='nyaa')
         self.torrentUnCacheSources += all_sources['uncached']
         self.torrentCacheSources += all_sources['cached']
         self.torrentSources += all_sources['cached'] + all_sources['uncached']
@@ -190,9 +190,9 @@ class Sources(GetSources):
 
     def animetosho_worker(self, query, mal_id, episode, status, media_type, rescrape):
         if rescrape:
-            all_sources = animetosho.Sources().get_sources(query, mal_id, episode, status, media_type, rescrape)
+            all_sources = animetosho.Sources().get_sources(query, mal_id, episode, status, media_type)
         else:
-            all_sources = database.get(animetosho.Sources().get_sources, 8, query, mal_id, episode, status, media_type, rescrape, key='animetosho')
+            all_sources = database.get(animetosho.Sources().get_sources, 8, query, mal_id, episode, status, media_type, key='animetosho')
         self.torrentUnCacheSources += all_sources['uncached']
         self.torrentCacheSources += all_sources['cached']
         self.torrentSources += all_sources['cached'] + all_sources['uncached']

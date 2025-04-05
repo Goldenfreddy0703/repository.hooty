@@ -1,3 +1,6 @@
+Changelog v5.1.92 (2025-04-05):
+- Fix some small filtering code
+
 Changelog v5.1.91 (2025-04-05):
 - Fix Movies for Animetosho
 - Improve Animetosho Scraping

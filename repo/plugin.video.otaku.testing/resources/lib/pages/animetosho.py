@@ -22,7 +22,19 @@ class Sources(BrowserBase):
         self.anidb_ep_id = None
         self.paging = control.getInt('animetosho.paging')
 
-    def get_sources(self, show, mal_id, episode, status, media_type, rescrape):
+    def get_sources(self, show, mal_id, episode, status, media_type):
+        if media_type == "movie":
+            return self.get_movie_sources(show, mal_id)
+
+        episode_sources = self.get_episode_sources(show, mal_id, episode, status)
+        show_sources = self.get_show_sources(show, mal_id)
+        self.sources = episode_sources + show_sources
+
+        self.append_cache_uncached_noduplicates()
+        return {'cached': self.cached, 'uncached': self.uncached}
+
+    def get_episode_sources(self, show, mal_id, episode, status):
+        # Retrieve anidb info for the show and episode
         show_meta = database.get_show_meta(mal_id)
         if show_meta:
             meta_ids = pickle.loads(show_meta['meta_ids'])
@@ -35,63 +47,121 @@ class Sources(BrowserBase):
         if self.anidb_id:
             episode_meta = database.get_episode(mal_id, episode)
             if episode_meta:
-                self.anidb_ep_id = episode_meta['anidb_ep_id']
+                self.anidb_ep_id = episode_meta.get('anidb_ep_id')
             if not self.anidb_ep_id:
                 anidb_meta = anidb.get_episode_meta(self.anidb_id)
                 anidb_meta = {x: v for x, v in anidb_meta.items() if x.isdigit()}
                 for anidb_ep in anidb_meta:
                     database.update_episode_column(mal_id, anidb_ep, 'anidb_ep_id', anidb_meta[anidb_ep]['anidb_id'])
 
-        episode = episode.zfill(2)
-        self.sources += self.process_animetosho_episodes(f'{self._BASE_URL}/episode/{self.anidb_ep_id}', None, episode, None)
+        animetosho_sources = []
 
-        show = self._clean_title(show)
-        if media_type != "movie":
-            season = database.get_episode(mal_id)['season']
-            season = str(season).zfill(2)
-            episode = episode.zfill(2)
-            query = f'{show} "- {episode}"'
-        else:
-            season = None
-            query = show
+        season = database.get_episode(mal_id)['season']
+        season_zfill = str(season).zfill(2)
+        episode_zfill = episode.zfill(2)
+        # Build a query incorporating the episode and season info.
+        query = f'{show} "- {episode_zfill}"'
+        query += f'|"S{season_zfill}E{episode_zfill}"'
 
+        params = {
+            'q': self._sphinx_clean(query),
+            'qx': 1,
+            's': 'downloads',
+            'o': 'desc'
+        }
+        if self.anidb_id:
+            params['aids'] = self.anidb_id
+
+        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill)
+
+        # For finished series, include batch/complete series results.
+        if status in ["FINISHED", "Finished Airing"]:
+            batch_terms = ["Batch", "Complete Series"]
+            episodes_info = pickle.loads(database.get_show(mal_id)['kodi_meta'])['episodes']
+            episode_formats = []
+            if episodes_info:
+                episode_formats = [f'01-{episode_zfill}', f'01~{episode_zfill}', f'01 - {episode_zfill}', f'01 ~ {episode_zfill}']
+            batch_query = f'{show} ("' + '"|"'.join(batch_terms + episode_formats) + '")'
+            params = {
+                'q': self._sphinx_clean(batch_query),
+                'qx': 1,
+                's': 'seeders',
+                'o': 'desc'
+            }
+            if self.anidb_id:
+                params['aids'] = self.anidb_id
+            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill)
+
+        # Additional query without explicit sorting.
         params = {
             'q': self._sphinx_clean(query),
             'qx': 1
         }
         if self.anidb_id:
             params['aids'] = self.anidb_id
+        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill)
 
-        # Add paging using self.paging
-        for page in range(1, self.paging + 1):
-            params['page'] = page
-            self.sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode, season)
-
-        if status in ["FINISHED", "Finished Airing"]:
-            batch_terms = ["Batch", "Complete Series"]
-            episodes = pickle.loads(database.get_show(mal_id)['kodi_meta'])['episodes']
-            if episodes:
-                episode_formats = [f'01-{episodes}', f'01~{episodes}', f'01 - {episodes}', f'01 ~ {episodes}']
-            else:
-                episode_formats = []
-            batch_query = f'{show} ("' + '"|"'.join(batch_terms + episode_formats) + '")'
-            params['q'] = self._sphinx_clean(batch_query)
-            self.sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode, season)
-
-        show_lower = show.lower()
-        if 'season' in show_lower:
-            show_variations = re.split(r'season\s*\d+', show_lower)
+        # If the show includes a season number, try additional variations.
+        if 'season' in show.lower():
+            show_variations = re.split(r'season\s*\d+', show.lower())
             cleaned_variations = [self._sphinx_clean(var.strip() + ')') for var in show_variations if var.strip()]
-            params['q'] = '|'.join(cleaned_variations)
-        else:
-            params['q'] = self._sphinx_clean(show)
+            params = {
+                'q': '|'.join(cleaned_variations),
+                'qx': 1
+            }
+            if self.anidb_id:
+                params['aids'] = self.anidb_id
+            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill)
+        return animetosho_sources
 
-        # Add paging using self.paging
-        for page in range(1, self.paging + 1):
-            params['page'] = page
-            self.sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode, season)
+    def get_show_sources(self, show, mal_id):
+        # For shows, we can use process_animetosho_episodes
+        show_meta = database.get_show_meta(mal_id)
+        if show_meta:
+            meta_ids = pickle.loads(show_meta['meta_ids'])
+            self.anidb_id = meta_ids.get('anidb_id')
+            if not self.anidb_id:
+                ids = SIMKLAPI().get_mapping_ids('mal', mal_id)
+                if ids:
+                    self.anidb_id = meta_ids['anidb_id'] = ids['anidb']
+                    database.update_show_meta(mal_id, meta_ids, pickle.loads(show_meta['art']))
 
-        # remove any duplicate sources
+        query = self._clean_title(show)
+        params = {
+            'q': self._sphinx_clean(query),
+            'qx': 1,
+            's': 'seeders',
+            'o': 'desc'
+        }
+        if self.anidb_id:
+            params['aids'] = self.anidb_id
+
+        animetosho_sources = self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, 1, 1)
+        return animetosho_sources
+
+    def get_movie_sources(self, show, mal_id):
+        # For movies we now use process_animetosho_movie
+        show_meta = database.get_show_meta(mal_id)
+        if show_meta:
+            meta_ids = pickle.loads(show_meta['meta_ids'])
+            self.anidb_id = meta_ids.get('anidb_id')
+            if not self.anidb_id:
+                ids = SIMKLAPI().get_mapping_ids('mal', mal_id)
+                if ids:
+                    self.anidb_id = meta_ids['anidb_id'] = ids['anidb']
+                    database.update_show_meta(mal_id, meta_ids, pickle.loads(show_meta['art']))
+
+        query = self._clean_title(show)
+        params = {
+            'q': self._sphinx_clean(query),
+            'qx': 1,
+            's': 'seeders',
+            'o': 'desc'
+        }
+        if self.anidb_id:
+            params['aids'] = self.anidb_id
+
+        self.sources = self.process_animetosho_movie(f'{self._BASE_URL}/search', params)
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
@@ -103,20 +173,19 @@ class Sources(BrowserBase):
             soup_all = soup.find('div', id='content').find_all('div', class_='home_list_entry')
             rex = r'(magnet:)+[^"]*'
             list_ = []
-            for soup in soup_all:
+            for entry in soup_all:
                 list_item = {
-                    'name': soup.find('div', class_='link').a.text,
-                    'magnet': soup.find('a', {'href': re.compile(rex)}).get('href'),
-                    'size': soup.find('div', class_='size').text,
+                    'name': entry.find('div', class_='link').a.text,
+                    'magnet': entry.find('a', {'href': re.compile(rex)}).get('href'),
+                    'size': entry.find('div', class_='size').text,
                     'downloads': 0,
-                    'torrent': soup.find('a', class_='dllink').get('href')
+                    'torrent': entry.find('a', class_='dllink').get('href')
                 }
                 try:
-                    list_item['seeders'] = int(re.match(r'Seeders: (\d+)', soup.find('span', {'title': re.compile(r'Seeders')}).get('title')).group(1))
+                    list_item['seeders'] = int(re.match(r'Seeders: (\d+)', entry.find('span', {'title': re.compile(r'Seeders')}).get('title')).group(1))
                 except AttributeError:
                     list_item['seeders'] = -1
 
-                # Extract hash
                 try:
                     list_item['hash'] = re.match(r'https://animetosho.org/storage/torrent/([^/]+)', list_item['torrent']).group(1)
                 except AttributeError:
@@ -124,28 +193,103 @@ class Sources(BrowserBase):
                         hash_32 = re.search(r'btih:(\w+)&tr=http', list_item['magnet']).group(1)
                         list_item['hash'] = base64.b16encode(base64.b32decode(hash_32)).decode().lower()
                     except AttributeError:
-                        continue  # Skip this list item if no valid hash is found
+                        continue
 
                 list_.append(list_item)
 
-            if season:
-                filtered_list = source_utils.filter_sources('animetosho', list_, int(season), int(episode), anidb_id=self.anidb_id)
-            else:
-                filtered_list = source_utils.filter_sources('animetosho', list_)
+            filtered_list = source_utils.filter_sources('animetosho', list_, int(season), int(episode), anidb_id=self.anidb_id)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] != 0]
-
             uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
 
-            mapfunc = partial(parse_animetosho_view, episode=episode)
+            mapfunc = partial(self.parse_animetosho_view, episode=episode)
             all_results = list(map(mapfunc, cache_list))
             if control.settingids.showuncached:
-                mapfunc2 = partial(parse_animetosho_view, episode=episode, cached=False)
+                mapfunc2 = partial(self.parse_animetosho_view, episode=episode, cached=False)
                 all_results += list(map(mapfunc2, uncashed_list))
             return all_results
         return []
+
+    def process_animetosho_movie(self, url, params):
+        response = client.request(url, params=params)
+        if response:
+            html = response
+            soup = BeautifulSoup(html, "html.parser")
+            # Assuming the movie results use the same container as episodes:
+            soup_all = soup.find('div', id='content').find_all('div', class_='home_list_entry')
+            rex = r'(magnet:)+[^"]*'
+            list_ = []
+            for entry in soup_all:
+                list_item = {
+                    'name': entry.find('div', class_='link').a.text,
+                    'magnet': entry.find('a', {'href': re.compile(rex)}).get('href'),
+                    'size': entry.find('div', class_='size').text,
+                    'downloads': 0,
+                    'torrent': entry.find('a', class_='dllink').get('href')
+                }
+                try:
+                    list_item['seeders'] = int(re.match(r'Seeders: (\d+)', entry.find('span', {'title': re.compile(r'Seeders')}).get('title')).group(1))
+                except AttributeError:
+                    list_item['seeders'] = -1
+
+                try:
+                    list_item['hash'] = re.match(r'https://animetosho.org/storage/torrent/([^/]+)', list_item['torrent']).group(1)
+                except AttributeError:
+                    try:
+                        hash_32 = re.search(r'btih:(\w+)&tr=http', list_item['magnet']).group(1)
+                        list_item['hash'] = base64.b16encode(base64.b32decode(hash_32)).decode().lower()
+                    except AttributeError:
+                        continue
+
+                list_.append(list_item)
+
+            # For movies we don't filter by season/episode
+            filtered_list = source_utils.filter_sources('animetosho', list_)
+            cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
+            cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
+            uncashed_list = sorted([i for i in uncashed_list_ if i['seeders'] != 0], key=lambda k: k['seeders'], reverse=True)
+
+            mapfunc = partial(self.parse_animetosho_view, episode="1")
+            all_results = list(map(mapfunc, cache_list))
+            if control.settingids.showuncached:
+                mapfunc2 = partial(self.parse_animetosho_view, episode="1", cached=False)
+                all_results += list(map(mapfunc2, uncashed_list))
+            return all_results
+        return []
+
+    @staticmethod
+    def parse_animetosho_view(res, episode, cached=True):
+        source = {
+            'release_title': res['name'],
+            'hash': res['hash'],
+            'type': 'torrent',
+            'quality': source_utils.getQuality(res['name']),
+            'debrid_provider': res.get('debrid_provider'),
+            'provider': 'animetosho',
+            'episode_re': episode,
+            'size': res['size'],
+            'info': source_utils.getInfo(res['name']),
+            'byte_size': 0,
+            'lang': source_utils.getAudio_lang(res['name']),
+            'channel': source_utils.getAudio_channel(res['name']),
+            'sub': source_utils.getSubtitle_lang(res['name']),
+            'cached': cached,
+            'seeders': res['seeders'],
+        }
+
+        if source.get('debrid_provider', '').lower() == 'easydebrid':
+            source['type'] = 'hoster'
+
+        match = re.match(r'(\d+).(\d+) (\w+)', res['size'])
+        if match:
+            source['byte_size'] = source_utils.convert_to_bytes(float(f'{match.group(1)}.{match.group(2)}'), match.group(3))
+        if not cached:
+            source['magnet'] = res['magnet']
+            source['type'] += ' (uncached)'
+
+        return source
 
     def append_cache_uncached_noduplicates(self):
         unique = {}
@@ -155,7 +299,6 @@ class Sources(BrowserBase):
                 continue
             if key in unique:
                 current = unique[key]
-                # Compare seeders first; if equal, compare byte_size
                 if source.get('seeders', -1) > current.get('seeders', -1):
                     unique[key] = source
                 elif (source.get('seeders', -1) == current.get('seeders', -1) and
@@ -171,36 +314,3 @@ class Sources(BrowserBase):
                 self.cached.append(source)
             else:
                 self.uncached.append(source)
-
-
-def parse_animetosho_view(res, episode, cached=True):
-    source = {
-        'release_title': res['name'],
-        'hash': res['hash'],
-        'type': 'torrent',
-        'quality': source_utils.getQuality(res['name']),
-        'debrid_provider': res.get('debrid_provider'),
-        'provider': 'animetosho',
-        'episode_re': episode,
-        'size': res['size'],
-        'info': source_utils.getInfo(res['name']),
-        'byte_size': 0,
-        'lang': source_utils.getAudio_lang(res['name']),
-        'channel': source_utils.getAudio_channel(res['name']),
-        'sub': source_utils.getSubtitle_lang(res['name']),
-        'cached': cached,
-        'seeders': res['seeders'],
-    }
-
-    # If the debrid provider is EasyDebrid, treat it as a hoster link.
-    if source.get('debrid_provider', '').lower() == 'easydebrid':
-        source['type'] = 'hoster'
-
-    match = re.match(r'(\d+).(\d+) (\w+)', res['size'])
-    if match:
-        source['byte_size'] = source_utils.convert_to_bytes(float(f'{match.group(1)}.{match.group(2)}'), match.group(3))
-    if not cached:
-        source['magnet'] = res['magnet']
-        source['type'] += ' (uncached)'
-
-    return source

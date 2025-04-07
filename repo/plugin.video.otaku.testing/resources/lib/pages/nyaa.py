@@ -24,7 +24,7 @@ class Sources(BrowserBase):
             return self.get_movie_sources(query, mal_id)
 
         episode_sources = self.get_episode_sources(query, mal_id, episode, status)
-        show_sources = self.get_show_sources(query, mal_id)
+        show_sources = self.get_show_sources(query, mal_id, episode)
         self.sources = episode_sources + show_sources
 
         if not self.sources and ':' in query:
@@ -41,10 +41,12 @@ class Sources(BrowserBase):
     def get_episode_sources(self, show, mal_id, episode, status):
         nyaa_sources = []
 
-        if 'part' in show.lower():
-            part = re.search(r'part ?(\d+)', show.lower())
-            if part:
-                part = int(part.group(1).strip())
+        if 'part' in show.lower() or 'cour' in show.lower():
+            part_match = re.search(r'(?:part|cour) ?(\d+)', show.lower())
+            if part_match:
+                part = int(part_match.group(1).strip())
+            else:
+                part = None
         else:
             part = None
 
@@ -114,7 +116,21 @@ class Sources(BrowserBase):
         nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
         return nyaa_sources
 
-    def get_show_sources(self, query, mal_id):
+    def get_show_sources(self, show, mal_id, episode):
+        if 'part' in show.lower() or 'cour' in show.lower():
+            part_match = re.search(r'(?:part|cour) ?(\d+)', show.lower())
+            if part_match:
+                part = int(part_match.group(1).strip())
+            else:
+                part = None
+        else:
+            part = None
+
+        season = database.get_episode(mal_id)['season']
+        season_zfill = str(season).zfill(2)
+        episode_zfill = episode.zfill(2)
+        query = show
+
         params = {
             'f': '0',
             'c': '1_0',
@@ -123,7 +139,7 @@ class Sources(BrowserBase):
             'o': 'desc'
         }
 
-        nyaa_sources = self.process_nyaa_episodes(self._BASE_URL, params, 1, 1, part=None)
+        nyaa_sources = self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
         return nyaa_sources
 
     def get_movie_sources(self, query, mal_id):
@@ -141,7 +157,7 @@ class Sources(BrowserBase):
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
-    def process_nyaa_episodes(self, url, params, episode_zfill, season_zfill, part=None):
+    def process_nyaa_episodes(self, url, params, episode_zfill, season_zfill, part):
         response = client.request(url, params=params)
         if response:
             html = response
@@ -160,7 +176,7 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part=part)
+            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)

@@ -254,14 +254,7 @@ def get_best_match(dict_key, dictionary_list, episode, pack_select=False):
     return files[0]
 
 
-def filter_sources(provider, torrent_list, season=None, episode=None, anidb_id=None, part=None, invert=True):
-    """
-    Combined filter:
-      - When invert is False (default), it returns torrents that have valid episode (and season) info.
-        (Uses season and episode parameters for comparison.)
-      - When invert is True, it returns torrents that DO NOT have any episode, season, or part info.
-        (In this case season/episode comparisons are skipped.)
-    """
+def filter_sources(provider, torrent_list, season=None, episode=None, part=None, anidb_id=True):
     import itertools
 
     # Common regex patterns
@@ -305,68 +298,67 @@ def filter_sources(provider, torrent_list, season=None, episode=None, anidb_id=N
         # Clean the title for extraction (using your clean_text helper)
         clean_title = clean_text(title)
 
-        # If a part is expected, filter out torrents that don’t match
-        if rex_part and 'part' in title:
-            part_match = rex_part.search(title)
-            if part_match:
-                current_part = int(part_match.group(1).strip())
-                if part is not None and current_part != part:
-                    continue
-
         # Extract episode matches (convert to ints)
         ep_match = rex_ep.findall(clean_title)
         ep_match = list(filter(None, itertools.chain(*ep_match)))
+
         # Ignore if the only match is a single digit "0"
         ep_match = [int(match) for match in ep_match if not (len(match) == 1 and match == '0')]
+
         # Extract season matches
         season_match = rex_season.findall(title)
         season_match = [int(s) for s in season_match if s]
 
-        # Determine if the torrent has episode/season/part info
+        # Extract part matches
+        part_match = rex_part.findall(title)
+        part_match = [int(p) for p in part_match if p]
+
+        # Determine if the torrent has any episode/season/part info
         has_info = bool(ep_match or season_match or (rex_part.search(title) if 'part' in title else None))
 
-        # For the inverted filter, we want torrents with no info.
-        if invert:
-            if not has_info:
-                filtered.append(torrent)
-
-        # In the non-inverted case, we need to match the expected episode and season.
-        # First, if no episode info was found, skip this torrent.
-        if not ep_match:
+        # For the inverted filter, torrents with no info are immediately added.
+        if not has_info:
+            filtered.append(torrent)
             continue
-        # Then check that the episode matches the requested one.
-        # (Assumes episode is passed as a string that can be converted to int.)
-        try:
-            req_ep = int(episode)
-        except (ValueError, TypeError):
-            continue
-        # If the first episode number doesn't match and a range isn’t provided, skip.
-        if ep_match[0] != req_ep:
-            # If a range is provided (two numbers), check if it falls within
-            if not (len(ep_match) > 1 and ep_match[0] <= req_ep <= ep_match[1]):
-                continue
 
-        # Now filter based on season if not using anidb_id (or if season info exists)
-        if not anidb_id:
-            if season_match:
-                try:
-                    req_season = int(season)
-                except (ValueError, TypeError):
-                    continue
+        valid = True
+
+        # Check episode only if an episode parameter is provided and the torrent has episode info.
+        if episode and ep_match:
+            try:
+                req_ep = int(episode)
+            except (ValueError, TypeError):
+                valid = False
+            else:
+                # Check for exact match or range match if available
+                if ep_match[0] != req_ep:
+                    if not (len(ep_match) > 1 and ep_match[0] <= req_ep <= ep_match[1]):
+                        valid = False
+
+        # Check season only if a season parameter is provided and the torrent has season info.
+        if season and season_match:
+            try:
+                req_season = int(season)
+            except (ValueError, TypeError):
+                valid = False
+            else:
                 if not (season_match[0] <= req_season <= season_match[-1]):
-                    continue
+                    valid = False
 
-        filtered.append(torrent)
+        # Check part only if a part parameter is provided and the torrent has part info.
+        if part and part_match:
+            try:
+                req_part = int(part)
+            except (ValueError, TypeError):
+                valid = False
+            else:
+                if not (part_match[0] <= req_part <= part_match[-1]):
+                    valid = False
+
+        if valid:
+            filtered.append(torrent)
 
     return filtered
-
-
-# Example helper: clean_text remains the same
-def clean_text(text):
-    text = re.sub(r"\[.*?\]|\(.*?\)", "", text).strip()
-    text = re.sub(r"\b(?:480p|720p|1080p|2160p|4k|h\.264|x264|x265|hevc|web-dl|webrip|bluray|hdr)\b",
-                  "", text, flags=re.I)
-    return text
 
 
 def clean_text(text):

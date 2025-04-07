@@ -1493,7 +1493,7 @@
 
             <!-- Sort Sourcing -->
             <group id="3" label="30158" help="">
-                <setting id="sort_select" type="action" label="30017" help="">
+                <setting id="sort_select" type="action" label="30158" help="">
                     <level>0</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/sort_select?setting=true)</data>
                     <control type="button" format="action">

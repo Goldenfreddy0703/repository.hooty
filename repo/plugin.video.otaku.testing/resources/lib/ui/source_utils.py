@@ -255,21 +255,36 @@ def get_best_match(dict_key, dictionary_list, episode, pack_select=False):
 
 
 def filter_sources(provider, torrent_list, season=None, episode=None, part=None, anidb_id=True):
-    import itertools
-
-    # Common regex patterns
-    regex_season = r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?=\D|$)"
-    rex_season = re.compile(regex_season)
-    regex_ep = r"(?i)(?:s(?:eason)?\s?\d{1,2})?[ ._-]?(?:e(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))(?:v\d+)?)?(?:[ ._-]?[-~][ ._-]?e?(?:p)?\s?(\d{1,4})(?!\s*(?:st|nd|rd|th)))?|(?:-\s?(\d{1,4})(?!\s*(?:st|nd|rd|th))\b)"
-    rex_ep = re.compile(regex_ep)
-    regex_part = r"part ?(\d+)"
-    rex_part = re.compile(regex_part)
+    """
+    Filter torrents based on season, episode, and part information.
+    Uses improved regex patterns to handle a wider variety of media title formats.
+    """
+    # Define regexes from the testing file
+    regex_season = re.compile(r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?!\d)")
+    regex_episode = re.compile(r"""(?ix)
+        (?:^|[\s._-])                     # separator
+        (?:e(?:p)?\s?(\d{1,4}))           # E12, EP12
+        |
+        -\s?(\d{1,4})\b                   # - 12
+        |
+        \b(?:episode|ep|e)\s?(\d{1,4})\b   # ep 03
+        |
+        s\d{1,2}e(\d{1,4})                # s01e07 format
+        |
+        (\d{1,4})\s+(\d{1,4})             # standalone episode range
+    """)
+    regex_episode_range = re.compile(r"(\d{1,4})\s*[~\-]\s*(\d{1,4})")
+    regex_part = re.compile(r"(?i)\b(?:part|cour)[ ._-]?(\d+)(?:[&-](\d+))?\b")
+    regex_trailing_number = re.compile(r"""(?ix)
+        \b(?:[a-z]{3,})\s+(\d{1,3})\b
+    """)
+    regex_ordinal_check = re.compile(r"\b\d+(?:st|nd|rd|th)\b", re.IGNORECASE)
 
     filtered = []
 
     # Loop over each torrent in the list
     for torrent in torrent_list:
-        # Set up the torrent hash as in the original functions
+        # Set up the torrent hash as in the original function
         if provider == 'animetosho':
             if 'hash' not in torrent:
                 continue
@@ -294,28 +309,90 @@ def filter_sources(provider, torrent_list, season=None, episode=None, part=None,
             title = torrent['filename'].lower()
         else:
             title = torrent['name'].lower()
-
-        # Clean the title for extraction (using your clean_text helper)
+        
+        # Clean the title for extraction
         clean_title = clean_text(title)
 
-        # Extract episode matches (convert to ints)
-        ep_match = rex_ep.findall(clean_title)
-        ep_match = list(filter(None, itertools.chain(*ep_match)))
+        # Extract parts
+        part_matches = regex_part.findall(title)
+        extracted_parts = []
+        for match in part_matches:
+            for group in match:
+                if group:
+                    extracted_parts.append(group)
+        
+        # Extract seasons
+        season_matches = regex_season.findall(title)
+        extracted_seasons = None
+        if season_matches:
+            extracted_seasons = ", ".join(season_matches)
 
-        # Ignore if the only match is a single digit "0"
-        ep_match = [int(match) for match in ep_match if not (len(match) == 1 and match == '0')]
+        # For episode extraction, remove part tokens from the clean title
+        clean_title_no_parts = re.sub(regex_part, "", clean_title)
 
-        # Extract season matches
-        season_match = rex_season.findall(title)
-        season_match = [int(s) for s in season_match if s]
+        # Extract episode using the improved logic from testing.py
+        extracted_episode = None
 
-        # Extract part matches
-        part_match = rex_part.findall(title)
-        part_match = [int(p) for p in part_match if p]
+        # First, if an sXXeYY pattern exists, extract the episode number directly
+        se_match = re.search(r"s\d{1,2}e(\d{1,4})", clean_title_no_parts, re.IGNORECASE)
+        if se_match:
+            epnum = se_match.group(1)
+            if not (extracted_parts and epnum in extracted_parts):
+                extracted_episode = epnum
 
-        # Determine if the torrent has any episode/season/part info
-        has_info = bool(ep_match or season_match or (rex_part.search(title) if 'part' in title else None))
+        # Otherwise, check for a dedicated episode range using "~" or "-"
+        if not extracted_episode:
+            range_match = regex_episode_range.search(clean_title_no_parts)
+            if range_match:
+                start, end = range_match.group(1), range_match.group(2)
+                if not (extracted_parts and (start in extracted_parts or end in extracted_parts)):
+                    extracted_episode = f"{start}-{end}"
 
+        # Fallback: use the regex_episode findall approach
+        if not extracted_episode:
+            ep_match = regex_episode.findall(clean_title_no_parts)
+            if ep_match:
+                episodes = []
+                for match in ep_match:
+                    for group in match:
+                        if group and group not in extracted_parts:
+                            episodes.append(group)
+
+                # If season is detected, drop a leading number equal to a season
+                if extracted_seasons and episodes:
+                    try:
+                        season_nums = [int(s.strip()) for s in extracted_seasons.split(",") if s.strip().isdigit()]
+                        if episodes[0].isdigit() and int(episodes[0]) in season_nums:
+                            episodes = episodes[1:]
+                    except Exception:
+                        season_nums = []
+
+                if len(episodes) >= 2 and episodes[0].isdigit() and episodes[-1].isdigit():
+                    extracted_episode = f"{episodes[0]}-{episodes[-1]}"
+                elif episodes:
+                    extracted_episode = ", ".join(episodes)
+
+        # Fallback: get final word-number match (unless it matches a part)
+        if not extracted_episode:
+            trail_matches = regex_trailing_number.findall(clean_title_no_parts)
+            if trail_matches:
+                last_num = trail_matches[-1]
+                if not (extracted_parts and last_num in extracted_parts):
+                    if extracted_seasons:
+                        try:
+                            season_nums = [int(s.strip()) for s in extracted_seasons.split(",") if s.strip().isdigit()]
+                            if last_num.isdigit() and int(last_num) in season_nums:
+                                extracted_episode = None
+                            elif not regex_ordinal_check.search(clean_title_no_parts):
+                                extracted_episode = last_num
+                        except Exception:
+                            season_nums = []
+                    elif not regex_ordinal_check.search(clean_title_no_parts):
+                        extracted_episode = last_num
+
+        # Determine if we have any metadata to filter by
+        has_info = bool(extracted_episode or extracted_seasons or extracted_parts)
+        
         # For the inverted filter, torrents with no info are immediately added.
         if not has_info:
             filtered.append(torrent)
@@ -323,36 +400,63 @@ def filter_sources(provider, torrent_list, season=None, episode=None, part=None,
 
         valid = True
 
-        # Check episode only if an episode parameter is provided and the torrent has episode info.
-        if episode and ep_match:
-            try:
-                req_ep = int(episode)
-            except (ValueError, TypeError):
-                valid = False
+        # Check episode match if applicable
+        if episode and extracted_episode:
+            episode_nums = []
+            # Handle episode ranges
+            if "-" in extracted_episode:
+                start, end = extracted_episode.split("-")
+                try:
+                    episode_nums = list(range(int(start), int(end) + 1))
+                except (ValueError, TypeError):
+                    valid = False
+            # Handle single episode
             else:
-                # Check for exact match or range match if available
-                if ep_match[0] != req_ep:
-                    if not (len(ep_match) > 1 and ep_match[0] <= req_ep <= ep_match[1]):
-                        valid = False
-
-        # Check season only if a season parameter is provided and the torrent has season info.
-        if season and season_match:
-            try:
-                req_season = int(season)
-            except (ValueError, TypeError):
-                valid = False
-            else:
-                if not (season_match[0] <= req_season <= season_match[-1]):
+                try:
+                    episode_nums = [int(extracted_episode)]
+                except (ValueError, TypeError):
                     valid = False
 
-        # Check part only if a part parameter is provided and the torrent has part info.
-        if part and part_match:
-            try:
-                req_part = int(part)
-            except (ValueError, TypeError):
-                valid = False
-            else:
-                if not (part_match[0] <= req_part <= part_match[-1]):
+            if episode_nums:
+                try:
+                    req_ep = int(episode)
+                    if req_ep not in episode_nums:
+                        valid = False
+                except (ValueError, TypeError):
+                    valid = False
+
+        # Check season match if applicable
+        if season and extracted_seasons:
+            season_nums = []
+            for s in extracted_seasons.split(","):
+                try:
+                    season_nums.append(int(s.strip()))
+                except (ValueError, TypeError):
+                    pass
+                    
+            if season_nums:
+                try:
+                    req_season = int(season)
+                    if req_season not in season_nums:
+                        valid = False
+                except (ValueError, TypeError):
+                    valid = False
+
+        # Check part match if applicable
+        if part and extracted_parts:
+            part_nums = []
+            for p in extracted_parts:
+                try:
+                    part_nums.append(int(p))
+                except (ValueError, TypeError):
+                    pass
+                    
+            if part_nums:
+                try:
+                    req_part = int(part)
+                    if req_part not in part_nums:
+                        valid = False
+                except (ValueError, TypeError):
                     valid = False
 
         if valid:
@@ -361,9 +465,35 @@ def filter_sources(provider, torrent_list, season=None, episode=None, part=None,
     return filtered
 
 
+def remove_patterns(text):
+    patterns = [
+        r"\b(?:360p|480p|720p|1080p|2160p|4k)(?!\d)",
+        r"\b10\s?bits?\b",  # matches 10bit, 10bits, 10 bit, 10 bits
+        r"\b(?:h\.?\s?264|x\.?\s?264|h\.?\s?265|x\.?\s?265|hevc|avc|hls)(?!\d)",
+        r"\b(?:web-dl|webrip|bluray|hdrip|dvdrip|hdtv|pdtv|cam|screener)\b",
+        r"\b(?:hdr10|hdr|sdr|dv|dolby vision|dovi)\b",
+        r"\b(?:mp4|vp9|av1|mpeg|xvid|divx|wmv|flac)\b",
+        r"\b(?:aac|mp3|opus|ddp|dd(?:\s?(?:2|5|7))|ac3|dts(?:-hdma|-hdhr|-x)?|atmos|truehd)(?:\d+(?:\.\d+)?)?\b",
+        r"\b(?:1\.0|2\.0|5\.1|7\.1|2ch|5ch|7ch|8ch)\b",
+        r"\b(?:3d|60[-\s]?fps)\b",
+        r"\b(?:multi audio|dual audio|dub(?:bed)?|multi sub|batch|complete series)\b"
+    ]
+    combined_pattern = "|".join(patterns)
+    return re.sub(combined_pattern, "", text, flags=re.I)
+
+
+def cleanup_text(text):
+    # Remove content within brackets or parentheses
+    text = re.sub(r"\[.*?\]|\(.*?\)", "", text).strip()
+    # Replace special characters with a space
+    text = re.sub(r"[:/,!?()'\"\\\[\]\-_.]", " ", text)
+    # Collapse multiple spaces into one
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def clean_text(text):
-    text = re.sub(r"\[.*?\]|\(.*?\)", "", text).strip()  # Remove brackets
-    text = re.sub(r"\b(?:480p|720p|1080p|2160p|4k|h\.264|x264|x265|hevc|web-dl|webrip|bluray|hdr)\b", "", text, flags=re.I)  # Remove resolutions
+    text = remove_patterns(text)
+    text = cleanup_text(text)
     return text
 
 

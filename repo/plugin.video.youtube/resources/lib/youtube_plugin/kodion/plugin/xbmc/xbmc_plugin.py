@@ -10,8 +10,6 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-from traceback import format_stack
-
 from ..abstract_plugin import AbstractPlugin
 from ...compatibility import string_type, xbmc, xbmcgui, xbmcplugin
 from ...constants import (
@@ -46,7 +44,7 @@ from ...items import (
     playback_item,
     uri_listitem,
 )
-from ...utils import parse_and_redact_uri
+from ...utils import format_stack, parse_and_redact_uri
 
 
 class XbmcPlugin(AbstractPlugin):
@@ -177,8 +175,9 @@ class XbmcPlugin(AbstractPlugin):
             context.reload_access_manager()
 
         settings = context.get_settings()
-        if settings.setup_wizard_enabled():
-            provider.run_wizard(context)
+        setup_wizard_required = settings.setup_wizard_enabled()
+        if setup_wizard_required:
+            provider.run_wizard(context, last_run=setup_wizard_required)
         show_fanart = settings.fanart_selection()
 
         try:
@@ -200,7 +199,7 @@ class XbmcPlugin(AbstractPlugin):
                        '\n\tException: {exc!r}'
                        '\n\tStack trace (most recent call last):\n{stack}'
                        .format(exc=exc,
-                               stack=''.join(format_stack())))
+                               stack=format_stack()))
                 context.log_error(msg)
                 ui.on_ok('Error in ContentProvider', exc.__str__())
 

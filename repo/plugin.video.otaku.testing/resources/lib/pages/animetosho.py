@@ -26,14 +26,29 @@ class Sources(BrowserBase):
         if media_type == "movie":
             return self.get_movie_sources(show, mal_id)
 
-        episode_sources = self.get_episode_sources(show, mal_id, episode, status)
-        show_sources = self.get_show_sources(show, mal_id, episode)
+        if 'part' in show.lower() or 'cour' in show.lower():
+            part_match = re.search(r'(?:part|cour) ?(\d+)', show.lower())
+            if part_match:
+                part = int(part_match.group(1).strip())
+            else:
+                part = None
+        else:
+            part = None
+
+        # If the part could not be determined from the query, try to get it from the MAL mappings.
+        if part is None:
+            mal_mapping = database.get_mappings(mal_id, 'mal_id')
+            if mal_mapping and 'thetvdb_part' in mal_mapping:
+                part = mal_mapping['thetvdb_part']
+
+        episode_sources = self.get_episode_sources(show, mal_id, episode, part, status)
+        show_sources = self.get_show_sources(show, mal_id, episode, part)
         self.sources = episode_sources + show_sources
 
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
-    def get_episode_sources(self, show, mal_id, episode, status):
+    def get_episode_sources(self, show, mal_id, episode, part, status):
         # Retrieve anidb info for the show and episode
         show_meta = database.get_show_meta(mal_id)
         if show_meta:
@@ -55,15 +70,6 @@ class Sources(BrowserBase):
                     database.update_episode_column(mal_id, anidb_ep, 'anidb_ep_id', anidb_meta[anidb_ep]['anidb_id'])
 
         animetosho_sources = []
-
-        if 'part' in show.lower() or 'cour' in show.lower():
-            part_match = re.search(r'(?:part|cour) ?(\d+)', show.lower())
-            if part_match:
-                part = int(part_match.group(1).strip())
-            else:
-                part = None
-        else:
-            part = None
 
         season = database.get_episode(mal_id)['season']
         season_zfill = str(season).zfill(2)
@@ -123,16 +129,7 @@ class Sources(BrowserBase):
             animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
         return animetosho_sources
 
-    def get_show_sources(self, show, mal_id, episode):
-        if 'part' in show.lower() or 'cour' in show.lower():
-            part_match = re.search(r'(?:part|cour) ?(\d+)', show.lower())
-            if part_match:
-                part = int(part_match.group(1).strip())
-            else:
-                part = None
-        else:
-            part = None
-
+    def get_show_sources(self, show, mal_id, episode, part):
         season = database.get_episode(mal_id)['season']
         season_zfill = str(season).zfill(2)
         episode_zfill = episode.zfill(2)

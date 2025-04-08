@@ -104,21 +104,23 @@ class AbstractSettings(object):
         return self.get_int(SETTINGS.SEARCH_SIZE, 10)
 
     def setup_wizard_enabled(self, value=None):
-        # Increment min_required on new release to enable oneshot on first run
-        min_required = 5
+        # Set run_required to release date (as Unix timestamp in seconds)
+        # to enable oneshot on first run
+        # Tuesday, 8 April 2025 12:00:00 AM = 1744070400
+        run_required = 1744070400
 
         if value is False:
-            self.set_int(SETTINGS.SETUP_WIZARD_RUNS, min_required)
+            self.set_int(SETTINGS.SETUP_WIZARD_RUNS, run_required)
             return self.set_bool(SETTINGS.SETUP_WIZARD, False)
         if value is True:
             self.set_int(SETTINGS.SETUP_WIZARD_RUNS, 0)
             return self.set_bool(SETTINGS.SETUP_WIZARD, True)
 
-        forced_runs = self.get_int(SETTINGS.SETUP_WIZARD_RUNS, 0)
-        if forced_runs < min_required:
-            self.set_int(SETTINGS.SETUP_WIZARD_RUNS, min_required)
+        last_run = self.get_int(SETTINGS.SETUP_WIZARD_RUNS, 0)
+        if last_run < run_required:
+            self.set_int(SETTINGS.SETUP_WIZARD_RUNS, run_required)
             self.set_bool(SETTINGS.SETTINGS_END, True)
-            return True
+            return run_required
         return self.get_bool(SETTINGS.SETUP_WIZARD, False)
 
     def support_alternative_player(self, value=None):
@@ -581,7 +583,7 @@ class AbstractSettings(object):
         'custom': None,
     }
 
-    def item_filter(self, update=None, override=None):
+    def item_filter(self, update=None, override=None, exclude=None):
         if override is None:
             override = self.get_string_list(SETTINGS.HIDE_VIDEOS)
             override = dict.fromkeys(override, False)
@@ -600,17 +602,39 @@ class AbstractSettings(object):
         if update:
             if 'live_folder' in update:
                 if 'live_folder' not in types:
-                    update.update({
-                        'vod': False,
-                        'upcoming': True,
-                        'upcoming_live': True,
-                        'live': True,
-                        'premieres': True,
-                        'completed': True,
-                    })
+                    update.update((
+                        ('vod', False),
+                        ('upcoming', True),
+                        ('upcoming_live', True),
+                        ('live', True),
+                        ('premieres', True),
+                        ('completed', True),
+                    ))
             types.update(update)
 
+        if exclude:
+            types['exclude'] = exclude
+
         return types
+
+    def subscriptions_filter_enabled(self, value=None):
+        if value is not None:
+            return self.set_bool(SETTINGS.SUBSCRIPTIONS_FILTER_ENABLED, value)
+        return self.get_bool(SETTINGS.SUBSCRIPTIONS_FILTER_ENABLED, True)
+
+    def subscriptions_filter_blacklist(self, value=None):
+        if value is not None:
+            return self.set_bool(SETTINGS.SUBSCRIPTIONS_FILTER_BLACKLIST, value)
+        return self.get_bool(SETTINGS.SUBSCRIPTIONS_FILTER_BLACKLIST, True)
+
+    def subscriptions_filter(self, value=None):
+        if value is not None:
+            if isinstance(value, (list, tuple, set)):
+                value = ','.join(value).lstrip(',')
+            return self.set_string(SETTINGS.SUBSCRIPTIONS_FILTER_LIST, value)
+        return self.get_string(
+            SETTINGS.SUBSCRIPTIONS_FILTER_LIST, ''
+        ).replace(', ', ',')
 
     def shorts_duration(self, value=None):
         if value is not None:

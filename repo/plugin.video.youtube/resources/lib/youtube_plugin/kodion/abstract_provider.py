@@ -125,7 +125,7 @@ class AbstractProvider(object):
             return wrapper(command)
         return wrapper
 
-    def run_wizard(self, context):
+    def run_wizard(self, context, last_run=None):
         localize = context.localize
         # ui local variable used for ui.get_view_manager() in unofficial version
         ui = context.get_ui()
@@ -133,6 +133,8 @@ class AbstractProvider(object):
         settings_state = {'state': 'defer'}
         context.wakeup(CHECK_SETTINGS, timeout=5, payload=settings_state)
 
+        if last_run and last_run > 1:
+            self.pre_run_wizard_step(provider=self, context=context)
         wizard_steps = self.get_wizard_steps()
         wizard_steps.extend(ui.get_view_manager().get_wizard_steps())
 
@@ -164,6 +166,11 @@ class AbstractProvider(object):
         # can be overridden by the derived class
         return []
 
+    @staticmethod
+    def pre_run_wizard_step(provider, context):
+        # can be overridden by the derived class
+        pass
+
     def navigate(self, context):
         path = context.get_path()
         for re_path, handler in self._dict_path.items():
@@ -181,7 +188,7 @@ class AbstractProvider(object):
                 if new_options:
                     options.update(new_options)
 
-            if context.get_param('refresh', 0) > 0:
+            if context.refresh_requested():
                 options[self.CACHE_TO_DISC] = True
                 options[self.UPDATE_LISTING] = True
 
@@ -235,6 +242,8 @@ class AbstractProvider(object):
             )
         else:
             page_token = ''
+        if 'exclude' in params:
+            del params['exclude']
         params = dict(params, page=page, page_token=page_token)
 
         if (not ui.busy_dialog_active()
@@ -443,7 +452,7 @@ class AbstractProvider(object):
                 context.get_infolabel('Container.FolderPath')
             )
             old_uri = context.create_uri(old_path, old_params)
-            if (not params.get('refresh', 0) > 0
+            if (not context.refresh_requested()
                     and context.is_plugin_folder()
                     and context.is_plugin_path(old_uri,
                                                PATHS.SEARCH,

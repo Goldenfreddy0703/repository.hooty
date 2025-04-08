@@ -1,3 +1,6 @@
+Changelog v5.1.94 (2025-04-08):
+- Improved Filtering Significantly
+
 Changelog v5.1.93 (2025-04-06):
 - Improved Scraping again
 - Improved Filtering again

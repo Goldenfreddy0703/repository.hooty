@@ -12,7 +12,7 @@ class Sources(BrowserBase):
     def __init__(self):
         self.local_files = []
 
-    def get_sources(self, query, episode, season=None):
+    def get_sources(self, query, mal_id, episode, season=None):
         filenames = []
         for root, dirs, files in os.walk(PATH):
             for file in files:
@@ -23,7 +23,7 @@ class Sources(BrowserBase):
                         'path': full_path
                     })
 
-        filenames = source_utils.filter_sources('local', filenames, season, episode)
+        filenames = source_utils.filter_sources('local', filenames, mal_id, season, episode)
         clean_filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in filenames]
         filenames_query = ','.join(clean_filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})

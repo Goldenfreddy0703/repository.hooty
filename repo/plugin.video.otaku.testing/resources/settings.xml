@@ -603,7 +603,7 @@
 
             <!-- Miscellaneous -->
             <group id="6" label="30283">
-				<setting id="download_manager_miscellaneous" type="action" label="30016" help="">
+				<setting id="download_manager_miscellaneous" type="action" label="30017" help="">
 					<level>0</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
                     <control type="button" format="action">

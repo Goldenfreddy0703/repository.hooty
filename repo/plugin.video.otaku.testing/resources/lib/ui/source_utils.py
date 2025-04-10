@@ -254,11 +254,20 @@ def get_best_match(dict_key, dictionary_list, episode, pack_select=False):
     return files[0]
 
 
-def filter_sources(provider, torrent_list, season=None, episode=None, part=None, anidb_id=True):
+def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, part=None, anidb_id=True):
+    from resources.lib.ui import database
     """
     Filter torrents based on season, episode, and part information.
     Uses improved regex patterns to handle a wider variety of media title formats.
     """
+    # Check for Large Animes or Tvdb Animes with season 0
+    if season == 1:
+        mal_mapping = database.get_mappings(mal_id, 'mal_id')
+        if mal_mapping and 'thetvdb_season' in mal_mapping:
+            thetvdb_season = mal_mapping['thetvdb_season']
+            if thetvdb_season == 'a' or thetvdb_season == 0:
+                season = None
+
     # Define regexes from the testing file
     regex_season = re.compile(r"(?i)\b(?:s(?:eason)?[ ._-]?(\d{1,2}))(?!\d)")
     regex_episode = re.compile(r"""(?ix)

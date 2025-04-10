@@ -69,7 +69,7 @@ class Sources(BrowserBase):
             's': 'downloads',
             'o': 'desc'
         }
-        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
+        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, mal_id, episode_zfill, season_zfill, part)
         if status in ["FINISHED", "Finished Airing"]:
             query = '%s "Batch"|"Complete Series"' % show
             episodes = pickle.loads(database.get_show(mal_id)['kodi_meta'])['episodes']
@@ -91,14 +91,14 @@ class Sources(BrowserBase):
                 's': 'seeders',
                 'o': 'desc'
             }
-            nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
+            nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, mal_id, episode_zfill, season_zfill, part)
 
         params = {
             'f': '0',
             'c': '1_0',
             'q': query.replace(' ', '+')
         }
-        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
+        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, mal_id, episode_zfill, season_zfill, part)
 
         show = show.lower()
         if 'season' in show:
@@ -119,7 +119,7 @@ class Sources(BrowserBase):
             'q': query.replace(' ', '+')
         }
 
-        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
+        nyaa_sources += self.process_nyaa_episodes(self._BASE_URL, params, mal_id, episode_zfill, season_zfill, part)
         return nyaa_sources
 
     def get_show_sources(self, show, mal_id, episode, part):
@@ -136,7 +136,7 @@ class Sources(BrowserBase):
             'o': 'desc'
         }
 
-        nyaa_sources = self.process_nyaa_episodes(self._BASE_URL, params, episode_zfill, season_zfill, part)
+        nyaa_sources = self.process_nyaa_episodes(self._BASE_URL, params, mal_id, episode_zfill, season_zfill, part)
         return nyaa_sources
 
     def get_movie_sources(self, query, mal_id):
@@ -148,13 +148,13 @@ class Sources(BrowserBase):
             'o': 'desc'
         }
 
-        self.sources = self.process_nyaa_movie(self._BASE_URL, params)
+        self.sources = self.process_nyaa_movie(self._BASE_URL, params, mal_id)
 
         # make sure no duplicate sources
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
-    def process_nyaa_episodes(self, url, params, episode_zfill, season_zfill, part):
+    def process_nyaa_episodes(self, url, params, mal_id, episode_zfill, season_zfill, part):
         response = client.request(url, params=params)
         if response:
             html = response
@@ -173,7 +173,7 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            filtered_list = source_utils.filter_sources('nyaa', list_, int(season_zfill), int(episode_zfill), part)
+            filtered_list = source_utils.filter_sources('nyaa', list_, mal_id, int(season_zfill), int(episode_zfill), part)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
@@ -188,7 +188,7 @@ class Sources(BrowserBase):
                 all_results += list(map(mapfunc2, uncashed_list))
             return all_results
 
-    def process_nyaa_movie(self, url, params):
+    def process_nyaa_movie(self, url, params, mal_id):
         response = client.request(url, params=params)
         if response:
             res = response
@@ -215,7 +215,7 @@ class Sources(BrowserBase):
             for idx, torrent in enumerate(list_):
                 torrent['hash'] = re.findall(r'btih:(.*?)(?:&|$)', torrent['magnet'])[0]
 
-            filtered_list = source_utils.filter_sources('nyaa', list_)
+            filtered_list = source_utils.filter_sources('nyaa', list_, mal_id)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)

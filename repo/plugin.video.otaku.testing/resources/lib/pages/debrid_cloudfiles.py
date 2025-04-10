@@ -12,33 +12,33 @@ class Sources(BrowserBase):
         self.cloud_files = []
         self.threads = []
 
-    def get_sources(self, query, episode, season=None):
+    def get_sources(self, query, mal_id, episode, season=None):
         debrid = control.enabled_debrid()
         cloud = control.enabled_cloud()
         if debrid.get('realdebrid') and cloud.get('realdebrid'):
-            t = threading.Thread(target=self.rd_cloud_inspection, args=(query, episode, season))
+            t = threading.Thread(target=self.rd_cloud_inspection, args=(query, mal_id, episode, season))
             t.start()
             self.threads.append(t)
         if debrid.get('premiumize') and cloud.get('premiumize'):
-            t = threading.Thread(target=self.premiumize_cloud_inspection, args=(query, episode, season))
+            t = threading.Thread(target=self.premiumize_cloud_inspection, args=(query, mal_id, episode, season))
             t.start()
             self.threads.append(t)
         if debrid.get('alldebrid') and cloud.get('alldebrid'):
-            t = threading.Thread(target=self.alldebrid_cloud_inspection, args=(query, episode, season))
+            t = threading.Thread(target=self.alldebrid_cloud_inspection, args=(query, mal_id, episode, season))
             t.start()
             self.threads.append(t)
         if debrid.get('torbox') and cloud.get('torbox'):
-            t = threading.Thread(target=self.torbox_cloud_inspection, args=(query, episode, season))
+            t = threading.Thread(target=self.torbox_cloud_inspection, args=(query, mal_id, episode, season))
             t.start()
             self.threads.append(t)
         for i in self.threads:
             i.join()
         return self.cloud_files
 
-    def rd_cloud_inspection(self, query, episode, season=None):
+    def rd_cloud_inspection(self, query, mal_id, episode, season=None):
         api = real_debrid.RealDebrid()
         torrents = api.list_torrents()
-        torrents = source_utils.filter_sources('realdebrid', torrents, season, episode)
+        torrents = source_utils.filter_sources('realdebrid', torrents, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -76,9 +76,9 @@ class Sources(BrowserBase):
                 }
             )
 
-    def premiumize_cloud_inspection(self, query, episode, season=None):
+    def premiumize_cloud_inspection(self, query, mal_id, episode, season=None):
         cloud_items = premiumize.Premiumize().list_folder()
-        cloud_items = source_utils.filter_sources('premiumize', cloud_items, season, episode)
+        cloud_items = source_utils.filter_sources('premiumize', cloud_items, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -113,9 +113,9 @@ class Sources(BrowserBase):
                 }
             )
 
-    def torbox_cloud_inspection(self, query, episode, season=None):
+    def torbox_cloud_inspection(self, query, mal_id, episode, season=None):
         cloud_items = torbox.TorBox().list_torrents()
-        cloud_items = source_utils.filter_sources('torbox', cloud_items, season, episode)
+        cloud_items = source_utils.filter_sources('torbox', cloud_items, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
@@ -148,10 +148,10 @@ class Sources(BrowserBase):
                 }
             )
 
-    def alldebrid_cloud_inspection(self, query, episode, season=None):
+    def alldebrid_cloud_inspection(self, query, mal_id, episode, season=None):
         api = all_debrid.AllDebrid()
         torrents = api.list_torrents()['links']
-        torrents = source_utils.filter_sources('alldebrid', torrents, season, episode)
+        torrents = source_utils.filter_sources('alldebrid', torrents, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
         filenames_query = ','.join(filenames)
         response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})

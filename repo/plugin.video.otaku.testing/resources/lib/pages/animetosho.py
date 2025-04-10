@@ -87,7 +87,7 @@ class Sources(BrowserBase):
         if self.anidb_id:
             params['aids'] = self.anidb_id
 
-        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
+        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, mal_id, episode_zfill, season_zfill, part)
 
         # For finished series, include batch/complete series results.
         if status in ["FINISHED", "Finished Airing"]:
@@ -105,7 +105,7 @@ class Sources(BrowserBase):
             }
             if self.anidb_id:
                 params['aids'] = self.anidb_id
-            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
+            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, mal_id, episode_zfill, season_zfill, part)
 
         # Additional query without explicit sorting.
         params = {
@@ -114,7 +114,7 @@ class Sources(BrowserBase):
         }
         if self.anidb_id:
             params['aids'] = self.anidb_id
-        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
+        animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, mal_id, episode_zfill, season_zfill, part)
 
         # If the show includes a season number, try additional variations.
         if 'season' in show.lower():
@@ -126,7 +126,7 @@ class Sources(BrowserBase):
             }
             if self.anidb_id:
                 params['aids'] = self.anidb_id
-            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
+            animetosho_sources += self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, mal_id, episode_zfill, season_zfill, part)
         return animetosho_sources
 
     def get_show_sources(self, show, mal_id, episode, part):
@@ -155,7 +155,7 @@ class Sources(BrowserBase):
         if self.anidb_id:
             params['aids'] = self.anidb_id
 
-        animetosho_sources = self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, episode_zfill, season_zfill, part)
+        animetosho_sources = self.process_animetosho_episodes(f'{self._BASE_URL}/search', params, mal_id, episode_zfill, season_zfill, part)
         return animetosho_sources
 
     def get_movie_sources(self, show, mal_id):
@@ -180,11 +180,11 @@ class Sources(BrowserBase):
         if self.anidb_id:
             params['aids'] = self.anidb_id
 
-        self.sources = self.process_animetosho_movie(f'{self._BASE_URL}/search', params)
+        self.sources = self.process_animetosho_movie(f'{self._BASE_URL}/search', params, mal_id)
         self.append_cache_uncached_noduplicates()
         return {'cached': self.cached, 'uncached': self.uncached}
 
-    def process_animetosho_episodes(self, url, params, episode, season, part):
+    def process_animetosho_episodes(self, url, params, mal_id, episode, season, part):
         response = client.request(url, params=params)
         if response:
             html = response
@@ -216,7 +216,7 @@ class Sources(BrowserBase):
 
                 list_.append(list_item)
 
-            filtered_list = source_utils.filter_sources('animetosho', list_, int(season), int(episode), part, anidb_id=self.anidb_id)
+            filtered_list = source_utils.filter_sources('animetosho', list_, mal_id, int(season), int(episode), part, anidb_id=self.anidb_id)
 
             cache_list, uncashed_list_ = Debrid().torrentCacheCheck(filtered_list)
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)

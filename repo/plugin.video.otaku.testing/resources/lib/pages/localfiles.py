@@ -1,6 +1,5 @@
 import os
 import re
-import difflib
 
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.ui import source_utils, control
@@ -25,10 +24,7 @@ class Sources(BrowserBase):
 
         filenames = source_utils.filter_sources('local', filenames, mal_id, season, episode)
         clean_filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in filenames]
-        query_lower = query.lower()
-        filenames_lower = [f.lower() for f in clean_filenames]
-        close_matches = difflib.get_close_matches(query_lower, filenames_lower, cutoff=0.23)
-        resp = [filenames_lower.index(i) for i in close_matches]
+        resp = source_utils.get_fuzzy_match(query, clean_filenames)
         match_files = [filenames[i] for i in resp]
 
         for file_info in match_files:

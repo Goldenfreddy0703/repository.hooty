@@ -1286,11 +1286,11 @@ msgid "Notify When Anime is Added to Database"
 msgstr ""
 
 msgctxt "#30323"
-msgid ""
+msgid "Fuzzy Match Sensitivity (percentage)"
 msgstr ""
 
 msgctxt "#30324"
-msgid ""
+msgid "Adjust how closely local and cloud sources must match. Lower values are more lenient."
 msgstr ""
 
 msgctxt "#30325"

@@ -232,6 +232,25 @@ def get_size(size=0):
     return '{0:.2f} {1}'.format(size, power_labels[n])
 
 
+def get_fuzzy_match(query, filenames):
+    import difflib
+    threshold_percent = control.getInt('general.fuzzy')
+    threshold = threshold_percent / 100.0
+    control.print(threshold)
+    query_lower = query.lower()
+    filenames_lower = [f.lower() for f in filenames]
+
+    scored = []
+    for i, name in enumerate(filenames_lower):
+        ratio = difflib.SequenceMatcher(None, query_lower, name).ratio()
+        if ratio >= threshold:
+            scored.append((i, ratio))
+
+    # Optional: sort by best match first
+    scored.sort(key=lambda x: x[1], reverse=True)
+    return [i for i, _ in scored]
+
+
 def get_best_match(dict_key, dictionary_list, episode, pack_select=False):
     regex = get_cache_check_reg(episode)
     files = []

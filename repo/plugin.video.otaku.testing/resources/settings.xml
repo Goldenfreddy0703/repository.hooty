@@ -181,7 +181,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="integer">
-						<heading>30264A</heading>
+						<heading>30264</heading>
 					</control>
 				</setting>
 				<setting id="interface.show.view.id" type="integer" label="30265" help="" parent="interface.viewtype">
@@ -196,7 +196,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="integer">
-						<heading>30265A</heading>
+						<heading>30265</heading>
 					</control>
 				</setting>
 				<setting id="interface.episode.view.id" type="integer" label="30266" help="" parent="interface.viewtype">
@@ -211,7 +211,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="integer">
-						<heading>30266A</heading>
+						<heading>30266</heading>
 					</control>
 				</setting>
             </group>
@@ -341,7 +341,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="integer">
-						<heading>30355A</heading>
+						<heading>30355</heading>
 					</control>
 				</setting>
 				<setting id="contentseason.bool" type="boolean" label="30356" help="">
@@ -618,7 +618,7 @@
 						<allowempty>true</allowempty>
 					</constraints>
 					<control type="button" format="path">
-						<heading>30104A</heading>
+						<heading>30104</heading>
 					</control>
 				</setting>
             </group>
@@ -697,7 +697,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30391A</heading>
+                        <heading>30391</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -773,7 +773,20 @@
                     </constraints>
                     <control type="slider" format="integer">
                         <popup>false</popup>
-                        <heading>30187A</heading>
+                        <heading>30187</heading>
+                    </control>
+                </setting>
+                <setting id="general.fuzzy" type="integer" label="30323" help="30324">
+                    <level>0</level>
+                    <default>40</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>100</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                        <heading>30323</heading>
                     </control>
                 </setting>
                 <setting id="general.terminate.oncloud" type="boolean" label="30146" help="">
@@ -878,7 +891,7 @@
                         <allowempty>true</allowempty>
                     </constraints>
                     <control type="button" format="path">
-                        <heading>30290A</heading>
+                        <heading>30290</heading>
                     </control>
                     <dependencies>
                         <dependency type="visible" setting="provider.localfiles">true</dependency>
@@ -998,7 +1011,7 @@
 	                	<allowempty>true</allowempty>
 	                </constraints>
 	                <control type="edit" format="string">
-	                	<heading>30377A</heading>
+	                	<heading>30377</heading>
 	                	<hidden>false</hidden>
 	                </control>
                     <dependencies>
@@ -1349,7 +1362,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30312A</heading>
+						<heading>30312</heading>
 					</control>
 				</setting>
 				<setting id="general.release_title_filter.value2" type="string" label="30313" help="" parent="general.release_title_filter.enabled">
@@ -1367,7 +1380,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30313A</heading>
+						<heading>30313</heading>
 					</control>
 				</setting>
 				<setting id="general.release_title_filter.value3" type="string" label="30314" help="" parent="general.release_title_filter.enabled">
@@ -1385,7 +1398,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30314A</heading>
+						<heading>30314</heading>
 					</control>
 				</setting>
 				<setting id="general.release_title_filter.value4" type="string" label="30315" help="" parent="general.release_title_filter.enabled">
@@ -1403,7 +1416,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30315A</heading>
+						<heading>30315</heading>
 					</control>
 				</setting>
 				<setting id="general.release_title_filter.value5" type="string" label="30316" help="" parent="general.release_title_filter.enabled">
@@ -1421,7 +1434,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30316A</heading>
+						<heading>30316</heading>
 					</control>
 				</setting>
 				<setting id="general.release_title_filter.exclude1" type="boolean" label="30320" help="" parent="general.release_title_filter.enabled">
@@ -2121,7 +2134,7 @@
                         <allowempty>true</allowempty>
                     </constraints>
 					<control type="edit" format="string">
-						<heading>30226A</heading>
+						<heading>30226</heading>
 					</control>
                     <dependencies>
                         <dependency type="visible" setting="kitsu.enabled">true</dependency>
@@ -2134,7 +2147,7 @@
                         <allowempty>true</allowempty>
                     </constraints>
 					<control type="edit" format="string">
-						<heading>30227A</heading>
+						<heading>30227</heading>
                         <hidden>true</hidden>
 					</control>
                     <dependencies>
@@ -2311,7 +2324,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2346,7 +2359,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2381,7 +2394,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2411,7 +2424,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2447,7 +2460,7 @@
                     </constraints>
                     <control type="list"
                         format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2482,7 +2495,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2512,7 +2525,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2547,7 +2560,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2582,7 +2595,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2612,7 +2625,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2647,7 +2660,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2682,7 +2695,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2712,7 +2725,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2747,7 +2760,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2782,7 +2795,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2812,7 +2825,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2847,7 +2860,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2882,7 +2895,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2912,7 +2925,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2947,7 +2960,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -2982,7 +2995,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -3012,7 +3025,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30406A</heading>
+                        <heading>30406</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -3047,7 +3060,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30407A</heading>
+                        <heading>30407</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -3082,7 +3095,7 @@
                         <delimiter>,</delimiter>
                     </constraints>
                     <control type="list" format="string">
-                        <heading>30408A</heading>
+                        <heading>30408</heading>
                         <multiselect>true</multiselect>
                         <hidevalue>true</hidevalue>
                     </control>
@@ -3287,7 +3300,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30350A</heading>
+						<heading>30350</heading>
 					</control>
 				</setting>
 				<setting id="fs_timeout" type="integer" label="30351" help="" parent="fs_enable">
@@ -3338,7 +3351,7 @@
 						</dependency>
 					</dependencies>
 					<control type="edit" format="string">
-						<heading>30380A</heading>
+						<heading>30380</heading>
 					</control>
 				</setting>
             </group>

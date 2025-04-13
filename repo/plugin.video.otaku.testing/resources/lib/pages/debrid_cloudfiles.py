@@ -1,6 +1,5 @@
 import re
 import threading
-import difflib
 
 from resources.lib.ui import source_utils, control
 from resources.lib.ui.BrowserBase import BrowserBase
@@ -40,10 +39,8 @@ class Sources(BrowserBase):
         torrents = api.list_torrents()
         torrents = source_utils.filter_sources('realdebrid', torrents, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
-        query_lower = query.lower()
-        filenames_lower = [f.lower() for f in filenames]
-        close_matches = difflib.get_close_matches(query_lower, filenames_lower, cutoff=0.23)
-        resp = [filenames_lower.index(i) for i in close_matches]
+        resp = source_utils.get_fuzzy_match(query, filenames)
+
         for i in resp:
             torrent = torrents[i]
             torrent_info = api.torrentInfo(torrent['id'])
@@ -81,10 +78,7 @@ class Sources(BrowserBase):
         cloud_items = premiumize.Premiumize().list_folder()
         cloud_items = source_utils.filter_sources('premiumize', cloud_items, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
-        query_lower = query.lower()
-        filenames_lower = [f.lower() for f in filenames]
-        close_matches = difflib.get_close_matches(query_lower, filenames_lower, cutoff=0.23)
-        resp = [filenames_lower.index(i) for i in close_matches]
+        resp = source_utils.get_fuzzy_match(query, filenames)
 
         for i in resp:
             torrent = cloud_items[i]
@@ -119,10 +113,8 @@ class Sources(BrowserBase):
         cloud_items = torbox.TorBox().list_torrents()
         cloud_items = source_utils.filter_sources('torbox', cloud_items, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['name'].replace(',', '')) for i in cloud_items]
-        query_lower = query.lower()
-        filenames_lower = [f.lower() for f in filenames]
-        close_matches = difflib.get_close_matches(query_lower, filenames_lower, cutoff=0.23)
-        resp = [filenames_lower.index(i) for i in close_matches]
+        resp = source_utils.get_fuzzy_match(query, filenames)
+
         for i in resp:
             torrent = cloud_items[i]
             if not torrent['cached'] or not torrent['download_finished'] or len(torrent['files']) < 1:
@@ -156,10 +148,8 @@ class Sources(BrowserBase):
         torrents = api.list_torrents()['links']
         torrents = source_utils.filter_sources('alldebrid', torrents, mal_id, season, episode)
         filenames = [re.sub(r'\[.*?]\s*', '', i['filename'].replace(',', '')) for i in torrents]
-        query_lower = query.lower()
-        filenames_lower = [f.lower() for f in filenames]
-        close_matches = difflib.get_close_matches(query_lower, filenames_lower, cutoff=0.23)
-        resp = [filenames_lower.index(i) for i in close_matches]
+        resp = source_utils.get_fuzzy_match(query, filenames)
+
         for i in resp:
             torrent = torrents[i]
             torrent_info = api.link_info(torrent['link'])

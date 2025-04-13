@@ -236,7 +236,6 @@ def get_fuzzy_match(query, filenames):
     import difflib
     threshold_percent = control.getInt('general.fuzzy')
     threshold = threshold_percent / 100.0
-    control.print(threshold)
     query_lower = query.lower()
     filenames_lower = [f.lower() for f in filenames]
 

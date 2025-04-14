@@ -1294,15 +1294,15 @@ msgid "Adjust how closely local and cloud sources must match. Lower values are m
 msgstr ""
 
 msgctxt "#30325"
-msgid ""
+msgid "Default Action if Nothing Selected"
 msgstr ""
 
 msgctxt "#30326"
-msgid ""
+msgid "Play"
 msgstr ""
 
 msgctxt "#30327"
-msgid ""
+msgid "Pause"
 msgstr ""
 
 msgctxt "#30328"

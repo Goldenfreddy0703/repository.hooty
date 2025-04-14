@@ -1,6 +1,7 @@
 import xbmc
 
 from resources.lib.windows.base_window import BaseWindow
+from resources.lib.ui import control
 
 
 class PlayingNext(BaseWindow):
@@ -13,6 +14,7 @@ class PlayingNext(BaseWindow):
         self.total_time = int(self.player.getTotalTime())
         self.duration = int(self.total_time - self.player.getTime())
         self.skipoutro_end = actionArgs['skipoutro_end']
+        self.default_action = control.getSetting('playingnext.defaultaction')
 
     def onInit(self):
         self.background_tasks()
@@ -32,6 +34,10 @@ class PlayingNext(BaseWindow):
         super(PlayingNext, self).doModal()
 
     def close(self):
+        # If no user action was taken, perform the default action.
+        if not self.actioned:
+            if self.default_action == "1":
+                self.player.pause()
         self.closed = True
         super(PlayingNext, self).close()
 

@@ -1,3 +1,6 @@
+Changelog v5.1.100 (2025-04-13):
+- Added Playing Next default action setting
+
 Changelog v5.1.99 (2025-04-12):
 - Forgot to delete dumb print statement
 

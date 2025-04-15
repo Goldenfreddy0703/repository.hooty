@@ -330,23 +330,23 @@ msgid "Clear Selected Fanart"
 msgstr ""
 
 ######DEBRID DIRECTORY#######
-msgctxt "#30020"
+msgctxt "#30021"
 msgid "Open this link in a browser: {}"
 msgstr ""
 
-msgctxt "#30021"
+msgctxt "#30022"
 msgid "Enter the code: {}"
 msgstr ""
 
-msgctxt "#30022"
+msgctxt "#30023"
 msgid "This code has been copied to your clipboard"
 msgstr ""
 
-msgctxt "#30023"
+msgctxt "#30024"
 msgid "Authentication is completed"
 msgstr ""
 
-msgctxt "#30024"
+msgctxt "#30025"
 msgid "Please Note\nYou appear to have authorized a non-premium account and will not be able to play items using this account"
 msgstr ""
 

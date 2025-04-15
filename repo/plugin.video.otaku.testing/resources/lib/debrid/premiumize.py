@@ -27,10 +27,10 @@ class Premiumize:
         self.OauthTotalTimeout = self.OauthTimeout = resp['expires_in']
         self.OauthTimeStep = int(resp['interval'])
         copied = control.copy2clip(resp['user_code'])
-        display_dialog = (f"{control.lang(30020).format(control.colorstr(resp['verification_uri']))}[CR]"
-                          f"{control.lang(30021).format(control.colorstr(resp['user_code']))}")
+        display_dialog = (f"{control.lang(30021).format(control.colorstr(resp['verification_uri']))}[CR]"
+                          f"{control.lang(30022).format(control.colorstr(resp['user_code']))}")
         if copied:
-            display_dialog = f"{display_dialog}[CR]{control.lang(30022)}"
+            display_dialog = f"{display_dialog}[CR]{control.lang(30023)}"
         control.progressDialog.create(f'{control.ADDON_NAME}: Premiumize Auth', display_dialog)
         control.progressDialog.update(100)
 
@@ -49,10 +49,10 @@ class Premiumize:
         user_information = json.loads(r) if r else {}
         premium = user_information['premium_until'] > 0
         control.setSetting('premiumize.username', user_information['customer_id'])
-        control.ok_dialog(control.ADDON_NAME, f'Premiumize {control.lang(30023)}')
+        control.ok_dialog(control.ADDON_NAME, f'Premiumize {control.lang(30024)}')
         if not premium:
             control.setSetting('premiumize.auth.status', 'Expired')
-            control.ok_dialog(f'{control.ADDON_NAME}: Premiumize', control.lang(30024))
+            control.ok_dialog(f'{control.ADDON_NAME}: Premiumize', control.lang(30025))
         else:
             control.setSetting('premiumize.auth.status', 'Premium')
 

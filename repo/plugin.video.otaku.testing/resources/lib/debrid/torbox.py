@@ -27,14 +27,14 @@ class TorBox:
             control.setSetting('torbox.username', user_info['email'])
             if user_info['plan'] == 0:
                 control.setSetting('torbox.auth.status', 'Free')
-                control.ok_dialog(f'{control.ADDON_NAME}: TorBox', control.lang(30024))
+                control.ok_dialog(f'{control.ADDON_NAME}: TorBox', control.lang(30025))
             elif user_info['plan'] == 1:
                 control.setSetting('torbox.auth.status', 'Essential')
             elif user_info['plan'] == 3:
                 control.setSetting('torbox.auth.status', 'Standard')
             elif user_info['plan'] == 2:
                 control.setSetting('torbox.auth.status', 'Pro')
-            control.ok_dialog(control.ADDON_NAME, f'TorBox {control.lang(30023)}')
+            control.ok_dialog(control.ADDON_NAME, f'TorBox {control.lang(30024)}')
         return user_info is not None
 
     def refreshToken(self):

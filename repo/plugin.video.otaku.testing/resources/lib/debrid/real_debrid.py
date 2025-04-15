@@ -53,10 +53,10 @@ class RealDebrid:
         response = client.request(f'{self.OauthUrl}/device/code', params=params)
         resp = json.loads(response)
         copied = control.copy2clip(resp['user_code'])
-        display_dialog = (f"{control.lang(30020).format(control.colorstr('https://real-debrid.com/device'))}[CR]"
-                          f"{control.lang(30021).format(control.colorstr(resp['user_code']))}")
+        display_dialog = (f"{control.lang(30021).format(control.colorstr('https://real-debrid.com/device'))}[CR]"
+                          f"{control.lang(30022).format(control.colorstr(resp['user_code']))}")
         if copied:
-            display_dialog = f"{display_dialog}[CR]{control.lang(30022)}"
+            display_dialog = f"{display_dialog}[CR]{control.lang(30023)}"
         control.progressDialog.create(f'{control.ADDON_NAME}: Real-Debrid Auth', display_dialog)
         control.progressDialog.update(100)
         self.OauthTotalTimeout = self.OauthTimeout = int(resp['expires_in'])
@@ -97,13 +97,13 @@ class RealDebrid:
         user_info = json.loads(response)
         control.setSetting('realdebrid.username', user_info['username'])
         control.setSetting('realdebrid.auth.status', user_info['type'].capitalize())
-        control.ok_dialog(control.ADDON_NAME, f'Real-Debrid {control.lang(30023)}')
+        control.ok_dialog(control.ADDON_NAME, f'Real-Debrid {control.lang(30024)}')
         control.setSetting('show.uncached', 'true')
         control.setSetting('uncached.autoruninforground', 'false')
         control.setSetting('uncached.autoruninbackground', 'false')
         control.setSetting('uncached.autoskipuncached', 'true')
         if user_info['type'] != 'premium':
-            control.ok_dialog(f'{control.ADDON_NAME}: Real-Debrid', control.lang(30024))
+            control.ok_dialog(f'{control.ADDON_NAME}: Real-Debrid', control.lang(30025))
 
     def refreshToken(self):
         postData = {

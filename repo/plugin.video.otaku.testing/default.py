@@ -2033,16 +2033,17 @@ def get_menu_items(menu_type):
             (control.lang(30967), "search_history_music", 'search.png', {}),
         ],
         'tools': [
-            (control.lang(30010), "change_log", 'changelog.png', {}),
-            (control.lang(30011), "settings", 'open_settings_menu.png', {}),
-            (control.lang(30012), "clear_cache", 'clear_cache.png', {}),
-            (control.lang(30013), "clear_search_history", 'clear_search_history.png', {}),
-            (control.lang(30014), "rebuild_database", 'rebuild_database.png', {}),
-            (control.lang(30015), "wipe_addon_data", 'wipe_addon_data.png', {}),
-            (control.lang(30016), "completed_sync", 'sync_completed.png', {}),
-            (control.lang(30017), 'download_manager', 'download_manager.png', {}),
-            (control.lang(30018), 'sort_select', 'sort_select.png', {}),
-            (control.lang(30019), 'clear_selected_fanart', 'wipe_addon_data.png', {}),
+            (control.lang(30010), "setup_wizard", 'tools.png', {}),
+            (control.lang(30011), "change_log", 'changelog.png', {}),
+            (control.lang(30012), "settings", 'open_settings_menu.png', {}),
+            (control.lang(30013), "clear_cache", 'clear_cache.png', {}),
+            (control.lang(30014), "clear_search_history", 'clear_search_history.png', {}),
+            (control.lang(30015), "rebuild_database", 'rebuild_database.png', {}),
+            (control.lang(30016), "wipe_addon_data", 'wipe_addon_data.png', {}),
+            (control.lang(30017), "completed_sync", 'sync_completed.png', {}),
+            (control.lang(30018), 'download_manager', 'download_manager.png', {}),
+            (control.lang(30019), 'sort_select', 'sort_select.png', {}),
+            (control.lang(30020), 'clear_selected_fanart', 'wipe_addon_data.png', {}),
         ],
     }
     return items.get(menu_type, [])
@@ -3101,6 +3102,159 @@ def TRAKT_SCRIPT(payload, params):
         control.ok_dialog(control.ADDON_NAME, "Trakt Script is already installed.")
     except RuntimeError:
         xbmc.executebuiltin('InstallAddon(script.trakt)')
+
+
+@Route('setup_wizard')
+def SETUP_WIZARD(payload, params):
+    from resources.lib.windows.sort_select import SortSelect
+    # Ask the user if they would like to enable search history
+    # Here the button labels are:
+    # Button 0: "Yes"   | Button 1: "No"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Would you like to enable search history?",
+        "No", "Yes",
+    )
+
+    # Yes selected
+    if choice == 1:
+        control.setSetting('searchhistory', '0')
+
+    # No selected
+    elif choice == 0:
+        control.setSetting('searchhistory', '1')
+
+    # Ask the user if they would like to show change log every update
+    # Here the button labels are:
+    # Button 0: "Yes"   | Button 1: "No"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Would you like to show change log every update?",
+        "No", "Yes",
+    )
+
+    # Yes selected
+    if choice == 1:
+        control.setSetting('showchangelog', '0')
+
+    # No selected
+    elif choice == 0:
+        control.setSetting('showchangelog', '1')
+
+    # Ask the user to select between Romaji or English
+    # Here the button labels are:
+    # Button 0: "Romaji" | Button 1: "English"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Please choose your preferred Title Language for your Anime Content:",
+        "English", "Romaji",
+    )
+
+    # Romaji selected
+    if choice == 1:
+        control.setSetting('titlelanguage', '0')
+
+    # English selected
+    elif choice == 0:
+        control.setSetting('titlelanguage', '1')
+
+    # Ask the user to select between Mal or Anilist
+    # Here the button labels are:
+    # Button 0: "Mal"   | Button 1: "Anilist"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Please choose where you would like to get your Anime Content from:",
+        "Anilist", "Mal",
+    )
+
+    # Mal selected
+    if choice == 1:
+        control.setSetting('browser.api', 'mal')
+
+    # Anilist selected
+    elif choice == 0:
+        control.setSetting('browser.api', 'anilist')
+
+        # Ask the user if they would like to replace Anilist Posters with Mal Posters
+        # Here the button labels are:
+        # Button 0: "Yes"   | Button 1: "No"
+        choice = control.yesno_dialog(
+            control.ADDON_NAME,
+            "Would you like to replace Anilist Posters with Mal Posters?",
+            "No", "Yes",
+        )
+
+        # Yes selected
+        if choice == 1:
+            control.setSetting('general.malposters', 'true')
+
+        # No selected
+        elif choice == 0:
+            control.setSetting('general.malposters', 'false')
+
+    # Ask the user if they would like to have all the menus enabled
+    # Here the button labels are:
+    # Button 0: "Yes"   | Button 1: "No"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Would you like to have the rest of the menus enabled?\n(Note: This will enabled menus such as Movies, TV Shows, TV Shorts, Specials, OVAs, ONAs, and Music Videos. A restart may be required for the changes to take effect.)",
+        "No", "Yes",
+    )
+
+    # Yes selected
+    if choice == 1:
+        control.setStringList('menu.mainmenu.config', ['last_watched', 'airing_calendar', 'airing_last_season', 'airing_this_season', 'airing_next_season', 'movies', 'tv_shows', 'tv_shorts', 'specials', 'ovas', 'onas', 'music', 'trending', 'popular', 'voted', 'favourites', 'top_100', 'genres', 'search', 'tools'])
+
+    # No selected
+    elif choice == 0:
+        control.setStringList('menu.mainmenu.config', ['last_watched', 'airing_calendar', 'airing_last_season', 'airing_this_season', 'airing_next_season', 'trending', 'popular', 'voted', 'favourites', 'top_100', 'genres', 'search', 'tools'])
+
+    # Ask the user to select between Subs or Dubs
+    # Here the button labels are:
+    # Button 0: "Subs"   | Button 1: "Dubs"   | Button 2 (or -1): "Cancel"
+    choice = control.yesno_dialog(
+        control.ADDON_NAME,
+        "Please choose your preferred language option for playback:",
+        "Dubs", "Subs",
+    )
+
+    # Subs selected
+    if choice == 1:
+        control.setSetting('general.audio', '0')
+        control.setSetting('general.subtitles', '1')
+        control.setSetting('general.subtitles.keyword', 'true')
+        control.setSetting('subtitles.keywords', '1')
+        control.setSetting('general.dubsubtitles', 'false')
+        control.setSetting('general.source', '0')
+        control.setSetting('divflavors.showdub', 'false')
+        control.setSetting('jz.dub', 'false')
+        SortSelect.auto_action(0)
+        control.log("Subs settings applied.")
+    # Dubs selected
+    elif choice == 0:
+        control.setSetting('general.audio', '1')
+        control.setSetting('general.subtitles', '0')
+        control.setSetting('general.subtitles.keyword', 'true')
+        control.setSetting('subtitles.keywords', '2')
+        control.setSetting('general.dubsubtitles', 'false')
+        control.setSetting('general.source', '0')
+        control.setSetting('divflavors.showdub', 'true')
+        control.setSetting('jz.dub', 'true')
+        SortSelect.auto_action(1)
+        control.log("Dubs settings applied.")
+
+        # Ask the user if they would like subtitles for dub streams
+        # Here the button labels are:
+        # Button 0: "Yes"   | Button 1: "No"
+        choice = control.yesno_dialog(
+            control.ADDON_NAME,
+            "Would you like subtitles for dub streams?\n(Note: This may not work for all streams.)",
+            "No", "Yes",
+        )
+
+        # Yes selected
+        if choice == 1:
+            control.setSetting('general.dubsubtitles', 'true')
 
 
 @Route('toggleLanguageInvoker')

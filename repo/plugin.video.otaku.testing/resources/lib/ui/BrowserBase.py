@@ -52,7 +52,7 @@ class BrowserBase(object):
     @staticmethod
     def _clean_title(text):
         return text.replace(u'×', ' x ')
-    
+
     @staticmethod
     def clean_embed_title(text):
         return re.sub(r'\W', '', text).lower()

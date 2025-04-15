@@ -186,6 +186,7 @@ def apply_migration_settings():
                 control.setSetting(key, value)
             os.remove(control.migrationSettings)
             control.ok_dialog(control.ADDON_NAME, "Migration complete. Watchlist Settings have been restored.")
+            control.execute('RunPlugin(plugin://plugin.video.otaku.testing/setup_wizard)')
             getMigration()
             control.log("Migration settings successfully applied and file removed.")
         except Exception as e:

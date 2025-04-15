@@ -20,10 +20,10 @@ class AllDebrid:
         resp = json.loads(r)['data'] if r else {}
         self.OauthTotalTimeout = self.OauthTimeout = int(resp['expires_in'])
         copied = control.copy2clip(resp['pin'])
-        display_dialog = (f"{control.lang(30020).format(control.colorstr(resp['base_url']))}[CR]"
-                          f"{control.lang(30021).format(control.colorstr(resp['pin']))}")
+        display_dialog = (f"{control.lang(30021).format(control.colorstr(resp['base_url']))}[CR]"
+                          f"{control.lang(30022).format(control.colorstr(resp['pin']))}")
         if copied:
-            display_dialog = f"{display_dialog}[CR]{control.lang(30022)}"
+            display_dialog = f"{display_dialog}[CR]{control.lang(30023)}"
         control.progressDialog.create(f'{control.ADDON_NAME}: Alldebrid Auth', display_dialog)
         control.progressDialog.update(100)
 
@@ -51,14 +51,14 @@ class AllDebrid:
         user_information = res['user']
         premium = user_information['isPremium']
         control.setSetting('alldebrid.username', user_information['username'])
-        control.ok_dialog(control.ADDON_NAME, f'Alldebrid {control.lang(30023)}')
+        control.ok_dialog(control.ADDON_NAME, f'Alldebrid {control.lang(30024)}')
         control.setSetting('show.uncached', 'true')
         control.setSetting('uncached.autoruninforground', 'false')
         control.setSetting('uncached.autoruninbackground', 'false')
         control.setSetting('uncached.autoskipuncached', 'true')
         if not premium:
             control.setSetting('alldebrid.auth.status', 'Expired')
-            control.ok_dialog(f'{control.ADDON_NAME}: AllDebrid', control.lang(30024))
+            control.ok_dialog(f'{control.ADDON_NAME}: AllDebrid', control.lang(30025))
         else:
             control.setSetting('alldebrid.auth.status', 'Premium')
 

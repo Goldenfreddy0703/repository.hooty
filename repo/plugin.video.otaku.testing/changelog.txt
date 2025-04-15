@@ -1,3 +1,6 @@
+Changelog v5.2.1 (2025-04-15):
+- Small String bug
+
 Changelog v5.2.0 (2025-04-15):
 - Added a Setup Wizard Script
 - Prepared the Migration Script

@@ -188,6 +188,16 @@ class SortSelect(BaseWindow):
     def onClick(self, control_id):
         self.handle_action(control_id)
 
+    @staticmethod
+    def auto_action(preset):
+        if preset == 0:
+            sort_options = default_sub_options
+        elif preset == 1:
+            sort_options = default_dub_options
+        # Save settings without needing self reference
+        with open(os.path.join(control.dataPath, 'sort_options.json'), 'w') as file:
+            json.dump(sort_options, file)
+
     def handle_action(self, control_id):
         if control_id == 9001:   # close
             self.close()

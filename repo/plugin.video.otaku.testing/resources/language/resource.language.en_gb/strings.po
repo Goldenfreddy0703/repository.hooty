@@ -286,42 +286,46 @@ msgstr ""
 
 ######TOOLS & SEARCH DIRECTORY#######
 msgctxt "#30010"
-msgid "View Changelog"
+msgid "Setup Wizard"
 msgstr ""
 
 msgctxt "#30011"
-msgid "Open Settings Menu"
+msgid "View Changelog"
 msgstr ""
 
 msgctxt "#30012"
-msgid "Clear Cache"
+msgid "Open Settings Menu"
 msgstr ""
 
 msgctxt "#30013"
-msgid "Clear Search History"
+msgid "Clear Cache"
 msgstr ""
 
 msgctxt "#30014"
-msgid "Rebuild Database"
+msgid "Clear Search History"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Wipe Addon Data"
+msgid "Rebuild Database"
 msgstr ""
 
 msgctxt "#30016"
-msgid "Sync Completed List"
+msgid "Wipe Addon Data"
 msgstr ""
 
 msgctxt "#30017"
-msgid "Download Manager"
+msgid "Sync Completed List"
 msgstr ""
 
 msgctxt "#30018"
-msgid "Choose Sorting.."
+msgid "Download Manager"
 msgstr ""
 
 msgctxt "#30019"
+msgid "Choose Sorting.."
+msgstr ""
+
+msgctxt "#30020"
 msgid "Clear Selected Fanart"
 msgstr ""
 
@@ -1659,4 +1663,12 @@ msgstr ""
 
 msgctxt "#30416"
 msgid "Music Videos"
+msgstr ""
+
+msgctxt "#30417"
+msgid "Setup Wizard"
+msgstr ""
+
+msgctxt "#30418"
+msgid "Run Setup Wizard"
 msgstr ""

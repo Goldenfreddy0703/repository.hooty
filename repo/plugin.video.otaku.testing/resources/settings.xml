@@ -3,8 +3,19 @@
     <section id="otaku">
         <!-- General -->
         <category id="general" label="30100" help="">
+            <!-- Setup Wizard -->
+            <group id="1" label="30417">
+                <setting id="setup.wizard" type="action" label="30418" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/setup_wizard?setting=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                </setting>
+            </group>
+
             <!-- General Customization -->
-            <group id="1" label="30292">
+            <group id="2" label="30292">
                 <setting id="titlelanguage" type="integer" label="30101" help="">
                     <level>0</level>
                     <default>1</default>
@@ -217,7 +228,7 @@
             </group>
 
             <!-- Meta Api Customization -->
-            <group id="2" label="30130" help="">
+            <group id="3" label="30130" help="">
                 <setting id="browser.api" type="string" label="30130" help="">
                     <level>1</level>
                     <default>mal</default>
@@ -262,7 +273,7 @@
             </group>
 
             <!-- Content Customization -->
-            <group id="3" label="30177" help="">
+            <group id="4" label="30177" help="">
                 <setting id="interface.perpage.general.anilist" type="integer" label="30107" help="">
                     <level>0</level>
                     <default>20</default>
@@ -539,7 +550,7 @@
             </group>
 
             <!-- Artwork Customization -->
-            <group id="4" label="30106" help="">
+            <group id="5" label="30106" help="">
                 <setting id="interface.icons" type="string" label="30119" help="">
 					<level>0</level>
 					<default>colouredv2</default>
@@ -593,7 +604,7 @@
             </group>
 
             <!-- Widgets -->
-            <group id="5" label="30257" help="">
+            <group id="6" label="30257" help="">
                 <setting id="widget.hide.nextpage" type="boolean" label="30258" help="">
                     <level>0</level>
                     <default>false</default>
@@ -602,7 +613,7 @@
             </group>
 
             <!-- Miscellaneous -->
-            <group id="6" label="30283">
+            <group id="7" label="30283">
 				<setting id="download_manager_miscellaneous" type="action" label="30017" help="">
 					<level>0</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
@@ -3174,56 +3185,56 @@
         <category id="Maintenance" label="30179" help="">
             <!-- Tools -->
             <group id="1" label="30179" help="">
-                <setting id="change_log" type="action" label="30010" help="">
+                <setting id="change_log" type="action" label="30011" help="">
                     <level>1</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/change_log?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="clear_cache" type="action" label="30012" help="">
+                <setting id="clear_cache" type="action" label="30013" help="">
                     <level>1</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_cache?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="clear_search_history" type="action" label="30013" help="">
+                <setting id="clear_search_history" type="action" label="30014" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_search_history?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="rebuild_database" type="action" label="30014" help="">
+                <setting id="rebuild_database" type="action" label="30015" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/rebuild_database?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="wipe_addon_data" type="action" label="30015" help="">
+                <setting id="wipe_addon_data" type="action" label="30016" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/wipe_addon_data?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="completed_sync" type="action" label="30016" help="">
+                <setting id="completed_sync" type="action" label="30017" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/completed_sync?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="download_manager" type="action" label="30017" help="">
+                <setting id="download_manager" type="action" label="30018" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
                     <control type="button" format="action">
                         <close>true</close>
                     </control>
                 </setting>
-                <setting id="clear_selected_fanart" type="action" label="30019" help="">
+                <setting id="clear_selected_fanart" type="action" label="30020" help="">
                     <level>2</level>
                     <data>RunPlugin(plugin://plugin.video.otaku.testing/clear_selected_fanart?setting=true)</data>
                     <control type="button" format="action">
@@ -3385,8 +3396,17 @@
                 </setting>
             </group>
 
-            <!-- Integer Settings -->
+            <!-- Bool Settings -->
             <group id="7" label="" help="">
+            	<setting id="first_time" type="boolean" label="" help="">
+					<level>4</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+            </group>
+
+            <!-- Integer Settings -->
+            <group id="8" label="" help="">
                 <setting id="otaku.version" type="string" label="" help="">
                     <level>4</level>
                     <default/>

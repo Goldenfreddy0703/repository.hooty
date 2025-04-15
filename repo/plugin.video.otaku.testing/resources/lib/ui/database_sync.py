@@ -38,8 +38,42 @@ class SyncDatabase:
         if not self.activites or self.activites.get('otaku_version') != self.last_meta_update:
             # xbmcvfs.delete(control.sort_options_json)
             # xbmcvfs.delete(control.searchHistoryDB)
-            if control.getSetting('version') == '0.5.43':
-                self.migration_process()
+            first_time = control.getBool('first_time')
+            current_version = control.getSetting('version')
+            target_version = '0.5.43'
+
+            # Convert version strings to tuples of integers for comparison
+            try:
+                current_parts = tuple(map(int, current_version.split('.')))
+                target_parts = tuple(map(int, target_version.split('.')))
+
+                if current_parts <= target_parts:
+                    self.migration_process()
+            except (ValueError, AttributeError):
+                # Fallback to exact comparison if version format is invalid
+                if current_version == target_version:
+                    self.migration_process()
+
+            if first_time:
+                control.setSetting('showchangelog', '1')
+                # Ask the user if they would like to go throught the setup wizard
+                # Here the button labels are:
+                # Button 0: "Yes"   | Button 1: "No"
+                choice = control.yesno_dialog(
+                    control.ADDON_NAME + ' - ' + control.lang(30417),
+                    "Welcome to Otaku!!!\nWould you like to go through the setup wizard?",
+                    "No", "Yes",
+                )
+
+                # Yes selected
+                if choice == 1:
+                    control.setSetting('first_time', 'false')
+                    control.execute('RunPlugin(plugin://plugin.video.otaku.testing/setup_wizard)')
+
+                # No selected
+                elif choice == 0:
+                    control.setSetting('first_time', 'false')
+
             self.re_build_database(True)
 
     @staticmethod
@@ -150,6 +184,7 @@ class SyncDatabase:
         simkl_enabled = control.getSetting('simkl.enabled')
         simkl_username = control.getSetting('simkl.username')
         simkl_token = control.getSetting('simkl.token')
+        first_time = 'false'
         version = control.ADDON_VERSION
 
         # First, clear existing settings
@@ -182,6 +217,7 @@ class SyncDatabase:
             "simkl.enabled": simkl_enabled,
             "simkl.username": simkl_username,
             "simkl.token": simkl_token,
+            "first_time": first_time,
             "version": version,
         }
         try:

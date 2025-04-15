@@ -98,6 +98,10 @@ class RealDebrid:
         control.setSetting('realdebrid.username', user_info['username'])
         control.setSetting('realdebrid.auth.status', user_info['type'].capitalize())
         control.ok_dialog(control.ADDON_NAME, f'Real-Debrid {control.lang(30023)}')
+        control.setSetting('show.uncached', 'true')
+        control.setSetting('uncached.autoruninforground', 'false')
+        control.setSetting('uncached.autoruninbackground', 'false')
+        control.setSetting('uncached.autoskipuncached', 'true')
         if user_info['type'] != 'premium':
             control.ok_dialog(f'{control.ADDON_NAME}: Real-Debrid', control.lang(30024))
 

@@ -1,3 +1,8 @@
+Changelog v5.2.0 (2025-04-15):
+- Added a Setup Wizard Script
+- Prepared the Migration Script
+- Added Settings Script to AD and RD
+
 Changelog v5.1.100 (2025-04-13):
 - Added Playing Next default action setting
 

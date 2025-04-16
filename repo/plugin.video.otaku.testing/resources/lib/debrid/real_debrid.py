@@ -261,12 +261,16 @@ class RealDebrid:
             if progress == 100:
                 control.ok_dialog(heading, "This file has been added to your Cloud")
             torrent_files = [selected for selected in torrent_info['files'] if selected['selected'] == 1]
+
             if len(torrent_info['files']) == 1:
                 best_match = torrent_files[0]
             else:
                 best_match = source_utils.get_best_match('path', torrent_files, source['episode_re'], pack_select)
+
             if not best_match or not best_match['path']:
+                self.deleteTorrent(torrent_id)
                 return
+
             for f_index, torrent_file in enumerate(torrent_files):
                 if torrent_file['path'] == best_match['path']:
                     hash_ = torrent_info['links'][f_index]

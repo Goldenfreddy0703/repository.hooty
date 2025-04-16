@@ -1,3 +1,6 @@
+Changelog v5.2.3 (2025-04-16):
+- Fixed Bugs with Best Match
+
 Changelog v5.2.2 (2025-04-16):
 - Fixed Bugs with last played source
 - Fixed Bugs with UnCached Sources

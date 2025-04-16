@@ -356,7 +356,7 @@ class Resolver(BaseWindow):
         if not resolved_cache or not self.autoskipuncached:
             self.canceled = True
 
-        if not resolved_cache and not best_match:
+        if not best_match and self.autoskipuncached:
             self.canceled = False
 
         return resolved_cache

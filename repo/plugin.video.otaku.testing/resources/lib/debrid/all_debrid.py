@@ -224,11 +224,19 @@ class AllDebrid:
         if status == 'Ready':
             if total_size > 0:
                 control.ok_dialog(heading, "This file has been added to your Cloud")
-            selected_file = source_utils.get_best_match('path', folder_details, source['episode_re'], pack_select)
-            if selected_file:
-                stream_link = self.resolve_hoster(selected_file['link'])
-            else:
+            # Check if there's only one file in the torrent
+            if len(folder_details) == 1:
+                # If there's just one file, use it directly
                 stream_link = self.resolve_hoster(folder_details[0]['link'])
+            else:
+                # If there are multiple files, use best match algorithm
+                selected_file = source_utils.get_best_match('path', folder_details, source['episode_re'], pack_select)
+
+                if not selected_file or not selected_file['path']:
+                    self.delete_magnet(magnet_id)
+                    return
+
+                stream_link = self.resolve_hoster(selected_file['link'])
             if self.autodelete:
                 self.delete_magnet(magnet_id)
         else:

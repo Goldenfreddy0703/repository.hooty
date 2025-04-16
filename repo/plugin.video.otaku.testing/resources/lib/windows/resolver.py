@@ -71,9 +71,10 @@ class Resolver(BaseWindow):
             control.setSetting('last_played_source', None)
 
     def onInit(self):
+        self.sources = self.reorder_sources(self.sources)
         self.resolve(self.sources)
 
-    def resolve(self, sources):
+    def reorder_sources(self, sources):
         # last played source move to top of list
         if len(sources) > 1 and not self.source_select:
             last_played = control.getSetting('last_played_source')
@@ -85,7 +86,7 @@ class Resolver(BaseWindow):
                     if concatenated_info == last_played:
                         sources.insert(0, sources.pop(index))
                         break
-                elif source['type'] in ['torrent', 'cloud', 'hoster', 'local']:
+                elif source['type'] in ['torrent', 'torrent (uncached)', 'cloud', 'hoster', 'local']:
                     release_title = str(source['release_title'])
                     chars = list(last_played)
                     match_found = False
@@ -120,9 +121,9 @@ class Resolver(BaseWindow):
                             if str(source['release_title']) == last_played:
                                 sources.insert(0, sources.pop(index))
                                 break
-        xbmc.sleep(1000)
+        return sources
 
-        # Begin resolving links
+    def resolve(self, sources):
         for i in sources:
             self.return_data['source'] = i
             if self.canceled:
@@ -350,34 +351,42 @@ class Resolver(BaseWindow):
             control.log(traceback.format_exc(), 'error')
             return
 
+        best_match = control.getBool('best_match')
+
         if not resolved_cache or not self.autoskipuncached:
             self.canceled = True
+
+        if not resolved_cache and not best_match:
+            self.canceled = False
+
         return resolved_cache
 
     def doModal(self, sources, args, pack_select):
-        self.sources = sources
-        if self.sources:
-            self.args = args
-            self.pack_select = pack_select
-            self.setProperty('release_title', str(self.sources[0]['release_title']))
-            self.setProperty('debrid_provider', self.sources[0].get('debrid_provider', 'None').replace('_', ' '))
-            self.setProperty('source_provider', self.sources[0]['provider'])
-            self.setProperty('source_resolution', source_utils.res[self.sources[0]['quality']])
-            self.setProperty('source_info', " ".join(self.sources[0]['info']))
-            self.setProperty('source_type', self.sources[0]['type'])
-            self.setProperty('source_size', self.sources[0]['size'])
-            self.setProperty('source_seeders', str(self.sources[0].get('seeders', '')))
-            if self.silent:
-                if self.source_select_close:
-                    self.source_select_close()
-                self.resolve(sources)
-            else:
-                super(Resolver, self).doModal()
+        # Reorder sources first.
+        self.sources = self.reorder_sources(sources)
+        self.args = args
+        # Now assign pack_select after the sources are reordered.
+        self.pack_select = pack_select
+        self.setProperty('release_title', str(self.sources[0]['release_title']))
+        self.setProperty('debrid_provider', self.sources[0].get('debrid_provider', 'None').replace('_', ' '))
+        self.setProperty('source_provider', self.sources[0]['provider'])
+        self.setProperty('source_resolution', source_utils.res[self.sources[0]['quality']])
+        self.setProperty('source_info', " ".join(self.sources[0]['info']))
+        self.setProperty('source_type', self.sources[0]['type'])
+        self.setProperty('source_size', self.sources[0]['size'])
+        self.setProperty('source_seeders', str(self.sources[0].get('seeders', '')))
 
-            if self.sources[0]['type'] in ['embed', 'direct']:
-                control.setSetting('last_played_source', str(self.sources[0]['provider']) + " ".join(map(str, self.sources[0]['info'])))
-            else:
-                control.setSetting('last_played_source', str(self.sources[0]['release_title']))
+        if self.sources[0]['type'] in ['embed', 'direct']:
+            control.setSetting('last_played_source', str(self.sources[0]['provider']) + " " + " ".join(map(str, self.sources[0]['info'])))
+        else:
+            control.setSetting('last_played_source', str(self.sources[0]['release_title']))
+
+        if self.silent:
+            if self.source_select_close:
+                self.source_select_close()
+            self.resolve(self.sources)
+        else:
+            super(Resolver, self).doModal()
 
         return self.return_data
 

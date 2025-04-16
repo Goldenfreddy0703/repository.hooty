@@ -3255,6 +3255,8 @@ def SETUP_WIZARD(payload, params):
         # Yes selected
         if choice == 1:
             control.setSetting('general.dubsubtitles', 'true')
+            control.setSetting('general.subtitles', '1')
+            control.setSetting('subtitles.keywords', '1')
 
 
 @Route('toggleLanguageInvoker')

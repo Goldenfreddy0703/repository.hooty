@@ -3403,6 +3403,11 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+                <setting id="best_match" type="boolean" label="" help="">
+					<level>4</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
             </group>
 
             <!-- Integer Settings -->

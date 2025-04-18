@@ -49,7 +49,7 @@ class BaseWindow(xbmcgui.WindowXMLDialog):
         self.setProperty('item.art.clearlogo', clearlogo)
         self.setProperty('item.info.title', self.item_information.get('name'))
 
-        if self.item_information.get('format') == 'MOVIE':
+        if self.item_information.get('format') in ['MOVIE', 'Movie']:
             self.setProperty('item.info.plot', self.item_information.get('plot'))
             self.setProperty('item.info.rating', str(self.item_information.get('rating')))
             self.setProperty('item.info.title', self.item_information.get('title_userPreferred'))

@@ -678,12 +678,13 @@
             <group id="2" label="30133" help="">
                 <setting id="embed.config" type="list[string]" label="30391" help="">
                     <level>0</level>
-                    <default>doodstream,filelions,filemoon,hd-2,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</default>
+                    <default>doodstream,filelions,filemoon,hd-1,hd-2,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</default>
                     <constraints>
                         <options sort="ascending">
                             <option>doodstream</option>
                             <option>filelions</option>
                             <option>filemoon</option>
+                            <option>hd-1</option>
                             <option>hd-2</option>
                             <option>iga</option>
                             <option>kwik</option>
@@ -776,10 +777,10 @@
                 </setting>
                 <setting id="general.timeout" type="integer" label="30187" help="">
                     <level>0</level>
-                    <default>10</default>
+                    <default>20</default>
                     <constraints>
-                        <minimum>2</minimum>
-                        <step>1</step>
+                        <minimum>5</minimum>
+                        <step>5</step>
                         <maximum>60</maximum>
                     </constraints>
                     <control type="slider" format="integer">

@@ -286,8 +286,8 @@ class Resolver(BaseWindow):
             raise Exception('could not resolve %s. status_code=%s' %
                             (link, linkInfo[1]))
         return {
-            "url": url if '|' in link else linkInfo[5],
-            "headers": headers,
+            "url": link if '|' in link else linkInfo[5],
+            "headers": linkInfo[2],
         }
 
     def resolve_uncache(self, source):
@@ -422,12 +422,17 @@ def _DASH_HOOK(item):
         is_helper = inputstreamhelper.Helper('mpd')
         if is_helper.check_inputstream():
             item.setProperty('inputstream', is_helper.inputstream_addon)
-            item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
+            if control.kodi_version < 20.9:
+                item.setProperty('inputstream.adaptive.manifest_type', 'mpd')
+                item.setContentLookup(False)
             if '|' in stream_url:
                 stream_url, headers = stream_url.split('|')
                 item.setProperty('inputstream.adaptive.stream_headers', headers)
-                item.setProperty('inputstream.adaptive.manifest_headers', headers)
-            item.setContentLookup(False)
+                if control.kodi_version > 21.8:
+                    item.setProperty('inputstream.adaptive.common_headers', headers)
+                else:
+                    item.setProperty('inputstream.adaptive.stream_params', headers)
+                    item.setProperty('inputstream.adaptive.manifest_headers', headers)
         else:
             raise Exception("InputStream Adaptive is not supported.")
     return item
@@ -441,14 +446,20 @@ def _HLS_HOOK(item):
         is_helper = inputstreamhelper.Helper('hls')
         if is_helper.check_inputstream():
             item.setProperty('inputstream', is_helper.inputstream_addon)
-            item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+            if control.kodi_version < 20.9:
+                item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+                item.setProperty('MimeType', 'application/vnd.apple.mpegurl')
+                item.setMimeType('application/vnd.apple.mpegstream_url')
+                item.setContentLookup(False)
             if '|' in stream_url:
                 stream_url, headers = stream_url.split('|')
                 item.setProperty('inputstream.adaptive.stream_headers', headers)
-                item.setProperty('inputstream.adaptive.manifest_headers', headers)
-        item.setProperty('MimeType', 'application/vnd.apple.mpegurl')
-        item.setMimeType('application/vnd.apple.mpegstream_url')
-        item.setContentLookup(False)
+                if control.kodi_version > 21.8:
+                    item.setProperty('inputstream.adaptive.common_headers', headers)
+                else:
+                    item.setProperty('inputstream.adaptive.stream_params', headers)
+                    item.setProperty('inputstream.adaptive.manifest_headers', headers)
+
     return item
 
 
@@ -460,12 +471,18 @@ def _HLS2_HOOK(item):
         is_helper = inputstreamhelper.Helper('hls')
         if is_helper.check_inputstream():
             item.setProperty('inputstream', is_helper.inputstream_addon)
-            item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+            if control.kodi_version < 20.9:
+                item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+                item.setProperty('MimeType', 'application/vnd.apple.mpegurl')
+                item.setMimeType('application/vnd.apple.mpegstream_url')
+                item.setContentLookup(False)
             if '|' in stream_url:
                 stream_url, headers = stream_url.split('|')
                 item.setProperty('inputstream.adaptive.stream_headers', headers)
-                item.setProperty('inputstream.adaptive.manifest_headers', headers)
-        item.setProperty('MimeType', 'application/vnd.apple.mpegurl')
-        item.setMimeType('application/vnd.apple.mpegstream_url')
-        item.setContentLookup(False)
+                if control.kodi_version > 21.8:
+                    item.setProperty('inputstream.adaptive.common_headers', headers)
+                else:
+                    item.setProperty('inputstream.adaptive.stream_params', headers)
+                    item.setProperty('inputstream.adaptive.manifest_headers', headers)
+
     return item

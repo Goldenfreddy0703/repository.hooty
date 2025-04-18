@@ -10,7 +10,7 @@ from resources.lib.endpoints import malsync
 
 
 class Sources(BrowserBase):
-    _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianime.to/'
+    _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianimez.to/'
     _MEGA_URL = 'https://mega-embed-2.vercel.app/'
 
     def get_sources(self, mal_id, episode):

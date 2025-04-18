@@ -29,7 +29,7 @@ OTAKU_FANART = addonInfo('fanart')
 ADDON_PATH = ADDON.getAddonInfo('path')
 pathExists = xbmcvfs.exists
 dataPath = xbmcvfs.translatePath(addonInfo('profile'))
-kodi_version = xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')
+kodi_version = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[:4])
 
 context_addon_id = 'context.otaku.testing'
 context_addon = xbmcaddon.Addon(context_addon_id)

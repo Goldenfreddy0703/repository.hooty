@@ -50,7 +50,6 @@ class WatchlistPlayer(player):
         self.preferred_subtitle_setting = control.getInt('general.subtitles')
         self.preferred_subtitle_keyword = control.getInt('subtitles.keywords')
 
-
     def handle_player(self, mal_id, watchlist_update, episode, resume, path, context):
         self.mal_id = mal_id
         self._watchlist_update = watchlist_update
@@ -67,7 +66,6 @@ class WatchlistPlayer(player):
 
         # Continue with playback initialization
         self.keepAlive()
-
 
     def onPlayBackStopped(self):
         control.closeAllDialogs()
@@ -89,15 +87,12 @@ class WatchlistPlayer(player):
                 }
                 control.jsonrpc(query)
 
-
     def onPlayBackEnded(self):
         control.closeAllDialogs()
-
 
     def onPlayBackError(self):
         control.closeAllDialogs()
         playList.clear()
-
 
     def build_playlist(self):
         episodes = database.get_episode_list(self.mal_id)
@@ -116,10 +111,8 @@ class WatchlistPlayer(player):
         for i in playlist:
             control.playList.add(url=i[0], listitem=i[1])
 
-
     def getWatchedPercent(self):
         return (self.current_time / self.total_time) * 100 if self.total_time != 0 else 0
-
 
     def onWatchedPercent(self):
         if not self._watchlist_update:
@@ -149,7 +142,6 @@ class WatchlistPlayer(player):
                         WatchlistIntegration.set_watchlist_status(self.mal_id, 'CURRENT')
                 break
             xbmc.sleep(5000)
-
 
     def keepAlive(self):
         # Monitor the Playback
@@ -229,7 +221,6 @@ class WatchlistPlayer(player):
             xbmc.sleep(5000)
 
         control.closeAllDialogs()
-
 
     def setup_audio_and_subtitles(self):
         """Handle audio and subtitle setup"""
@@ -360,7 +351,6 @@ class WatchlistPlayer(player):
                     else:
                         self.showSubtitles(True)
 
-
     def process_aniskip(self):
         if self.skipintro_aniskip_enable and not self.skipintro_aniskip:
             skipintro_aniskip_res = aniskip.get_skip_times(self.mal_id, self.episode, 'op')
@@ -377,7 +367,6 @@ class WatchlistPlayer(player):
                 self.skipoutro_start = int(skip_times['startTime']) + self.skipoutro_offset
                 self.skipoutro_end = int(skip_times['endTime']) + self.skipoutro_offset
                 self.skipoutro_aniskip = True
-
 
     def process_animeskip(self):
         show_meta = database.get_show_meta(self.mal_id)
@@ -410,7 +399,6 @@ class WatchlistPlayer(player):
                 self.skipoutro_start = int(outro_start) + self.skipoutro_offset
                 self.skipoutro_end = int(outro_end) + self.skipoutro_offset
                 self.skipoutro_aniskip = True
-
 
     def process_embed(self, embed):
         if self.skipintro_aniskip_enable and not self.skipintro_aniskip:

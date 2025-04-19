@@ -1,3 +1,6 @@
+Changelog v5.2.6 (2025-04-18):
+- Put Watchlist in alphabetical order
+
 Changelog v5.2.5 (2025-04-18):
 - Fixed embed playback using IA
 - Fixed incorrect titles in Source Select

@@ -234,8 +234,8 @@
                     <default>mal</default>
                     <constraints>
                         <options>
-                            <option label="MAL">mal</option>
                             <option label="Anilist">anilist</option>
+                            <option label="MAL">mal</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>
@@ -1972,8 +1972,8 @@
                     <constraints>
                         <options>
                             <option>AniList</option>
-                            <option>MAL</option>
                             <option>Kitsu</option>
+                            <option>MAL</option>
                             <option>Simkl</option>
                         </options>
                     </constraints>
@@ -2069,70 +2069,8 @@
                 </setting>
             </group>
 
-            <!-- MyAnimeList -->
-            <group id="3" label="30220" help="">
-                <setting id="mal.enabled" type="boolean" label="30221" help="">
-                    <level>0</level>
-                    <default>false</default>
-                    <control type="toggle"/>
-                </setting>
-                <setting id="mal.username" type="string" label="30231" help="">
-                    <level>0</level>
-                    <default/>
-                    <enable>false</enable>
-                    <constraints>
-                        <allowempty>true</allowempty>
-                    </constraints>
-					<control type="edit" format="string"/>
-                    <dependencies>
-                        <dependency type="visible" setting="mal.enabled">true</dependency>
-                    </dependencies>
-                </setting>
-                <setting id="mal.login" type="action" label="30232" help="">
-                    <level>0</level>
-                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/mal?auth_dialog=true)</data>
-                    <control type="button" format="action">
-                        <close>true</close>
-                    </control>
-                    <dependencies>
-                        <dependency type="visible" setting="mal.enabled">true</dependency>
-                    </dependencies>
-                </setting>
-                <setting id="mal.sort" type="integer" label="30233" help="">
-                    <level>0</level>
-                    <default>3</default>
-                    <constraints>
-                        <options>
-                            <option label="Anime Title">0</option>
-                            <option label="Score">1</option>
-                            <option label="Progress">2</option>
-                            <option label="Last Updated">3</option>
-                            <option label="Anime Start Date">4</option>
-                        </options>
-                    </constraints>
-                    <control type="spinner" format="string"/>
-                    <dependencies>
-                        <dependency type="visible" setting="mal.enabled">true</dependency>
-                    </dependencies>
-                </setting>
-                <setting id="mal.order" type="integer" label="30234" help="">
-                    <level>0</level>
-                    <default>0</default>
-                    <constraints>
-                        <options>
-                            <option label="Ascending">0</option>
-                            <option label="Descending">1</option>
-                        </options>
-                    </constraints>
-                    <control type="spinner" format="string"/>
-                    <dependencies>
-                        <dependency type="visible" setting="mal.enabled">true</dependency>
-                    </dependencies>
-                </setting>
-            </group>
-
             <!-- Kitsu -->
-            <group id="4" label="30224" help="">
+            <group id="3" label="30224" help="">
                 <setting id="kitsu.enabled" type="boolean" label="30225" help="">
                     <level>0</level>
                     <default>false</default>
@@ -2216,6 +2154,68 @@
                     <control type="spinner" format="string"/>
                     <dependencies>
                         <dependency type="visible" setting="kitsu.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+
+            <!-- MyAnimeList -->
+            <group id="4" label="30220" help="">
+                <setting id="mal.enabled" type="boolean" label="30221" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="mal.username" type="string" label="30231" help="">
+                    <level>0</level>
+                    <default/>
+                    <enable>false</enable>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+					<control type="edit" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.login" type="action" label="30232" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/mal?auth_dialog=true)</data>
+                    <control type="button" format="action">
+                        <close>true</close>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.sort" type="integer" label="30233" help="">
+                    <level>0</level>
+                    <default>3</default>
+                    <constraints>
+                        <options>
+                            <option label="Anime Title">0</option>
+                            <option label="Score">1</option>
+                            <option label="Progress">2</option>
+                            <option label="Last Updated">3</option>
+                            <option label="Anime Start Date">4</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="mal.order" type="integer" label="30234" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Ascending">0</option>
+                            <option label="Descending">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                    <dependencies>
+                        <dependency type="visible" setting="mal.enabled">true</dependency>
                     </dependencies>
                 </setting>
             </group>

@@ -104,7 +104,7 @@ def enabled_cloud():
 
 
 def enabled_watchlists():
-    watchlists = ['mal', 'anilist', 'kitsu', 'simkl']
+    watchlists = ['anilist', 'kitsu', 'mal', 'simkl']
     return [x for x in watchlists if getSetting(f'{x}.token') != '' and getBool(f'{x}.enabled')]
 
 

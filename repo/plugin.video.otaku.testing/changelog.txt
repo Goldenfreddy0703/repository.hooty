@@ -1,3 +1,7 @@
+Changelog v5.2.7 (2025-04-19):
+- Animix will fail gracefully.
+- Cleaned up settings.xml
+
 Changelog v5.2.6 (2025-04-18):
 - Put Watchlist in alphabetical order
 

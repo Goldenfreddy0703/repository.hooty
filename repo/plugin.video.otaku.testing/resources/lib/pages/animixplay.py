@@ -25,7 +25,7 @@ class Sources(BrowserBase):
         # title = kodi_meta.get('ename') or kodi_meta.get('name')
         title = kodi_meta.get('name')
         title = self._clean_title(title)
-
+        all_results = []
         headers = {'Origin': self._BASE_URL[:-1],
                    'Referer': self._BASE_URL}
         r = database.get(
@@ -36,29 +36,29 @@ class Sources(BrowserBase):
             post={'qfast': title},
             headers=headers
         )
-        soup = BeautifulSoup(json.loads(r).get('result'), 'html.parser')
-        items = soup.find_all('a')
-        slugs = []
+        if r:
+            soup = BeautifulSoup(json.loads(r).get('result'), 'html.parser')
+            items = soup.find_all('a')
+            slugs = []
 
-        for item in items:
-            ititle = item.find('p', {'class': 'name'})
-            if ititle:
-                ititle = ititle.text.strip()
-                if 'sub' in srcs:
-                    if self.clean_embed_title(ititle) == self.clean_embed_title(title):
-                        slugs.append(item.get('href'))
-                if 'dub' in srcs:
-                    if self.clean_embed_title(ititle) == self.clean_embed_title(title) + 'dub':
-                        slugs.append(item.get('href'))
-        if not slugs:
-            if len(items) > 0:
-                slugs = [items[0].get('href')]
-        all_results = []
-        if slugs:
-            slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
-            mapfunc = partial(self._process_animixplay, title=title, episode=episode)
-            all_results = list(map(mapfunc, slugs))
-            all_results = list(itertools.chain(*all_results))
+            for item in items:
+                ititle = item.find('p', {'class': 'name'})
+                if ititle:
+                    ititle = ititle.text.strip()
+                    if 'sub' in srcs:
+                        if self.clean_embed_title(ititle) == self.clean_embed_title(title):
+                            slugs.append(item.get('href'))
+                    if 'dub' in srcs:
+                        if self.clean_embed_title(ititle) == self.clean_embed_title(title) + 'dub':
+                            slugs.append(item.get('href'))
+            if not slugs:
+                if len(items) > 0:
+                    slugs = [items[0].get('href')]
+            if slugs:
+                slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
+                mapfunc = partial(self._process_animixplay, title=title, episode=episode)
+                all_results = list(map(mapfunc, slugs))
+                all_results = list(itertools.chain(*all_results))
         return all_results
 
     def _process_animixplay(self, slug, title, episode):

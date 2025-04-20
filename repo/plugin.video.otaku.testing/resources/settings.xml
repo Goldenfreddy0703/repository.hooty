@@ -398,7 +398,7 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  	<dependencies>
+					<dependencies>
 						<dependency type="visible" setting="contentformat.bool">true</dependency>
 					</dependencies>
 				</setting>
@@ -419,7 +419,7 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  	<dependencies>
+					<dependencies>
 						<dependency type="visible">
 							<and>
 								<condition setting="browser.api">anilist</condition>
@@ -439,7 +439,7 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  	<dependencies>
+					<dependencies>
 						<dependency type="visible">
 							<and>
 								<condition setting="browser.api">mal</condition>
@@ -470,7 +470,7 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  	<dependencies>
+					<dependencies>
 						<dependency type="visible">
 							<and>
 								<condition setting="browser.api">mal</condition>
@@ -499,7 +499,7 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  	<dependencies>
+					<dependencies>
 						<dependency type="visible">
 							<and>
 								<condition setting="browser.api">anilist</condition>
@@ -614,7 +614,7 @@
 
 			<!-- Miscellaneous -->
 			<group id="7" label="30283">
-				<setting id="download_manager_miscellaneous" type="action" label="30017" help="">
+				<setting id="download_manager_miscellaneous" type="action" label="30018" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
 					<control type="button" format="action">
@@ -631,342 +631,6 @@
 					<control type="button" format="path">
 						<heading>30104</heading>
 					</control>
-				</setting>
-			</group>
-		</category>
-
-		<!-- Maintenance -->
-		<category id="Maintenance" label="30179" help="">
-			<!-- Tools -->
-			<group id="1" label="30179" help="">
-				<setting id="change_log" type="action" label="30011" help="">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/change_log?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="clear_cache" type="action" label="30013" help="">
-					<level>1</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_cache?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="clear_search_history" type="action" label="30014" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_search_history?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="rebuild_database" type="action" label="30015" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/rebuild_database?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="wipe_addon_data" type="action" label="30016" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/wipe_addon_data?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="completed_sync" type="action" label="30017" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/completed_sync?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="download_manager" type="action" label="30018" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="clear_selected_fanart" type="action" label="30020" help="">
-					<level>2</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_selected_fanart?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-			</group>
-
-			<!-- InputStream Adaptive -->
-			<group id="2" label="30344" help="">
-				<setting id="inputstreamadaptive.enabled" type="boolean" label="30345" help="">
-					<level>3</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
-				<setting id="inputstreamadaptive.settings" type="action" label="30346" help="" parent="inputstreamadaptive.enabled">
-					<level>3</level>
-					<dependencies>
-						<dependency type="enable">
-							<condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
-						</dependency>
-					</dependencies>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamadaptive?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="inputstreamhelper" type="action" label="30347" help="" parent="inputstreamadaptive.enabled">
-					<level>3</level>
-					<dependencies>
-						<dependency type="enable">
-							<condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
-						</dependency>
-					</dependencies>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamhelper?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-			</group>
-
-			<!-- Language Invoker -->
-			<group id="3" label="30124" help="">
-				<setting id="reuselanguageinvoker.toggle" type="action" label="30125" help="">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/toggleLanguageInvoker?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="reuselanguageinvoker.status" type="string" label="30126" help="">
-					<level>3</level>
-					<default>Disabled</default>
-					<enable>false</enable>
-					<control type="edit" format="string"/>
-				</setting>
-			</group>
-
-			<!-- Cloudflare & DDoS-GUARD Solver -->
-			<group id="4" label="30348">
-				<setting id="fs_enable" type="boolean" label="30349" help="">
-					<level>0</level>
-					<default>false</default>
-					<control type="toggle"/>
-				</setting>
-				<setting id="fs_inst" type="action" label="30352" help="" parent="fs_enable">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="fs_enable">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="fs_url" type="string" label="30350" help="" parent="fs_enable">
-					<level>0</level>
-					<default>http://localhost:8191/v1</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="fs_enable">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="edit" format="string">
-						<heading>30350</heading>
-					</control>
-				</setting>
-				<setting id="fs_timeout" type="integer" label="30351" help="" parent="fs_enable">
-					<level>0</level>
-					<default>60</default>
-					<constraints>
-						<minimum>30</minimum>
-						<step>30</step>
-						<maximum>180</maximum>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="fs_enable">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="slider" format="integer">
-						<popup>false</popup>
-					</control>
-				</setting>
-			</group>
-
-			<!-- Megacloud Solver -->
-			<group id="5" label="30378" help="">
-				<setting id="ms_enable" type="boolean" label="30379" help="">
-					<level>0</level>
-					<default>false</default>
-					<control type="toggle"/>
-				</setting>
-				<setting id="ms_inst" type="action" label="30352" help="" parent="ms_enable">
-					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="ms_enable">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="button" format="action"/>
-				</setting>
-				<setting id="ms_url" type="string" label="30380" help="" parent="ms_enable">
-					<level>0</level>
-					<default>http://localhost:4000/</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition operator="is" setting="ms_enable">true</condition>
-						</dependency>
-					</dependencies>
-					<control type="edit" format="string">
-						<heading>30380</heading>
-					</control>
-				</setting>
-			</group>
-
-			<!-- Import/Export -->
-			<group id="6" label="30127" help="">
-				<setting id="import_settings" type="action" label="30128" help="">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/import_settings?setting=true)</data>
-					<control type="button" format="action">
-						<close>true</close>
-					</control>
-				</setting>
-				<setting id="export_settings" type="action" label="30129" help="">
-					<level>3</level>
-					<data>RunPlugin(plugin://plugin.video.otaku.testing/export_settings?setting=true)</data>
-					<control type="button" format="action">
-						<close>false</close>
-					</control>
-				</setting>
-			</group>
-
-			<!-- Bool Settings -->
-			<group id="7" label="" help="">
-				<setting id="first_time" type="boolean" label="" help="">
-					<level>4</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
-				<setting id="best_match" type="boolean" label="" help="">
-					<level>4</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
-			</group>
-
-			<!-- Integer Settings -->
-			<group id="8" label="" help="">
-				<setting id="otaku.version" type="string" label="" help="">
-					<level>4</level>
-					<default/>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-				</setting>
-				<setting id="fanart.all" type="list[String]" help="">
-					<level>4</level>
-					<default/>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-				</setting>
-				<setting id="DMIndex" type="list[String]" help="">
-					<level>4</level>
-					<default/>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-				</setting>
-				<setting id="last_played" type="string" label="" help="">
-					<level>4</level>
-					<default>0</default>
-				</setting>
-				<setting id="addon.last_watched" type="string" label="" help="">
-					<level>4</level>
-					<default/>
-					<constraints>
-						<allowempty>true</allowempty>
-					</constraints>
-				</setting>
-				<setting id="update.time.30" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="update.time.7" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="realdebrid.expiry" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="debridlink.expiry" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="kitsu.expiry" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="mal.expiry" type="integer" label="" help="">
-					<level>4</level>
-					<default>0</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="aniwave.skipintro.start" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="aniwave.skipintro.end" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="aniwave.skipoutro.start" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="aniwave.skipoutro.end" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="hianime.skipintro.start" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="hianime.skipintro.end" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="hianime.skipoutro.start" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
-				</setting>
-				<setting id="hianime.skipoutro.end" type="integer" label="" help="">
-					<level>4</level>
-					<default>-1</default>
-					<control type="edit" format="integer" />
 				</setting>
 			</group>
 		</category>
@@ -2314,9 +1978,9 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
-				  <dependencies>
-					  <dependency type="visible" setting="watchlist.update.enabled">true</dependency>
-				  </dependencies>
+					<dependencies>
+						<dependency type="visible" setting="watchlist.update.enabled">true</dependency>
+					</dependencies>
 				</setting>
 				<setting id="watchlist.update.percent" type="integer" label="30161" help="30162">
 					<level>0</level>
@@ -2412,7 +2076,7 @@
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="kitsu.username" type="string" label="30231"  parent="kitsu.enabled" help="">
+				<setting id="kitsu.username" type="string" label="30231" parent="kitsu.enabled" help="">
 					<level>0</level>
 					<default/>
 					<enable>false</enable>
@@ -2424,7 +2088,7 @@
 						<dependency type="visible" setting="kitsu.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="kitsu.authvar" type="string" label="30226"  parent="kitsu.enabled" help="">
+				<setting id="kitsu.authvar" type="string" label="30226" parent="kitsu.enabled" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
@@ -2437,7 +2101,7 @@
 						<dependency type="visible" setting="kitsu.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="kitsu.password" type="string" label="30227"  parent="kitsu.enabled" help="">
+				<setting id="kitsu.password" type="string" label="30227" parent="kitsu.enabled" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
@@ -2451,7 +2115,7 @@
 						<dependency type="visible" setting="kitsu.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="kitsu.login" type="action" label="30232"  parent="kitsu.enabled" help="">
+				<setting id="kitsu.login" type="action" label="30232" parent="kitsu.enabled" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/kitsu)</data>
 					<control type="button" format="action">
@@ -2576,7 +2240,7 @@
 						<dependency type="visible" setting="simkl.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="simkl.login" type="action" label="30232"  parent="simkl.enabled" help="">
+				<setting id="simkl.login" type="action" label="30232" parent="simkl.enabled" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.otaku.testing/watchlist_login/simkl)</data>
 					<control type="button" format="action">
@@ -2586,7 +2250,7 @@
 						<dependency type="visible" setting="simkl.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="simkl.sort" type="integer" label="30233"  parent="simkl.enabled" help="">
+				<setting id="simkl.sort" type="integer" label="30233" parent="simkl.enabled" help="">
 					<level>0</level>
 					<default>3</default>
 					<constraints>
@@ -2603,7 +2267,7 @@
 						<dependency type="visible" setting="simkl.enabled">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="simkl.order" type="integer" label="30234"  parent="simkl.enabled" help="">
+				<setting id="simkl.order" type="integer" label="30234" parent="simkl.enabled" help="">
 					<level>0</level>
 					<default>0</default>
 					<constraints>
@@ -3518,5 +3182,340 @@
 			</group>
 		</category>
 
+		<!-- Maintenance -->
+		<category id="Maintenance" label="30179" help="">
+			<!-- Tools -->
+			<group id="1" label="30179" help="">
+				<setting id="change_log" type="action" label="30011" help="">
+					<level>1</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/change_log?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="clear_cache" type="action" label="30013" help="">
+					<level>1</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_cache?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="clear_search_history" type="action" label="30014" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_search_history?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="rebuild_database" type="action" label="30015" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/rebuild_database?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="wipe_addon_data" type="action" label="30016" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/wipe_addon_data?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="completed_sync" type="action" label="30017" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/completed_sync?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="download_manager" type="action" label="30018" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/download_manager?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="clear_selected_fanart" type="action" label="30020" help="">
+					<level>2</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/clear_selected_fanart?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+
+			<!-- InputStream Adaptive -->
+			<group id="2" label="30344" help="">
+				<setting id="inputstreamadaptive.enabled" type="boolean" label="30345" help="">
+					<level>3</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="inputstreamadaptive.settings" type="action" label="30346" help="" parent="inputstreamadaptive.enabled">
+					<level>3</level>
+					<dependencies>
+						<dependency type="enable">
+							<condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
+						</dependency>
+					</dependencies>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamadaptive?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="inputstreamhelper" type="action" label="30347" help="" parent="inputstreamadaptive.enabled">
+					<level>3</level>
+					<dependencies>
+						<dependency type="enable">
+							<condition setting="inputstreamadaptive.enabled" operator="is">true</condition>
+						</dependency>
+					</dependencies>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/inputstreamhelper?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+
+			<!-- Language Invoker -->
+			<group id="3" label="30124" help="">
+				<setting id="reuselanguageinvoker.toggle" type="action" label="30125" help="">
+					<level>3</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/toggleLanguageInvoker?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="reuselanguageinvoker.status" type="string" label="30126" help="">
+					<level>3</level>
+					<default>Disabled</default>
+					<enable>false</enable>
+					<control type="edit" format="string"/>
+				</setting>
+			</group>
+
+			<!-- Cloudflare & DDoS-GUARD Solver -->
+			<group id="4" label="30348">
+				<setting id="fs_enable" type="boolean" label="30349" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="fs_inst" type="action" label="30352" help="" parent="fs_enable">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="fs_url" type="string" label="30350" help="" parent="fs_enable">
+					<level>0</level>
+					<default>http://localhost:8191/v1</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30350</heading>
+					</control>
+				</setting>
+				<setting id="fs_timeout" type="integer" label="30351" help="" parent="fs_enable">
+					<level>0</level>
+					<default>60</default>
+					<constraints>
+						<minimum>30</minimum>
+						<step>30</step>
+						<maximum>180</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="fs_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+			</group>
+
+			<!-- Megacloud Solver -->
+			<group id="5" label="30378" help="">
+				<setting id="ms_enable" type="boolean" label="30379" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="ms_inst" type="action" label="30352" help="" parent="ms_enable">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/solver_inst)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="ms_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="ms_url" type="string" label="30380" help="" parent="ms_enable">
+					<level>0</level>
+					<default>http://localhost:4000/</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="ms_enable">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30380</heading>
+					</control>
+				</setting>
+			</group>
+
+			<!-- Import/Export -->
+			<group id="6" label="30127" help="">
+				<setting id="import_settings" type="action" label="30128" help="">
+					<level>3</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/import_settings?setting=true)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="export_settings" type="action" label="30129" help="">
+					<level>3</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/export_settings?setting=true)</data>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+			</group>
+
+			<!-- Bool Settings -->
+			<group id="7" label="" help="">
+				<setting id="first_time" type="boolean" label="" help="">
+					<level>4</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="best_match" type="boolean" label="" help="">
+					<level>4</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+
+			<!-- Integer Settings -->
+			<group id="8" label="" help="">
+				<setting id="otaku.version" type="string" label="" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+				</setting>
+				<setting id="fanart.all" type="list[String]" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+				</setting>
+				<setting id="DMIndex" type="list[String]" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+				</setting>
+				<setting id="last_played" type="string" label="" help="">
+					<level>4</level>
+					<default>0</default>
+				</setting>
+				<setting id="addon.last_watched" type="string" label="" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+				</setting>
+				<setting id="update.time.30" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="update.time.7" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="realdebrid.expiry" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="debridlink.expiry" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="kitsu.expiry" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="mal.expiry" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="aniwave.skipintro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="aniwave.skipintro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="aniwave.skipoutro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="aniwave.skipoutro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="hianime.skipintro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="hianime.skipintro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="hianime.skipoutro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+				<setting id="hianime.skipoutro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>-1</default>
+					<control type="edit" format="integer" />
+				</setting>
+			</group>
+		</category>
 	</section>
 </settings>

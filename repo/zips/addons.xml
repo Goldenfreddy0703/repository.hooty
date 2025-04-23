@@ -114,7 +114,7 @@ Changelog 0.0.1:
       <poster>poster.png</poster>
     </assets>
   </extension>
-</addon><addon id="context.otaku.testing" version="1.0.27" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku.testing" version="1.0.28" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -1258,7 +1258,7 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.7">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.8">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
@@ -1877,13 +1877,13 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="6.0.9" name="TMDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="6.0.10" name="TMDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
-  <import addon="script.module.jurialmunkey" version="0.2.27" />
+  <import addon="script.module.jurialmunkey" version="0.2.28" />
   <import addon="script.module.infotagger" version="0.0.5" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />
 </requires>
@@ -2454,10 +2454,10 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="2.1.32" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.33" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
-  <import addon="script.module.jurialmunkey" version="0.2.27" />
+  <import addon="script.module.jurialmunkey" version="0.2.28" />
   <import addon="script.module.infotagger" version="0.0.5" />
 </requires>
 <extension point="xbmc.python.script" library="script.py" />

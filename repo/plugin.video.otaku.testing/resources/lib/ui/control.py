@@ -14,6 +14,7 @@ from urllib import parse
 try:
     HANDLE = int(sys.argv[1])
 except IndexError:
+    print('No handle found, using default 0')
     HANDLE = 0
 
 addonInfo = xbmcaddon.Addon().getAddonInfo
@@ -190,13 +191,21 @@ def addon_url(url):
     return f"plugin://{ADDON_ID}/{url}"
 
 
-def get_plugin_url():
+def get_plugin_url(url):
     addon_base = addon_url('')
-    return sys.argv[0][len(addon_base):]
+    return url[len(addon_base):]
 
 
-def get_plugin_params():
-    return dict(parse.parse_qsl(sys.argv[2].replace('?', '')))
+def get_plugin_params(param):
+    return dict(parse.parse_qsl(param.replace('?', '')))
+
+
+def get_payload_params(url):
+    url_list = url.rsplit('?', 1)
+    if len(url_list) == 1:
+        url_list.append('')
+    payload, params = url_list
+    return get_plugin_url(payload), get_plugin_params(params)
 
 
 def exit_code():

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import default
+import xbmcgui
 
+from resources.lib import Main
 from resources.lib.ui import control
 from resources.lib.windows.anichart_window import BaseWindow
 from resources.lib import OtakuBrowser, WatchlistIntegration
@@ -11,15 +12,15 @@ BROWSER = OtakuBrowser.BROWSER
 
 class Anichart(BaseWindow):
 
-    def __init__(self, xml_file, location, get_anime=None, anime_items=None):
+    def __init__(self, xml_file, location, get_anime=None, anime_items=None, calendar=None):
         super().__init__(xml_file, location)
         self.get_anime = get_anime
         self.anime_items = anime_items
         self.position = -1
         self.display_list = None
-        self.last_action = 0
-        control.closeBusyDialog()
-        self.anime_item = None
+        self.last_action_time = 0
+        self.anime_path = ''
+        self.anime_items = calendar if calendar is not None else anime_items
 
     def onInit(self):
         self.display_list = self.getControl(1000)
@@ -47,33 +48,24 @@ class Anichart(BaseWindow):
 
     def doModal(self):
         super().doModal()
-        return self.anime_item
+        return self.anime_path
 
-    def onClick(self, controlId):
-
-        if controlId == 1000:
-            self.handle_action(7)
-
-    def handle_action(self, actionID):
-        if actionID == 7 and self.getFocusId() == 1000:
-            self.position = self.display_list.getSelectedPosition()
-            self.resolve_item()
-
-        if actionID == 92 or id == 10:
-            self.anime_item = False
-            self.close()
+    def onDoubleClick(self, controlId):
+        # immediate activate on double-click
+        self.handle_action(controlId)
 
     def onAction(self, action):
         actionID = action.getId()
-
-        if actionID in [92, 10]:
-            # BACKSPACE / ESCAPE
+        # back navigation
+        if actionID in [xbmcgui.ACTION_NAV_BACK,
+                        xbmcgui.ACTION_BACKSPACE,
+                        xbmcgui.ACTION_PREVIOUS_MENU]:
             self.close()
-
-        if actionID == 7:
-            # ENTER / BACKSPACE / ESCAPE
+        # single-click activate
+        elif actionID == xbmcgui.ACTION_SELECT_ITEM:
             self.handle_action(actionID)
 
+        # rest of your existing context‐menu code…
         if actionID == 117:
             context_menu_options = []
             if control.getBool('context.otaku.testing.findrecommendations'):
@@ -88,33 +80,52 @@ class Anichart(BaseWindow):
                 context_menu_options.append("WatchList Manager")
 
             context = control.context_menu(context_menu_options)
+            # if user cancels (context == -1), just return
+            if context < 0:
+                return
+
             self.position = self.display_list.getSelectedPosition()
             anime = self.anime_items[self.position]['id']
             page = 1
 
-            if context == 0 and control.getBool('context.otaku.testing.findrecommendations'):  # Find Recommendations
+            choice = context_menu_options[context]
+            if choice == "Find Recommendations":
                 control.draw_items(BROWSER.get_recommendations(anime, page), 'tvshows')
                 self.close()
-            elif context == 1 and control.getBool('context.otaku.testing.findrelations'):  # Find Relations
+            elif choice == "Find Relations":
                 control.draw_items(BROWSER.get_relations(anime), 'tvshows')
                 self.close()
-            elif context == 2 and control.getBool('context.otaku.testing.getwatchorder'):  # Get Watch Order
+            elif choice == "Get Watch Order":
                 control.draw_items(BROWSER.get_watch_order(anime), 'tvshows')
                 self.close()
-            elif context == 3 and control.getBool('context.otaku.testing.deletefromdatabase'):  # Delete From Database
+            elif choice == "Delete From Database":
                 payload = f"some_path/{anime}/0"
                 params = {}
-                default.DELETE_ANIME_DATABASE(payload, params)
-            elif context == 4 and control.getBool('context.otaku.testing.watchlist'):  # WatchList Manager
-                payload = f"some_path/{anime}/0"  # Construct the payload, replace 'some/path' with actual path if needed
-                params = {}  # Construct the params if needed
+                Main.DELETE_ANIME_DATABASE(payload, params)
+            elif choice == "WatchList Manager":
+                payload = f"some_path/{anime}/0"
+                params = {}
                 WatchlistIntegration.CONTEXT_MENU(payload, params)
 
-    def resolve_item(self):
-        anime = self.anime_items[self.position]['id']
-        self.anime_item = self.get_anime(anime)
-
-        if self.anime_item is None:
+    def handle_action(self, actionID) -> None:
+        # only act when focus is on our list
+        if self.getFocusId() != 1000:
             return
-        else:
-            self.close()
+
+        self.position = self.display_list.getSelectedPosition()
+        anime = self.anime_items[self.position]['id']
+        url = f"animes/{anime}/"
+        self.anime_path = control.addon_url(url)
+
+
+        new_payload, new_params = control.get_payload_params(self.anime_path)
+        if 'animes/' in new_payload:
+            control.progressDialog.create(control.ADDON_NAME, "Loading..")
+            try:
+                x = new_payload.split('animes/', 1)[1]
+                Main.ANIMES_PAGE(x, new_params)
+            finally:
+                control.progressDialog.close()
+        elif 'airing_calendar' in new_payload:
+            Main.AIRING_CALENDAR(new_payload.rsplit('airing_calendar', 0)[0], new_params)
+        self.close()

@@ -1,5 +1,11 @@
+Changelog v5.2.9 (2025-04-26):
+- Refactored default.py to <25 lines
+- Moved logic into Main.py
+- Fix Language Invoker Bugs
+- Improved Airing Anime Calendar
+
 Changelog v5.2.8 (2025-04-23):
-- Fixed Skipping Bug with Embeds
+- Fixed Skipping Bug with certain Embeds
 - Moved Icons to Context Addon
 - Added extra settings in General Category
 

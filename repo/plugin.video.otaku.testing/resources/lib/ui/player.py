@@ -184,7 +184,7 @@ class WatchlistPlayer(player):
         # Continue with audio/subtitle setup which is needed immediately
         if self.type not in ['embed', 'direct']:
             self.setup_audio_and_subtitles()
-        elif self.provider in ['aniwave', 'hianime']:
+        elif self.provider in ['aniwave', 'h!anime']:
             self.setup_audio_and_subtitles()
 
         # Handle different media types

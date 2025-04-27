@@ -1,3 +1,9 @@
+Changelog v5.2.11 (2025-04-27):
+- Fix Small bug with H!anime
+
+Changelog v5.2.10 (2025-04-27):
+- Small Fix with Setup Wizard for Source Type
+
 Changelog v5.2.9 (2025-04-26):
 - Refactored default.py to <25 lines
 - Moved logic into Main.py

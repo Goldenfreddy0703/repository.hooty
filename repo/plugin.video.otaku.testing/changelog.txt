@@ -1,3 +1,6 @@
+Changelog v5.2.12 (2025-04-30):
+- Fix Bug with Subtitle Language
+
 Changelog v5.2.11 (2025-04-27):
 - Fix Small bug with H!anime
 

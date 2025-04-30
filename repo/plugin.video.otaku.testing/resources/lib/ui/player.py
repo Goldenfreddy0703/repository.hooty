@@ -287,6 +287,14 @@ class WatchlistPlayer(player):
 
             # Set preferred subtitle stream
             subtitle_int = None
+
+            # Lowercase preferred keyword(s) like sub_name_lower
+            if isinstance(preferred_keyword, list):
+                preferred_keyword = [kw.lower() for kw in preferred_keyword if isinstance(kw, str)]
+            elif isinstance(preferred_keyword, str):
+                preferred_keyword = preferred_keyword.lower()
+
+            # Keyword filtering
             if control.getBool('general.subtitles.keyword'):
                 for index, sub in enumerate(subtitle_streams):
                     if sub['language'] == preferred_subtitle_lang:
@@ -298,27 +306,29 @@ class WatchlistPlayer(player):
                         elif preferred_keyword and preferred_keyword in sub_name_lower:
                             subtitle_int = index
                             break
+
+                # fallback to first of preferred language if no keyword match
+                if subtitle_int is None:
+                    for index, sub in enumerate(subtitle_streams):
+                        if sub['language'] == preferred_subtitle_lang:
+                            subtitle_int = index
+                            break
             else:
+                # No keyword filter, just check for preferred language
                 for index, sub in enumerate(subtitle_streams):
                     if sub['language'] == preferred_subtitle_lang:
                         subtitle_int = index
                         break
 
             if subtitle_int is None:
-                # If no preferred subtitle stream is found, set to the default subtitle stream
+                # default-subtitle fallback
                 for index, sub in enumerate(subtitle_streams):
                     if sub.get('isdefault', False):
                         subtitle_int = index
                         break
                 else:
-                    # If no default subtitle stream is found, set to the first available subtitle stream with the preferred language
-                    for index, sub in enumerate(subtitle_streams):
-                        if sub['language'] == preferred_subtitle_lang:
-                            subtitle_int = index
-                            break
-                    else:
-                        # If no subtitle stream with the preferred language is found, set to the first available subtitle stream
-                        subtitle_int = 0
+                    # If no default subtitle stream is found, set to the first available subtitle stream
+                    subtitle_int = 0
 
             if subtitle_int is not None:
                 self.setSubtitleStream(subtitle_int)

@@ -91,7 +91,8 @@ class SIMKLAPI:
             season = episodes[0]['season']
             mapfunc2 = partial(self.parse_episode_view, mal_id=mal_id, season=season, poster=poster, fanart=fanart, clearart=clearart, clearlogo=clearlogo, eps_watched=eps_watched, update_time=update_time, tvshowtitle=tvshowtitle, dub_data=dub_data, filler_data=None, episodes=episodes)
             all_results = list(map(mapfunc2, result_ep))
-            control.notify("SIMKL Appended", f'{tvshowtitle} Appended to Database', icon=poster)
+            if control.getBool('override.meta.api') and control.getBool('override.meta.notify'):
+                control.notify("SIMKL Appended", f'{tvshowtitle} Appended to Database', icon=poster)
         else:
             mapfunc1 = partial(indexers.parse_episodes, eps_watched=eps_watched, dub_data=dub_data)
             all_results = list(map(mapfunc1, episodes))

@@ -1,3 +1,8 @@
+Changelog v5.2.13 (2025-05-02):
+- Fix Bugs with teamup
+- Fix Episode Meta Notifications
+- Change Calendar to Update 24hrs
+
 Changelog v5.2.12 (2025-04-30):
 - Fix Bug with Subtitle Language
 

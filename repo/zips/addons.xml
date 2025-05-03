@@ -1258,7 +1258,7 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.12">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.13">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />

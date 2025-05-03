@@ -199,13 +199,13 @@ if __name__ == "__main__":
     version_check()
     database_sync.SyncDatabase()
     refresh_apis()
-    update_calendars()
     if control.getSetting('update.time.30') == '' or control.getSetting('update.time.7') == '':
         update_mappings_db()
         update_dub_json()
         sync_watchlist(True)
         control.setInt('update.time.30', int(time.time()))
         control.setInt('update.time.7', int(time.time()))
+        control.setInt('update.time.1', int(time.time()))
     else:
         if time.time() > control.getInt('update.time.30') + 2_592_000:   # 30 days
             update_mappings_db()
@@ -214,4 +214,8 @@ if __name__ == "__main__":
             update_dub_json()
             sync_watchlist(True)
             control.setInt('update.time.7', int(time.time()))
+        if time.time() > control.getInt('update.time.1') + 86_400:   # 1 day
+            update_calendars()
+            sync_watchlist(True)
+            control.setInt('update.time.1', int(time.time()))
     control.log('##################  MAINTENANCE COMPLETE ######################')

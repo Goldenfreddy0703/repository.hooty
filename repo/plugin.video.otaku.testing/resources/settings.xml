@@ -3469,6 +3469,11 @@
 					<default>0</default>
 					<control type="edit" format="integer" />
 				</setting>
+				<setting id="update.time.1" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer" />
+				</setting>
 				<setting id="realdebrid.expiry" type="integer" label="" help="">
 					<level>4</level>
 					<default>0</default>

@@ -241,7 +241,7 @@ def yesnocustom_dialog(title, text, customlabel='', nolabel='', yeslabel='', aut
     return xbmcgui.Dialog().yesnocustom(title, text, customlabel, nolabel, yeslabel, autoclose, defaultbutton)
 
 
-def notify(title, text, icon=OTAKU_LOGO3_PATH, time=5000, sound=True):
+def notify(title, text, icon=OTAKU_LOGO3_PATH, time=5000, sound=False):
     xbmcgui.Dialog().notification(title, text, icon, time, sound)
 
 

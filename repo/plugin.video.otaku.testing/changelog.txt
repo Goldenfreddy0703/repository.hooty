@@ -1,3 +1,6 @@
+Changelog v5.2.14 (2025-05-09):
+- Fix Weird Black Screen Bug when playing next episode
+
 Changelog v5.2.13 (2025-05-02):
 - Fix Bugs with teamup
 - Fix Episode Meta Notifications

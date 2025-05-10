@@ -13,7 +13,6 @@ def getSourcesHelper(actionArgs):
     else:
         sources_window = Sources('get_sources.xml', control.ADDON_PATH, actionArgs=actionArgs)
     sources = sources_window.doModal()
-    del sources_window
     return sources
 
 

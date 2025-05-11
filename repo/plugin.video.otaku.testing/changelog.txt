@@ -1,3 +1,6 @@
+Changelog v5.2.16 (2025-05-11):
+- Fixed Playback bugs with Local Files
+
 Changelog v5.2.15 (2025-05-11):
 - Improved Last Played Matching
 - Playing Next Episode will be alot faster

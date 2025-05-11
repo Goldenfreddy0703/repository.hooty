@@ -170,6 +170,7 @@ class Resolver(BaseWindow):
             elif i['type'] == 'local':
                 stream_link = i['hash']
                 self.return_data = {
+                    'source': i,
                     'url': stream_link,
                     'local': True,
                     'headers': {}

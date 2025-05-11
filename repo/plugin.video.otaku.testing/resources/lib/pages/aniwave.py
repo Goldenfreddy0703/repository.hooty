@@ -163,6 +163,7 @@ class Sources(BrowserBase):
                                     headers.update({'Origin': self._BASE_URL[:-1]})
                                     res = self._get_request(srclink, headers=headers)
                                     quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
+                                    src_hdrs = {'User-Agent': 'iPad', 'Referer': urllib.parse.urljoin(srclink, '/')}
                                     for qual, qlink in quals:
                                         qual = int(qual)
                                         if qual <= 577:
@@ -173,10 +174,10 @@ class Sources(BrowserBase):
                                             quality = 3
                                         else:
                                             quality = 0
-
+                                        hlink = '{0}|{1}'.format(urllib.parse.urljoin(srclink, qlink), urllib.parse.urlencode(src_hdrs))
                                         source = {
                                             'release_title': '{0} - Ep {1}'.format(title, episode),
-                                            'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad',
+                                            'hash': hlink,
                                             'type': 'direct',
                                             'quality': quality,
                                             'debrid_provider': '',

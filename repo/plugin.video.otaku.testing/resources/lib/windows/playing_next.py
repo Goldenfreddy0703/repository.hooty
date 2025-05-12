@@ -47,7 +47,7 @@ class PlayingNext(BaseWindow):
     def handle_action(self, controlID):
         if controlID == 3001:   # playnext
             self.actioned = True
-            self.player.playnext()
+            self.player.seekTime(self.player.getTotalTime() - 5)
             self.close()
         if controlID == 3002:   # close
             self.actioned = True

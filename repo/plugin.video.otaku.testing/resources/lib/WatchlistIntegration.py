@@ -129,7 +129,7 @@ def CONTEXT_MENU(payload, params):
                     control.ok_dialog(heading, 'Unable to Set Score')
         else:
             set_status = set_watchlist_status(mal_id, status)
-            if set_status == 'watching':
+            if set_status in ['watching', 'current', 'CURRENT']:
                 control.ok_dialog(heading, 'This show is still airing, so we\'re keeping it in your "Watching" list and marked all aired episodes as watched.')
             elif set_status:
                 control.ok_dialog(heading, f'[I]{title}[/I]  was added to [B]{status}[/B]')

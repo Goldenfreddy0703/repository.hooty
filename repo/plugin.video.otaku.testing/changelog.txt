@@ -1,3 +1,7 @@
+Changelog v5.2.17 (2025-05-12):
+- Small Bug fix in Watchlist Manager
+- Playing Next Dialog button will seek to the end instead.
+
 Changelog v5.2.16 (2025-05-11):
 - Fixed Playback bugs with Local Files
 

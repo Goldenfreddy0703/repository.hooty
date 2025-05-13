@@ -240,6 +240,14 @@ class AniListWLF(WatchlistFlavorBase):
             pass
 
         try:
+            if res['trailer']['site'] == 'youtube':
+                info['trailer'] = f"plugin://plugin.video.youtube/play/?video_id={res['trailer']['id']}"
+            else:
+                info['trailer'] = f"plugin://plugin.video.dailymotion_com/?url={res['trailer']['id']}&mode=playVideo"
+        except TypeError:
+            pass
+        
+        try:
             info['rating'] = {'score': res.get('averageScore') / 10.0}
         except TypeError:
             pass

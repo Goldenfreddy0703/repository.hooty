@@ -3,7 +3,7 @@ import string
 import xbmc
 
 
-from resources.lib.ui import control
+from resources.lib.ui import control, client
 
 res = ['EQ', '480p', '720p', '1080p', '4k']
 
@@ -233,21 +233,26 @@ def get_size(size=0):
 
 
 def get_fuzzy_match(query, filenames):
-    import difflib
-    threshold_percent = control.getInt('general.fuzzy')
-    threshold = threshold_percent / 100.0
-    query_lower = query.lower()
-    filenames_lower = [f.lower() for f in filenames]
+    # import difflib
+    # threshold_percent = control.getInt('general.fuzzy')
+    # threshold = threshold_percent / 100.0
+    # query_lower = query.lower()
+    # filenames_lower = [f.lower() for f in filenames]
 
-    scored = []
-    for i, name in enumerate(filenames_lower):
-        ratio = difflib.SequenceMatcher(None, query_lower, name).ratio()
-        if ratio >= threshold:
-            scored.append((i, ratio))
+    # scored = []
+    # for i, name in enumerate(filenames_lower):
+    #     ratio = difflib.SequenceMatcher(None, query_lower, name).ratio()
+    #     if ratio >= threshold:
+    #         scored.append((i, ratio))
 
-    # Optional: sort by best match first
-    scored.sort(key=lambda x: x[1], reverse=True)
-    return [i for i, _ in scored]
+    # # Optional: sort by best match first
+    # scored.sort(key=lambda x: x[1], reverse=True)
+    # return [i for i, _ in scored]
+    import json
+    filenames_query = ','.join(filenames)
+    response = client.request('https://armkai.vercel.app/api/fuzzypacks', params={"dict": filenames_query, "match": query})
+    resp = json.loads(response) if response else []
+    return resp
 
 
 def get_best_match(dict_key, dictionary_list, episode, pack_select=False):

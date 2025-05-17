@@ -802,7 +802,7 @@
 						<heading>30187</heading>
 					</control>
 				</setting>
-				<setting id="general.fuzzy" type="integer" label="30323" help="30324">
+				<!-- <setting id="general.fuzzy" type="integer" label="30323" help="30324">
 					<level>0</level>
 					<default>40</default>
 					<constraints>
@@ -814,7 +814,7 @@
 						<popup>false</popup>
 						<heading>30323</heading>
 					</control>
-				</setting>
+				</setting> -->
 				<setting id="general.terminate.oncloud" type="boolean" label="30146" help="">
 					<level>0</level>
 					<default>false</default>

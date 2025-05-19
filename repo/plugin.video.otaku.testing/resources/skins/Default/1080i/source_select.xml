@@ -107,7 +107,7 @@
             <border>5</border>
             <texturefocus colordiffuse="77d3d3d3">white.png</texturefocus>
             <texturenofocus colordiffuse="AA2e2d32">white.png</texturenofocus>
-            <label>View Uncached</label>
+            <label>View Cached</label>
             <align>center</align>
             <ondown>1000</ondown>
         </control>

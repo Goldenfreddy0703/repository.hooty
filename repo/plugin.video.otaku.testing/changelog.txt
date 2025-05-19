@@ -1,3 +1,8 @@
+Changelog v5.2.20 (2025-05-19):
+- Decided to make Source Select Easier for Uncached
+- User will now see All Sources on Source Select
+- Added View Cached, Uncached, Embeds, Both to Source Select
+
 Changelog v5.2.19 (2025-05-17):
 - Removed Difflib and Fuzzy Matching
 

@@ -20,8 +20,10 @@ class SourceSelect(BaseWindow):
         self.canceled = False
         self.display_list = None
         self.stream_link = None
-
+        self.view_mode = 'both'  # Default view mode
         episode = actionArgs.get('episode')
+
+        # Set properties for the selected episode
         if episode:
             anime_init = OtakuBrowser.get_anime_init(actionArgs.get('mal_id'))
             episode = int(episode)
@@ -57,18 +59,30 @@ class SourceSelect(BaseWindow):
 
     def onInit(self):
         self.display_list = self.getControl(1000)
-        # Initially populate with only cached sources
-        cached_sources = [source for source in self.sources if source.get('cached') is not False]
-        if cached_sources:
-            self.populate_sources(cached_sources)
-            self.getControl(15).setLabel("View Uncached")
-            self.showing_uncached = False
-        else:
-            uncached_sources = [source for source in self.sources if source.get('cached') is False]
-            self.populate_sources(uncached_sources)
-            self.getControl(15).setLabel("View Cached")
-            self.showing_uncached = True
+        # build all four lists
+        cached = [s for s in self.sources if s.get('cached') is True]
+        uncached = [s for s in self.sources if s.get('cached') is False]
+        embeds = [s for s in self.sources if s.get('type') in ('embed', 'direct')]
+        both = list(self.sources)
+
+        # always start on “both”
+        self.view_mode = 'both'
+        self._show_current_sources(cached, both, uncached, embeds)
         self.setFocusId(1000)
+
+    def _show_current_sources(self, cached, both, uncached, embeds):
+        if self.view_mode == 'both':
+            items, label = both,     "View Cached"
+        elif self.view_mode == 'cached':
+            items, label = cached,   "View Uncached"
+        elif self.view_mode == 'uncached':
+            items, label = uncached, "View Embeds"
+        else:  # 'embeds'
+            items, label = embeds,   "View Both"
+
+        self.populate_sources(items)
+        # update the button label
+        self.getControl(15).setLabel(label)
 
     def populate_sources(self, sources):
         self.display_list.reset()
@@ -99,19 +113,19 @@ class SourceSelect(BaseWindow):
         control.log(f"Action handled: {action_id}")
 
     def onClick(self, controlId):
-        if controlId == 15:  # View Uncached button
-            if self.showing_uncached:
-                cached_sources = [source for source in self.sources if source.get('cached') is not False]
-                self.populate_sources(cached_sources)
-                self.getControl(15).setLabel("View Uncached")
-                self.showing_uncached = False
-            else:
-                uncached_sources = [source for source in self.sources if source.get('cached') is False]
-                self.populate_sources(uncached_sources)
-                self.getControl(15).setLabel("View Cached")
-                self.showing_uncached = True
+        if controlId == 15:  # cycle views
+            sequence = ['both', 'cached', 'uncached', 'embeds']
+            idx = sequence.index(self.view_mode)
+            self.view_mode = sequence[(idx + 1) % len(sequence)]
+
+            # rebuild the four lists and refresh
+            cached = [s for s in self.sources if s.get('cached') is True]
+            uncached = [s for s in self.sources if s.get('cached') is False]
+            embeds = [s for s in self.sources if s.get('type') in ('embed', 'direct')]
+            both = list(self.sources)
+            self._show_current_sources(cached, both, uncached, embeds)
+
         elif controlId == 1000:
-            # No need to call handle_action(7) here since onAction already handles it
             pass
 
     def onAction(self, action):

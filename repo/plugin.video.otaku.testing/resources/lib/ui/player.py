@@ -225,8 +225,6 @@ class WatchlistPlayer(player):
             self.current_time = int(self.getTime())
             xbmc.sleep(5000)
 
-        control.closeAllDialogs()
-
     def setup_audio_and_subtitles(self):
         """Handle audio and subtitle setup"""
         # This contains your existing audio/subtitle setup code from keepAlive

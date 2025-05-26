@@ -1,3 +1,7 @@
+Changelog v5.2.21 (2025-05-25):
+- Fixed annoying bug with playing next
+- Huge Thanks to Joezito129 for finding annoying bug
+
 Changelog v5.2.20 (2025-05-19):
 - Decided to make Source Select Easier for Uncached
 - User will now see All Sources on Source Select

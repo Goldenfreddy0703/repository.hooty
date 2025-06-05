@@ -1419,15 +1419,51 @@ def PLAY_MOVIE(payload, params):
 
 
 @Route('marked_as_watched/*')
+@Route('marked_as_watched_tv_show/*')
+@Route('marked_as_watched_movie/*')
+@Route('marked_as_watched_tv_short/*')
+@Route('marked_as_watched_special/*')
+@Route('marked_as_watched_ova/*')
+@Route('marked_as_watched_ona/*')
+@Route('marked_as_watched_music/*')
 def MARKED_AS_WATCHED(payload, params):
     from resources.lib.WatchlistFlavor import WatchlistFlavor
-    from resources.lib.WatchlistIntegration import watchlist_update_episode
+    from resources.lib.WatchlistIntegration import watchlist_update_episode, set_watchlist_status
+    import service
 
-    mal_id, episode = payload.rsplit("/")
+    payload_list = payload.split("/")
+    if len(payload_list) == 2 and payload_list[1]:
+        mal_id, episode = payload_list
+    else:
+        mal_id = payload_list[0] if payload_list else ""
+        episode = 1
+
+    show = database.get_show(mal_id)
+    if show:
+        kodi_meta = pickle.loads(show['kodi_meta'])
+        status = kodi_meta.get('status')
+        episodes = kodi_meta.get('episodes')
+        title = kodi_meta.get('title_userPreferred')
+        if episode == episodes:
+            if status in ['Finished Airing', 'FINISHED']:
+                set_watchlist_status(mal_id, 'completed')
+                set_watchlist_status(mal_id, 'COMPLETED')
+                control.sleep(3000)
+                service.sync_watchlist(True)
+        else:
+            set_watchlist_status(mal_id, 'watching')
+            set_watchlist_status(mal_id, 'current')
+            set_watchlist_status(mal_id, 'CURRENT')
+            control.sleep(3000)
+            service.sync_watchlist(True)
+
     flavor = WatchlistFlavor.get_update_flavor()
     watchlist_update_episode(mal_id, episode)
-    control.notify(control.ADDON_NAME, f'Episode #{episode} was Marked as Watched in {flavor.flavor_name}')
-    control.execute(f'ActivateWindow(Videos,plugin://{control.ADDON_ID}/watchlist_to_ep/{mal_id}/{episode})')
+    if len(payload_list) == 2 and payload_list[1]:
+        control.notify(control.ADDON_NAME, f'Episode #{episode} was Marked as Watched in {flavor.flavor_name}')
+        control.execute(f'ActivateWindow(Videos,plugin://{control.ADDON_ID}/watchlist_to_ep/{mal_id}/{episode})')
+    else:
+        control.notify(control.ADDON_NAME, f'{title} was Marked as Watched in {flavor.flavor_name}')
     control.exit_code()
 
 

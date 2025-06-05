@@ -1,3 +1,6 @@
+Changelog v5.2.22 (2025-06-05):
+- Fixed Marked as Watched Context for all Animes
+
 Changelog v5.2.21 (2025-05-25):
 - Fixed annoying bug with playing next
 - Huge Thanks to Joezito129 for finding annoying bug

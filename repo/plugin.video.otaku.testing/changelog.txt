@@ -1,3 +1,6 @@
+Changelog v5.2.23 (2025-06-11):
+- Fixed Animixplay
+
 Changelog v5.2.22 (2025-06-05):
 - Fixed Marked as Watched Context for all Animes
 

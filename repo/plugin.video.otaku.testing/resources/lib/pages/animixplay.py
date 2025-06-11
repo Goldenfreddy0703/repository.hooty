@@ -1,4 +1,3 @@
-import base64
 import itertools
 import json
 import pickle
@@ -71,31 +70,41 @@ class Sources(BrowserBase):
             eplist = json.loads(eplist.group(1).strip())
             ep = str(int(episode) - 1)
             if ep in eplist.keys():
-                referer = 'https://bunnycdn.to/'
-                esurl = "https://bunnycdn.to/api/play_int?id=cW9" + (base64.b64encode((eplist.get(ep).split('id=')[-1] + "LTXs3GrU8we9O").encode('latin-1'))).decode('latin-1')
-                epage = database.get(client.request, 8, esurl, referer=self._BASE_URL)
-                src = re.search(r'<source.+?src="([^"]+)', epage)
-                if src:
-                    # embeds_list = self.embeds()
-                    # if 'bunny' in embeds_list:
-                    #     server = 'bunny'
-                    server = 'bunny'
-                    source = {
-                        'release_title': '{0} Ep{1}'.format(title, episode),
-                        'hash': src.group(1) + '|Referer={0}&Origin={1}&User-Agent=iPad'.format(referer, referer[:-1]),
-                        'type': 'direct',
-                        'quality': 2,
-                        'debrid_provider': '',
-                        'provider': 'animix',
-                        'size': 'NA',
-                        'seeders': 0,
-                        'byte_size': 0,
-                        'info': [server + (' SUB' if lang == 2 else ' DUB')],
-                        'lang': lang,
-                        'channel': 3,
-                        'sub': 1
-                    }
-
-                    sources.append(source)
+                playbunny = 'https://play.bunnycdn.to/'
+                esurl = '{0}hs/{1}'.format(playbunny, eplist.get(ep).split('/')[-1])
+                epage = database.get(client.request, 8, esurl, referer=playbunny)
+                ep_id = re.search(r'<div\s*id="mg-player"\s*data-id="([^"]+)', epage)
+                if ep_id:
+                    ep_url = '{0}hs/getSources?id={1}'.format(playbunny, ep_id.group(1))
+                    ep_src = database.get(client.request, 8, ep_url, referer=playbunny)
+                    try:
+                        ep_src = json.loads(ep_src)
+                    except:
+                        return sources
+                    src = ep_src.get('sources')
+                    if src:
+                        server = 'bunny'
+                        skip = {}
+                        if ep_src.get('intro'):
+                            skip['intro'] = ep_src.get('intro')
+                        if ep_src.get('outro'):
+                            skip['outro'] = ep_src.get('outro')
+                        source = {
+                            'release_title': '{0} Ep{1}'.format(title, episode),
+                            'hash': src + '|Referer={0}&Origin={1}&User-Agent=iPad'.format(playbunny, playbunny[:-1]),
+                            'type': 'direct',
+                            'quality': 2,
+                            'debrid_provider': '',
+                            'provider': 'animix',
+                            'size': 'NA',
+                            'seeders': 0,
+                            'byte_size': 0,
+                            'info': [server + (' SUB' if lang == 2 else ' DUB')],
+                            'lang': lang,
+                            'channel': 3,
+                            'sub': 1,
+                            'skip': skip
+                        }
+                        sources.append(source)
 
         return sources

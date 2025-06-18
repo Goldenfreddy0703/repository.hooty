@@ -10,8 +10,8 @@ from resources.lib.endpoints import malsync
 
 
 class Sources(BrowserBase):
-    _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianimez.to/'
-    _MEGA_URL = 'https://mega-embed-2.vercel.app/'
+    _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianime.to/'
+    _KEY_URL = 'https://megacloud.blog/js/player/a/v2/pro/embed-1.min.js?v={0}'
 
     def get_sources(self, mal_id, episode):
         show = database.get_show(mal_id)
@@ -132,15 +132,18 @@ class Sources(BrowserBase):
                             sources.append(source)
                         else:
                             srclink = False
-                            params = {'url': slink, 'referer': self._BASE_URL}
-
-                            if control.getBool('ms_enable'):
-                                ms_url = control.getSetting('ms_url')
-                                mcs_url = urllib.parse.urljoin(ms_url, '/get')
-                            else:
-                                mcs_url = urllib.parse.urljoin(self._MEGA_URL, '/get')
-
-                            res = self._get_request(mcs_url, data=params)
+                            headers = {'Referer': slink}
+                            sl = urllib.parse.urlparse(slink)
+                            spath = sl.path.split('/')
+                            sid = spath.pop(-1)
+                            eurl = '{}://{}{}/getSources'.format(sl.scheme, sl.netloc, '/'.join(spath))
+                            params = {'id': sid}
+                            res = self._get_request(
+                                eurl,
+                                data=params,
+                                headers=headers,
+                                XHR=True
+                            )
                             res = json.loads(res)
                             subs = res.get('tracks')
                             if subs:
@@ -160,23 +163,42 @@ class Sources(BrowserBase):
                             headers = {'Referer': netloc, 'Origin': netloc[:-1]}
                             res = self._get_request(srclink, headers=headers)
                             quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
+                            if quals:
+                                for qual, qlink in quals:
+                                    qual = int(qual)
+                                    if qual <= 480:
+                                        quality = 1
+                                    elif qual <= 720:
+                                        quality = 2
+                                    elif qual <= 1080:
+                                        quality = 3
+                                    else:
+                                        quality = 0
 
-                            for qual, qlink in quals:
-                                qual = int(qual)
-                                if qual <= 480:
-                                    quality = 1
-                                elif qual <= 720:
-                                    quality = 2
-                                elif qual <= 1080:
-                                    quality = 3
-                                else:
-                                    quality = 0
-
+                                    source = {
+                                        'release_title': '{0} - Ep {1}'.format(title, episode),
+                                        'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
+                                        'type': 'direct',
+                                        'quality': quality,
+                                        'debrid_provider': '',
+                                        'provider': 'h!anime',
+                                        'size': 'NA',
+                                        'seeders': 0,
+                                        'byte_size': 0,
+                                        'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                        'lang': 3 if lang == 'dub' else 2,
+                                        'channel': 3,
+                                        'sub': 1,
+                                        'subs': subs,
+                                        'skip': skip
+                                    }
+                                    sources.append(source)
+                            else:
                                 source = {
                                     'release_title': '{0} - Ep {1}'.format(title, episode),
-                                    'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
+                                    'hash': srclink + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
                                     'type': 'direct',
-                                    'quality': quality,
+                                    'quality': 0,
                                     'debrid_provider': '',
                                     'provider': 'h!anime',
                                     'size': 'NA',
@@ -191,3 +213,53 @@ class Sources(BrowserBase):
                                 }
                                 sources.append(source)
         return sources
+
+    def _process_link(self, sources):
+        from hashlib import md5
+        from resources.lib.ui import pyaes
+        import base64
+
+        def evp_bytes_to_key(password, salt, key_len, iv_len):
+            d = d_i = b''
+            while len(d) < key_len + iv_len:
+                d_i = md5(d_i + password + salt).digest()
+                d += d_i
+            return d[:key_len], d[key_len:key_len + iv_len]
+
+        def decrypt_aes_cbc_openssl(encrypted_base64, passphrase):
+            encrypted_data = base64.b64decode(encrypted_base64)
+            # OpenSSL format: Salted__ + 8-byte salt + ciphertext
+            assert encrypted_data[:8] == b'Salted__'
+            salt = encrypted_data[8:16]
+            ciphertext = encrypted_data[16:]
+            key, iv = evp_bytes_to_key(passphrase.encode('utf-8'), salt, key_len=32, iv_len=16)
+            decrypter = pyaes.Decrypter(pyaes.AESModeOfOperationCBC(key, iv))
+            plain_text = decrypter.feed(ciphertext)
+            plain_text += decrypter.feed()
+            return json.loads(plain_text.decode('utf-8'))
+
+        secret = database.get(self.mega_secret, 1)
+        if secret:
+            jd = decrypt_aes_cbc_openssl(sources, secret)
+            return jd[0].get('file')
+
+        control.log('decryption key not working')
+        database.remove(self.mega_secret)
+        return ''
+
+    def mega_secret(self):
+        # (c) 2025 Ciarands
+        import time
+        timestamp = int(time.time())
+        key_url = self._KEY_URL.format(timestamp)
+        data = self._get_request(key_url)
+        x = re.search(r"return \"([^\"]+)\"", data)
+        if x:
+            xor_data = urllib.parse.unquote(x.group(1))
+            xor_key = re.findall(r"\('([^']+)'\)", data)[0]
+            decrypted_string = ""
+            for i, char in enumerate(xor_data):
+                decrypted_string += chr(ord(char) ^ ord(xor_key[i % len(xor_key)]))
+            k = re.search(r"([a-f0-9]{52}).*?&([a-f0-9]{6})&.*?&([a-f0-9]{6})&", decrypted_string)
+            if k:
+                return k.group(3) + k.group(2) + k.group(1)

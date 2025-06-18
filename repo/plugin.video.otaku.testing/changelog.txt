@@ -1,3 +1,6 @@
+Changelog v5.2.24 (2025-06-18):
+- Updated embed extractor
+
 Changelog v5.2.23 (2025-06-11):
 - Fixed Animixplay
 

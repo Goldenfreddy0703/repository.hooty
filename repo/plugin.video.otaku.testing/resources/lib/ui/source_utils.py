@@ -343,7 +343,7 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
             title = torrent['filename'].lower()
         else:
             title = torrent['name'].lower()
-        
+
         # Clean the title for extraction
         clean_title = clean_text(title)
 
@@ -354,7 +354,7 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
             for group in match:
                 if group:
                     extracted_parts.append(group)
-        
+
         # Extract seasons
         season_matches = regex_season.findall(title)
         extracted_seasons = None
@@ -426,7 +426,7 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
 
         # Determine if we have any metadata to filter by
         has_info = bool(extracted_episode or extracted_seasons or extracted_parts)
-        
+
         # For the inverted filter, torrents with no info are immediately added.
         if not has_info:
             filtered.append(torrent)
@@ -467,7 +467,7 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
                     season_nums.append(int(s.strip()))
                 except (ValueError, TypeError):
                     pass
-                    
+
             if season_nums:
                 try:
                     req_season = int(season)
@@ -484,7 +484,7 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
                     part_nums.append(int(p))
                 except (ValueError, TypeError):
                     pass
-                    
+
             if part_nums:
                 try:
                     req_part = int(part)

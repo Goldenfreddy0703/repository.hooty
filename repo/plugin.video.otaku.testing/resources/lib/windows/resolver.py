@@ -87,7 +87,7 @@ class Resolver(BaseWindow):
             # 1) Precompute all offsets where exactly L digits occur in a row
             digit_positions = [
                 i for i in range(len(lp) - L + 1)
-                if lp[i:i+L].isdigit()
+                if lp[i:i + L].isdigit()
             ]
 
             for idx, source in enumerate(sources):
@@ -111,7 +111,7 @@ class Resolver(BaseWindow):
 
                     # 3) try each digit-run position
                     for pos in digit_positions:
-                        if rel.startswith(lp[:pos]) and rel.endswith(lp[pos+L:]):
+                        if rel.startswith(lp[:pos]) and rel.endswith(lp[pos + L:]):
                             sources[0], sources[idx] = sources[idx], sources[0]
                             idx = None
                             break

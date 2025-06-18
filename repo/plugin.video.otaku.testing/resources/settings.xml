@@ -692,7 +692,7 @@
 			<group id="2" label="30133" help="">
 				<setting id="embed.config" type="list[string]" label="30391" help="">
 					<level>0</level>
-					<default>doodstream,filelions,filemoon,hd-1,hd-2,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</default>
+					<default>doodstream,filelions,filemoon,hd-1,hd-2,hd-3,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</default>
 					<constraints>
 						<options sort="ascending">
 							<option>doodstream</option>
@@ -700,6 +700,7 @@
 							<option>filemoon</option>
 							<option>hd-1</option>
 							<option>hd-2</option>
+							<option>hd-3</option>
 							<option>iga</option>
 							<option>kwik</option>
 							<option>megaf</option>

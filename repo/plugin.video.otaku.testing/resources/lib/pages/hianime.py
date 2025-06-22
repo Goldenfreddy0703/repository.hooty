@@ -240,26 +240,21 @@ class Sources(BrowserBase):
 
         secret = database.get(self.mega_secret, 1)
         if secret:
-            jd = decrypt_aes_cbc_openssl(sources, secret)
-            return jd[0].get('file')
-
-        control.log('decryption key not working')
-        database.remove(self.mega_secret)
+            try:
+                jd = decrypt_aes_cbc_openssl(sources, secret)
+                return jd[0].get('file')
+            except UnicodeDecodeError:
+                control.log('decryption key not working')
+                database.remove(self.mega_secret)
         return ''
 
     def mega_secret(self):
-        # (c) 2025 Ciarands
-        import time
-        timestamp = int(time.time())
-        key_url = self._KEY_URL.format(timestamp)
-        data = self._get_request(key_url)
-        x = re.search(r"return \"([^\"]+)\"", data)
-        if x:
-            xor_data = urllib.parse.unquote(x.group(1))
-            xor_key = re.findall(r"\('([^']+)'\)", data)[0]
-            decrypted_string = ""
-            for i, char in enumerate(xor_data):
-                decrypted_string += chr(ord(char) ^ ord(xor_key[i % len(xor_key)]))
-            k = re.search(r"([a-f0-9]{52}).*?&([a-f0-9]{6})&.*?&([a-f0-9]{6})&", decrypted_string)
-            if k:
-                return k.group(3) + k.group(2) + k.group(1)
+        api_url = 'https://api.github.com/repos/'
+        repo_path = 'yogesh-hacker/MegacloudKeys/'
+        data_url = 'https://raw.githubusercontent.com/'
+        commits = 'commits?path='
+        file_path = '/keys.json'
+        r = json.loads(self._get_request(api_url + repo_path + commits + file_path[1:] + '&per_page=5'))
+        cid = r[0].get('sha')
+        res = json.loads(self._get_request(data_url + repo_path + cid + file_path))
+        return res.get('mega')

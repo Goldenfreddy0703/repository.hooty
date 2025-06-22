@@ -40,6 +40,22 @@ def get(function, duration, *args, **kwargs):
     return data
 
 
+def remove(function, *args, **kwargs):
+    # type: (function, object) -> object or None
+    """
+    Removes cached value for provided function with optional arguments
+    :param function: Function results to be deleted from cache
+    :param args: Optional arguments for the provided function
+    """
+    try:
+        key = hash_function(function, args, kwargs)
+        cache_remove(key)
+        return True
+
+    except Exception:
+        return False
+
+
 def hash_function(function_instance, *args):
     function_name = re.sub(r'.+\smethod\s|.+function\s|\sat\s.+|\sof\s.+', '', repr(function_instance))
     return function_name + generate_md5(args)
@@ -65,6 +81,13 @@ def cache_insert(key, value):
         cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_cache ON cache (key)')
         cursor.execute('REPLACE INTO cache (key, value, date) VALUES (?, ?, ?)', (key, value, now))
         cursor.connection.commit()
+
+
+def cache_remove(key):
+    with SQL(control.cacheFile) as cursor:
+        cursor.execute('DELETE FROM cache WHERE key = ?', (key,))
+        cursor.connection.commit()
+        cursor.close()
 
 
 def cache_clear():
@@ -256,7 +279,7 @@ def clearSearchHistory():
 
 
 def clearSearchCatagory(media_type):
-    confirmation = control.yesno_dialog(control.ADDON_NAME, f"Clear search history?")
+    confirmation = control.yesno_dialog(control.ADDON_NAME, "Clear search history?")
     if not confirmation:
         return
     with SQL(control.searchHistoryDB) as cursor:

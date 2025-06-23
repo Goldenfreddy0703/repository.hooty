@@ -1,3 +1,6 @@
+Changelog v5.2.25 (2025-06-22):
+- Updated embed extractor again
+
 Changelog v5.2.24 (2025-06-18):
 - Updated embed extractor
 

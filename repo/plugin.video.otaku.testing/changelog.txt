@@ -1,3 +1,6 @@
+Changelog v5.2.26 (2025-06-26):
+- Fix MAL token refresh
+
 Changelog v5.2.25 (2025-06-22):
 - Updated embed extractor again
 

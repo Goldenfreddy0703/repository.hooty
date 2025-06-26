@@ -68,7 +68,7 @@ class MyAnimeListWLF(WatchlistFlavorBase):
             'grant_type': 'refresh_token',
             'refresh_token': control.getSetting('mal.refresh')
         }
-        r = client.request(oauth_url, post=data, jpost=True)
+        r = client.request(oauth_url, post=data)
         if not r:
             return
         res = json.loads(r)

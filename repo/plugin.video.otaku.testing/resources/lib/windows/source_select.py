@@ -72,13 +72,13 @@ class SourceSelect(BaseWindow):
 
     def _show_current_sources(self, cached, both, uncached, embeds):
         if self.view_mode == 'both':
-            items, label = both,     "View Cached"
+            items, label = both, "View Cached"
         elif self.view_mode == 'cached':
-            items, label = cached,   "View Uncached"
+            items, label = cached, "View Uncached"
         elif self.view_mode == 'uncached':
             items, label = uncached, "View Embeds"
         else:  # 'embeds'
-            items, label = embeds,   "View Both"
+            items, label = embeds, "View Both"
 
         self.populate_sources(items)
         # update the button label

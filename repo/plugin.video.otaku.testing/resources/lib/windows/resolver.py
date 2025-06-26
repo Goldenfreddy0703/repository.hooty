@@ -292,9 +292,12 @@ class Resolver(BaseWindow):
         if linkInfo[1] not in ['200', '201']:
             raise Exception('could not resolve %s. status_code=%s' %
                             (link, linkInfo[1]))
+        resp_headers = linkInfo[2]
+        if 'Content-Type' not in resp_headers.keys():
+            resp_headers.update({'Content-Type': 'video/MP2T'})
         return {
             "url": link if '|' in link else linkInfo[5],
-            "headers": linkInfo[2],
+            "headers": resp_headers,
         }
 
     def resolve_uncache(self, source):

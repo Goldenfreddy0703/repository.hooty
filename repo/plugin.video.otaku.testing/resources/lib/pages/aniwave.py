@@ -150,7 +150,7 @@ class Sources(BrowserBase):
                                 if outro:
                                     skip.update({'outro': {'start': outro[0], 'end': outro[1]}})
                             slink = self.decrypt_vrf(resp.get('url'))
-                            if self._BASE_URL in slink:
+                            if 'aniwave.' in slink:
                                 sresp = self.__extract_aniwave(slink)
                                 if sresp:
                                     if isinstance(sresp, dict):

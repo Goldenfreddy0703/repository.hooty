@@ -1,3 +1,6 @@
+Changelog v5.2.29 (2025-07-03):
+- Added Subtitle Type Settings
+
 Changelog v5.2.28 (2025-06-27):
 - Updated embed extractor
 

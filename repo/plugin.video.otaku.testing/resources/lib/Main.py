@@ -3243,6 +3243,8 @@ def SETUP_WIZARD(payload, params):
     if choice == 1:
         control.setSetting('general.audio', '0')
         control.setSetting('general.subtitles', '1')
+        control.setSetting('general.subtitles.type', 'true')
+        control.setSetting('subtitles.type', '1')
         control.setSetting('general.subtitles.keyword', 'true')
         control.setSetting('subtitles.keywords', '1')
         control.setSetting('general.dubsubtitles', 'false')
@@ -3255,6 +3257,8 @@ def SETUP_WIZARD(payload, params):
     elif choice == 0:
         control.setSetting('general.audio', '1')
         control.setSetting('general.subtitles', '0')
+        control.setSetting('general.subtitles.type', 'true')
+        control.setSetting('subtitles.types', '1')
         control.setSetting('general.subtitles.keyword', 'true')
         control.setSetting('subtitles.keywords', '2')
         control.setSetting('general.dubsubtitles', 'false')
@@ -3277,6 +3281,7 @@ def SETUP_WIZARD(payload, params):
         if choice == 1:
             control.setSetting('general.dubsubtitles', 'true')
             control.setSetting('general.subtitles', '1')
+            control.setSetting('subtitles.types', '1')
             control.setSetting('subtitles.keywords', '1')
 
 

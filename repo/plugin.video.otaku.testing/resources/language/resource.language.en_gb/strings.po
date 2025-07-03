@@ -1672,3 +1672,23 @@ msgstr ""
 msgctxt "#30418"
 msgid "Run Setup Wizard"
 msgstr ""
+
+msgctxt "#30419"
+msgid "Enable Subtitle Types for Streams"
+msgstr ""
+
+msgctxt "#30420"
+msgid "Subtitle Types"
+msgstr ""
+
+msgctxt "#30421"
+msgid "Default Subtitles"
+msgstr ""
+
+msgctxt "#30422"
+msgid "Forced Subtitles"
+msgstr ""
+
+msgctxt "#30423"
+msgid "Hearing Impaired Subtitles"
+msgstr ""

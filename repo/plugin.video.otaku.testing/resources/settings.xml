@@ -593,6 +593,7 @@
 							<option label="Arctic Fuse">3</option>
 							<option label="Arctic Fuse 2">4</option>
 							<option label="Arctic Zephyr - Reloaded">5</option>
+							<option label="Titan Bingie Mod">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>

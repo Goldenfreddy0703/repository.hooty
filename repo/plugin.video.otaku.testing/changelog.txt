@@ -1,3 +1,6 @@
+Changelog v5.2.31 (2025-07-05):
+- Fixed TorBox Links
+
 Changelog v5.2.30 (2025-07-05):
 - Added Tb Theme Support
 

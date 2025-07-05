@@ -467,7 +467,8 @@ class PlayerDialogs(xbmc.Player):
                 '2': 'skip_outro_auramod.xml',
                 '3': 'skip_outro_af.xml',
                 '4': 'skip_outro_af2.xml',
-                '5': 'skip_outro_az.xml'
+                '5': 'skip_outro_az.xml',
+                '6': 'skip_outro_tb.xml'
             }
 
             setting_value = control.getSetting('general.dialog')
@@ -483,7 +484,8 @@ class PlayerDialogs(xbmc.Player):
                 '2': 'playing_next_auramod.xml',
                 '3': 'playing_next_af.xml',
                 '4': 'playing_next_af2.xml',
-                '5': 'playing_next_az.xml'
+                '5': 'playing_next_az.xml',
+                '6': 'playing_next_tb.xml'
             }
 
             setting_value = control.getSetting('general.dialog')
@@ -508,7 +510,8 @@ class PlayerDialogs(xbmc.Player):
             '2': 'skip_intro_auramod.xml',
             '3': 'skip_intro_af.xml',
             '4': 'skip_intro_af2.xml',
-            '5': 'skip_intro_az.xml'
+            '5': 'skip_intro_az.xml',
+            '6': 'skip_intro_tb.xml'
         }
 
         setting_value = control.getSetting('general.dialog')

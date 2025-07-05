@@ -8,8 +8,8 @@ from resources.lib.windows import sort_select
 
 
 def getSourcesHelper(actionArgs):
-    if control.getSetting('general.dialog') == '5':
-        sources_window = Sources('get_sources_az.xml', control.ADDON_PATH, actionArgs=actionArgs)
+    if control.getInt('general.dialog') in (5, 6):
+        sources_window = Sources('get_sources_alt.xml', control.ADDON_PATH, actionArgs=actionArgs)
     else:
         sources_window = Sources('get_sources.xml', control.ADDON_PATH, actionArgs=actionArgs)
     sources = sources_window.doModal()

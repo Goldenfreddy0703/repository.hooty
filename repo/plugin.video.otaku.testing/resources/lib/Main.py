@@ -1373,14 +1373,14 @@ def PLAY(payload, params):
     _mock_args = {"mal_id": mal_id, "episode": episode, 'play': True, 'resume': resume, 'context': rescrape or source_select, 'params': params}
     if control.getSetting('general.playstyle.episode') == '1' or source_select or rescrape:
         from resources.lib.windows.source_select import SourceSelect
-        if control.getSetting('general.dialog') == '5':
-            SourceSelect('source_select_az.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+        if control.getInt('general.dialog') in (5, 6):
+            SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
         else:
             SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
     else:
         from resources.lib.windows.resolver import Resolver
-        if control.getSetting('general.dialog') == '5':
-            Resolver('resolver_az.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+        if control.getInt('general.dialog') in (5, 6):
+            Resolver('resolver_alt.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
         else:
             Resolver('resolver.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
     control.exit_code()
@@ -1405,14 +1405,14 @@ def PLAY_MOVIE(payload, params):
     _mock_args = {'mal_id': mal_id, 'play': True, 'resume': resume, 'context': rescrape or source_select, 'params': params}
     if control.getSetting('general.playstyle.movie') == '1' or source_select or rescrape:
         from resources.lib.windows.source_select import SourceSelect
-        if control.getSetting('general.dialog') == '5':
-            SourceSelect('source_select_az.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+        if control.getInt('general.dialog') in (5, 6):
+            SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
         else:
             SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
     else:
         from resources.lib.windows.resolver import Resolver
-        if control.getSetting('general.dialog') == '5':
-            Resolver('resolver_az.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+        if control.getInt('general.dialog') in (5, 6):
+            Resolver('resolver_alt.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
         else:
             Resolver('resolver.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
     control.exit_code()

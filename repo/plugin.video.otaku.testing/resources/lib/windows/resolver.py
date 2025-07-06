@@ -293,9 +293,11 @@ class Resolver(BaseWindow):
             raise Exception('could not resolve %s. status_code=%s' %
                             (link, linkInfo[1]))
         resp_headers = linkInfo[2]
-        if 'Content-Type' not in resp_headers.keys() or '.m3u8' in link:
+        if 'Content-Type' not in resp_headers.keys():
             if 'Content-Length' not in resp_headers.keys():
                 resp_headers.update({'Content-Type': 'video/MP2T'})
+        elif resp_headers['Content-Type'] == 'application/octet-stream' and '.m3u8' in url:
+            resp_headers.update({'Content-Type': 'video/MP2T'})
         return {
             "url": link if '|' in link else linkInfo[5],
             "headers": resp_headers,

@@ -111,8 +111,22 @@ class WatchlistPlayer(player):
 
         video_data = indexers.process_episodes(episodes, '') if episodes else []
         playlist = control.bulk_dir_list(video_data, True)[self.episode:]
-        for i in playlist:
-            control.playList.add(url=i[0], listitem=i[1])
+
+        for i, item in enumerate(playlist):
+            url, listitem = item[0], item[1]
+
+            # Calculate the actual episode number based on playlist position
+            actual_episode_number = self.episode + i + 1
+            payload = f"{self.mal_id}/{actual_episode_number}"
+
+            # Add context menu with correct episode number
+            context_menu = [
+                ('Playback Options', f'RunPlugin(plugin://{control.ADDON_ID}/playback_options/{payload})'),
+                ('Marked as Watched [COLOR blue]WatchList[/COLOR]', f'RunPlugin(plugin://{control.ADDON_ID}/marked_as_watched/{payload})')
+            ]
+            listitem.addContextMenuItems(context_menu)
+
+            control.playList.add(url=url, listitem=listitem)
 
     def getWatchedPercent(self):
         return (self.current_time / self.total_time) * 100 if self.total_time != 0 else 0

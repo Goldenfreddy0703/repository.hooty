@@ -3125,6 +3125,104 @@ def TRAKT_SCRIPT(payload, params):
         xbmc.executebuiltin('InstallAddon(script.trakt)')
 
 
+@Route('playback_options/*')
+def PLAYBACK_OPTIONS(payload, params):
+    import xbmcgui
+    from urllib.parse import urlencode
+    control.print(f"Playback Options called with payload: {payload}")
+
+    # Parse the payload to get mal_id and episode
+    if payload and '/' in payload:
+        mal_id, episode = payload.split('/', 1)
+    else:
+        control.log('Invalid payload format', 'error')
+        return control.exit_code()
+
+    # Get show information from database to build params
+    show = database.get_show(mal_id)
+    if show:
+        kodi_meta = pickle.loads(show['kodi_meta'])
+
+        # Build params similar to what get_video_info would return
+        episode_params = {
+            'mal_id': mal_id,
+            'episode': episode,
+            'title': kodi_meta.get('title_userPreferred', ''),
+            'mediatype': 'episode',
+            'tvshowtitle': kodi_meta.get('title_userPreferred', ''),
+            'plot': kodi_meta.get('plot', ''),
+            'year': str(kodi_meta.get('year', '')),
+            'premiered': kodi_meta.get('premiered', ''),
+            'season': str(kodi_meta.get('season', 1)),
+            'aired': kodi_meta.get('aired', ''),
+            'rating': kodi_meta.get('rating', {}),
+            'resume': params.get('resume', ''),
+            # Artwork
+            'poster': kodi_meta.get('poster', ''),
+            'tvshow.poster': kodi_meta.get('poster', ''),
+            'icon': kodi_meta.get('poster', ''),
+            'thumb': kodi_meta.get('thumb', ''),
+            'fanart': kodi_meta.get('fanart', ''),
+            'landscape': kodi_meta.get('landscape', ''),
+            'banner': kodi_meta.get('banner', ''),
+            'clearart': kodi_meta.get('clearart', ''),
+            'clearlogo': kodi_meta.get('clearlogo', '')
+        }
+    else:
+        # Fallback params if show not found in database
+        episode_params = {
+            'mal_id': mal_id,
+            'episode': episode,
+            'title': '',
+            'mediatype': 'episode',
+            'tvshowtitle': '',
+            'plot': '',
+            'year': '',
+            'premiered': '',
+            'season': '1',
+            'aired': '',
+            'rating': {},
+            'resume': params.get('resume', ''),
+            # Artwork
+            'poster': '',
+            'tvshow.poster': '',
+            'icon': '',
+            'thumb': '',
+            'fanart': '',
+            'landscape': '',
+            'banner': '',
+            'clearart': '',
+            'clearlogo': ''
+        }
+
+
+    # Ask the user which playback option they want to use
+    # Here the button labels are:
+    # Button 0: "Cancel"   | Button 1: "Rescrape" | Button 2: "Source Select"
+    yesnocustom = control.yesnocustom_dialog(
+        control.ADDON_NAME + " - Playback Options",
+        "Please choose a playback option:",
+        "Cancel", "Source Select", "Rescrape",
+        defaultbutton=xbmcgui.DLG_YESNO_YES_BTN
+    )
+
+    if yesnocustom == 0:
+        # Redirect to play route with source_select parameter
+        query_params = urlencode({'source_select': 'true', **episode_params})
+        control.execute(f'RunPlugin(plugin://{control.ADDON_ID}/play/{mal_id}/{episode}?{query_params})')
+
+    elif yesnocustom == 1:
+        # Redirect to play route with rescrape parameter
+        query_params = urlencode({'rescrape': 'true', **episode_params})
+        control.execute(f'RunPlugin(plugin://{control.ADDON_ID}/play/{mal_id}/{episode}?{query_params})')
+
+    elif yesnocustom == 2:
+        # User cancelled, exit without doing anything
+        pass
+
+    control.exit_code()
+
+
 @Route('setup_wizard')
 def SETUP_WIZARD(payload, params):
     from resources.lib.windows.sort_select import SortSelect

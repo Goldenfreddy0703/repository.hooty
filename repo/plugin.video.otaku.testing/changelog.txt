@@ -1,3 +1,6 @@
+Changelog v5.2.32 (2025-07-09):
+- Added Playback Context Menu in Playlist
+
 Changelog v5.2.31 (2025-07-05):
 - Fixed TorBox Links
 

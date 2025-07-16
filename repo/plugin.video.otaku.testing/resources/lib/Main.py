@@ -1468,7 +1468,7 @@ def PLAY(payload, params):
         # Check if the same series is already being watched
         if last_watched == mal_id:
             # If the same series is being watched, check if the last played source is available
-            if last_played == "" or source_select or rescrape:
+            if last_played == "None" or source_select or rescrape:
                 from resources.lib.windows.source_select import SourceSelect
                 if control.getInt('general.dialog') in (5, 6):
                     SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
@@ -3075,7 +3075,7 @@ def SOLVER_INST(payload, params):
 
 @Route('clear_cache')
 def CLEAR_CACHE(payload, params):
-    control.setSetting('last_played_source', None)
+    control.setSetting('last_played_source', str(None))
     database.cache_clear()
 
 

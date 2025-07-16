@@ -78,6 +78,15 @@ class WatchlistFlavor:
     def __set_login(flavor, res):
         if not res:
             return control.ok_dialog('Login', 'Incorrect username or password')
+        else:
+            mapping = {
+                'anilist': 'AniList',
+                'kitsu': 'Kitsu',
+                'mal': 'MAL',
+                'simkl': 'Simkl'
+            }
+            control.setBool('watchlist.update.enabled', True)
+            control.setSetting('watchlist.update.flavor', mapping.get(flavor, flavor.capitalize()))
         for _id, value in list(res.items()):
             control.setSetting('%s.%s' % (flavor, _id), str(value))
         control.refresh()

@@ -690,11 +690,11 @@ msgid "SPECIAL"
 msgstr ""
 
 msgctxt "#30173"
-msgid "OV"
+msgid "OVA"
 msgstr ""
 
 msgctxt "#30174"
-msgid "ON"
+msgid "ONA"
 msgstr ""
 
 msgctxt "#30175"
@@ -1691,4 +1691,12 @@ msgstr ""
 
 msgctxt "#30423"
 msgid "Hearing Impaired Subtitles"
+msgstr ""
+
+msgctxt "#30424"
+msgid "Enable SmartPlay"
+msgstr ""
+
+msgctxt "#30425"
+msgid "Play smarter: manually select a source once and let Smart Play auto-play the rest using that source."
 msgstr ""

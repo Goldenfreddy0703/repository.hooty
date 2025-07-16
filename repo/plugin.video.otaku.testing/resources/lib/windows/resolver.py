@@ -67,8 +67,8 @@ class Resolver(BaseWindow):
         # if self.season:
         #     control.setStr('resolve_season', str(self.season))
 
-        if self.source_select:
-            control.setSetting('last_played_source', None)
+        # if self.source_select:
+        #     control.setSetting('last_played_source', str(None))
 
     def onInit(self):
         self.sources = self.reorder_sources(self.sources)

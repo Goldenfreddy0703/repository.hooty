@@ -104,7 +104,7 @@
         			<width>400</width>
         			<height>22</height>
         			<font>font12</font>
-        			<selectedcolor>white</selectedcolor>
+        			<textcolor>AAFFFFFF</textcolor>
         			<align>left</align>
         			<label>Ep $INFO[ListItem.Property(ep_title)] at</label>
         		</control>
@@ -114,7 +114,7 @@
               <width>400</width>
               <height>22</height>
               <font>font14</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>[B]$INFO[ListItem.Property(ep_airingAt)][/B]</label>
             </control>
@@ -142,7 +142,7 @@
               <width>395</width>
               <height>22</height>
               <font>font10</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>center</align>
               <label>[B]$INFO[ListItem.Property(genres)][/B]</label>
             </control>
@@ -211,7 +211,7 @@
                 <width>100</width>
                 <height>22</height>
                 <font>font12</font>
-                <selectedcolor>white</selectedcolor>
+                <textcolor>AAFFFFFF</textcolor>
                 <align>right</align>
                 <label>$INFO[ListItem.Property(rating)]%</label>
               </control>
@@ -251,7 +251,7 @@
                 <width>100</width>
                 <height>22</height>
                 <font>font12</font>
-                <selectedcolor>white</selectedcolor>
+                <textcolor>AAFFFFFF</textcolor>
                 <align>right</align>
                 <label>#$INFO[ListItem.Property(simkl_rank)]</label>
               </control>
@@ -307,7 +307,7 @@
         			<width>400</width>
         			<height>22</height>
         			<font>font12</font>
-        			<selectedcolor>white</selectedcolor>
+        			<textcolor>AAFFFFFF</textcolor>
         			<align>left</align>
         			<label>Ep $INFO[ListItem.Property(ep_title)] at</label>
         		</control>
@@ -317,7 +317,7 @@
               <width>400</width>
               <height>22</height>
               <font>font14</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>[B]$INFO[ListItem.Property(ep_airingAt)][/B]</label>
             </control>
@@ -346,7 +346,7 @@
               <width>395</width>
               <height>22</height>
               <font>font10</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>center</align>
               <label>[B]$INFO[ListItem.Property(genres)][/B]</label>
             </control>
@@ -379,7 +379,7 @@
               <width>50</width>
               <height>22</height>
               <font>font12</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>$INFO[ListItem.Property(averageScore)]%</label>
             </control>
@@ -400,7 +400,7 @@
               <width>50</width>
               <height>22</height>
               <font>font12</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>#$INFO[ListItem.Property(rank)]</label>
             </control>
@@ -415,7 +415,7 @@
                 <width>100</width>
                 <height>22</height>
                 <font>font12</font>
-                <selectedcolor>white</selectedcolor>
+                <textcolor>AAFFFFFF</textcolor>
                 <align>right</align>
                 <label>$INFO[ListItem.Property(rating)]%</label>
               </control>
@@ -455,7 +455,7 @@
                 <width>100</width>
                 <height>22</height>
                 <font>font12</font>
-                <selectedcolor>white</selectedcolor>
+                <textcolor>AAFFFFFF</textcolor>
                 <align>right</align>
                 <label>#$INFO[ListItem.Property(simkl_rank)]</label>
               </control>

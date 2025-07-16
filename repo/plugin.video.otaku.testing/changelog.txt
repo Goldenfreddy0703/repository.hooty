@@ -1,3 +1,10 @@
+Changelog v5.2.33 (2025-07-15):
+- Added New Playback Option called SmartPlay
+- Watchlist will now automatically update after auth
+- Fixed Color bug with Anichart
+- Fixed Paging for every menu that fixed the formats
+- Fixed small String bugs
+
 Changelog v5.2.32 (2025-07-09):
 - Added Playback Context Menu in Playlist
 

@@ -117,9 +117,11 @@ def AIRING_LAST_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_airing_last_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_airing_last_season(page, format, prefix), 'tvshows')
 
 
 @Route('airing_this_season')
@@ -142,9 +144,11 @@ def AIRING_THIS_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_airing_this_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_airing_this_season(page, format, prefix), 'tvshows')
 
 
 @Route('airing_next_season')
@@ -167,9 +171,11 @@ def AIRING_NEXT_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_airing_next_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_airing_next_season(page, format, prefix), 'tvshows')
 
 
 @Route('trending_last_year')
@@ -192,9 +198,11 @@ def TRENDING_LAST_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_trending_last_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_trending_last_year(page, format, prefix), 'tvshows')
 
 
 @Route('trending_this_year')
@@ -217,9 +225,11 @@ def TRENDING_THIS_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_trending_this_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_trending_this_year(page, format, prefix), 'tvshows')
 
 
 @Route('trending_last_season')
@@ -242,9 +252,11 @@ def TRENDING_LAST_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_trending_last_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_trending_last_season(page, format, prefix), 'tvshows')
 
 
 @Route('trending_this_season')
@@ -267,9 +279,11 @@ def TRENDING_THIS_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_trending_this_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_trending_this_season(page, format, prefix), 'tvshows')
 
 
 @Route('all_time_trending')
@@ -292,9 +306,11 @@ def ALL_TIME_TRENDING(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_all_time_trending(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_all_time_trending(page, format, prefix), 'tvshows')
 
 
 @Route('popular_last_year')
@@ -317,9 +333,11 @@ def POPULAR_LAST_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_popular_last_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_popular_last_year(page, format, prefix), 'tvshows')
 
 
 @Route('popular_this_year')
@@ -342,9 +360,11 @@ def POPULAR_THIS_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_popular_this_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_popular_this_year(page, format, prefix), 'tvshows')
 
 
 @Route('popular_last_season')
@@ -367,9 +387,11 @@ def POPULAR_LAST_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_popular_last_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_popular_last_season(page, format, prefix), 'tvshows')
 
 
 @Route('popular_this_season')
@@ -392,9 +414,11 @@ def POPULAR_THIS_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_popular_this_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_popular_this_season(page, format, prefix), 'tvshows')
 
 
 @Route('all_time_popular')
@@ -417,9 +441,11 @@ def ALL_TIME_POPULAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_all_time_popular(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_all_time_popular(page, format, prefix), 'tvshows')
 
 
 @Route('voted_last_year')
@@ -442,9 +468,11 @@ def VOTED_LAST_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_voted_last_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_voted_last_year(page, format, prefix), 'tvshows')
 
 
 @Route('voted_this_year')
@@ -467,9 +495,11 @@ def VOTED_THIS_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_voted_this_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_voted_this_year(page, format, prefix), 'tvshows')
 
 
 @Route('voted_last_season')
@@ -492,9 +522,11 @@ def VOTED_LAST_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_voted_last_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_voted_last_season(page, format, prefix), 'tvshows')
 
 
 @Route('voted_this_season')
@@ -517,9 +549,11 @@ def VOTED_THIS_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_voted_this_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_voted_this_season(page, format, prefix), 'tvshows')
 
 
 @Route('all_time_voted')
@@ -542,9 +576,11 @@ def ALL_TIME_VOTED(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_all_time_voted(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_all_time_voted(page, format, prefix), 'tvshows')
 
 
 @Route('favourites_last_year')
@@ -567,9 +603,11 @@ def FAVOURITES_LAST_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_favourites_last_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_favourites_last_year(page, format, prefix), 'tvshows')
 
 
 @Route('favourites_this_year')
@@ -592,9 +630,11 @@ def FAVOURITES_THIS_YEAR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_favourites_this_year(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_favourites_this_year(page, format, prefix), 'tvshows')
 
 
 @Route('favourites_last_season')
@@ -617,9 +657,11 @@ def FAVOURITES_LAST_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_favourites_last_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_favourites_last_season(page, format, prefix), 'tvshows')
 
 
 @Route('favourites_this_season')
@@ -642,9 +684,11 @@ def FAVOURITES_THIS_SEASON(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_favourites_this_season(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_favourites_this_season(page, format, prefix), 'tvshows')
 
 
 @Route('all_time_favourites')
@@ -667,9 +711,11 @@ def ALL_TIME_FAVOURITES(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_all_time_favourites(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_all_time_favourites(page, format, prefix), 'tvshows')
 
 
 @Route('top_100')
@@ -692,9 +738,11 @@ def TOP_100(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_top_100(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_top_100(page, format, prefix), 'tvshows')
 
 
 @Route('genres/*')
@@ -718,10 +766,12 @@ def GENRES(payload, params):
     genres, tags = payload.rsplit("/")
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
+    base_key = plugin_url.split('/', 1)[0] + '//'
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
     if genres or tags:
-        control.draw_items(BROWSER.genres_payload(genres, tags, page, format), 'tvshows')
+        prefix = plugin_url.split('/', 1)[0]
+        control.draw_items(BROWSER.genres_payload(genres, tags, page, format, prefix), 'tvshows')
     else:
         control.draw_items(BROWSER.get_genres(page, format), 'tvshows')
 
@@ -765,9 +815,11 @@ def GENRE_ACTION(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_action(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_action(page, format, prefix), 'tvshows')
 
 
 @Route('genre_adventure')
@@ -790,9 +842,11 @@ def GENRE_ADVENTURE(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_adventure(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_adventure(page, format, prefix), 'tvshows')
 
 
 @Route('genre_comedy')
@@ -815,9 +869,11 @@ def GENRE_COMEDY(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_comedy(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_comedy(page, format, prefix), 'tvshows')
 
 
 @Route('genre_drama')
@@ -840,9 +896,11 @@ def GENRE_DRAMA(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_drama(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_drama(page, format, prefix), 'tvshows')
 
 
 @Route('genre_ecchi')
@@ -865,9 +923,11 @@ def GENRE_ECCHI(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_ecchi(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_ecchi(page, format, prefix), 'tvshows')
 
 
 @Route('genre_fantasy')
@@ -890,9 +950,11 @@ def GENRE_FANTASY(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_fantasy(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_fantasy(page, format, prefix), 'tvshows')
 
 
 @Route('genre_hentai')
@@ -915,9 +977,11 @@ def GENRE_HENTAI(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_hentai(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_hentai(page, format, prefix), 'tvshows')
 
 
 @Route('genre_horror')
@@ -940,9 +1004,11 @@ def GENRE_HORROR(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_horror(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_horror(page, format, prefix), 'tvshows')
 
 
 @Route('genre_shoujo')
@@ -965,9 +1031,11 @@ def GENRE_SHOUJO(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_shoujo(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_shoujo(page, format, prefix), 'tvshows')
 
 
 @Route('genre_mecha')
@@ -990,9 +1058,11 @@ def GENRE_MECHA(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_mecha(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_mecha(page, format, prefix), 'tvshows')
 
 
 @Route('genre_music')
@@ -1015,9 +1085,11 @@ def GENRE_MUSIC(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_music(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_music(page, format, prefix), 'tvshows')
 
 
 @Route('genre_mystery')
@@ -1040,9 +1112,11 @@ def GENRE_MYSTERY(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_mystery(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_mystery(page, format, prefix), 'tvshows')
 
 
 @Route('genre_psychological')
@@ -1065,9 +1139,11 @@ def GENRE_PSYCHOLOGICAL(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_psychological(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_psychological(page, format, prefix), 'tvshows')
 
 
 @Route('genre_romance')
@@ -1090,9 +1166,11 @@ def GENRE_ROMANCE(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_romance(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_romance(page, format, prefix), 'tvshows')
 
 
 @Route('genre_sci_fi')
@@ -1115,9 +1193,11 @@ def GENRE_SCI_FI(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_sci_fi(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_sci_fi(page, format, prefix), 'tvshows')
 
 
 @Route('genre_slice_of_life')
@@ -1140,9 +1220,11 @@ def GENRE_SLICE_OF_LIFE(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_slice_of_life(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_slice_of_life(page, format, prefix), 'tvshows')
 
 
 @Route('genre_sports')
@@ -1165,9 +1247,11 @@ def GENRE_SPORTS(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_sports(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_sports(page, format, prefix), 'tvshows')
 
 
 @Route('genre_supernatural')
@@ -1190,9 +1274,11 @@ def GENRE_SUPERNATURAL(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_supernatural(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_supernatural(page, format, prefix), 'tvshows')
 
 
 @Route('genre_thriller')
@@ -1215,9 +1301,11 @@ def GENRE_THRILLER(payload, params):
     }
     page = int(params.get('page', 1))
     format = None
-    if plugin_url in mapping:
-        format = mapping[plugin_url][0] if control.settingids.browser_api == 'mal' else mapping[plugin_url][1]
-    control.draw_items(BROWSER.get_genre_thriller(page, format), 'tvshows')
+    base_key = plugin_url.split('?', 1)[0]
+    if base_key in mapping:
+        format = mapping[base_key][0] if control.settingids.browser_api == 'mal' else mapping[base_key][1]
+    prefix = plugin_url.split('?', 1)[0]
+    control.draw_items(BROWSER.get_genre_thriller(page, format, prefix), 'tvshows')
 
 
 def get_search_config():
@@ -1349,7 +1437,8 @@ def SEARCH(payload, params):
             return control.draw_items([], 'tvshows')
         if control.getInt('searchhistory') == 0:
             database.addSearchHistory(query, type)
-    control.draw_items(BROWSER.get_search(query, page, format), 'tvshows')
+    prefix = plugin_url.split('/', 1)[0]
+    control.draw_items(BROWSER.get_search(query, page, format, prefix), 'tvshows')
 
 
 @Route('play/*')
@@ -1357,6 +1446,8 @@ def PLAY(payload, params):
     mal_id, episode = payload.rsplit("/")
     source_select = bool(params.get('source_select'))
     rescrape = bool(params.get('rescrape'))
+    last_played = control.getSetting('last_played_source')
+    last_watched = control.getSetting('last_watched_series')
     resume = params.get('resume')
     if rating := params.get('rating'):
         params['rating'] = ast.literal_eval(rating)
@@ -1371,18 +1462,48 @@ def PLAY(payload, params):
 
     sources = OtakuBrowser.get_sources(mal_id, episode, 'show', rescrape, source_select)
     _mock_args = {"mal_id": mal_id, "episode": episode, 'play': True, 'resume': resume, 'context': rescrape or source_select, 'params': params}
-    if control.getSetting('general.playstyle.episode') == '1' or source_select or rescrape:
-        from resources.lib.windows.source_select import SourceSelect
-        if control.getInt('general.dialog') in (5, 6):
-            SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+
+    # SmartPlay Enabled
+    if control.getBool('general.smartplay'):
+        # Check if the same series is already being watched
+        if last_watched == mal_id:
+            # If the same series is being watched, check if the last played source is available
+            if last_played == "" or source_select or rescrape:
+                from resources.lib.windows.source_select import SourceSelect
+                if control.getInt('general.dialog') in (5, 6):
+                    SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+                else:
+                    SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+            else:
+                # If the last played source is available, resolve it directly
+                from resources.lib.windows.resolver import Resolver
+                if control.getInt('general.dialog') in (5, 6):
+                    Resolver('resolver_alt.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+                else:
+                    Resolver('resolver.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
         else:
-            SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+            # If a different series is being watched, prompt for source selection and update last watched Series
+            control.setSetting('last_watched_series', mal_id)
+            from resources.lib.windows.source_select import SourceSelect
+            if control.getInt('general.dialog') in (5, 6):
+                SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+            else:
+                SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+    # SmartPlay Disabled
     else:
-        from resources.lib.windows.resolver import Resolver
-        if control.getInt('general.dialog') in (5, 6):
-            Resolver('resolver_alt.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+        if control.getSetting('general.playstyle.episode') == '1' or source_select or rescrape:
+            from resources.lib.windows.source_select import SourceSelect
+            if control.getInt('general.dialog') in (5, 6):
+                SourceSelect('source_select_alt.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
+            else:
+                SourceSelect('source_select.xml', control.ADDON_PATH, actionArgs=_mock_args, sources=sources, rescrape=rescrape).doModal()
         else:
-            Resolver('resolver.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+            from resources.lib.windows.resolver import Resolver
+            if control.getInt('general.dialog') in (5, 6):
+                Resolver('resolver_alt.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+            else:
+                Resolver('resolver.xml', control.ADDON_PATH, actionArgs=_mock_args).doModal(sources, {}, False)
+
     control.exit_code()
 
 
@@ -2954,6 +3075,7 @@ def SOLVER_INST(payload, params):
 
 @Route('clear_cache')
 def CLEAR_CACHE(payload, params):
+    control.setSetting('last_played_source', None)
     database.cache_clear()
 
 
@@ -3129,7 +3251,6 @@ def TRAKT_SCRIPT(payload, params):
 def PLAYBACK_OPTIONS(payload, params):
     import xbmcgui
     from urllib.parse import urlencode
-    control.print(f"Playback Options called with payload: {payload}")
 
     # Parse the payload to get mal_id and episode
     if payload and '/' in payload:

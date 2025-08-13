@@ -114,7 +114,7 @@ Changelog 0.0.1:
       <poster>poster.png</poster>
     </assets>
   </extension>
-</addon><addon id="context.otaku.testing" version="1.0.28" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku.testing" version="1.0.29" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -1270,7 +1270,7 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.40">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.41">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />

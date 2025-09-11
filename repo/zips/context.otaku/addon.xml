@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="context.otaku" version="0.0.15" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+<addon id="context.otaku" version="1.0.29" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
-    <!-- <import addon="xbmc.python" version="2.24.0" /> -->
+     <import addon="xbmc.python" version="3.0.1"/>
   </requires>
   <extension point="kodi.context.item">
     <menu id="kodi.core.main">
       <item library="default.py" args="findrecommendations">
         <label>Find Recommendations</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.findrecommendations),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.findrecommendations),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="findrelations">
         <label>Find Relations</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.findrelations),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.findrelations),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="getwatchorder">
         <label>Get Watch Order</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.getwatchorder),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.getwatchorder),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="markedaswatched">
         <label>Marked as Watched [COLOR blue]WatchList[/COLOR]</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.markedaswatched),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.markedaswatched),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="rescrape">
         <label>Rescrape</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.rescrape),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.rescrape),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="sourceselect">
         <label>Source Select</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.sourceselect),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.sourceselect),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="logout">
         <label>Logout</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.logout),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+String.Contains(ListItem.folderpath,/watchlist/)</visible>
-      </item>
-      <item library="default.py" args="watchlist">
-        <label>WatchList Manager</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.watchlist),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.logout),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + String.Contains(ListItem.folderpath,/watchlist/)</visible>
       </item>
       <item library="default.py" args="deletefromdatabase">
         <label>Delete From Database</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.deletefromdatabase),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.deletefromdatabase),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="watchlist">
+        <label>WatchList Manager</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.watchlist),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="fanartselect">
+        <label>Select Fanart</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.fanartselect),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
     </menu>
   </extension>

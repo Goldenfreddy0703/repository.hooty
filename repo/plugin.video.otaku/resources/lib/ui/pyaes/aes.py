@@ -62,44 +62,29 @@ __all__ = ["AES", "AESModeOfOperationCTR", "AESModeOfOperationCBC", "AESModeOfOp
 def _compact_word(word):
     return (word[0] << 24) | (word[1] << 16) | (word[2] << 8) | word[3]
 
+
+# Python 3 supports bytes, which is already an array of integers
 def _string_to_bytes(text):
-    return list(ord(c) for c in text)
+    if isinstance(text, bytes):
+        return text
+    return [ord(c) for c in text]
 
+# In Python 3, we return bytes
 def _bytes_to_string(binary):
-    return "".join(chr(b) for b in binary)
+    return bytes(binary)
 
+# Python 3 cannot concatenate a list onto a bytes, so we bytes-ify it first
 def _concat_list(a, b):
-    return a + b
-
-
-# Python 3 compatibility
-try:
-    xrange
-except Exception:
-    xrange = range
-
-    # Python 3 supports bytes, which is already an array of integers
-    def _string_to_bytes(text):
-        if isinstance(text, bytes):
-            return text
-        return [ord(c) for c in text]
-
-    # In Python 3, we return bytes
-    def _bytes_to_string(binary):
-        return bytes(binary)
-
-    # Python 3 cannot concatenate a list onto a bytes, so we bytes-ify it first
-    def _concat_list(a, b):
-        return a + bytes(b)
+    return a + bytes(b)
 
 
 # Based *largely* on the Rijndael implementation
 # See: http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf
-class AES(object):
-    '''Encapsulates the AES block cipher.
+class AES:
+    """Encapsulates the AES block cipher.
 
     You generally should not need this. Use the AESModeOfOperation classes
-    below instead.'''
+    below instead."""
 
     # Number of rounds by keysize
     number_of_rounds = {16: 10, 24: 12, 32: 14}
@@ -137,19 +122,19 @@ class AES(object):
         rounds = self.number_of_rounds[len(key)]
 
         # Encryption round keys
-        self._Ke = [[0] * 4 for i in xrange(rounds + 1)]
+        self._Ke = [[0] * 4 for _ in range(rounds + 1)]
 
         # Decryption round keys
-        self._Kd = [[0] * 4 for i in xrange(rounds + 1)]
+        self._Kd = [[0] * 4 for _ in range(rounds + 1)]
 
         round_key_count = (rounds + 1) * 4
         KC = len(key) // 4
 
         # Convert the key into ints
-        tk = [ struct.unpack('>i', key[i:i + 4])[0] for i in xrange(0, len(key), 4) ]
+        tk = [ struct.unpack('>i', key[i:i + 4])[0] for i in range(0, len(key), 4) ]
 
         # Copy values into round key arrays
-        for i in xrange(0, KC):
+        for i in range(0, KC):
             self._Ke[i // 4][i % 4] = tk[i]
             self._Kd[rounds - (i // 4)][i % 4] = tk[i]
 
@@ -167,12 +152,12 @@ class AES(object):
             rconpointer += 1
 
             if KC != 8:
-                for i in xrange(1, KC):
+                for i in range(1, KC):
                     tk[i] ^= tk[i - 1]
 
             # Key expansion for 256-bit keys is "slightly different" (fips-197)
             else:
-                for i in xrange(1, KC // 2):
+                for i in range(1, KC // 2):
                     tk[i] ^= tk[i - 1]
                 tt = tk[KC // 2 - 1]
 
@@ -181,7 +166,7 @@ class AES(object):
                                (self.S[(tt >> 16) & 0xFF] << 16) ^
                                (self.S[(tt >> 24) & 0xFF] << 24))
 
-                for i in xrange(KC // 2 + 1, KC):
+                for i in range(KC // 2 + 1, KC):
                     tk[i] ^= tk[i - 1]
 
             # Copy values into round key arrays
@@ -193,8 +178,8 @@ class AES(object):
                 t += 1
 
         # Inverse-Cipher-ify the decryption round key (fips-197 section 5.3)
-        for r in xrange(1, rounds):
-            for j in xrange(0, 4):
+        for r in range(1, rounds):
+            for j in range(0, 4):
                 tt = self._Kd[r][j]
                 self._Kd[r][j] = (self.U1[(tt >> 24) & 0xFF] ^
                                   self.U2[(tt >> 16) & 0xFF] ^
@@ -202,7 +187,7 @@ class AES(object):
                                   self.U4[ tt        & 0xFF])
 
     def encrypt(self, plaintext):
-        'Encrypt a block of plain text using the AES block cipher.'
+        """Encrypt a block of plain text using the AES block cipher."""
 
         if len(plaintext) != 16:
             raise ValueError('wrong block length')
@@ -212,11 +197,11 @@ class AES(object):
         a = [0, 0, 0, 0]
 
         # Convert plaintext to (ints ^ key)
-        t = [(_compact_word(plaintext[4 * i:4 * i + 4]) ^ self._Ke[0][i]) for i in xrange(0, 4)]
+        t = [(_compact_word(plaintext[4 * i:4 * i + 4]) ^ self._Ke[0][i]) for i in range(0, 4)]
 
         # Apply round transforms
-        for r in xrange(1, rounds):
-            for i in xrange(0, 4):
+        for r in range(1, rounds):
+            for i in range(0, 4):
                 a[i] = (self.T1[(t[ i          ] >> 24) & 0xFF] ^
                         self.T2[(t[(i + s1) % 4] >> 16) & 0xFF] ^
                         self.T3[(t[(i + s2) % 4] >>  8) & 0xFF] ^
@@ -226,7 +211,7 @@ class AES(object):
 
         # The last round is special
         result = [ ]
-        for i in xrange(0, 4):
+        for i in range(0, 4):
             tt = self._Ke[rounds][i]
             result.append((self.S[(t[ i           ] >> 24) & 0xFF] ^ (tt >> 24)) & 0xFF)
             result.append((self.S[(t[(i + s1) % 4] >> 16) & 0xFF] ^ (tt >> 16)) & 0xFF)
@@ -236,7 +221,7 @@ class AES(object):
         return result
 
     def decrypt(self, ciphertext):
-        'Decrypt a block of cipher text using the AES block cipher.'
+        """Decrypt a block of cipher text using the AES block cipher."""
 
         if len(ciphertext) != 16:
             raise ValueError('wrong block length')
@@ -246,11 +231,11 @@ class AES(object):
         a = [0, 0, 0, 0]
 
         # Convert ciphertext to (ints ^ key)
-        t = [(_compact_word(ciphertext[4 * i:4 * i + 4]) ^ self._Kd[0][i]) for i in xrange(0, 4)]
+        t = [(_compact_word(ciphertext[4 * i:4 * i + 4]) ^ self._Kd[0][i]) for i in range(0, 4)]
 
         # Apply round transforms
-        for r in xrange(1, rounds):
-            for i in xrange(0, 4):
+        for r in range(1, rounds):
+            for i in range(0, 4):
                 a[i] = (self.T5[(t[ i          ] >> 24) & 0xFF] ^
                         self.T6[(t[(i + s1) % 4] >> 16) & 0xFF] ^
                         self.T7[(t[(i + s2) % 4] >>  8) & 0xFF] ^
@@ -260,7 +245,7 @@ class AES(object):
 
         # The last round is special
         result = [ ]
-        for i in xrange(0, 4):
+        for i in range(0, 4):
             tt = self._Kd[rounds][i]
             result.append((self.Si[(t[ i           ] >> 24) & 0xFF] ^ (tt >> 24)) & 0xFF)
             result.append((self.Si[(t[(i + s1) % 4] >> 16) & 0xFF] ^ (tt >> 16)) & 0xFF)
@@ -270,23 +255,23 @@ class AES(object):
         return result
 
 
-class Counter(object):
-    '''A counter object for the Counter (CTR) mode of operation.
+class Counter:
+    """A counter object for the Counter (CTR) mode of operation.
 
        To create a custom counter, you can usually just override the
-       increment method.'''
+       increment method."""
 
     def __init__(self, initial_value = 1):
 
         # Convert the value into an array of bytes long
-        self._counter = [ ((initial_value >> i) % 256) for i in xrange(128 - 8, -1, -8) ]
+        self._counter = [ ((initial_value >> i) % 256) for i in range(128 - 8, -1, -8) ]
 
     value = property(lambda s: s._counter)
 
     def increment(self):
-        '''Increment the counter (overflow rolls back to 0).'''
+        """Increment the counter (overflow rolls back to 0)."""
 
-        for i in xrange(len(self._counter) - 1, -1, -1):
+        for i in range(len(self._counter) - 1, -1, -1):
             self._counter[i] += 1
 
             if self._counter[i] < 256: break
@@ -299,8 +284,8 @@ class Counter(object):
             self._counter = [ 0 ] * len(self._counter)
 
 
-class AESBlockModeOfOperation(object):
-    '''Super-class for AES modes of operation that require blocks.'''
+class AESBlockModeOfOperation:
+    """Super-class for AES modes of operation that require blocks."""
     def __init__(self, key):
         self._aes = AES(key)
 
@@ -312,17 +297,18 @@ class AESBlockModeOfOperation(object):
 
 
 class AESStreamModeOfOperation(AESBlockModeOfOperation):
-    '''Super-class for AES modes of operation that are stream-ciphers.'''
+    """Super-class for AES modes of operation that are stream-ciphers."""
 
 class AESSegmentModeOfOperation(AESStreamModeOfOperation):
-    '''Super-class for AES modes of operation that segment data.'''
+    """Super-class for AES modes of operation that segment data."""
 
     segment_bytes = 16
 
 
 
 class AESModeOfOperationECB(AESBlockModeOfOperation):
-    '''AES Electronic Codebook Mode of Operation.
+    """
+    AES Electronic Codebook Mode of Operation.
 
        o Block-cipher, so data must be padded to 16 byte boundaries
 
@@ -333,7 +319,8 @@ class AESModeOfOperationECB(AESBlockModeOfOperation):
 
    Also see:
        o https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_codebook_.28ECB.29
-       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.1'''
+       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.1
+    """
 
 
     name = "Electronic Codebook (ECB)"
@@ -355,7 +342,7 @@ class AESModeOfOperationECB(AESBlockModeOfOperation):
 
 
 class AESModeOfOperationCBC(AESBlockModeOfOperation):
-    '''AES Cipher-Block Chaining Mode of Operation.
+    """AES Cipher-Block Chaining Mode of Operation.
 
        o The Initialization Vector (IV)
        o Block-cipher, so data must be padded to 16 byte boundaries
@@ -370,7 +357,7 @@ class AESModeOfOperationCBC(AESBlockModeOfOperation):
 
    Also see:
        o https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher-block_chaining_.28CBC.29
-       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.2'''
+       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.2"""
 
 
     name = "Cipher-Block Chaining (CBC)"
@@ -408,14 +395,14 @@ class AESModeOfOperationCBC(AESBlockModeOfOperation):
 
 
 class AESModeOfOperationCFB(AESSegmentModeOfOperation):
-    '''AES Cipher Feedback Mode of Operation.
+    """AES Cipher Feedback Mode of Operation.
 
        o A stream-cipher, so input does not need to be padded to blocks,
          but does need to be padded to segment_size
 
     Also see:
        o https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_feedback_.28CFB.29
-       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.3'''
+       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.3"""
 
 
     name = "Cipher Feedback (CFB)"
@@ -444,7 +431,7 @@ class AESModeOfOperationCFB(AESSegmentModeOfOperation):
 
         # Break block into segments
         encrypted = [ ]
-        for i in xrange(0, len(plaintext), self._segment_bytes):
+        for i in range(0, len(plaintext), self._segment_bytes):
             plaintext_segment = plaintext[i: i + self._segment_bytes]
             xor_segment = self._aes.encrypt(self._shift_register)[:len(plaintext_segment)]
             cipher_segment = [ (p ^ x) for (p, x) in zip(plaintext_segment, xor_segment) ]
@@ -464,7 +451,7 @@ class AESModeOfOperationCFB(AESSegmentModeOfOperation):
 
         # Break block into segments
         decrypted = [ ]
-        for i in xrange(0, len(ciphertext), self._segment_bytes):
+        for i in range(0, len(ciphertext), self._segment_bytes):
             cipher_segment = ciphertext[i: i + self._segment_bytes]
             xor_segment = self._aes.encrypt(self._shift_register)[:len(cipher_segment)]
             plaintext_segment = [ (p ^ x) for (p, x) in zip(cipher_segment, xor_segment) ]
@@ -479,7 +466,7 @@ class AESModeOfOperationCFB(AESSegmentModeOfOperation):
 
 
 class AESModeOfOperationOFB(AESStreamModeOfOperation):
-    '''AES Output Feedback Mode of Operation.
+    """AES Output Feedback Mode of Operation.
 
        o A stream-cipher, so input does not need to be padded to blocks,
          allowing arbitrary length data.
@@ -489,7 +476,7 @@ class AESModeOfOperationOFB(AESStreamModeOfOperation):
 
     Also see:
        o https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Output_feedback_.28OFB.29
-       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.4'''
+       o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.4"""
 
 
     name = "Output Feedback (OFB)"
@@ -526,7 +513,7 @@ class AESModeOfOperationOFB(AESStreamModeOfOperation):
 
 
 class AESModeOfOperationCTR(AESStreamModeOfOperation):
-    '''AES Counter Mode of Operation.
+    """AES Counter Mode of Operation.
 
        o A stream-cipher, so input does not need to be padded to blocks,
          allowing arbitrary length data.
@@ -549,7 +536,7 @@ class AESModeOfOperationCTR(AESStreamModeOfOperation):
 
        o https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_.28CTR.29
        o See NIST SP800-38A (http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf); section 6.5
-         and Appendix B for managing the initial counter'''
+         and Appendix B for managing the initial counter"""
 
 
     name = "Counter (CTR)"

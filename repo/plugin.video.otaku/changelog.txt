@@ -1,1256 +1,2144 @@
-Changelog 0.5.43[20240126]:
-- Disabled Animix Due to Problems
+Changelog v5.2.45 (2025-09-10):
+- Small Fix with Migration Script
+- Migrated everyone to the new Otaku
 
-Changelog 0.5.42[20240126]:
-- Fixed Doodstreeam Embed
+Changelog v5.2.44 (2025-09-01):
+- Added network settings for toggling IPv6 and HTTP/2
+- Improved Filtering by preserving dashes
 
-Changelog 0.5.41[20240126]:
-- Fixed Goganime Provider
+Changelog v5.2.43 (2025-08-29):
+- Fixed String error for fanart selection
+- Fixed Integer error for view ids
 
-Changelog 0.5.40[20240120]:
-- Added Individual properties for each ID
+Changelog v5.2.42 (2025-08-25):
+- Alot of Setting Fixes
+- Added Widget Delay Setting
+- Fixed Param error for Animetosho Scraping
+- Fixed Touch Interaction with Calendar
+- Fixed Widget error with Mal Menus
+- Remove Old Deprecated Setting stuff
 
-Changelog 0.5.39[20240105]:
-- Added Megacloud Solver Support
-- Modified Hosting Instructions
+Changelog v5.2.41 (2025-08-13):
+- Added Watch History
+- Fixed Last Watched with Movies
+- Fixed a few menu items
+- Small Fix with Presets
+
+Changelog v5.2.40 (2025-08-12):
+- Added Two New Presets
+- Updated database
+
+Changelog v5.2.39 (2025-07-30):
+- Updated embed extractor
+- Updated database
+
+Changelog v5.2.38 (2025-07-29):
+- Fix Bug with Playlist
+- Added Mapping to Database
+
+Changelog v5.2.37 (2025-07-27):
+- Fix Quick Setting Default
+
+Changelog v5.2.36 (2025-07-27):
+- Recoded Smart Skip
+- Added Auto Skip Settings
+
+Changelog v5.2.35 (2025-07-20):
+- Updated embed extractor
+- Fail gracefully when no sources are found
+
+Changelog v5.2.34 (2025-07-16):
+- Small fix with SmartPlay
+
+Changelog v5.2.33 (2025-07-15):
+- Added New Playback Option called SmartPlay
+- Watchlist will now automatically update after auth
+- Fixed Color bug with Anichart
+- Fixed Paging for every menu that fixed the formats
+- Fixed small String bugs
+
+Changelog v5.2.32 (2025-07-09):
+- Added Playback Context Menu in Playlist
+
+Changelog v5.2.31 (2025-07-05):
+- Fixed TorBox Links
+
+Changelog v5.2.30 (2025-07-05):
+- Added Tb Theme Support
+
+Changelog v5.2.29 (2025-07-03):
+- Added Subtitle Type Settings
+
+Changelog v5.2.28 (2025-06-27):
 - Updated embed extractor
 
-Changelog 0.5.38[20241227]:
-- Updated the Brazilian provider
-- Modified an embed scraper to pull qualities
+Changelog v5.2.27 (2025-06-26):
+- Added content-type if not present in response headers
 
-Changelog 0.5.37[20241204]:
-- Updated embed extractor
+Changelog v5.2.26 (2025-06-26):
+- Fix MAL token refresh
 
-Changelog 0.5.36[20241201]:
-- Small Fix for real-debrid
-
-Changelog 0.5.35[20241128]:
-- Update debrid playback
-
-Changelog 0.5.34[20241128]:
-- Added Torbox Support
-
-Changelog 0.5.33[20241126]:
-- Fixed real-debrid
-
-Changelog 0.5.32[20241118]:
+Changelog v5.2.25 (2025-06-22):
 - Updated embed extractor again
 
-Changelog 0.5.31[20241114]:
+Changelog v5.2.24 (2025-06-18):
 - Updated embed extractor
 
-Changelog 0.5.30[20241014]:
+Changelog v5.2.23 (2025-06-11):
+- Fixed Animixplay
+
+Changelog v5.2.22 (2025-06-05):
+- Fixed Marked as Watched Context for all Animes
+
+Changelog v5.2.21 (2025-05-25):
+- Fixed annoying bug with playing next
+- Huge Thanks to Joezito129 for finding annoying bug
+
+Changelog v5.2.20 (2025-05-19):
+- Decided to make Source Select Easier for Uncached
+- User will now see All Sources on Source Select
+- Added View Cached, Uncached, Embeds, Both to Source Select
+
+Changelog v5.2.19 (2025-05-17):
+- Removed Difflib and Fuzzy Matching
+
+Changelog v5.2.18 (2025-05-13):
+- Added Trailers to Anilist Watchlist
+
+Changelog v5.2.17 (2025-05-12):
+- Small Bug fix in Watchlist Manager
+- Playing Next Dialog button will seek to the end instead
+
+Changelog v5.2.16 (2025-05-11):
+- Fixed Playback bugs with Local Files
+
+Changelog v5.2.15 (2025-05-11):
+- Improved Last Played Matching
+- Playing Next Episode will be alot faster
+- Fixed Aniwave Playback
+
+Changelog v5.2.14 (2025-05-09):
+- Fix Weird Black Screen Bug when playing next episode
+
+Changelog v5.2.13 (2025-05-02):
+- Fix Bugs with teamup
+- Fix Episode Meta Notifications
+- Change Calendar to Update 24hrs
+
+Changelog v5.2.12 (2025-04-30):
+- Fix Bug with Subtitle Language
+
+Changelog v5.2.11 (2025-04-27):
+- Fix Small bug with H!anime
+
+Changelog v5.2.10 (2025-04-27):
+- Small Fix with Setup Wizard for Source Type
+
+Changelog v5.2.9 (2025-04-26):
+- Refactored default.py to <25 lines
+- Moved logic into Main.py
+- Fix Language Invoker Bugs
+- Improved Airing Anime Calendar
+
+Changelog v5.2.8 (2025-04-23):
+- Fixed Skipping Bug with certain Embeds
+- Moved Icons to Context Addon
+- Added extra settings in General Category
+
+Changelog v5.2.7 (2025-04-19):
+- Animix will fail gracefully.
+- Cleaned up settings.xml
+
+Changelog v5.2.6 (2025-04-18):
+- Put Watchlist in alphabetical order
+
+Changelog v5.2.5 (2025-04-18):
+- Fixed embed playback using IA
+- Fixed incorrect titles in Source Select
+- Changed default timeout to 20
+- Updated Python Version Number
+
+Changelog v5.2.4 (2025-04-17):
+- Added hd-1 for testing
+
+Changelog v5.2.3 (2025-04-16):
+- Fixed Bugs with Best Match
+
+Changelog v5.2.2 (2025-04-16):
+- Fixed Bugs with last played source
+- Fixed Bugs with UnCached Sources
+- Modified Setup Wizard
+
+Changelog v5.2.1 (2025-04-15):
+- Small String bug
+
+Changelog v5.2.0 (2025-04-15):
+- Added a Setup Wizard Script
+- Prepared the Migration Script
+- Added Settings Script to AD and RD
+
+Changelog v5.1.100 (2025-04-13):
+- Added Playing Next default action setting
+
+Changelog v5.1.99 (2025-04-12):
+- Forgot to delete dumb print statement
+
+Changelog v5.1.98 (2025-04-12):
+- Added Fuzzy Match Sensitivity option
+
+Changelog v5.1.97 (2025-04-11):
+- Replaced Fuzzypacks with difflib
+
+Changelog v5.1.96 (2025-04-10):
+- Added Sub and Dub Presets
+
+Changelog v5.1.95 (2025-04-09):
+- Added Season Checking for Filtering
+
+Changelog v5.1.94 (2025-04-08):
+- Improved Filtering Significantly
+
+Changelog v5.1.93 (2025-04-06):
+- Improved Scraping again
+- Improved Filtering again
+- Fixed a Setting Label
+
+Changelog v5.1.92 (2025-04-05):
+- Fix some small filtering code
+
+Changelog v5.1.91 (2025-04-05):
+- Fix Movies for Animetosho
+- Improve Animetosho Scraping
+
+Changelog v5.1.90 (2025-04-04):
+- Fixed Movies for Nyaa, Local, Cloud
+
+Changelog v5.1.89 (2025-04-04):
+- Added Animixplay
+
+Changelog v5.1.88 (2025-04-03):
+- Optimized Filtering Code
+
+Changelog v5.1.87 (2025-04-03):
+- Improved the crap out of Nyaa Scraping
+- Added Function to Filter Out Sources
+
+Changelog v5.1.86 (2025-04-02):
+- Fixed Bugs with Scraping
+- Improved Animetosho Scraping
+- Unknown Seeders have NA
+
+Changelog v5.1.85 (2025-03-31):
+- Fixed Bugs with Playlist & Resume times
+- Optimized Playback again
+- Made Scraping Faster
+- Sadly removed Gogo
+
+Changelog v5.1.84 (2025-03-27):
+- Small fix to HiAnime
+
+Changelog v5.1.83 (2025-03-26):
+- Added Watchlist Migration Script 
+- Added Wipe Addon Data Setting
+- String Changes to add descriptions soon
+
+Changelog v5.1.82 (2025-03-22):
+- Small fixes to Simkl
+
+Changelog v5.1.81 (2025-03-21):
+- Recoded Watchlist Sorting
+- Added Watchlist Ordering Setting
+
+Changelog v5.1.80 (2025-03-21):
+- Fixed some Watchlist Sorting Bugs
+
+Changelog v5.1.79 (2025-03-15):
+- Fixed Resolution again
+
+Changelog v5.1.78 (2025-03-15):
+- Fixed Resolution with Aniwave and H!Anime
+
+Changelog v5.1.77 (2025-03-14):
+- H!Anime does not require Mega Cloud Solver
+- Modified Duplicate Sources Function
+
+Changelog v5.1.76 (2025-03-08):
+- Added FlareSolverr Support to AnimePahe
+
+Changelog v5.1.75 (2025-03-06):
+- Fixed monitor bug
+
+Changelog v5.1.74 (2025-03-04):
+- Fixed Freezing and Cache this time
+
+Changelog v5.1.73 (2025-03-01):
+- Optimized Player for Embeds
+- Fixed Freezing and hopefully Cache with Player
+
+Changelog v5.1.72 (2025-02-28):
+- Added Movies, TV shows, TV Shorts Menus
+- Added Specials, OVAs, ONAs Menus
+- Added Music Videos, Genres, Search Menus
+- Recoded Menu Customization Settings Category
+- Fixed Premiumize Cloud Searching
+
+Changelog v5.1.71 (2025-02-23):
+- Added EasyDebrid
+
+Changelog v5.1.70 (2025-02-20):
+- Added New Setting "Skip UnCached Sources (Real-Debrid, AllDebrid)"
+- Added more meta to last Watched
+- Fixed Caching for Embeds hopefully
+- Fixed Batch Search for Mal Meta
+
+Changelog v5.1.69 (2025-02-20):
+- Added Anidb Episode Meta
+
+Changelog v5.1.68 (2025-02-17):
+- Added Trakt Scrobbler Settings to Watchlist
+
+Changelog v5.1.67 (2025-02-16):
+- Improved Scraping for Animetosho
+- Rescrape works as intended now
+
+Changelog v5.1.66 (2025-02-13):
+- Added Votes with Ratings for Anilist
+
+Changelog v5.1.65 (2025-02-13):
+- Fixed UpNext Stuff
+- Added Some Stuff to Episode Meta
+- Made Anilist Calendar load faster
+
+Changelog v5.1.64 (2025-02-13):
+- Small Fix with New Playback Setting
+- Added Genres to Episode Meta
+
+Changelog v5.1.63 (2025-02-11):
+- Added New Playback Setting for Playlist
+- Made Mal Calendars load faster
+
+Changelog v5.1.62 (2025-02-10):
+- Added the ability to change Anilist Posters to Mal Posters
+
+Changelog v5.1.61 (2025-02-09):
+- Added Clearlogos to Episode Meta
+
+Changelog v5.1.60 (2025-02-08):
+- Fixed Small bug with Torrents
+- Changed Sync Setting Default
+
+Changelog v5.1.59 (2025-02-05):
+- Fixed Autoplay for Embeds
+
+Changelog v5.1.58 (2025-02-04):
+- Fixed Gogo
+
+Changelog v5.1.57 (2025-02-03):
+- Improved Cloud Scraping
+- Improved Local Scraping
+- Improved Filtering
+
+Changelog v5.1.56 (2025-02-02):
+- Improved the crap out of Debrid Scraping
+- Small Fix for Premiumize
+- Fixed major episode meta bug
+- Moved some files around
+
+Changelog v5.1.55 (2025-02-01):
+- Added Configuration for Embed Servers
+
+Changelog v5.1.54 (2025-01-30):
+- Added MP2T Support for InputStream Helper
+- Fixed Gogo Backup Function
+- Fixed Aniwave Streams
+- Fixed Imports
+- Linting
+
+Changelog v5.1.53 (2025-01-27):
+- Added New ViewType Setting
+
+Changelog v5.1.52 (2025-01-26):
+- Fix bug with Mal Calendar
+
+Changelog v5.1.51 (2025-01-26):
+- Requests are a lot faster now
+- Removed Request Module
+- Removed Six Module
+- Fix bugs with some logins
+- Fixed Clear Search History Button
+
+Changelog v5.1.50 (2025-01-22):
+- Added Paging to Animetosho
+
+Changelog v5.1.49 (2025-01-21):
+- Fixed Anilist Genres & Tags
+- Fixed Smart Resolver 
+- Fixed Resolving Last Source
+- Fixed Info field on resolver page
+- Relabeled Scrapping to Scraping
+
+Changelog v5.1.48 (2025-01-20):
+- Added Individual properties for each ID
+- Added Trakt Script Support
+- Added a4kSubtitles Support
+
+Changelog v5.1.47 (2025-01-17):
+- Fixed Uncached Sources for TorBox
+
+Changelog v5.1.46 (2025-01-16):
+- Recoded Uncached Sources for every debrid
+- Fixed Most Issues with every debrid
+- Added Cached & Uncached Fallbacks to Source Select
+- Added Auto-Delete Torrents Option for each debrid
+- Added 3 New Settings to Premiumize
+- Added New Uncached Setting in Scraping
+- Modified a couple of setting defaults
+
+Changelog v5.1.45 (2025-01-14):
+- Added Cached & Uncached Button to Source Select
+- Added Resolve Uncached to TorBox
+- Uncached Sources will be on by Default
+
+Changelog v5.1.44 (2025-01-12):
+- Added "Reset To Default" in Sort Select
+
+Changelog v5.1.43 (2025-01-10):
+- Fanart now utilizes Title Language
+- Info is now more consistent for Embeds
+- Fixed the Source Type Option
+
+Changelog v5.1.42 (2025-01-06):
+- Small Database Fix
+
+Changelog v5.1.41 (2025-01-06):
+- Added Megacloud Solver
+- Added More Info for Sources
+- Added Audio Channels to Sort Category
+- Added Debrid Provider to Sort Category
+- Added Seeders to Sort Category
+- Added Subtitles to Sort Category
+- Added Multi-Audio as Sort Option
+- Fixed H!Anime Streams(Requires Megacloud)
+- Fixed Aniwave Streams from Hanging
+- Fixed Small Subtitle Bug
+- Remove Animix Temporarily  
+- Relabeled Type to Source Type
+
+Changelog v5.1.40 (2024-12-27):
+- Readded Skip times from Aniwave
+
+Changelog v5.1.39 (2024-12-25):
+- Added More Subtitle Settings
+- Added building playlist
+- Added New Icons for Search
+- Added Resume Indicators
+- Recoded Subtitle and Audio Stuff
+- Fixed Context menu playing items
+- Fixed Exodus Theme Favorites Icons
+- Fixed Resume Time
+- Fixed Resolver Stuff
+
+Changelog v5.1.38 (2024-12-22):
+- Fixed Premiumize Cloud Files
+- Used JSONRPC to set Player Setting
+- Fixed Button Error with Sort Select
+
+Changelog v5.1.37 (2024-12-19):
+- Added Kitsu Episode Meta
+- Improved Animetosho Scraping
+- Improved Debrid Cloud Searching
+- Improved Season Search
+- Fixed Playback Issues
+- Fixed Router
+- Fixed Anime Calendar
+
+Changelog v5.1.36 (2024-12-17):
+- Discovered JSONRPC
+- Improved Subtitle Code
+
+Changelog v5.1.35 (2024-12-15):
+- Quick Setting Fix for RD
+
+Changelog v5.1.34 (2024-12-15):
+- Added More TorBox Settings
+- Alot of Debrid Fixes
+- Recoded Resolver
+- Fixed TorBox
+- Fixed Playback Stuff
+- More relabeling
+
+Changelog v5.1.33 (2024-12-12):
+- RD Fixes
+
+Changelog v5.1.32 (2024-12-12):
+- Forgot to fix an important Label
+
+Changelog v5.1.31 (2024-12-12):
+- Fix Debrid Auth
+- Fix bug with Debrd Link
+- Added Api Setting for TorBox
+- Added Debrid-Link Status
+
+Changelog v5.1.30 (2024-12-12):
+- Removed addon content_type from menus
+- Added TorBox
+- Added Context Menus for Calendar
+- Added Context Menus for Last Watched
+- Fixed Search Context Menus
+- Moved a few functions around
+- Alot of relabeling
+
+Changelog v5.1.29 (2024-12-07):
+- Fix Database Stuff Again
+
+Changelog v5.1.28 (2024-12-06):
+- Added Af2 Theme Support
+- Added Database Stuff
+- Small Fixes
+
+Changelog v5.1.27 (2024-12-01):
+- Improved Loading Speed Browsers
+- Added Fanart to Some Items
+- Replaced Request with Client for Browsers
+- Fixed Genres for Mal
+- Fix Context Menu Addon Conflict
+
+Changelog v5.1.26 (2024-11-28):
+- Fix Small Bugs
+
+Changelog v5.1.25 (2024-11-28):
+- Improved Airing Calendar for Mal
+- Fix Small Bug with smartscroll
+- Added Simkl Ranks to Mal Calendar
+
+Changelog v5.1.24 (2024-11-27):
+- Added Airing Anime Calendar
+
+Changelog v5.1.23 (2024-11-25):
+- Added Warning Logs to Watchlist
+- Fixed Bugs in Database
+- Fixed Type in Sort Order
+- Fixed Dub Api for Upcoming Dates
+- Moved Uncached Settings in Scraping
+
+Changelog v5.1.22 (2024-11-25):
+- Fixed real-debrid
+
+Changelog v5.1.21 (2024-11-23):
+- Added Fanart to all Watchlist
+- Shows will be added to Watchlist Current if Watched
+- Fixed some small code in get_meta
+
+Changelog v5.1.20 (2024-11-21):
+- Updated Episode Meta for Jikanmoe
+
+Changelog v5.1.19 (2024-11-18):
+- Updated embed extractor again
+
+Changelog v5.1.18 (2024-11-14):
+- Updated embed extractor
+- Fix Animixplay
+
+Changelog v5.1.17 (2024-11-14):
+- Fixed Sort Select with Audio
+- Fixed some scraping bugs
+
+Changelog v5.1.16 (2024-11-13):
+- Fixed the Paging
+- Fixed Custom Search
+- Fixed Context Menus
+- Converted all integer settings
+- Converted all bool settings
+- Converted one string setting
+
+Changelog v5.1.15 (2024-11-13):
+- Fix for Cloud Files
+
+Changelog v5.1.14 (2024-11-11):
+- More Linting
+- Made Otaku Testing its own addon. 
+- Changed Otaku to Otaku Testing
+
+Changelog v5.1.13 (2024-11-10):
+- Fixed Plot for jikanmoe episode meta
+- Added episodes to kodi_meta
+- Fixed Watchlist Auto-Completion for Next Up
+
+Changelog v5.1.12 (2024-11-06):
+- Added Content Genres
+- Alot of Linting
+
+Changelog v5.1.11 (2024-11-05):
+- Added Content Year
+- Added Content Season
+
+Changelog v5.1.10 (2024-11-04):
+- Added "Get Watch Order" Context Menu
+
+Changelog v5.1.9 (2024-11-01):
+- Fixed Quality with embeds
+- Added FlareSolverr Settings
+
+Changelog v5.1.8 (2024-11-01):
+- Added Six Module
+- Added AnimePahe
+- Added Animixplay
+- Added Gogo Alt
+- Added Nyaa Alt
+- Added Find My Anime Api for backup
+- Added InputStream Adaptive Settings
+- Relabled HiAnime to H!Anime
+- Fixed typo with fanart_select
+- Fixed Simkl Auth Dialog
+- Fixed Anilist Watchlist Mappings
+- Fixed Watchlist Bugs
+- Fixed Re-Use Language Invoker
+- Fixed error in context menu
+- Moved pages to get_sources
+- Made InputStream Adaptive Optional
+
+Changelog v5.1.7 (2024-10-30):
+- Added Auto-Completion for Watchlists
+- Finally Fixed Watchlist Icons
+
+Changelog v5.1.6 (2024-10-29):
+- Fixed Kitsu's Next Up
+- Fixed a small bug with Specials
+
+Changelog v5.1.5 (2024-10-26):
+- Added Anime Skip for skip times
+- Fixed Changelog Issue
+- Changed Aniskip to Smart Skip
+- Fixed Clean File Names
+
+Changelog v5.1.4 (2024-10-25):
+- Fixed Simkl Episode Meta
+
+Changelog v5.1.3 (2024-10-22):
+- Fixed Small Bug with Search
+- Fixed Premiumize Login
+- Fixed Bug with Artwork
+
+Changelog v5.1.2 (2024-10-22):
+- Fixed Clearlogos
+
+Changelog v5.1.1 (2024-10-21):
+- Fixed Artwork support for skins
+
+Changelog v5.1.0 (2024-10-21):
+- Changed alot of Settings
+- Changed alot of Menus
+- Added More Menus
+- Added More Features
+- Added MAl_Browser
+- New Icons
+- A ton of database changes
+- Improved Scraping
+- re-formatted ids to use mal_ids instead of anilist
+- Fixed database updating episode meta
+- A ton of bug fixes
+
+Changelog v5.0.52 (2024-10-01):
+- Fixed database updating
+
+Changelog v5.0.51 (2024-09-22):
+- Removed Aniwave
+- Removed Animixplay
+
+Changelog v5.0.50 (2024-08-17):
+- Fixed some setting typos
+- Fixed Aniwave
+
+Changelog v5.0.49 (2024-08-17):
+- Fix Sort Select
+- Re-formated Settings.xml
+
+Changelog v5.0.48 (2024-08-15):
+- Fixed Aniwave
+- Fix download manager
+- Moved playing item to resolver
+
+Changelog v5.0.47 (2024-08-11):
+- Added Edit Search Item
+- Fix some sub encoding errors
+- Moved8.1 prefretch source to resolve
+
+Changelog v5.0.46 (2024-08-04):
+- Added timeout on aniskip api request
+- Changed some settings
+- Added subfolder paths in local files
+
+Changelog v5.0.45 (2024-07-25):
+- Bug Fixes
+
+Changelog v5.0.44 (2024-07-18):
+- Bug Fixes
+- Removed animess
+- Added Skipoutro [aniwave, h!anime]
+- Added option to import/export settings.xml
+
+Changelog v5.0.43 (2024-07-17):
+- Bug Fixes
+
+Changelog v5.0.42 (2024-07-13):
+- Added aniwave and h!anime skiptimes
+- Added Sort Option setting
+- Fixed some bug issues
+
+Changelog v5.0.41 (2024-07-10):
+- Fixed Path issues
+- Cleaned up code
+- Cleaned up Aniskip (send args instead of set settings)
+
+Changelog v5.0.40 (2024-07-07):
+- Bug Fixes
+- Added settings for context menu
+- Fixed Re-uselanguageinvoker
+
+Changelog v5.0.39 (2024-07-06):
+- Got rid of wait time for smartscroll
+- Fixed ViewTypes
+- Added Resume time for source select and rescrape
+
+Changelog v5.0.38 (2024-07-05):
+- Fixed Strptime
+- Added cache sources
+- Moved Watchlist Contex menu to code
+
+Changelog v5.0.37 (2024-07-04):
+- Got rid of six
+- Cleaned up some code
+- Changed log
+- Improved Re-uselanguageinvoker
+
+Changelog v5.0.36 (2024-06-26):
+- Removed kitsu in url
+- Removed chain
+
+Changelog v5.0.35 (2024-06-24):
+- Improved UI
+- Added Select Fanart
+- Added setting for when to check for episode meta
+
+Changelog v5.0.34 (2024-06-23):
+- Added UnCached Sorces
+- Removed Debrid Priority
+- Added perPage
+- improved episode database
+
+Changelog v5.0.33 (2024-06-18):
+- Improved scraping sorting
+- Improved simkl season
+- Improved scraping
+- Cleaned up database.py
+
+Changelog v5.0.32 (2024-06-18):
+- Removed Seasons from database
+- improved scraping
+
+Changelog v5.0.31 (2024-06-17):
+- reformated utils
+- only update database of new episodes
+
+Changelog v5.0.30 (2024-06-14):
+- Added Fuzzypacks to localfiles
+- Added all_debrid cloud scraping
+
+Changelog v5.0.29 (2024-06-13):
+- Added Fanart/clearlogo disable
+- Silent sync in background
+- Update debrid status on every refresh token
+- Added 480p filter
+- Hide Next Widget
+- Updated All_debrid
+
+Changelog v5.0.28 (2024-06-05):
+- Changed source select aesthetics
+- Added bulk_draw_items
+- Added completed_sync
+- offscreen=true
+- added isfolder in utils
+
+Changelog v5.0.27 (2024-05-29):
+- Added database.db
+- got rid of trakt
+- Fixed some small bugs
+- Fixed Local Files
+
+Changelog v5.0.26 (2024-05-27):
+- Fixed embeds
+- Fixed season
+- Removed Syncurl
+
+Changelog v5.0.25 (2024-05-12):
+- Fixed image issue
+
+Changelog v5.0.24 (2024-05-10):
+- Fixed search error
+- Fixed download focus
+- Added offline search
+
+Changelog v5.0.23 (2024-05-04):
+- Moved refresh token to settings
+- Moved File selection to source select context menu
+- Added Download Manager
+- Fixed Embeds
+- Added remove from search history context menu
+- Removed consumet
+- Added anizip
+- Removed anify
+- Added dub wrapper to mal, simkl, and anilist watchlists
+
+Changelog v5.0.22 (2024-04-27):
+- added refresh debrid token
+- some bug fixes
+
+Changelog v5.0.20 (2024-03-23):
+- Fixed if none is episode number error
+
+Changelog v5.0.19 (2024-02-29):
+- Improve animeschulde
+- Fixed mpaa rating error
+
+Changelog v5.0.19 (2024-02-29):
+- increase speeds only checking dub info once per day
+- only lookup filler info once when adding to database
+- added animeschedule to get dub data
+
+Changelog v5.0.18 (2023-11-05):
+- Fixed autoscroll on episode
+- Improved Cloud Scraping
+
+Changelog v5.0.17 (2023-10-21):
+- needs to match season#
+- Improved season info
+
+Changelog v5.0.16 (2023-10-18):
+- Fixed context english naming
+- Improved skip intro
+- Improved dub dates; does not neeed to match season#
+
+Changelog v5.0.15 (2023-10-03):
+- Improved geting season number
+- Fixed Fanart with trakt
+- Added Jikanmoe for getting meta data
+
+Changelog v5.0.14 (2023-09-24):
+- Removed enime
+- Fixed Simkl as main source
+
+Changelog v5.0.13 (2023-09-17):
+- Fixed Gogo error
+- Re-added Consumet
+
+Changelog v5.0.12 (2023-09-09):
+- Completed Watchlists
+- Updated embeds
+- Fixed minor errors
+
+Changelog v5.0.11 (2023-09-03):
+- Added Simkl Watchlist
+- Fixed Kitsu Watchlist
+
+Changelog v5.0.10 (2023-08-26):
+- Fixed naming with watchlist context menu
+- Fixed delete from database payload error
+- Removed bare excepts
+
+Changelog v5.0.9 (2023-08-21):
+- Started fixing kitsu watchlist
+- Changed ok dialog to notify
+- Fixed Mark as Watched Watchlist
+- Improved Meta Api
+- Fixed Aniwatch
+
+Changelog v5.0.8 (2023-08-11):
+- added database._get for AnilistBrowser store for 24 hrs
+
+Changelog v5.0.7 (2023-08-09):
+- added setting to change reuselanguageinvoker
+- fixed context menus
+- cleaned skins folder and images
+- added dub_data to database
+
+Changelog v5.0.6 (2023-08-06):
+- fixed playnext icon
+- reuselanguageinvoker set to true
+
+Changelog v5.0.5 (2023-08-05):
+- fixed clearlogo
+- improved scraping
+
+Changelog v5.0.4 (2023-08-01):
+- fixed None in thumb error
+- fixed watchlist error
+
+Changelog v5.0.3 (2023-07-28):
+- removed themepack
+- added download
+- improved teamup dub
+
+Changelog v5.0.2 (2023-07-23):
+- minor bug fixes
+
+Changelog v5.0.1 (2023-07-22):
+- added Anime Tosho
+- Changed textviewer
+- removed unessary xml files
+- added manual select batch files
+- major cleanup
+
+========================================================================================
+Changelog v0.5.43 (2024-01-26):
+- Disabled animix due to problems
+
+Changelog v0.5.42 (2024-01-26):
+- Fixed doodstreeam embed
+
+Changelog v0.5.41 (2024-01-26):
+- Fixed goganime provider
+
+Changelog v0.5.40 (2024-01-20):
+- Added individual properties for each id
+
+Changelog v0.5.39 (2024-01-05):
+- Added megacloud solver support
+- Modified hosting instructions
+- Updated embed extractor
+
+Changelog v0.5.38 (2024-12-27):
+- Updated the brazilian provider
+- Modified an embed scraper to pull qualities
+
+Changelog v0.5.37 (2024-12-04):
+- Updated embed extractor
+
+Changelog v0.5.36 (2024-12-01):
+- Small fix for real-debrid
+
+Changelog v0.5.35 (2024-11-28):
+- Update debrid playback
+
+Changelog v0.5.34 (2024-11-28):
+- Added torbox support
+
+Changelog v0.5.33 (2024-11-26):
+- Fixed real-debrid
+
+Changelog v0.5.32 (2024-11-18):
+- Updated embed extractor again
+
+Changelog v0.5.31 (2024-11-14):
+- Updated embed extractor
+
+Changelog v0.5.30 (2024-10-14):
 - Fixed matching dragon ball z movies
 
-Changelog 0.5.29[20241009]:
+Changelog v0.5.29 (2024-10-09):
 - Corrected some quality labels
 - Added bleach 1000 year blood war part 3
 
-Changelog 0.5.28[20240913]:
-- Updated AniList.py
+Changelog v0.5.28 (2024-09-13):
+- Updated anilist.py
 
-Changelog 0.5.27[20240908]:
-- Fixed Animelatino
-- Disabled Aniwave Scraping
+Changelog v0.5.27 (2024-09-08):
+- Fixed animelatino
+- Disabled aniwave scraping
 
-Changelog 0.5.26[20240821]:
+Changelog v0.5.26 (2024-08-21):
 - Disabled key collection on startup
 
-Changelog 0.5.25[20240810]:
-- Updated Embed Extractor
-- Improved Embed Scrapping
+Changelog v0.5.25 (2024-08-10):
+- Updated embed extractor
+- Improved embed scrapping
 - Have keys fail gracefully
 
-Changelog 0.5.24[20240809]:
-- Quick Fix with Embed Extractor
+Changelog v0.5.24 (2024-08-09):
+- Quick fix with embed extractor
 
-Changelog 0.5.23[20240808]:
-- Added Min Resolution Setting
-- Added Multiaudio Priority Setting
-- Changed 480p to SD
-- Removed Context Menu Strings
-- Updated Embed Extractor
+Changelog v0.5.23 (2024-08-08):
+- Added min resolution setting
+- Added multiaudio priority setting
+- Changed 480p to sd
+- Removed context menu strings
+- Updated embed extractor
 
-Changelog 0.5.22[20240729]:
-- Fix H!anime from hanging after scrape
+Changelog v0.5.22 (2024-07-29):
+- Fix h!anime from hanging after scrape
 
-Changelog 0.5.21[20240728]:
-- Fix Small Bug with Last Selected Source
+Changelog v0.5.21 (2024-07-28):
+- Fix small bug with last selected source
 
-Changelog 0.5.20[20240727]:
-- Added Resume for Source Select & Rescrape
-- Added Settings to enable or disable any context menu
-- Added Subfolder support for Local Files
-- Added Aniwave & Hianime Skip times for torrents
-- Removed Context Files and combined it into 1 file
-- Fix Autoplay Last Selected Source
+Changelog v0.5.20 (2024-07-27):
+- Added resume for source select & rescrape
+- Added settings to enable or disable any context menu
+- Added subfolder support for local files
+- Added aniwave & hianime skip times for torrents
+- Removed context files and combined it into 1 file
+- Fix autoplay last selected source
 
-Changelog 0.5.19[20240723]:
+Changelog v0.5.19 (2024-07-23):
 - Fixed hianime sources on some anime
-- removed random(fanart)
-- added unique_ids
+- Removed random(fanart)
+- Added unique_ids
 
-Changelog 0.5.18[20240715]:
-- Added Kitsu_id to Fanart Selector
+Changelog v0.5.18 (2024-07-15):
+- Added kitsu_id to fanart selector
 
-Changelog 0.5.17[20240711]:
-- Added Set Artwork for Fanart
+Changelog v0.5.17 (2024-07-11):
+- Added set artwork for fanart
 - Updated embed_extractor
 
-Changelog 0.5.16[20240702]:
+Changelog v0.5.16 (2024-07-02):
 - Have episode meta fail gracefully
 
-Changelog 0.5.15[20240630]:
-- Fixed KeyError with trakt_id
+Changelog v0.5.15 (2024-06-30):
+- Fixed keyerror with trakt_id
 
-Changelog 0.5.14[20240628]:
-- Revert "Small fix for the sync"
+Changelog v0.5.14 (2024-06-28):
+- Revert "small fix for the sync"
 
-Changelog 0.5.13[20240625]:
-- Improved Autoplay Last Selected Source for Torrent Sources
+Changelog v0.5.13 (2024-06-25):
+- Improved autoplay last selected source for torrent sources
 
-Changelog 0.5.12[20240624]:
+Changelog v0.5.12 (2024-06-24):
 - Added additional embed types
 
-Changelog 0.5.11[20240622]:
+Changelog v0.5.11 (2024-06-22):
 - Added unique ids for trakt scrobbler
 - Update embed extractor
-- Small fix with Loading Speed
+- Small fix with loading speed
 
-Changelog 0.5.10[20240617]:
-- Improve Loading Speed
+Changelog v0.5.10 (2024-06-17):
+- Improve loading speed
 
-Changelog 0.5.9[20240616]:
-- Added missing functions for Airing Anime Calendar
+Changelog v0.5.9 (2024-06-16):
+- Added missing functions for airing anime calendar
 
-Changelog 0.5.8[20240614]:
+Changelog v0.5.8 (2024-06-14):
 - Added option to hide next page button on widget view
-- Added Fuzzypacks to local files
-- Added AllDebrid cloud scraping
-- Added SD and EQ filter
-- Fix Scrolling Issue with Download Manager
-- Fix Manual File Selection in Source Select
+- Added fuzzypacks to local files
+- Added alldebrid cloud scraping
+- Added sd and eq filter
+- Fix scrolling issue with download manager
+- Fix manual file selection in source select
 
-Changelog 0.5.7[20240613]:
-- Added additional Domains for Embed Extractor
-- Update Embed Extractor
+Changelog v0.5.7 (2024-06-13):
+- Added additional domains for embed extractor
+- Update embed extractor
 - Flake8 linting
 
-Changelog 0.5.6[20240609]:
-- Changed Artwork Customization Options
-- Improved Watchlist Sync
-- Fixed Animess provider
-- Fixed Watchlist Duplicates
+Changelog v0.5.6 (2024-06-09):
+- Changed artwork customization options
+- Improved watchlist sync
+- Fixed animess provider
+- Fixed watchlist duplicates
 
-Changelog 0.5.5[20240608]:
-- Added Watchlist Completed Syncing
-- Added Sync Completed Shortcuts
-- Added Sync Settings
-- Added New Icon for Sync Shortcut
-- Small Fix for the SyncUrl
+Changelog v0.5.5 (2024-06-08):
+- Added watchlist completed syncing
+- Added sync completed shortcuts
+- Added sync settings
+- Added new icon for sync shortcut
+- Small fix for the syncurl
 - Fix animix search
-- Removed Flaresolverr requirements for animepahe
+- Removed flaresolverr requirements for animepahe
 
-Changelog 0.5.4[20240603]:
-- Fix missing title parameter when calling control.notify causing errors 
+Changelog v0.5.4 (2024-06-03):
+- Fix missing title parameter when calling control.notify causing errors
 
-Changelog 0.5.3[20240527]:
-- Added Sort Order Settings for Watchlists except Simkl
-- Added an Option to Exclude Keywords in Source Filtering Settings 
-- Fixed Small Bug with Episode Meta due to Seasons
+Changelog v0.5.3 (2024-05-27):
+- Added sort order settings for watchlists except simkl
+- Added an option to exclude keywords in source filtering settings
+- Fixed small bug with episode meta due to seasons
 
-Changelog 0.5.2[20240522]:
-- Small Bug fix for Source Filtering
+Changelog v0.5.2 (2024-05-22):
+- Small bug fix for source filtering
 
-Changelog 0.5.1[20240521]:
-- Added Small Skin Compatibility FIx
-- Added Local File Directory Setting
-- Adjusted a few ranges for filtering file sizes 
+Changelog v0.5.1 (2024-05-21):
+- Added small skin compatibility fix
+- Added local file directory setting
+- Adjusted a few ranges for filtering file sizes
 
-Changelog 0.5.0[20240521]:
-- Added Download Manager
-- Added Local Scrapping
-- Added New Icons for Download Manager
-- Added New Options and Shortcuts
-- Added Context Menus for Select Source
-- Added Context Menus for Download Manager
-- Added File Selection Context Menu
-- Removed Download Context Menu
-- Removed Background Downloads Setting
-- Improved Scrapping
+Changelog v0.5.0 (2024-05-21):
+- Added download manager
+- Added local scrapping
+- Added new icons for download manager
+- Added new options and shortcuts
+- Added context menus for select source
+- Added context menus for download manager
+- Added file selection context menu
+- Removed download context menu
+- Removed background downloads setting
+- Improved scrapping
 
-Changelog 0.4.110[20240509]:
-- Fixed Global Search Paths
+Changelog v0.4.110 (2024-05-09):
+- Fixed global search paths
 
-Changelog 0.4.109[20240507]:
-- Another Small Fix
+Changelog v0.4.109 (2024-05-07):
+- Another small fix
 
-Changelog 0.4.108[20240507]:
-- Small Fix
+Changelog v0.4.108 (2024-05-07):
+- Small fix
 
-Changelog 0.4.107[20240507]:
-- Recoded The Prioritize System
-- Improved Scrapping
-- Fixed small bug with Search Results
-- Added new prioritization Setting "Prioritize By Episode"
+Changelog v0.4.107 (2024-05-07):
+- Recoded the prioritize system
+- Improved scrapping
+- Fixed small bug with search results
+- Added new prioritization setting "prioritize by episode"
 - Added extra consistency settings
 
-Changelog 0.4.106[20240502]:
+Changelog v0.4.106 (2024-05-02):
 - Small compatibility fix
 
-Changelog 0.4.105[20240502]:
-- Added compatibility to Arctic Zephyr
+Changelog v0.4.105 (2024-05-02):
+- Added compatibility to arctic zephyr
 - Removed unwanted xml files
 
-Changelog 0.4.104[20240428]:
-- Reverted Scrapping Improvements
+Changelog v0.4.104 (2024-04-28):
+- Reverted scrapping improvements
 
-Changelog 0.4.103[20240428]:
-- Scrapping Improvements
+Changelog v0.4.103 (2024-04-28):
+- Scrapping improvements
 - Changed a default setting
 
-Changelog 0.4.102[20240427]:
-- Added New Consistent Scrapping Setting 
-- Added TVDB Parts in Database
-- Improved Season searching
+Changelog v0.4.102 (2024-04-27):
+- Added new consistent scrapping setting
+- Added tvdb parts in database
+- Improved season searching
 
-Changelog 0.4.101[20240423]:
-- Made Logos and Posters for the asset list
-- Added Screenshots to the asset list
-- Added 3rd Logo Path "trans-goku-large.png"
-- Reverted previous change due to Watchlist Episode Errors
+Changelog v0.4.101 (2024-04-23):
+- Made logos and posters for the asset list
+- Added screenshots to the asset list
+- Added 3rd logo path "trans-goku-large.png"
+- Reverted previous change due to watchlist episode errors
 
-Changelog 0.4.100[20240422]:
-- Have it Fail gracefully when simkl id is not available
+Changelog v0.4.100 (2024-04-22):
+- Have it fail gracefully when simkl id is not available
 
-Changelog 0.4.99[20240418]:
-- Added ViewType Settings
-- Added a Background Download Setting
-- Fixed Download Function not handling Movies Correctly
+Changelog v0.4.99 (2024-04-18):
+- Added viewtype settings
+- Added a background download setting
+- Fixed download function not handling movies correctly
 
-Changelog 0.4.98[20240417]:
+Changelog v0.4.98 (2024-04-17):
 - Fixed a small labeling issue
-- Removed Cloud Inspection Settings in Accounts Category
-- Cloud Settings are handled in Scraping Category
+- Removed cloud inspection settings in accounts category
+- Cloud settings are handled in scraping category
 
-Changelog 0.4.97[20240415]:
-- Quick Fix with Simkl Episode Meta
+Changelog v0.4.97 (2024-04-15):
+- Quick fix with simkl episode meta
 
-Changelog 0.4.96[20240415]:
+Changelog v0.4.96 (2024-04-15):
 - Fixed clearlogos to be more accurate by following original logos
 
-Changelog 0.4.95[20240411]:
-- Updated Embed Extractor
-- Added Trakt Database Mappings
+Changelog v0.4.95 (2024-04-11):
+- Updated embed extractor
+- Added trakt database mappings
 
-Changelog 0.4.94[20240406]:
-- Add H!anime Proxies
-- Change label (provider) Proxies instead of (provider) Alt
+Changelog v0.4.94 (2024-04-06):
+- Add h!anime proxies
+- Change label (provider) proxies instead of (provider) alt
 
-Changelog 0.4.93[20240401]:
-- Added Support for A4k Subtitles
-- Added IMDBid to playitem
-- Database Updated
+Changelog v0.4.93 (2024-04-01):
+- Added support for a4k subtitles
+- Added imdbid to playitem
+- Database updated
 
-Changelog 0.4.92[20240328]:
-- Moved Maintenance Category near the top
-- Fixed Anime Latino HD Spanish Embed
+Changelog v0.4.92 (2024-03-28):
+- Moved maintenance category near the top
+- Fixed anime latino hd spanish embed
 
-Changelog 0.4.91[20240327]:
-- Fixed Small Bug with Dialogs in Playback
+Changelog v0.4.91 (2024-03-27):
+- Fixed small bug with dialogs in playback
 
-Changelog 0.4.90[20240321]:
-- Added a Download Manager
-- Added a Download button in context menu
-- Added new Scrapping Category
+Changelog v0.4.90 (2024-03-21):
+- Added a download manager
+- Added a download button in context menu
+- Added new scrapping category
 - Moved a few settings
-- Decreased Database Storage Size
+- Decreased database storage size
 
-Changelog 0.4.89[20240315]:
-- Recoded and Fixed and Improved Tmdb Player Support
-- Recoded and Fixed the Anime Filter to show updated anime
-- Fixed Watch Order not finding Franchises
-- Fixed Mal Posters due to database problems
-- Added Italian Translations
-- Added Turkish Translations
-- Added German Translations
-- Added IMDB Database Mappings
-- Added Mal Dubs Database Mappings
-- Added TVDB ID and TVDB Season Database Mappings
-- Added Media Type Database Mappings
+Changelog v0.4.89 (2024-03-15):
+- Recoded and fixed and improved tmdb player support
+- Recoded and fixed the anime filter to show updated anime
+- Fixed watch order not finding franchises
+- Fixed mal posters due to database problems
+- Added italian translations
+- Added turkish translations
+- Added german translations
+- Added imdb database mappings
+- Added mal dubs database mappings
+- Added tvdb id and tvdb season database mappings
+- Added media type database mappings
 
-Changelog 0.4.88[20240308]:
-- Added the ability to change Anilist Posters to Mal Posters
-- Added Anidb Database Mappings
-- Added Mal Picture Urls to Database
+Changelog v0.4.88 (2024-03-08):
+- Added the ability to change anilist posters to mal posters
+- Added anidb database mappings
+- Added mal picture urls to database
 
-Changelog 0.4.87[20240305]:
-- Add Feature to filter by release title
-- Gogo Domain Fixes
-- Added Aniwave Alt Setting
+Changelog v0.4.87 (2024-03-05):
+- Add feature to filter by release title
+- Gogo domain fixes
+- Added aniwave alt setting
 
-Changelog 0.4.86[20240303]:
-- Changed Aniwatch to H!anime
+Changelog v0.4.86 (2024-03-03):
+- Changed aniwatch to h!anime
 
-Changelog 0.4.85[20240303]:
-- Temporary fix for Aniwatch
+Changelog v0.4.85 (2024-03-03):
+- Temporary fix for aniwatch
 
-Changelog 0.4.84[20240225]:
-- Fixed Animix to ignore special episodes
+Changelog v0.4.84 (2024-02-25):
+- Fixed animix to ignore special episodes
 
-Changelog 0.4.83[20240221]:
-- Added Setting to disabled Mal Connection Errors
-- Finished recent Translations using Copilot
+Changelog v0.4.83 (2024-02-21):
+- Added setting to disabled mal connection errors
+- Finished recent translations using copilot
 
-Changelog 0.4.82[20240218]:
-- Fix Small Android Bug with disabled Embeds displaying
+Changelog v0.4.82 (2024-02-18):
+- Fix small android bug with disabled embeds displaying
 
-Changelog 0.4.81[20240214]:
-- Added Hosting Instructions for FlareSolverr
-- Fix some Labeling
+Changelog v0.4.81 (2024-02-14):
+- Added hosting instructions for flaresolverr
+- Fix some labeling
 
-Changelog 0.4.80[20240214]:
-- Fix RD Auth not gracefully closing
-- Fix AD Auth erroring when cancelled
-- Fix PM Auth not working
-- Use FlareSolverr for DDos-Guard
-- Fix Animepahe search to look for both romaji and english title
+Changelog v0.4.80 (2024-02-14):
+- Fix rd auth not gracefully closing
+- Fix ad auth erroring when cancelled
+- Fix pm auth not working
+- Use flaresolverr for ddos-guard
+- Fix animepahe search to look for both romaji and english title
 - Add new kwik domain to embed_extractor
 - Update strings.po all languages
 
-Changelog 0.4.79[20240212]:
-- fix resolver error due to empty meta
+Changelog v0.4.79 (2024-02-12):
+- Fix resolver error due to empty meta
 
-Changelog 0.4.78[20240211]:
-- Added Embeds Category
+Changelog v0.4.78 (2024-02-11):
+- Added embeds category
 - Added options to disable specific embeds
-- Small Setting Label Changes
-- Changed Animess Domain
+- Small setting label changes
+- Changed animess domain
 
-Changelog 0.4.77[20240210]:
-- Fixed AF Dialog Theme Bugs
+Changelog v0.4.77 (2024-02-10):
+- Fixed af dialog theme bugs
 
-Changelog 0.4.76[20240210]:
-- Fix RD Auth
-- Updated Translations
+Changelog v0.4.76 (2024-02-10):
+- Fix rd auth
+- Updated translations
 
-Changelog 0.4.75[20240209]:
-- Small Bug Fixes
+Changelog v0.4.75 (2024-02-09):
+- Small bug fixes
 
-Changelog 0.4.74[20240208]:
-- Added FlareSolverr Support
+Changelog v0.4.74 (2024-02-08):
+- Added flaresolverr support
 
-Changelog 0.4.73[20240203]:
-- Block VidStream on Aniwatch
-- Made Animepahe fail gracefully
-- Changed a few labels with Aniwave
+Changelog v0.4.73 (2024-02-03):
+- Block vidstream on aniwatch
+- Made animepahe fail gracefully
+- Changed a few labels with aniwave
 
-Changelog 0.4.72[20240202]:
-- Fix Small Database Error with Search
+Changelog v0.4.72 (2024-02-02):
+- Fix small database error with search
 
-Changelog 0.4.71[20240201]:
-- Updated Database
-- Set all embeds off by default except English
+Changelog v0.4.71 (2024-02-01):
+- Updated database
+- Set all embeds off by default except english
 
-Changelog 0.4.70[20240130]:
-- hls embeds play on ISA
+Changelog v0.4.70 (2024-01-30):
+- Hls embeds play on isa
 - Fixed filemoon frame skipping
 - Fixed seeking in other embeds
 
-Changelog 0.4.69[20240129]:
-- Added Remove from History Context Menu
-- Recoded the Search Functionality
-- New skin Search Paths
+Changelog v0.4.69 (2024-01-29):
+- Added remove from history context menu
+- Recoded the search functionality
+- New skin search paths
 
-Changelog 0.4.68[20240123]:
-- Updated Embed Extractor 
+Changelog v0.4.68 (2024-01-23):
+- Updated embed extractor
 - Update strings.po for all languages
 
-Changelog 0.4.67[20240121]:
-- Added New Sort Order for Simkl Watchlist
-- Last Added is default Sort Method for Simkl
+Changelog v0.4.67 (2024-01-21):
+- Added new sort order for simkl watchlist
+- Last added is default sort method for simkl
 
-Changelog 0.4.66[20240121]:
-- Added New Embed Setting for Aniwatch
-- Made Aniwatch Region Based Optional
+Changelog v0.4.66 (2024-01-21):
+- Added new embed setting for aniwatch
+- Made aniwatch region based optional
 
-Changelog 0.4.65[20240120]:
-- Small Fix for Aniplay Provider
-- linting Changes
-- Finished Arabic Translations 
+Changelog v0.4.65 (2024-01-20):
+- Small fix for aniplay provider
+- Linting changes
+- Finished arabic translations
 
-Changelog 0.4.64[20240120]:
-- Added Italian Sub/Dub Embeds Category
-- Added Aniplay Provider
-- Fixed Extractor
+Changelog v0.4.64 (2024-01-20):
+- Added italian sub/dub embeds category
+- Added aniplay provider
+- Fixed extractor
 
-Changelog 0.4.63[20240119]:
-- Updated embed extractor 
+Changelog v0.4.63 (2024-01-19):
+- Updated embed extractor
 
-Changelog 0.4.62[20240119]:
-- New languages added 
-- Brazilian portuguese 
-- French from France 
-- Arabic from Saudi Arabia
+Changelog v0.4.62 (2024-01-19):
+- New languages added
+- Brazilian portuguese
+- French from france
+- Arabic from saudi arabia
 
-Changelog 0.4.61[20240108]:
-- Fixed meta for Simkl
-- Set Skip Intro Default to 3
-- Set Aniskip Defaults to True
+Changelog v0.4.61 (2024-01-08):
+- Fixed meta for simkl
+- Set skip intro default to 3
+- Set aniskip defaults to true
 
-Changelog 0.4.60[20240108]:
-- Fixed Extractor
+Changelog v0.4.60 (2024-01-08):
+- Fixed extractor
 
-Changelog 0.4.59[20240105]:
-- Added Autoplay Last Selected Source for Embed Sources
+Changelog v0.4.59 (2024-01-05):
+- Added autoplay last selected source for embed sources
 
-Changelog 0.4.58[20240105]:
-- Added skiptimes from providers 
+Changelog v0.4.58 (2024-01-05):
+- Added skiptimes from providers
 
-Changelog 0.4.57[20240103]:
-- Added French Sub/Dub Embeds Category
-- Added Neko-Sama Provider
+Changelog v0.4.57 (2024-01-03):
+- Added french sub/dub embeds category
+- Added neko-sama provider
 
-Changelog 0.4.56[20231228]:
-- Small Fix with Skip Intro for AF
+Changelog v0.4.56 (2023-12-28):
+- Small fix with skip intro for af
 
-Changelog 0.4.55[20231225]:
-- Fixes for Xbox
+Changelog v0.4.55 (2023-12-25):
+- Fixes for xbox
 
-Changelog 0.4.54 [20231225]:
+Changelog v0.4.54 (2023-12-25):
 - Embed extractor updated
 
-Changelog 0.4.53 [20231222]:
+Changelog v0.4.53 (2023-12-22):
 - Added new patterns for gogo and dood embeds
 
-Changelog 0.4.52 [20231220]:
-- Added Gogo and Animix Alt Embeds
-- Added Fallbacks to api stuff
-- Fixed Episode Meta Bugs
+Changelog v0.4.52 (2023-12-20):
+- Added gogo and animix alt embeds
+- Added fallbacks to api stuff
+- Fixed episode meta bugs
 
-Changelog 0.4.51 [20231217]:
-- Fixed Simkl next up url
+Changelog v0.4.51 (2023-12-17):
+- Fixed simkl next up url
 
-Changelog 0.4.50 [20231213]:
-- Added Arctic Fuse Next Dialog Theme
+Changelog v0.4.50 (2023-12-13):
+- Added arctic fuse next dialog theme
 
-Changelog 0.4.49 [20231202]:
-- Updated Mapping Database
+Changelog v0.4.49 (2023-12-02):
+- Updated mapping database
 
-Changelog 0.4.48 [20231130]:
+Changelog v0.4.48 (2023-11-30):
 - Cleaned up manual year, season in settings
 
-Changelog 0.4.47 [20231128]:
-- Added New Setting to change Content Year for Menu Items
-- Added New Setting to change Content Season for Menu Items
+Changelog v0.4.47 (2023-11-28):
+- Added new setting to change content year for menu items
+- Added new setting to change content season for menu items
 
-Changelog 0.4.46 [20231121]:
-- Added Local Mappings to Watchlist
-- Set Armkai as Fallback for Mappings
-- Added trailers if available to Anilist Watchlists
+Changelog v0.4.46 (2023-11-21):
+- Added local mappings to watchlist
+- Set armkai as fallback for mappings
+- Added trailers if available to anilist watchlists
 
-Changelog 0.4.45 [20231110]:
-- Added MALSync Api
-- Use MALSync Api for Aniwatch and Gogo
+Changelog v0.4.45 (2023-11-10):
+- Added malsync api
+- Use malsync api for aniwatch and gogo
 
-Changelog 0.4.44 [20231109]:
-- Fix Aniwatch scraper
-- Fix Otaku Animess scraper
+Changelog v0.4.44 (2023-11-09):
+- Fix aniwatch scraper
+- Fix otaku animess scraper
 - Added py2 compatibility for tmdbhelper route
 
-Changelog 0.4.43 [20231104]:
-- RD Cloud Fixes
+Changelog v0.4.43 (2023-11-04):
+- Rd cloud fixes
 
-Changelog 0.4.42 [20231104]:
-- Improved Search for Animixplay
-- Fixed Scrapper for Aniwatch
+Changelog v0.4.42 (2023-11-04):
+- Improved search for animixplay
+- Fixed scrapper for aniwatch
 
-Changelog 0.4.41 [20231103]:
-- Added Tmdb Helper Player Support
-- Added Autoplay Last Selected Source for Batch Sources
-- fixed 'Play Now' in Aniskip Outro
+Changelog v0.4.41 (2023-11-03):
+- Added tmdb helper player support
+- Added autoplay last selected source for batch sources
+- Fixed 'play now' in aniskip outro
 
-Changelog 0.4.40 [20231102]:
-- Fixed Cloud scraping issues
-- Updated Mapping Database
+Changelog v0.4.40 (2023-11-02):
+- Fixed cloud scraping issues
+- Updated mapping database
 
-Changelog 0.4.39 [20231018]:
-- Fixed Episode Thumbnails
-- Fixed Playing Next not working on some embeds
+Changelog v0.4.39 (2023-10-18):
+- Fixed episode thumbnails
+- Fixed playing next not working on some embeds
 
-Changelog 0.4.38 [20231016]:
-- Fixed a small path issue with Last Watch for Watchlist
+Changelog v0.4.38 (2023-10-16):
+- Fixed a small path issue with last watch for watchlist
 
-Changelog 0.4.37 [20231016]:
-- Added Clearart for Episode Meta
-- Fixed cast missing inside Anilist Watchlist Menu
-- Fixed Clearart on Playback
+Changelog v0.4.37 (2023-10-16):
+- Added clearart for episode meta
+- Fixed cast missing inside anilist watchlist menu
+- Fixed clearart on playback
 
-Changelog 0.4.36 [20231009]:
-- Fixed Animix Scraper
+Changelog v0.4.36 (2023-10-09):
+- Fixed animix scraper
 
-Changelog 0.4.35 [20231009]:
-- Remove Setting "Hide Unaired Episodes in Playlist"
+Changelog v0.4.35 (2023-10-09):
+- Remove setting "hide unaired episodes in playlist"
 
-Changelog 0.4.34 [20231009]:
-- Fixed Unaired Episodes Setting
-- Added New Setting "Hide Unaired Episodes in Playlist"
+Changelog v0.4.34 (2023-10-09):
+- Fixed unaired episodes setting
+- Added new setting "hide unaired episodes in playlist"
 - Restrict season number guess to < 20
 
-Changelog 0.4.33 [20231008]:
-- Changed 9anime to Aniwave
-- Fixed Playlist Errors
+Changelog v0.4.33 (2023-10-08):
+- Changed 9anime to aniwave
+- Fixed playlist errors
 
-Changelog 0.4.32 [20231007]:
+Changelog v0.4.32 (2023-10-07):
 - Added local anime_id mapping database
 
-Changelog 0.4.31 [20231006]:
-- Fixed Anify 9anime Embed
+Changelog v0.4.31 (2023-10-06):
+- Fixed anify 9anime embed
 
-Changelog 0.4.30 [20231005]:
-- Fixed Artwork Bug with Episode Thumbnails
-- Fixed Anilist Watchlist with Current Stuff
+Changelog v0.4.30 (2023-10-05):
+- Fixed artwork bug with episode thumbnails
+- Fixed anilist watchlist with current stuff
 
-Changelog 0.4.29 [20231001]:
-- Added New Setting "Hide Unaired Episodes"
-- Made Rare Bugs for Watchlist Smaller
+Changelog v0.4.29 (2023-10-01):
+- Added new setting "hide unaired episodes"
+- Made rare bugs for watchlist smaller
 
-Changelog 0.4.28 [20230929]:
+Changelog v0.4.28 (2023-09-29):
 - Reverted art poster typo error
 
-Changelog 0.4.27 [20230929]:
-- Changed the cache threshold from 24 to 4 
+Changelog v0.4.27 (2023-09-29):
+- Changed the cache threshold from 24 to 4
 
-Changelog 0.4.26 [20230929]:
-- Changes Simkl api key to a temporary key
-- Changed the cache threshold from 2 to 24 
+Changelog v0.4.26 (2023-09-29):
+- Changes simkl api key to a temporary key
+- Changed the cache threshold from 2 to 24
 
-Changelog 0.4.25 [20230929]:
+Changelog v0.4.25 (2023-09-29):
 - Fix art poster typo error
-- Fix Rare Bugs for Watchlist
+- Fix rare bugs for watchlist
 - Made "simkl.unaired" a subsetting
 
-Changelog 0.4.24 [20230928]:
-- Fixed Episode Meta Bug
-- Fixed Menu Submenu Customization Bugs
-- Fixed Genre Widget Menu Bug
-- Fixed All Context Menus for Watchlist
-- Fixed Amount of Items in Watchlist
-- Fixed Watch Indicators in Watchlist
-- Fixed Anilist Watchlist
-- Fixed Mal Watchlist
-- Fixed Kitsu Watchlist
-- Added Simkl Watchlist
-- Added New Setting "Set Percentage to Mark as Watched"
-- Added New Setting "Show Mark as Watched Watchlist Context Menu"
-- Added "Marked as Watched Watchlist"
-- Added Watchlist Manager Context Menu
-- Added "Add to Current" For Watchlist Manager
-- Added "Add to Planning" For Watchlist Manager
-- Added "Add to Completed" For Watchlist Manager
-- Added "Add to Rewatching" For Watchlist Manager
-- Added "Add to Paused" For Watchlist Manager
-- Added "Add to Dropped" For Watchlist Manager
-- Added "Set Score" For Watchlist Manager
-- Added "Delete" For Watchlist Manager
-- Added Support for Subtitle Addons
-- Added Main Genres 
-- Added Genre Menu Customization
+Changelog v0.4.24 (2023-09-28):
+- Fixed episode meta bug
+- Fixed menu submenu customization bugs
+- Fixed genre widget menu bug
+- Fixed all context menus for watchlist
+- Fixed amount of items in watchlist
+- Fixed watch indicators in watchlist
+- Fixed anilist watchlist
+- Fixed mal watchlist
+- Fixed kitsu watchlist
+- Added simkl watchlist
+- Added new setting "set percentage to mark as watched"
+- Added new setting "show mark as watched watchlist context menu"
+- Added "marked as watched watchlist"
+- Added watchlist manager context menu
+- Added "add to current" for watchlist manager
+- Added "add to planning" for watchlist manager
+- Added "add to completed" for watchlist manager
+- Added "add to rewatching" for watchlist manager
+- Added "add to paused" for watchlist manager
+- Added "add to dropped" for watchlist manager
+- Added "set score" for watchlist manager
+- Added "delete" for watchlist manager
+- Added support for subtitle addons
+- Added main genres
+- Added genre menu customization
 
-Changelog 0.4.23 [20230908]:
-- Fix Setting Defaults
-- Fix Subtitle Default
+Changelog v0.4.23 (2023-09-08):
+- Fix setting defaults
+- Fix subtitle default
 
-Changelog 0.4.22 [20230904]:
+Changelog v0.4.22 (2023-09-04):
 - Add additional embed hosters as used by gogo
-- Added Simkl Icons for future watchlist
+- Added simkl icons for future watchlist
 
-Changelog 0.4.21 [20230823]:
-- Improved Aniwatch Scraper
+Changelog v0.4.21 (2023-08-23):
+- Improved aniwatch scraper
 
-Changelog 0.4.20 [20230822]:
-- Readded Consumet Due to bugs
+Changelog v0.4.20 (2023-08-22):
+- Readded consumet due to bugs
 
-Changelog 0.4.19 [20230821]:
-- The Final Permanent Fix For Audio and Subtitles.
+Changelog v0.4.19 (2023-08-21):
+- The final permanent fix for audio and subtitles.
 
-Changelog 0.4.17 [20230819]:
-- Removed Consumet
-- Fixed Audio Preferences
+Changelog v0.4.17 (2023-08-19):
+- Removed consumet
+- Fixed audio preferences
 
-Changelog 0.4.16 [20230819]:
-- Added Spanish Sub/Dub Embeds Category
-- Added AnimeLatinoHD Provider
+Changelog v0.4.16 (2023-08-19):
+- Added spanish sub/dub embeds category
+- Added animelatinohd provider
 
-Changelog 0.4.15 [20230818]:
-- Added "None" as a Subtitle option
+Changelog v0.4.15 (2023-08-18):
+- Added "none" as a subtitle option
 
-Changelog 0.4.14 [20230817]:
-- Small Fix for File Size Settings
+Changelog v0.4.14 (2023-08-17):
+- Small fix for file size settings
 
-Changelog 0.4.13 [20230814]:
-- Added Universal Embed Catagory
-- Moved Aniwatch Embed
-- Removed Zoro Embed
-- Removed GogoHD Embed
-- Made Changes to Aniwatch Defaults
+Changelog v0.4.13 (2023-08-14):
+- Added universal embed catagory
+- Moved aniwatch embed
+- Removed zoro embed
+- Removed gogohd embed
+- Made changes to aniwatch defaults
 
-Changelog 0.4.12 [20230814]:
-- Added Portuguese Embed
-- Added Otaku Animes Provider
+Changelog v0.4.12 (2023-08-14):
+- Added portuguese embed
+- Added otaku animes provider
 
-Changelog 0.4.11 [20230813]:
+Changelog v0.4.11 (2023-08-13):
 - Fix favorites error
 
-Changelog 0.4.10 [20230813]:
-- Fix pyaes for Python 3.9+ 
+Changelog v0.4.10 (2023-08-13):
+- Fix pyaes for python 3.9+
 
-Changelog 0.4.9 [20230813]:
+Changelog v0.4.9 (2023-08-13):
 - Added delete from database context menu
 - Added reuselanginvoker setting
 - Update database for shows on new episodes
 
-Changelog 0.4.8 [20230811]:
-- Fixed Artwork Bug
-- Fixed Airdates
-- Improved Aniwatch search
-- Made a couple of File Changes
+Changelog v0.4.8 (2023-08-11):
+- Fixed artwork bug
+- Fixed airdates
+- Improved aniwatch search
+- Made a couple of file changes
 
-Changelog 0.4.7 [20230810]:
-- Added New Setting "Terminate on Cloud Sources"
+Changelog v0.4.7 (2023-08-10):
+- Added new setting "terminate on cloud sources"
 
-Changelog 0.4.6 [20230808]:
-- Fix Sphinx clean function 
-- Fixed a small bug with Genres
+Changelog v0.4.6 (2023-08-08):
+- Fix sphinx clean function
+- Fixed a small bug with genres
 
-Changelog 0.4.5 [20230807]:
-- Improved Anime Tosho Scrapping
-- Escape special characters in Sphinx query
+Changelog v0.4.5 (2023-08-07):
+- Improved anime tosho scrapping
+- Escape special characters in sphinx query
 
-Changelog 0.4.4 [20230806]:
-- Fixed Aniwatch
+Changelog v0.4.4 (2023-08-06):
+- Fixed aniwatch
 
-Changelog 0.4.3 [20230806]:
-- Readded Otaku Themepak
+Changelog v0.4.3 (2023-08-06):
+- Readded otaku themepak
 
-Changelog 0.4.2 [20230805]:
-- Removed Otaku Themepak
-- Added 2 New Icon Packs
-- Made Image Sizes Smaller
+Changelog v0.4.2 (2023-08-05):
+- Removed otaku themepak
+- Added 2 new icon packs
+- Made image sizes smaller
 
-Changelog 0.4.1 [20230804]:
-- Separated Providers
-- Fixed Season Guessing
-- Fixed Animetosho Searching
+Changelog v0.4.1 (2023-08-04):
+- Separated providers
+- Fixed season guessing
+- Fixed animetosho searching
 
-Changelog 0.4.0 [20230803]:
-- Added Four New Icon Packs
+Changelog v0.4.0 (2023-08-03):
+- Added four new icon packs
 
-Changelog 0.3.99 [20230803]:
-- Added file Management Size Settings
-- Fixed Kodi Language Settings
-- Added Rebuild Database On Update Settings
+Changelog v0.3.99 (2023-08-03):
+- Added file management size settings
+- Fixed kodi language settings
+- Added rebuild database on update settings
 
-Changelog 0.3.98 [20230729]:
-- Added Clean Cache On Update Settings
+Changelog v0.3.98 (2023-07-29):
+- Added clean cache on update settings
 
-Changelog 0.3.97 [20230725]:
-- Removed Uncategorized Menus
-- Made Category Menus for Movies and TV Shows
-- Added Movie Search For Movies
-- Added TV Search For TV Shows
-- Added Movie Genres for Movies
-- Added TV Genres For TV Shows
-- Changed alot of Menu Settings
+Changelog v0.3.97 (2023-07-25):
+- Removed uncategorized menus
+- Made category menus for movies and tv shows
+- Added movie search for movies
+- Added tv search for tv shows
+- Added movie genres for movies
+- Added tv genres for tv shows
+- Changed alot of menu settings
 
-Changelog 0.3.96 [20230723]:
+Changelog v0.3.96 (2023-07-23):
 - Moved get season function to utils
-- Matched hight Positions on Select Source
+- Matched hight positions on select source
 
-Changelog 0.3.95 [20230722]:
-- Added Hide Episode Info and Plot Setting
-- Fix Scrolling Issue in Source Select
+Changelog v0.3.95 (2023-07-22):
+- Added hide episode info and plot setting
+- Fix scrolling issue in source select
 
-Changelog 0.3.94 [20230720]:
-- Fix for Smartscroll 
-- Fix for Anime Tosho
+Changelog v0.3.94 (2023-07-20):
+- Fix for smartscroll
+- Fix for anime tosho
 
-Changelog 0.3.93 [20230719]:
-- Improved Nyaa Scrapping
-- Added Anime Tosho Scrapper
-- Added Manual Batch File Selection Setting
-- Added Smart Episode Scrolling Setting
+Changelog v0.3.93 (2023-07-19):
+- Improved nyaa scrapping
+- Added anime tosho scrapper
+- Added manual batch file selection setting
+- Added smart episode scrolling setting
 
-Changelog 0.3.92 [20230715]:
-- Changed Gogoanime domain
+Changelog v0.3.92 (2023-07-15):
+- Changed gogoanime domain
 
-Changelog 0.3.91 [20230714]:
-- More improvements on Aniwatch search
+Changelog v0.3.91 (2023-07-14):
+- More improvements on aniwatch search
 
-Changelog 0.3.90 [20230713]:
-- Improved Aniwatch search with romaji titles
+Changelog v0.3.90 (2023-07-13):
+- Improved aniwatch search with romaji titles
 
-Changelog 0.3.89 [20230712]:
-- Added Aniwatch scraper
-- Removed Animesaturn references 
+Changelog v0.3.89 (2023-07-12):
+- Added aniwatch scraper
+- Removed animesaturn references
 
-Changelog 0.3.87 [20230710]:
+Changelog v0.3.87 (2023-07-10):
 - Used anify for zoro
 
-Changelog 0.3.86 [20230701]:
+Changelog v0.3.86 (2023-07-01):
 - Fix 9anime scraper using anify
 
-Changelog 0.3.85 [20230630]:
-- Fix Animix Scraper
-- Fix Gogo Scraper
-- linting Changes
+Changelog v0.3.85 (2023-06-30):
+- Fix animix scraper
+- Fix gogo scraper
+- Linting changes
 
-Changelog 0.3.84 [20230627]:
-- Added Chiaki to get watch order
-- Added New Context menu "Get Watch Order"
-- Huge thanks to @Pahiro for adding this.
+Changelog v0.3.84 (2023-06-27):
+- Added chiaki to get watch order
+- Added new context menu "get watch order"
+- Huge thanks to @pahiro for adding this.
 
-Changelog 0.3.83 [20230625]:
+Changelog v0.3.83 (2023-06-25):
 - No code changes, linting only
 
-Changelog 0.3.82 [20230625]:
+Changelog v0.3.82 (2023-06-25):
 - New service to monitor settings changes
 - Update global flag to indicate calendar requires a refresh
 - Added dbargs to refresh the calendar
 
-Changelog 0.3.81 [20230622]:
-- Added CountryOfOrigin filter to "Airing Anime Calendar"
-- Big Thanks to Pahiro for adding this filter.
+Changelog v0.3.81 (2023-06-22):
+- Added countryoforigin filter to "airing anime calendar"
+- Big thanks to pahiro for adding this filter.
 
-Changelog 0.3.80 [20230607]:
+Changelog v0.3.80 (2023-06-07):
 - Added anilist id when searching simkl for episodes
 - Added notification when meta database is rebuilt
 - Disabled xstreamcdn in gogo
 
-Changelog 0.3.79 [20230606]:
-- Fixed a fallback property for Consumet
+Changelog v0.3.79 (2023-06-06):
+- Fixed a fallback property for consumet
 - Made a few episode meta changes
 
-Changelog 0.3.78 [20230602]:
-- Fixed Zoro scraper fails when there are no external subtitles
-- Fixed Aanimepahe scraping when more than 30 episodes
+Changelog v0.3.78 (2023-06-02):
+- Fixed zoro scraper fails when there are no external subtitles
+- Fixed aanimepahe scraping when more than 30 episodes
 
-Changelog 0.3.77 [20230528]:
-- Added Animepahe Scraper
+Changelog v0.3.77 (2023-05-28):
+- Added animepahe scraper
 
-Changelog 0.3.76 [20230522]:
-- Improved Skip Intro incase Aniskip Fails
-- Made Nyaa easier to understand
+Changelog v0.3.76 (2023-05-22):
+- Improved skip intro incase aniskip fails
+- Made nyaa easier to understand
 
-Changelog 0.3.75 [20230520]:
+Changelog v0.3.75 (2023-05-20):
 - Added enime stream sources as fallback
 
-Changelog 0.3.74 [20230519]:
-- Improved Skip Intro
+Changelog v0.3.74 (2023-05-19):
+- Improved skip intro
 
-Changelog 0.3.73 [20230519]:
+Changelog v0.3.73 (2023-05-19):
 - New embed domain for gogoanime
-- Updated Instructions
-- Fix Sorting Settings
-- Improved Skip Outro
+- Updated instructions
+- Fix sorting settings
+- Improved skip outro
 
-Changelog 0.3.72 [20230515]:
-- Added Manual Override Future Settings 
-- Added Self Hosting Api Settings
+Changelog v0.3.72 (2023-05-15):
+- Added manual override future settings
+- Added self hosting api settings
 - Added instructions
 - Fix crash on zoro subtitle handling
 
-Changelog 0.3.71 [20230513]:
+Changelog v0.3.71 (2023-05-13):
 - Fix mp4upload embed extractor
 
-Changelog 0.3.70 [20230508]:
+Changelog v0.3.70 (2023-05-08):
 - Added playtaku embed extractor
 
-Changelog 0.3.69 [20230507]:
+Changelog v0.3.69 (2023-05-07):
 - Handle season and episode as integers
 
-Changelog 0.3.68 [20230427]:
-- Handled Consumet error
-- Added New Context menu "mark as completed"
+Changelog v0.3.68 (2023-04-27):
+- Handled consumet error
+- Added new context menu "mark as completed"
 
-Changelog 0.3.67 [20230420]:
+Changelog v0.3.67 (2023-04-20):
 - Fix regression error from last commit disabling subs on zoro streams
 
-Changelog 0.3.66 [20230418]:
-- Fixed Subtitle Bugs
+Changelog v0.3.66 (2023-04-18):
+- Fixed subtitle bugs
 
-Changelog 0.3.65 [20230414]:
+Changelog v0.3.65 (2023-04-14):
 - Handle animix dub stream site being down
 
-Changelog 0.3.64 [20230412]:
-- Added New Setting "Set Streaming Site"
+Changelog v0.3.64 (2023-04-12):
+- Added new setting "set streaming site"
 
-Changelog 0.3.63 [20230410]:
-- Consumet: Remove cached request before retrying
+Changelog v0.3.63 (2023-04-10):
+- Consumet: remove cached request before retrying
 
-Changelog 0.3.62 [20230407]:
-- Improved Priority Settings
-- Allow MultiSelect Priority Settings
+Changelog v0.3.62 (2023-04-07):
+- Improved priority settings
+- Allow multiselect priority settings
 
-Changelog 0.3.61 [20230407]:
-- Fixed Ratelimiting
-- Fixed Zoro
-- Improved Gogohd
-- Update gogo url 
+Changelog v0.3.61 (2023-04-07):
+- Fixed ratelimiting
+- Fixed zoro
+- Improved gogohd
+- Update gogo url
 - Added quality for 9anime embeds
 - Updated gogoembed extractor
 
-Changelog 0.3.60 [20230405]:
-- Improved 2 Priority Settings
+Changelog v0.3.60 (2023-04-05):
+- Improved 2 priority settings
 
-Changelog 0.3.59 [20230403]:
-- Added New Setting "Prioritize By Season"
-- Added New Setting "Prioritize By Part"
-- Added Enime fallback
+Changelog v0.3.59 (2023-04-03):
+- Added new setting "prioritize by season"
+- Added new setting "prioritize by part"
+- Added enime fallback
 
-Changelog 0.3.58 [20230402]:
-- Added New Setting "Set Items Per Page"
+Changelog v0.3.58 (2023-04-02):
+- Added new setting "set items per page"
 
-Changelog 0.3.57 [20230318]:
-- Added New Setting "Prioritize Dual-Audio Sources"
-- Added New Setting "Prioritize Multisubs Sources"
-- Added New Setting "Prioritize Batch Sources"
+Changelog v0.3.57 (2023-03-18):
+- Added new setting "prioritize dual-audio sources"
+- Added new setting "prioritize multisubs sources"
+- Added new setting "prioritize batch sources"
 
-Changelog 0.3.56 [20230318]:
-- Fixed Small Bug with Skip Intro Duration
+Changelog v0.3.56 (2023-03-18):
+- Fixed small bug with skip intro duration
 - Moved two settings
 
-Changelog 0.3.55 [20230317]:
-- Small Fixes with Playback
+Changelog v0.3.55 (2023-03-17):
+- Small fixes with playback
 
-Changelog 0.3.54 [20230316]:
-- Added New Setting "Enable Automatic Outro Skip"
-- Added New Setting "Enable Automatic Intro Skip"
-- Recoded Skip Intro
+Changelog v0.3.54 (2023-03-16):
+- Added new setting "enable automatic outro skip"
+- Added new setting "enable automatic intro skip"
+- Recoded skip intro
 
-Changelog 0.3.53 [20230316]:
+Changelog v0.3.53 (2023-03-16):
 - Fixed playlist not building if airdate not available
-- Added New Setting "Preferred Playlist Size"
+- Added new setting "preferred playlist size"
 
-Changelog 0.3.52 [20230315]:
-- Fixed a small bug with Playing Next Dialog
+Changelog v0.3.52 (2023-03-15):
+- Fixed a small bug with playing next dialog
 
-Changelog 0.3.51 [20230314]:
-- Fixed a major bug with the Playing Next Dialog
+Changelog v0.3.51 (2023-03-14):
+- Fixed a major bug with the playing next dialog
 
-Changelog 0.3.50 [20230313]:
-- Added New Setting "Dialog Theme"
-- Added 2 New Themes for Skip Intro, Playing Next Dialog
+Changelog v0.3.50 (2023-03-13):
+- Added new setting "dialog theme"
+- Added 2 new themes for skip intro, playing next dialog
 
-Changelog 0.3.49 [20230310]:
+Changelog v0.3.49 (2023-03-10):
 - Fixed mal and kitsu token refresh
 
-Changelog 0.3.48 [20230310]:
+Changelog v0.3.48 (2023-03-10):
 - Fixed crash on 9anime streams
 
-Changelog 0.3.47 [20230310]:
-- Made Nya Alt easier for Verizon Users
-- Added New Setting "Preferred Subtitle Language"
-- Renamed "Preferred Audio Stream"
-- Renamed "Preferred Stream Source"
+Changelog v0.3.47 (2023-03-10):
+- Made nya alt easier for verizon users
+- Added new setting "preferred subtitle language"
+- Renamed "preferred audio stream"
+- Renamed "preferred stream source"
 
-Changelog 0.3.46 [20230309]:
+Changelog v0.3.46 (2023-03-09):
 - Added connection to the tile in find relation and linting
 - Added some fixes
-- Fixed Skip Outro
+- Fixed skip outro
 
-Changelog 0.3.45 [20230309]:
-- Added Aniskip
+Changelog v0.3.45 (2023-03-09):
+- Added aniskip
 
-Changelog 0.3.44 [20230308]:
-- cleanup html tags in description
-- fixed next page in recommendations
+Changelog v0.3.44 (2023-03-08):
+- Cleanup html tags in description
+- Fixed next page in recommendations
 
-Changelog 0.3.43 [20230308]:
-- Added Context Menu "Find Recommendations"
-- Added Context Menu "Find Relations"
-- Renamed "Find Similar"
+Changelog v0.3.43 (2023-03-08):
+- Added context menu "find recommendations"
+- Added context menu "find relations"
+- Renamed "find similar"
 
-Changelog 0.3.42 [20230305]:
-- re-added "Find Similar" to the context menu
+Changelog v0.3.42 (2023-03-05):
+- Re-added "find similar" to the context menu
 
-Changelog 0.3.41 [20230303]:
-- Renamed Preferred Source
+Changelog v0.3.41 (2023-03-03):
+- Renamed preferred source
 
-Changelog 0.3.40 [20230302]:
-- Improved Teritary Sort Preferences setting
-- Added Subs Teritary Sort Preferences
-- Renamed Filter Sub and Dubs
+Changelog v0.3.40 (2023-03-02):
+- Improved teritary sort preferences setting
+- Added subs teritary sort preferences
+- Renamed filter sub and dubs
 
-Changelog 0.3.39 [20230302]:
-- Moved Enable Teritary Dub Sort Preferences
+Changelog v0.3.39 (2023-03-02):
+- Moved enable teritary dub sort preferences
 
-Changelog 0.3.38 [20230301]:
-- Disable Nyaa properly based on settings
+Changelog v0.3.38 (2023-03-01):
+- Disable nyaa properly based on settings
 
-Changelog 0.3.37 [20230301]:
-- Added New Setting "Disable Scraping Screen Fanart" 
-- Added New Setting "Disable Scraping Screen Clearlogo"
+Changelog v0.3.37 (2023-03-01):
+- Added new setting "disable scraping screen fanart"
+- Added new setting "disable scraping screen clearlogo"
 
-Changelog 0.3.36 [20230228]:
-- Add Nyaa provider
+Changelog v0.3.36 (2023-02-28):
+- Add nyaa provider
 
-Changelog 0.3.35 [20230228]:
+Changelog v0.3.35 (2023-02-28):
 - Add 9anime provider
 
-Changelog 0.3.34 [20230226]:
+Changelog v0.3.34 (2023-02-26):
 - Fix simkl fallback
 
-Changelog 0.3.33 [20230224]:
-- Added GogoHD Dub Sources
+Changelog v0.3.33 (2023-02-24):
+- Added gogohd dub sources
 
-Changelog 0.3.32 [20230224]:
-- Added GogoHD Sources
+Changelog v0.3.32 (2023-02-24):
+- Added gogohd sources
 
-Changelog 0.3.31 [20230223]:
-- Fixed Setting Types
+Changelog v0.3.31 (2023-02-23):
+- Fixed setting types
 
-Changelog 0.3.30 [20230223]:
-- Updated The News
+Changelog v0.3.30 (2023-02-23):
+- Updated the news
 
-Changelog 0.3.29 [20230223]:
-- Added New Duration Setting for Intro Dialog
+Changelog v0.3.29 (2023-02-23):
+- Added new duration setting for intro dialog
 
-Changelog 0.3.28 [20230221]:
+Changelog v0.3.28 (2023-02-21):
 - Fix zoro subtitles not displaying correctly
 
-Changelog 0.3.27 [20230218]:
+Changelog v0.3.27 (2023-02-18):
 - Changed a few default settings
 
-Changelog 0.3.26 [20230217]:
-- Add Zoro Sub sources
+Changelog v0.3.26 (2023-02-17):
+- Add zoro sub sources
 
-Changelog 0.3.25 [20230214]:
+Changelog v0.3.25 (2023-02-14):
 - Fixed sub and dub skin bug
 
-Changelog 0.3.24 [20230213]:
+Changelog v0.3.24 (2023-02-13):
 - Fixed a few small bugs
 
-Changelog 0.3.23 [20230212]:
-- Added Special Setting "Filter Subs and Dubs"
+Changelog v0.3.23 (2023-02-12):
+- Added special setting "filter subs and dubs"
 
-Changelog 0.3.22 [20230211]:
-- Use InfoTagVideo for Kodi 20+
+Changelog v0.3.22 (2023-02-11):
+- Use infotagvideo for kodi 20+
 
-Changelog 0.3.21 [20230209]:
-- Added New Setting "Enable Automatic Subtitles for Dub Streams"
+Changelog v0.3.21 (2023-02-09):
+- Added new setting "enable automatic subtitles for dub streams"
 
-Changelog 0.3.20 [20230208]:
-- Made dumb mistake with Next Up
+Changelog v0.3.20 (2023-02-08):
+- Made dumb mistake with next up
 
-Changelog 0.3.19 [20230208]:
+Changelog v0.3.19 (2023-02-08):
 - Subtitles turn on automatically for subs and off for dubs
 
-Changelog 0.3.18 [20230208]:
+Changelog v0.3.18 (2023-02-08):
 - Fixed a small bug that is hardcoded
 
-Changelog 0.3.17 [20230207]:
-- Added New Setting "Show Changelog every update" 
+Changelog v0.3.17 (2023-02-07):
+- Added new setting "show changelog every update"
 
-Changelog 0.3.16 [20230207]:
-- Fixed Preferred Audio Stream for torrents
+Changelog v0.3.16 (2023-02-07):
+- Fixed preferred audio stream for torrents
 
-Changelog 0.3.15 [20230206]:
-- Brought back "Separate Subs and Dubs" 
+Changelog v0.3.15 (2023-02-06):
+- Brought back "separate subs and dubs"
 
-Changelog 0.3.14 [20230204]:
+Changelog v0.3.14 (2023-02-04):
 - Improved the changelog with a news section
 
-Changelog 0.3.13 [20230204]:
--  Clear cache, torrent cache and display changelog when addon is updated
+Changelog v0.3.13 (2023-02-04):
+- Clear cache, torrent cache and display changelog when addon is updated
 
-Changelog 0.3.12 [20230204]:
+Changelog v0.3.12 (2023-02-04):
 - Fix lang error
 
-Changelog 0.3.11 [20230204]:
+Changelog v0.3.11 (2023-02-04):
 - Fix source select not showing anime titles
 
-Changelog 0.3.10 [20230202]:
-- Added New Setting "Timeout for finding sources" for General Playback
+Changelog v0.3.10 (2023-02-02):
+- Added new setting "timeout for finding sources" for general playback
 
-Changelog 0.3.9 [20230202]:
-- Added New Setting "Preferred Source" for Preferences
-- Added New Setting "Set Delay in Seconds Before Showing Dialog" for Skip Intro Dialog
-- Removed "Seperate Subs and Dubs" 
-- Removed "Set content types"
-- Removed "Hide Dub/Sub"
-- Removed "Season Correction" 
-- Removed "Find Similar" 
+Changelog v0.3.9 (2023-02-02):
+- Added new setting "preferred source" for preferences
+- Added new setting "set delay in seconds before showing dialog" for skip intro dialog
+- Removed "seperate subs and dubs"
+- Removed "set content types"
+- Removed "hide dub/sub"
+- Removed "season correction"
+- Removed "find similar"
 
-Changelog 0.3.8 [20230130]:
+Changelog v0.3.8 (2023-01-30):
 - Added animix search fallback
 - Handle error when anilist title is null
 
-Changelog 0.3.7 [20230128]:
+Changelog v0.3.7 (2023-01-28):
 - Record season number for the episodes
 
-Changelog 0.3.6 [20230126]:
-- Added Set Country Of Origin
+Changelog v0.3.6 (2023-01-26):
+- Added set country of origin
 
-Changelog 0.3.5 [20230126]:
-- Fixed Hide Sub Sources Setting
+Changelog v0.3.5 (2023-01-26):
+- Fixed hide sub sources setting
 
-Changelog 0.3.4 [20230126]:
-- Added Hide Sub Sources Option
-- Add Zoro dub sources
+Changelog v0.3.4 (2023-01-26):
+- Added hide sub sources option
+- Add zoro dub sources
 
-Changelog 0.3.3 [20230125]:
-- Populate episodes table in databse with air_dates 
+Changelog v0.3.3 (2023-01-25):
+- Populate episodes table in databse with air_dates
 
-Changelog 0.3.2 [20230124]:
-- Fixed Episode Airedates in Next Up
+Changelog v0.3.2 (2023-01-24):
+- Fixed episode airedates in next up
 
-Changelog 0.3.1 [20230123]:
+Changelog v0.3.1 (2023-01-23):
 - Remove all incorrect use of tabs
 - Fix missing icons
-- Fixed Search and Genres
+- Fixed search and genres
 
-Changelog 0.3.0 [20230123]:
-- Made Episode Meta Very Consistant
-- Made Artwork Very Consistant
-- Added New Embeds
-- Added Consumet Api
-- Added Extra Menu Settings
-- Added Last Year Menu Items
-- Added Last Season Menu Items
-- Added Categorie Menu Items
-- Big Thanks to the Consumet Team and to everyone for helping us make this release possible. 
+Changelog v0.3.0 (2023-01-23):
+- Made episode meta very consistant
+- Made artwork very consistant
+- Added new embeds
+- Added consumet api
+- Added extra menu settings
+- Added last year menu items
+- Added last season menu items
+- Added categorie menu items
+- Big thanks to the consumet team and to everyone for helping us make this release possible.
 
-Changelog 0.2.39 [20230121]:
+Changelog v0.2.39 (2023-01-21):
 - Added missing headers on login and watchlist requests
 
-Changelog 0.2.38 [20230108]:
+Changelog v0.2.38 (2023-01-08):
 - Animix bugfix
 
-Changelog 0.2.37 [20230104]:
-- Use alternate Animix site
+Changelog v0.2.37 (2023-01-04):
+- Use alternate animix site
 
-Changelog 0.2.36 [20221121]:
-- New Context menu: trakt correction
+Changelog v0.2.36 (2022-11-21):
+- New context menu: trakt correction
 
-Changelog 0.2.35 [20221108]:
+Changelog v0.2.35 (2022-11-08):
 - Improve alldebrid cache check
 
-Changelog 0.2.34 [20221107]:
+Changelog v0.2.34 (2022-11-07):
 - Fixes error on mal watchlist playback
 
-Changelog 0.2.33 [20221105]:
+Changelog v0.2.33 (2022-11-05):
 - Context menu entry to add to watchlist and remove from watchlist
 
-Changelog 0.2.32 [20221102]:
+Changelog v0.2.32 (2022-11-02):
 - Fixed an icon typo
 
-Changelog 0.2.31 [20221102]:
-- Added Shortcut Settings Category
-- Added Completed This Year
-- Added Completed This Season
-- Added Two New Icons 
-- Fixed typo for the Voted Menu Items
+Changelog v0.2.31 (2022-11-02):
+- Added shortcut settings category
+- Added completed this year
+- Added completed this season
+- Added two new icons
+- Fixed typo for the voted menu items
 
-Changelog 0.2.30 [20221031]:
-- Enable touch actions for Source Select, Intro Skip, and Play Next
+Changelog v0.2.30 (2022-10-31):
+- Enable touch actions for source select, intro skip, and play next
 
-Changelog 0.2.29 [20221031]:
-- Added Debrid-Link support
+Changelog v0.2.29 (2022-10-31):
+- Added debrid-link support
 
-Changelog 0.2.28 [20221023]:
-- Get embeds from Animix
+Changelog v0.2.28 (2022-10-23):
+- Get embeds from animix
 
-Changelog 0.2.27 [20221020]:
+Changelog v0.2.27 (2022-10-20):
 - Fix trakt rescrape issue
 
-Changelog 0.2.26 [20221020]:
+Changelog v0.2.26 (2022-10-20):
 - Add option to enable/disable embeds
-- Improved Nyaa a little
-- Added Animix scraper
+- Improved nyaa a little
+- Added animix scraper
 
-Changelog 0.2.25 [20221018]:
-- Improved Episode meta
+Changelog v0.2.25 (2022-10-18):
+- Improved episode meta
 
-Changelog 0.2.24 [20221017]:
+Changelog v0.2.24 (2022-10-17):
 - Improved trakt search
 
-Changelog 0.2.23 [20221016]:
+Changelog v0.2.23 (2022-10-16):
 - Fix dependency issues
 
-Changelog 0.2.22 [20221016]:
-- Fix MAL errors related to missing meta for shows
+Changelog v0.2.22 (2022-10-16):
+- Fix mal errors related to missing meta for shows
 
-Changelog 0.2.21 [20221015]:
+Changelog v0.2.21 (2022-10-15):
 - Improved gogo
 
-Changelog 0.2.20 [20221015]:
-- Fix title not showing in next playing window 
+Changelog v0.2.20 (2022-10-15):
+- Fix title not showing in next playing window
 
-Changelog 0.2.19 [20221014]:
-- Fix Stein's Gate 0 Issue
+Changelog v0.2.19 (2022-10-14):
+- Fix stein's gate 0 issue
 
-Changelog 0.2.18 [20221013]:
-- Fix for empty Kitsu lists
-- Quickfix for Strings
+Changelog v0.2.18 (2022-10-13):
+- Fix for empty kitsu lists
+- Quickfix for strings
 
-Changelog 0.2.17 [20221012]:
-- Kodi Leia compatibilty fix
+Changelog v0.2.17 (2022-10-12):
+- Kodi leia compatibilty fix
 
-Changelog 0.2.16 [20221011]:
-- Added Movies and TV Shows Category so that its easier
-- Added Trending This Year
-- Added Popular This Year
-- Added Voted This Year
-- Added Upcoming Next Year
-- Added Options to disable Menu Items
-- Added two new icons: Movies.png and TV Shows.png
+Changelog v0.2.16 (2022-10-11):
+- Added movies and tv shows category so that its easier
+- Added trending this year
+- Added popular this year
+- Added voted this year
+- Added upcoming next year
+- Added options to disable menu items
+- Added two new icons: movies.png and tv shows.png
 - Fix ratings display bug in source select
 - Use clearart if available in get sources window
 
-Changelog 0.2.15 [20221008]:
-- Fix encoding errors on Kodi Leia
+Changelog v0.2.15 (2022-10-08):
+- Fix encoding errors on kodi leia
 
-Changelog 0.2.14 [20221008]:
-- Fix 'Enable Tertiary Dub Sort Preference' 
-- Fix Movie meta in sourceselect screen
+Changelog v0.2.14 (2022-10-08):
+- Fix 'enable tertiary dub sort preference'
+- Fix movie meta in sourceselect screen
 
-Changelog 0.2.13 [20221007]:
+Changelog v0.2.13 (2022-10-07):
 - Fix movie source select issue
 
-Changelog 0.2.12 [20221007]:
+Changelog v0.2.12 (2022-10-07):
 - Spy x family nyaa fix
 
-Changelog 0.2.11 [20221006]:
+Changelog v0.2.11 (2022-10-06):
 - Fix error when no show_meta available
 
-Changelog 0.2.10 [20221006]:
+Changelog v0.2.10 (2022-10-06):
 - Fix error when no thumbs available
 - Fix preferred audio selection
 - Improve episode meta collection for running series
 
-Changelog 0.2.9 [20221006]:
-- Added New Setting to change Content Format for Menu Items
-- Added Changelog Menu in Tools
+Changelog v0.2.9 (2022-10-06):
+- Added new setting to change content format for menu items
+- Added changelog menu in tools
 - Added textview window and base dialog window for changelog
 
-Changelog 0.2.8 [20221004]:
+Changelog v0.2.8 (2022-10-04):
 - Improve episode thumbnails when simkl is used
 
-Changelog 0.2.7 [20221003]:
+Changelog v0.2.7 (2022-10-03):
 - Dont use trakt for anime split seasons
 
-Changelog 0.2.6 [20221002]:
-- Fixed NextUp
+Changelog v0.2.6 (2022-10-02):
+- Fixed nextup
 - Fixed missing clearlogo and background
 
-Changelog 0.2.5 [20220930]:
+Changelog v0.2.5 (2022-09-30):
 - Improve meta scraping
 
-Changelog 0.2.4 [20220928]:
-- Add mulitple backgrounds, banner, clearlogo 
+Changelog v0.2.4 (2022-09-28):
+- Add mulitple backgrounds, banner, clearlogo
 
-Changelog 0.2.3 [20220926]:
+Changelog v0.2.3 (2022-09-26):
 - Improve scraping on long titles
 
-Changelog 0.2.2 [20220926]:
-- Fix English language in Anilist & MAL Watchlists
-- Fix nextpage icon in AH2 landscape view
+Changelog v0.2.2 (2022-09-26):
+- Fix english language in anilist & mal watchlists
+- Fix nextpage icon in ah2 landscape view
 - Fix posters getting replaced with landscape images
 - Improve trakt search
 - Gogo search fix for certain titles
 
-Changelog 0.2.1 [20220924]:
+Changelog v0.2.1 (2022-09-24):
 - Enhance meta by including fanart.tv
 - Movie playback bug fix
 
-Changelog 0.2.0 [20220922]:
-- Fixed Gogoanime
-- Added Embed Quality (EQ)
+Changelog v0.2.0 (2022-09-22):
+- Fixed gogoanime
+- Added embed quality (eq)
 - Used urllib instead of requests
-- Added New Menu Items
-- Added New Art
+- Added new menu items
+- Added new art
 - Removed items without art
-- Improved Last Watched
-- Better results from Trakt
-- Add rating and meta for Kitsu watchlists
+- Improved last watched
+- Better results from trakt
+- Add rating and meta for kitsu watchlists
 
-Changelog 0.1.8 [20220909]:
+Changelog v0.1.8 (2022-09-09):
 - Fix embedder info
 
-Changelog 0.1.7 [20220909]:
+Changelog v0.1.7 (2022-09-09):
 - Display embedder name in sources
 
-Changelog 0.1.6 [20220908]:
+Changelog v0.1.6 (2022-09-08):
 - Goganime improve search
 - Remove references to seren
 - Gogoanime - do proper search to get slug
 
-Changelog 0.1.5 [20220907]:
+Changelog v0.1.5 (2022-09-07):
 - Improve gogo scraping and playback
 
-Changelog 0.1.4 [20220905]:
-- Add rating and meta for MAL watchlists
+Changelog v0.1.4 (2022-09-05):
+- Add rating and meta for mal watchlists
 
-Changelog 0.1.3 [20220904]:
+Changelog v0.1.3 (2022-09-04):
 - Add meta to anilist watchlist flavour
 - Fix headshots not showing even when available
 
-Changelog 0.1.1 [20220824]:
-- Quick Fix for the Anilist login
+Changelog v0.1.1 (2022-08-24):
+- Quick fix for the anilist login
 
-Changelog 0.1.1 [20220823]:
+Changelog v0.1.1 (2022-08-23):
 - Add info meta for episodes
-- Add search plugin path for AH2 skin
-plugin://plugin.video.otaku/search_results/?query=
+- Add search plugin path for ah2 skin
+- Plugin://plugin.video.otaku/search_results/?query=
 
-Changelog 0.1.0 [20220820]:
-- Matrix Compatible
-- Fix Alldebrid access
+Changelog v0.1.0 (2022-08-20):
+- Matrix compatible
+- Fix alldebrid access
 
-Changelog 0.0.8:
-- Fixed movies not working in AniList watchlist
+Changelog v0.0.8:
+- Fixed movies not working in anilist watchlist
 - Fixed scrape and rescrape running twice
 - Updated anime season for upcoming and trending menu items
 
-Changelog 0.0.7:
+Changelog v0.0.7:
 - Improved cloud inspection
-- Adjusted 'Next Up'
-- Adjusted 'Rebuild Database'
+- Adjusted 'next up'
+- Adjusted 'rebuild database'
 - Fixed gogo embed
 - Fixed new episodes not being added
 
-Changelog 0.0.6:
-- Added Premiumize and Real-Debrid cloud inspection
-- Added setting 'Seperate Dubs and Subs' to seperate anime into sub and dub list items if dub is available (test flight)
-- Added instruction dialog for MAL/AniList auth for linux os
+Changelog v0.0.6:
+- Added premiumize and real-debrid cloud inspection
+- Added setting 'seperate dubs and subs' to seperate anime into sub and dub list items if dub is available (test flight)
+- Added instruction dialog for mal/anilist auth for linux os
 - Adjusted set titles to romaji/english
-- Adjusted Tertiary Dub filter
-- Improved 'Next Up'
+- Adjusted tertiary dub filter
+- Improved 'next up'
 - Improved season torrent pack scraping
 
-Changelog 0.0.5:
+Changelog v0.0.5:
 - Fixed bug
 
-Changelog 0.0.4:
+Changelog v0.0.4:
 - Fixed bug
 
-Changelog 0.0.3:
-- Added Rescrape Item option to episode context menu
-- Added setting 'Title Language' to set titles to romaji/english
-- Added 'Airing Dubbed Anime' menu item
-- Added 'Next Up' to watchlist menu items
+Changelog v0.0.3:
+- Added rescrape item option to episode context menu
+- Added setting 'title language' to set titles to romaji/english
+- Added 'airing dubbed anime' menu item
+- Added 'next up' to watchlist menu items
 - Adjusted content types of items
-- Adjusted MAL/AniList auth for linux os
+- Adjusted mal/anilist auth for linux os
 - Improved season torrent pack handling
 
-Changelog 0.0.2:
+Changelog v0.0.2:
 - Added premiumize support
 - Improved handling of episodes/seasons retrieval
 - Improved nyaa search
 - Added 'episodes' content type to set menu content type setting
 - Added menu content type to be applied to watchlist landing page
-
-Changelog 0.0.1
-- Initial Release

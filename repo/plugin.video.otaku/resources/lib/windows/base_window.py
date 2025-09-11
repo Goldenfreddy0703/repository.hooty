@@ -1,104 +1,66 @@
-__metaclass__ = type
-
-# import os
 import pickle
-from resources.lib.ui import control, database
 import random
+import xbmcgui
+
+from resources.lib.ui import control, database
 
 
-class BaseWindow(control.xmlWindow):
-
+class BaseWindow(xbmcgui.WindowXMLDialog):
     def __init__(self, xml_file, location, actionArgs=None):
-
-        try:
-            super(BaseWindow, self).__init__(xml_file, location)
-        except:
-            control.xmlWindow().__init__()
+        super().__init__(xml_file, location)
 
         control.closeBusyDialog()
-        self.canceled = False
-        self._title_lang = control.title_lang(control.getSetting("general.titlelanguage"))
-        self.setProperty('otaku.logo', control.OTAKU_LOGO_PATH)
-        self.setProperty('otaku.fanart', control.OTAKU_FANART_PATH)
-        self.setProperty('settings.color', 'deepskyblue')
-        # self.setProperty('test.pattern', os.path.join(control.IMAGES_PATH, 'test_pattern.png'))
-
-        if actionArgs is None:
+        if actionArgs is None or (item_type := actionArgs.get('item_type')) == 'skip_intro':
             return
-        anilist_id = actionArgs.get('anilist_id')
-        if anilist_id:
-            self.item_information = pickle.loads(database.get_show(actionArgs['anilist_id'])['kodi_meta'])
-            show_meta = database.get_show_meta(actionArgs['anilist_id'])
+
+        if mal_id := actionArgs.get('mal_id'):
+            self.item_information = pickle.loads(database.get_show(actionArgs['mal_id'])['kodi_meta'])
+            show_meta = database.get_show_meta(actionArgs['mal_id'])
             if show_meta:
                 self.item_information.update(pickle.loads(show_meta.get('art')))
-        elif actionArgs.get('playnext'):
+        elif item_type == 'playing_next':
             self.item_information = actionArgs
         else:
             self.item_information = {}
 
-        self.setProperty('item.ids.%s_id' % 1, str('gh'))
-
-        thumb = self.item_information.get('thumb')
-        if thumb and isinstance(thumb, list):
+        if thumb := self.item_information.get('thumb'):
             thumb = random.choice(thumb)
+            self.setProperty('item.art.thumb', thumb)
 
         fanart = self.item_information.get('fanart')
         clearlogo = self.item_information.get('clearlogo', control.OTAKU_LOGO2_PATH)
 
-        if fanart is None or control.getSetting('disable.fanart') == 'true':
-            fanart = control.OTAKU_FANART_PATH
+        if not fanart or control.settingids.fanart_disable:
+            fanart = control.OTAKU_FANART
         else:
             if isinstance(fanart, list):
-                if control.getSetting('context.otaku.fanartselect') == 'true':
-                    fanart_select = control.getSetting('fanart.select.anilist.{}'.format(anilist_id))
+                if control.settingids.fanart_select:
+                    # Get fanart selection using string lists
+                    mal_ids = control.getStringList('fanart.mal_ids')
+                    fanart_selections = control.getStringList('fanart.selections')
+                    mal_id_str = str(mal_id)
+                    
+                    fanart_select = ''
+                    try:
+                        index = mal_ids.index(mal_id_str)
+                        fanart_select = fanart_selections[index] if index < len(fanart_selections) else ''
+                    except (ValueError, IndexError):
+                        pass
+                    
                     fanart = fanart_select if fanart_select else random.choice(fanart)
                 else:
                     fanart = random.choice(fanart)
+        if isinstance(clearlogo, list):
+            clearlogo = control.OTAKU_LOGO2_PATH if control.settingids.clearlogo_disable else random.choice(clearlogo)
 
-        if isinstance(clearlogo, list) and len(clearlogo) > 0:
-            clearlogo = control.OTAKU_LOGO2_PATH if control.getSetting('disable.clearlogo') == 'true' else random.choice(clearlogo)
-
-        if not actionArgs.get('playnext'):
+        if item_type != 'playing_next':
             self.setProperty('item.art.fanart', fanart)
 
-        self.setProperty('item.art.thumb', thumb if thumb else fanart)
         self.setProperty('item.art.poster', self.item_information.get('poster'))
         self.setProperty('item.art.clearlogo', clearlogo)
-        self.setProperty('item.art.logo', clearlogo)
         self.setProperty('item.info.title', self.item_information.get('name'))
-        if self.item_information.get('format') == 'MOVIE':
+
+        if self.item_information.get('format') in ['MOVIE', 'Movie']:
             self.setProperty('item.info.plot', self.item_information.get('plot'))
             self.setProperty('item.info.rating', str(self.item_information.get('rating')))
-            if self._title_lang == 'english':
-                title = self.item_information.get('ename') or self.item_information.get('title_userPreferred')
-            else:
-                title = self.item_information.get('name')
-            self.setProperty('item.info.title', title)
-
-        # self.item_information['info'] = control.clean_air_dates(self.item_information['info'])
-        # year, month, day = self.item_information['info'].get('aired', '0000-00-00').split('-')
-
-        # self.setProperty('item.info.aired.year', '2018')
-        # self.setProperty('item.info.aired.month', '01')
-        # self.setProperty('item.info.aired.day', '01')
-
-        # try:
-        #     if 'aired' in self.item_information['info']:
-        #         aired_date = self.item_information['info']['aired']
-        #         aired_date = control.datetime_workaround(aired_date)
-        #         aired_date = aired_date.strftime(tools.get_region('dateshort'))
-        #         self.item_information['info']['aired'] = aired_date
-
-        #     if 'premiered' in self.item_information['info']:
-        #         premiered = self.item_information['info']['premiered']
-        #         premiered = control.datetime_workaround(premiered)
-        #         premiered = premiered.strftime(tools.get_region('dateshort'))
-        #         self.item_information['info']['premiered'] = premiered
-        # except:
-        #     pass
-
-        # value = 'TBA'
-        # try:
-        #     self.setProperty('item.info.%s' % 1, str('fdf'))
-        # except UnicodeEncodeError:
-        #     self.setProperty('item.info.%s' % 1, 'fdf')
+            self.setProperty('item.info.title', self.item_information.get('title_userPreferred'))

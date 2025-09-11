@@ -1,10 +1,5 @@
 <window type="dialog">
     <defaultcontrol>2</defaultcontrol>
-    <coordinates>
-        <left>0</left>
-        <top>0</top>
-    </coordinates>
-
     <controls>
         <!-- Background Texture -->
         <control type="image">
@@ -13,8 +8,7 @@
         </control>
         <control type="list" id="1100">
         </control>
-
-        <!-- Background -->
+        <!-- Fanart -->
         <control type="image">
             <top>0</top>
             <left>0</left>
@@ -23,6 +17,7 @@
             <texture background="true">$INFO[Window().Property(item.art.fanart)]</texture>
         </control>
 
+        <!-- Background -->
         <control type="image">
             <top>0</top>
             <left>0</left>
@@ -32,13 +27,13 @@
             <colordiffuse>CC000000</colordiffuse>
         </control>
 
-        <!-- Otaku Logo -->
+        <!-- ClearLogo -->
         <control type="image" id="1001">
             <top>-150</top>
             <left>700</left>
             <width>500</width>
             <aspectratio>keep</aspectratio>
-            <texture>$INFO[Window().Property(item.art.logo)]</texture>
+            <texture>$INFO[Window().Property(item.art.clearlogo)]</texture>
         </control>
 
         <control type="label">
@@ -59,7 +54,7 @@
             <top>630</top>
             <width>100%</width>
 
-            <!-- Progress -->
+            <!-- Progress Complete-->
             <control type="image">
                 <left>0</left>
                 <width>30</width>
@@ -76,7 +71,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),10)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>40</left>
                 <width>30</width>
@@ -93,7 +87,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),20)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>80</left>
                 <width>30</width>
@@ -110,7 +103,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),30)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>120</left>
                 <width>30</width>
@@ -127,7 +119,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),40)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>160</left>
                 <width>30</width>
@@ -144,7 +135,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),50)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>200</left>
                 <width>30</width>
@@ -161,7 +151,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),60)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>240</left>
                 <width>30</width>
@@ -178,7 +167,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),70)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>280</left>
                 <width>30</width>
@@ -195,7 +183,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),80)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>320</left>
                 <width>30</width>
@@ -212,7 +199,6 @@
                 <visible>Integer.IsGreaterOrEqual(Window().Property(progress),90)</visible>
                 <colordiffuse>FFFFFFFF</colordiffuse>
             </control>
-
             <control type="image">
                 <left>360</left>
                 <width>30</width>
@@ -240,9 +226,8 @@
                 <aligny>center</aligny>
                 <width>auto</width>
                 <textcolor>FFDDDDDD</textcolor>
-                <label>$ADDON[plugin.video.otaku 40221]: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(total_torrents)][/COLOR] | $ADDON[plugin.video.otaku 40222]: [COLOR $INFO[Window().Property(settings.color)]]$INFO[Window().Property(cached_torrents)][/COLOR] | $ADDON[plugin.video.otaku 40223]: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(hosters_sources)][/COLOR] | $ADDON[plugin.video.otaku 40224]: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(cloud_sources)][/COLOR] | $ADDON[plugin.video.otaku 40239]: [COLOR $INFO[Window().Property(settings.color)]]$INFO[Window().Property(local_sources)][/COLOR]</label>
+                <label>Torrents: [COLOR deepskyblue]$INFO[Window().Property(total_torrents)][/COLOR] | Cached: [COLOR  deepskyblue]$INFO[Window().Property(cached_torrents)][/COLOR] | Embeds: [COLOR deepskyblue]$INFO[Window().Property(hosters_sources)][/COLOR] | Cloudfiles: [COLOR deepskyblue]$INFO[Window().Property(cloud_sources)][/COLOR] | Localfiles: [COLOR deepskyblue]$INFO[Window().Property(local_sources)][/COLOR]</label>
             </control>
-
             <control type="label">
                 <top>-220</top>
                 <left>-760</left>
@@ -252,22 +237,8 @@
                 <aligny>center</aligny>
                 <width>auto</width>
                 <textcolor>FFDDDDDD</textcolor>
-                <label>4k: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(4k_sources)][/COLOR] | 1080p: [COLOR $INFO[Window().Property(settings.color)]]$INFO[Window().Property(1080p_sources)][/COLOR] | 720p: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(720p_sources)][/COLOR] | SD: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(sd_sources)][/COLOR] | EQ: [COLOR$INFO[Window().Property(settings.color)]]$INFO[Window().Property(eq_sources)][/COLOR]</label>
+                <label>4k: [COLOR deepskyblue]$INFO[Window().Property(4k_sources)][/COLOR] | 1080p: [COLOR  deepskyblue]$INFO[Window().Property(1080p_sources)][/COLOR] | 720p: [COLOR deepskyblue]$INFO[Window().Property(720p_sources)][/COLOR] | SD: [COLOR deepskyblue]$INFO[Window().Property(sd_sources)][/COLOR] | EQ: [COLOR deepskyblue]$INFO[Window().Property(eq_sources)][/COLOR]</label>
             </control>
-
-            <control type="label">
-                <top>-140</top>
-                <left>-760</left>
-                <width>1920</width>
-                <font>font12</font>
-                <align>center</align>
-                <aligny>center</aligny>
-                <width>auto</width>
-                <textcolor>FFDDDDDD</textcolor>
-                <label>$ADDON[plugin.video.otaku 40225]: $INFO[Window().Property(remaining_providers_count)]</label>
-                <visible>Integer.IsGreaterOrEqual(Window().Property(remaining_providers_count),13)</visible>
-            </control>
-
             <control type="label">
                 <top>-140</top>
                 <left>-760</left>
@@ -278,9 +249,9 @@
                 <width>auto</width>
                 <textcolor>FFDDDDDD</textcolor>
                 <label>$INFO[Window().Property(remaining_providers_list)]</label>
-                <visible>!Integer.IsGreaterOrEqual(Window().Property(remaining_providers_count),13)</visible>
             </control>
 
+            <!-- Items -->
             <control type="list" id="2000">
                 <visible>false</visible>
                 <top>-140</top>
@@ -290,6 +261,7 @@
                 <aligny>center</aligny>
                 <orientation>horizontal</orientation>
 
+                <!-- No Focus -->
                 <itemlayout width="192">
                     <width>auto</width>
                     <control type="label">
@@ -299,6 +271,7 @@
                     </control>
                 </itemlayout>
 
+                <!-- Focus -->
                 <focusedlayout width="192">
                     <width>auto</width>
                     <control type="label">
@@ -309,15 +282,5 @@
                 </focusedlayout>
             </control>
         </control>
-
-
-
-        <!--LAYOUT GRID-->
-        <!--<control type="image">-->
-        <!--<width>100%</width>-->
-        <!--<height>100%</height>-->
-        <!--<texture>$INFO[Window(13000).Property(test_pattern)]</texture>-->
-        <!--<colordiffuse>55FFFFFF</colordiffuse>-->
-        <!--</control>-->
     </controls>
 </window>

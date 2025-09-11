@@ -16,6 +16,27 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from resources.lib import main
+# import time
+# t0 = time.perf_counter_ns()
+import sys
 
-main.Main()
+from resources.lib.ui import control
+from resources.lib.ui.router import router_process
+
+
+if control.ADDON_VERSION != control.getSetting('version'):
+    if control.getInt('showchangelog') == 0:
+        import service
+        service.getChangeLog()
+    control.setSetting('version', control.ADDON_VERSION)
+
+if __name__ == "__main__":
+    from resources.lib import Main  # noQA
+    plugin_url = control.get_plugin_url(sys.argv[0])
+    plugin_params = control.get_plugin_params(sys.argv[2])
+    router_process(plugin_url, plugin_params)
+    control.log(f'Finished Running: {plugin_url=} {plugin_params=}')
+
+# t1 = time.perf_counter_ns()
+# totaltime = (t1-t0)/1_000_000
+# control.print(totaltime, 'ms')

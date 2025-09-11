@@ -24,6 +24,10 @@
                     <label>$ADDON[plugin.video.themoviedb.helper 32233]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
+                <item library="context.py" args="modify_artwork">
+                    <label>$ADDON[context.themoviedb.helper 32005]</label>
+                    <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
+                </item>
                 <item library="context.py" args="modify_identifier">
                     <label>$ADDON[context.themoviedb.helper 32001]</label>
                     <visible>[Skin.HasSetting(TMDbHelper.Service)]</visible>

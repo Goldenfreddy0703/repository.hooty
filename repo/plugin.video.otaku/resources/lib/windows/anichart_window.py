@@ -2,17 +2,14 @@ __metaclass__ = type
 
 import os
 import pickle
+import xbmcgui
 from resources.lib.ui import control, database
 
 
-class BaseWindow(control.xmlWindow):
+class BaseWindow(xbmcgui.WindowXMLDialog):
 
     def __init__(self, xml_file, location, actionArgs=None):
-
-        try:
-            super(BaseWindow, self).__init__(xml_file, location)
-        except:
-            control.xmlWindow().__init__()
+        super().__init__(xml_file, location)
 
         control.closeBusyDialog()
         self.canceled = False
@@ -22,8 +19,9 @@ class BaseWindow(control.xmlWindow):
         self.setProperty('texture.averstr', os.path.join(control.IMAGES_PATH, 'anichart-icon-null.png'))
         self.setProperty('texture.aversad', os.path.join(control.IMAGES_PATH, 'anichart-icon-frown.png'))
         self.setProperty('texture.popular', os.path.join(control.IMAGES_PATH, 'anichart-icon-popular.png'))
+        self.setProperty('texture.simkl_rank', os.path.join(control.IMAGES_PATH, 'anichart-icon-simkl.png'))
         self.setProperty('otaku.logo', control.OTAKU_LOGO3_PATH)
-        self.setProperty('otaku.fanart', control.OTAKU_FANART_PATH)
+        self.setProperty('otaku.fanart', control.OTAKU_FANART)
         self.setProperty('settings.color', 'deepskyblue')
         self.setProperty('test.pattern', os.path.join(control.IMAGES_PATH, 'test_pattern.png'))
         self.setProperty('skin.dir', control.ADDON_PATH)
@@ -31,8 +29,8 @@ class BaseWindow(control.xmlWindow):
         if actionArgs is None:
             return
 
-        if actionArgs.get('anilist_id'):
-            self.item_information = pickle.loads(database.get_show(actionArgs['anilist_id'])['kodi_meta'])
+        if actionArgs.get('mal_id'):
+            self.item_information = pickle.loads(database.get_show(actionArgs['mal_id'])['kodi_meta'])
         elif actionArgs.get('playnext'):
             self.item_information = actionArgs
         else:
@@ -54,21 +52,6 @@ class BaseWindow(control.xmlWindow):
         self.setProperty('item.info.aired.year', '2018')
         self.setProperty('item.info.aired.month', '01')
         self.setProperty('item.info.aired.day', '01')
-
-        try:
-            if 'aired' in self.item_information['info']:
-                aired_date = self.item_information['info']['aired']
-                aired_date = control.datetime_workaround(aired_date)
-                aired_date = aired_date.strftime(control.get_region('dateshort'))
-                self.item_information['info']['aired'] = aired_date
-
-            if 'premiered' in self.item_information['info']:
-                premiered = self.item_information['info']['premiered']
-                premiered = control.datetime_workaround(premiered)
-                premiered = premiered.strftime(control.get_region('dateshort'))
-                self.item_information['info']['premiered'] = premiered
-        except:
-            pass
 
         # value = 'TBA'
         try:

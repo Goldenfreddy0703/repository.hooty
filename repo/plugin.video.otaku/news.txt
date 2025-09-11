@@ -1,15 +1,29 @@
-We Added Torbox Support!
+Welcome to the New Era of Otaku!
 
-Hello Everyone,
+Hi everyone,
 
-We’re thrilled to announce that Torbox has been added to Otaku! This update brings support for Torbox as a debrid service, addressing the community’s growing interest in alternatives like Torbox due to recent restrictions with Real Debrid and AllDebrid.
+We’re thrilled to announce a major milestone: Otaku has officially migrated to its new version!
+This is the biggest update in Otaku’s history, bringing over everything from Otaku Testing and making it the new standard.
 
-A huge thank you to klarstil for their fantastic work in implementing this feature. Here's what the update includes:
+What’s New?
+- Expanded content: Movies, TV Shows, Shorts, Specials, OVAs, ONAs, and Music Videos
+- Fully working Debrid & Cloud services (thanks to @joezito129 & @adamosborne83)
+- Easy Debrid support
+- Enhanced filtering & search for more accurate scraping
+- MyAnimeList menus added alongside AniList
+- New sorting system for finer control of sources
+- Faster, smoother playback (subtitles, audio, intro/outro skip)
+- Watchlist completion: finished anime auto-added to your completed list
+- Seamless watchlist migration—no reconfiguration needed
+- Uncached source support for Debrid services
+- Kodi 20+ compatibility (Kodi 19 is no longer supported)
 
-    Torbox Features:
-        Added Torbox as a debrid service with a basic implementation for essential use cases.
-        Torbox Cloud Inspection: Uses a user-select system to identify the best matching file name.
+Why the Change?
+After surveying our users, it became clear that almost everyone had already moved on from Python 2/Kodi 18. With this update, we’re fully embracing Kodi 20+, ensuring Otaku is future-proof, faster, and more reliable.
 
-We’re excited to provide more options for our users and will continue working to ensure Otaku meets your needs. As always, thank you for your ongoing support!
+Thanks & Support
+We want to thank the entire community for helping us get here, especially our contributors. If you encounter issues or want to share feedback, visit our wiki on Github
 
-Happy watching!
+This migration marks a new era for Otaku, and we can’t wait to hear what you think. Happy watching!
+
+— Team Otaku

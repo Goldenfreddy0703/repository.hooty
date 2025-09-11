@@ -1,21 +1,22 @@
+import xbmc
 import xbmcgui
+import xbmcvfs
 import json
 import os
 import math
 import time
+import urllib.request
+import urllib.parse
 
-from six.moves import urllib_request, urllib_parse
-from kodi_six import xbmcvfs
 from resources.lib.windows.base_window import BaseWindow
 from resources.lib.ui import database, control
-
 
 CLOCK = time.time
 
 
 class DownloadManager(BaseWindow):
     def __init__(self, xml_file, location):
-        super(DownloadManager, self).__init__(xml_file, location)
+        super().__init__(xml_file, location)
         self.abort = False
         self.downloads = []
         self.display_list = None
@@ -24,7 +25,7 @@ class DownloadManager(BaseWindow):
         self.display_list = self.getControl(1000)
         self.setFocusId(3100)
         self.background_info_updater()
-        super(DownloadManager, self).onInit()
+        super().onInit()
 
     def onAction(self, action):
         actionID = action.getId()
@@ -35,6 +36,7 @@ class DownloadManager(BaseWindow):
             self.close()
 
         if actionID == 7:
+            # ENTER
             self.handle_action(7)
 
         elif actionID == 117:
@@ -45,7 +47,7 @@ class DownloadManager(BaseWindow):
                 manager.cancel_task(url_hash)
                 manager.remove_download_task(url_hash)
                 self.close()
-                DownloadManager(*('download_manager.xml', control.ADDON_PATH)).doModal()
+                DownloadManager('download_manager.xml', control.ADDON_PATH).doModal()
 
     def onClick(self, controlID):
         self.handle_action(controlID)
@@ -55,21 +57,22 @@ class DownloadManager(BaseWindow):
             self.abort = True
             manager.clear_complete()
             self.close()
-            DownloadManager(*('download_manager.xml', control.ADDON_PATH)).doModal()
+            DownloadManager('download_manager.xml', control.ADDON_PATH).doModal()
 
         if controlID == 3101:   # close
             self.abort = True
             self.close()
 
     def background_info_updater(self):
-        while not control.abort_requested() and not self.abort:
+        monitor = xbmc.Monitor()
+        while not monitor.waitForAbort(1) and not self.abort:
             self.downloads = manager.get_all_tasks_info()
             self.populate_menu_items()
-            control.sleep(1000)
+        del monitor
 
     def populate_menu_items(self):
         def create_menu_item(download_item):
-            new_item = xbmcgui.ListItem(label="{}".format(download_item['filename']))
+            new_item = xbmcgui.ListItem(label=f"{download_item['filename']}", offscreen=False)
             self.set_menu_item_properties(new_item, download_item)
             return new_item
 
@@ -110,7 +113,6 @@ class Manager:
 
     def __init__(self):
         self.url_hash = None
-        self.storage_location = control.getSetting('download.location')
         self.file_size = -1
         self.file_size_display = None
         self.progress = -1
@@ -127,6 +129,7 @@ class Manager:
         if not xbmcvfs.exists(control.downloads_json):
             with open(control.downloads_json, 'w') as file:
                 json.dump({}, file)
+        self.storage_location = control.getSetting('download.location')
 
     def create_download_task(self, url_hash):
         self.get_download_index()
@@ -134,7 +137,7 @@ class Manager:
             control.notify(control.ADDON_NAME, "Skipped creating duplicate download task")
             return False
         self.download_ids.append(url_hash)
-        self.insert_into_index()
+        control.setStringList("DMIndex", self.download_ids)
         self.url_hash = url_hash
         self.download[url_hash] = self.download_init
         self.download[url_hash]['hash'] = url_hash
@@ -148,9 +151,6 @@ class Manager:
         info = data[url_hash]
         info["canceled"] = True
         self.update_task_info(url_hash, info)
-
-    def insert_into_index(self):
-        control.setSetting("DMIndex", ",".join(self.download_ids))
 
     @staticmethod
     def update_task_info(url_hash, download_dict):
@@ -167,8 +167,7 @@ class Manager:
         return downloads.values()
 
     def get_download_index(self):
-        index = control.getSetting("DMIndex")
-        self.download_ids = [i for i in index.split(",") if i] if index is not None else []
+        self.download_ids = control.getStringList("DMIndex")
 
     def clear_complete(self):
         for download_ in self.get_all_tasks_info():
@@ -188,24 +187,30 @@ class Manager:
 
     def remove_from_index(self, url_hash):
         self.download_ids.remove(url_hash)
-        control.setSetting("DMIndex", ",".join(self.download_ids))
+        control.setStringList("DMIndex", self.download_ids)
 
     def download_file(self, url, filename=None):
+        if not xbmcvfs.exists(self.storage_location):
+            self.storage_location = control.browse(3, f'{control.ADDON_NAME}: Please Choose A Download Locaton.', 'files')
+            if not xbmcvfs.exists(self.storage_location):
+                return control.ok_dialog(control.ADDON_NAME, "Unable to Find Directory")
+            control.setSetting('download.location', self.storage_location)
+
         self.output_filename = filename
         if self.output_filename is None:
             self.output_filename = url.split("/")[-1]
-            self.output_filename = urllib_parse.unquote(self.output_filename)
+            self.output_filename = urllib.parse.unquote(self.output_filename)
         self.output_path = os.path.join(self.storage_location, self.output_filename)
 
-        yesno = control.yesno_dialog(control.ADDON_NAME, '''
-        Do you want to download "[I]{}[/I]" to:
-            {}
-            {}
-        '''.format(self.output_filename, self.output_path[:50], self.output_path[50:100]))
+        yesno = control.yesno_dialog(control.ADDON_NAME, f'''
+        Do you want to download "[I]{self.output_filename}[/I]" to:
+            {self.output_path[:50]}
+            {self.output_path[50:100]}
+        ''')
         if not yesno:
             return False
 
-        self.url_hash = database._generate_md5(url)
+        self.url_hash = database.generate_md5(url)
         if not self.create_download_task(self.url_hash):
             return False
 
@@ -214,17 +219,16 @@ class Manager:
         self.status = "downloading"
 
         # Use urllib.request to get the headers
-        request = urllib_request.Request(url, method='HEAD')
-        head = urllib_request.urlopen(request)
+        request = urllib.request.Request(url, method='HEAD')
+        head = urllib.request.urlopen(request)
         self.file_size = int(head.getheader("content-length", None))
         self.file_size_display = self.get_display_size(self.file_size)
 
         # Use urllib.request to get the content
-        response = urllib_request.urlopen(url)
+        response = urllib.request.urlopen(url)
         chunks = iter(lambda: response.read(1024 * 1024 * 8), b'')
 
         control.notify(control.ADDON_NAME, 'Download Started')
-
         with open(self.output_path, 'wb') as f:
             for chunk in chunks:
                 if chunk:
@@ -272,7 +276,7 @@ class Manager:
         minutes, seconds = divmod(seconds, 60)
         hours, minutes = divmod(minutes, 60)
 
-        return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+        return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"
 
     @staticmethod
     def get_display_size(size_bytes):
@@ -282,13 +286,12 @@ class Manager:
 
         if size_bytes is not None and size_bytes > 0:
             name_idx = int(math.floor(math.log(size_bytes, 1024)))
-            last_size_value = len(size_names) - 1
-            if name_idx > last_size_value:
+            if name_idx > (last_size_value := len(size_names) - 1):
                 name_idx = last_size_value
             chunk = math.pow(1024, name_idx)
             size = round(size_bytes / chunk, 2)
 
-        return "{} {}".format(size, size_names[name_idx])
+        return f"{size} {size_names[name_idx]}"
 
     def get_display_speed(self):
 
@@ -303,7 +306,7 @@ class Manager:
             return "-"
         for i in speed_categories:
             if speed < 1024:
-                return "{} {}".format(self.safe_round(speed, 2), i)
+                return f"{self.safe_round(speed, 2)} {i}"
             else:
                 speed = speed / 1024
 

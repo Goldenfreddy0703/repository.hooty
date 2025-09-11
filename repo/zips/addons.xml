@@ -52,47 +52,51 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="0.0.15" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="1.0.29" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
-    
+     <import addon="xbmc.python" version="3.0.1" />
   </requires>
   <extension point="kodi.context.item">
     <menu id="kodi.core.main">
       <item library="default.py" args="findrecommendations">
         <label>Find Recommendations</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.findrecommendations),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.findrecommendations),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="findrelations">
         <label>Find Relations</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.findrelations),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.findrelations),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="getwatchorder">
         <label>Get Watch Order</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.getwatchorder),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.getwatchorder),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="markedaswatched">
         <label>Marked as Watched [COLOR blue]WatchList[/COLOR]</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.markedaswatched),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.markedaswatched),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="rescrape">
         <label>Rescrape</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.rescrape),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.rescrape),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="sourceselect">
         <label>Source Select</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.sourceselect),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.sourceselect),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,episode)|String.IsEqual(ListItem.DBTYPE,movie)] + !Player.HasMedia</visible>
       </item>
       <item library="default.py" args="logout">
         <label>Logout</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.logout),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+String.Contains(ListItem.folderpath,/watchlist/)</visible>
-      </item>
-      <item library="default.py" args="watchlist">
-        <label>WatchList Manager</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.watchlist),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.logout),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + String.Contains(ListItem.folderpath,/watchlist/)</visible>
       </item>
       <item library="default.py" args="deletefromdatabase">
         <label>Delete From Database</label>
-        <visible>String.IsEqual(Window(home).Property(context.otaku.deletefromdatabase),true)+String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.deletefromdatabase),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="watchlist">
+        <label>WatchList Manager</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.watchlist),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="fanartselect">
+        <label>Select Fanart</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.fanartselect),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/)+[String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
     </menu>
   </extension>
@@ -312,6 +316,10 @@ Changelog 0.0.1:
                 <item library="context.py" args="refresh_details">
                     <label>$ADDON[plugin.video.themoviedb.helper 32233]</label>
                     <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
+                </item>
+                <item library="context.py" args="modify_artwork">
+                    <label>$ADDON[context.themoviedb.helper 32005]</label>
+                    <visible>[String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,movie)]</visible>
                 </item>
                 <item library="context.py" args="modify_identifier">
                     <label>$ADDON[context.themoviedb.helper 32001]</label>
@@ -1229,19 +1237,12 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="0.5.43">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.2.45">
   <requires>
-    
-    <import addon="script.module.beautifulsoup4" version="4.5.3" />
-    <import addon="script.module.dateutil" version="2.6.1" />
-    <import addon="script.module.inputstreamhelper" version="0.3.3" />
-    <import addon="script.module.six" version="1.15.0" />
-    <import addon="script.module.kodi-six" version="0.1.3" />
-    <import addon="context.otaku" version="0.0.15" />
-    <import addon="script.otaku.themepak" version="0.0.11" />
-    <import addon="script.otaku.mappings" />
-    
-    
+    <import addon="xbmc.python" version="3.0.1" />
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.inputstreamhelper" />
+    <import addon="context.otaku" version="1.0.27" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -1250,7 +1251,10 @@ Initial release
   <extension point="xbmc.addon.metadata">
     <reuselanguageinvoker>false</reuselanguageinvoker> 
     <summary lang="en">Otaku video plugin</summary>
-    <description lang="en">HD Animes</description>
+    <description lang="en">Otaku is a provider based, streaming software that is tightly
+            interwoven with Mal. Otaku provides the freedom to view media from a single menu system from service
+            providers of the users choosing. Please Note: We do not host, create, or distribute any of the content displayed in the addon.
+    </description>
     <platform>all</platform>
     <disclaimer>Otaku is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.[CR]This addon and its developers [B]DO NOT[/B] host, create, or distribute any of the content displayed in the addon, it simply scrapes ad financed public websites. It is the responsibility of the user to ensure that they are following all applicable laws and regulations in their country.[CR]This addon and its developers are not in any way affiliated with Team Kodi or any of the sites and providers used in the addon.</disclaimer>
     <license>GPL-3.0</license>
@@ -1265,7 +1269,7 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.44">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.45">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
@@ -2385,37 +2389,6 @@ Initial release
       <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.otaku.mappings" version="25.04.09" name="Otaku Mappings" provider-name="TeamOtaku">
-    <extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-        <summary>Anime ID Mappings for Otaku Addon</summary>
-        <description>Mappings for Otaku are maintained separately to make distribution of the the addon itself easier/faster.</description>
-        <platform>all</platform>
-        <license>GPL-2.0</license>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <clearlogo>logo.png</clearlogo>
-            <poster>poster.png</poster>
-        </assets>
-    </extension>
-</addon><addon id="script.otaku.themepak" version="0.0.13" name="Otaku Themepak" provider-name="TeamOtaku">
-    <requires>
-        <import addon="kodi.resource" version="1.0.0" />
-    </requires>
-    <extension point="kodi.resource.images" compile="false" type="themepak" />
-    <extension point="xbmc.addon.metadata">
-        <summary>Themes for the Otaku Addon</summary>
-        <description>Themes for Otaku are maintained separately to make distribution of the the addon itself easier/faster.</description>
-        <platform>all</platform>
-        <license>GPL-2.0</license>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <clearlogo>logo.png</clearlogo>
-            <poster>poster.png</poster>
-        </assets>
-    </extension>
 </addon><addon id="script.service.sponsorblock" version="0.5.0" name="SponsorBlock" provider-name="siku2">
     <requires>
         <import addon="script.module.requests" version="2.15.1" />

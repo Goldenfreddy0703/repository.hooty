@@ -4,11 +4,14 @@ import random
 import re
 import string
 import time
-import six
+import urllib.error
+import urllib.parse
+import xbmcvfs
+import os
 
 from resources.lib.ui import client, control, jsunpack
 from resources.lib.ui.pyaes import AESModeOfOperationCBC, Decrypter, Encrypter
-from six.moves import urllib_error, urllib_parse
+
 
 _EMBED_EXTRACTORS = {}
 _EDGE_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.62'
@@ -38,18 +41,28 @@ def load_video_from_url(in_url):
                                              data)
 
         control.log("Probing source: %s" % in_url)
+        print(f"Initial URL: {in_url}")
+
         headers = None
         if '|' in in_url:
             in_url, headers = in_url.split('|')
+            print(f"Split URL: {in_url}")
+            print(f"Raw headers: {headers}")
+
             headers = dict([item.split('=') for item in headers.split('&')])
+            print(f"Parsed headers: {headers}")
+
             for header in headers:
-                headers[header] = urllib_parse.unquote_plus(headers[header])
+                headers[header] = urllib.parse.unquote_plus(headers[header])
+                print(f"Decoded header: {header} = {headers[header]}")
+
         reqObj = client.request(in_url, headers=headers, output='extended')
+        print(f"Request object: {reqObj}")
 
         return found_extractor['parser'](reqObj[5],
                                          reqObj[0],
                                          reqObj[2].get('Referer'))
-    except urllib_error.URLError:
+    except urllib.error.URLError:
         return None  # Dead link, Skip result
     except:
         raise
@@ -75,7 +88,7 @@ def __get_packed_data(html):
 
 
 def __append_headers(headers):
-    return '|%s' % '&'.join(['%s=%s' % (key, urllib_parse.quote_plus(headers[key])) for key in headers])
+    return '|%s' % '&'.join(['%s=%s' % (key, urllib.parse.quote_plus(headers[key])) for key in headers])
 
 
 def __check_video_list(refer_url, vidlist, add_referer=False,
@@ -136,77 +149,13 @@ def __extract_mp4upload(url, page_content, referer=None):
 def __extract_lulu(url, page_content, referer=None):
     page_content += __get_packed_data(page_content)
     r = re.search(r'''sources:\s*\[{file:\s*["']([^"']+)''', page_content)
-    ref = urllib_parse.urljoin(url, '/')
+    ref = urllib.parse.urljoin(url, '/')
     headers = {'User-Agent': _FF_UA,
                'Referer': ref,
                'Origin': ref[:-1]}
     if r:
         return r.group(1) + __append_headers(headers)
     return
-
-
-def __extract_vidplay(slink, page_content, referer=None):
-    def generate_mid(content_id, keys):
-        vrf = control.vrf_shift(content_id, keys[0], keys[1])
-        vrf = vrf[::-1]
-        vrf = control.arc4(six.b(keys[2]), six.b(vrf))
-        vrf = control.serialize_text(vrf)
-
-        vrf = vrf[::-1]
-        vrf = control.vrf_shift(vrf, keys[3], keys[4])
-        vrf = control.arc4(six.b(keys[5]), six.b(vrf))
-        vrf = control.serialize_text(vrf)
-
-        vrf = control.arc4(six.b(keys[6]), six.b(vrf))
-        vrf = control.serialize_text(vrf)
-
-        vrf = vrf[::-1]
-        vrf = control.vrf_shift(vrf, keys[7], keys[8])
-        vrf = control.serialize_text(vrf)
-        return vrf
-
-    def decode_vurl(text, keys):
-        res = control.deserialize_text(text)
-        res = six.ensure_str(res)
-
-        res = control.vrf_shift(res, keys[8], keys[7])
-        res = res[::-1]
-        res = control.deserialize_text(res)
-        res = control.arc4(keys[6], res)
-
-        res = control.deserialize_text(res)
-        res = control.arc4(keys[5], res)
-        res = control.vrf_shift(res, keys[4], keys[3])
-        res = res[::-1]
-
-        res = control.deserialize_text(res)
-        res = control.arc4(keys[2], res)
-        res = res[::-1]
-        res = control.vrf_shift(res, keys[1], keys[0])
-        return res
-
-    headers = {'User-Agent': _EDGE_UA}
-    # keys = json.loads(control.getSetting('keys.vidplay'))
-    keys = [
-        "E1KyOcIMf9v7XHg", "gMvO97yE1cfKIXH", "dawQCziL2v",
-        "ZSsbx4NtMpOoCh", "ZCo4MthpsNxSOb", "thDz4uPKGSYW",
-        "QIP5jcuvYEKdG", "fH0n3GZDeKCE6", "0GCn6e3ZfDKEH"
-    ]
-    mid = slink.split('?')[0].split('/')[-1]
-    m = generate_mid(mid, keys)
-    murl = urllib_parse.urljoin(slink, '/mediainfo/{}?{}'.format(m, slink.split('?')[-1]))
-    s = json.loads(client.request(murl, referer=slink, XHR=True, headers=headers))
-    s = json.loads(decode_vurl(s.get("result"), keys))
-    if isinstance(s, dict):
-        uri = s.get('sources')[0].get('file')
-        rurl = urllib_parse.urljoin(murl, '/')
-        uri += '|Referer={0}&Origin={1}&User-Agent=iPad'.format(rurl, rurl[:-1])
-        subs = s.get('tracks')
-        if subs:
-            subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
-            if subs:
-                uri = {'url': uri, 'subs': subs}
-        return uri
 
 
 def __extract_kwik(url, page_content, referer=None):
@@ -223,7 +172,7 @@ def __extract_okru(url, page_content, referer=None):
     host, media_id = re.findall(pattern, url)[0]
     aurl = "http://www.ok.ru/dk"
     data = {'cmd': 'videoPlayerMetadata', 'mid': media_id}
-    data = urllib_parse.urlencode(data)
+    data = urllib.parse.urlencode(data)
     html = client.request(aurl, post=data)
     json_data = json.loads(html)
     if 'error' in json_data:
@@ -295,7 +244,7 @@ def __extract_dood(url, page_content, referer=None):
         token = match.group(2)
         nurl = 'https://{0}{1}'.format(host, match.group(1))
         html = client.request(nurl, referer=url)
-        if html != '{}':
+        if html:
             headers = {'User-Agent': _EDGE_UA,
                        'Referer': url}
             return dood_decode(html) + token + str(int(time.time() * 1000)) + __append_headers(headers)
@@ -360,20 +309,20 @@ def __extract_voe(url, page_content, referer=None):
 
 def __extract_goload(url, page_content, referer=None):
     def _encrypt(msg, key, iv):
-        key = six.ensure_binary(key)
+        key = control.bin(key)
         encrypter = Encrypter(AESModeOfOperationCBC(key, iv))
         ciphertext = encrypter.feed(msg)
         ciphertext += encrypter.feed()
         ciphertext = base64.b64encode(ciphertext)
-        return six.ensure_str(ciphertext)
+        return ciphertext.decode()
 
     def _decrypt(msg, key, iv):
         ct = base64.b64decode(msg)
-        key = six.ensure_binary(key)
+        key = control.bin(key)
         decrypter = Decrypter(AESModeOfOperationCBC(key, iv))
         decrypted = decrypter.feed(ct)
         decrypted += decrypter.feed()
-        return six.ensure_str(decrypted)
+        return decrypted.decode()
 
     pattern = r'(?://|\.)((?:gogo-(?:play|stream)|streamani|go(?:load|one|gohd)|vidstreaming|gembedhd|playgo1|anihdplay|(?:play|emb|go|s3|s3emb)taku1?)\.' \
               r'(?:io|pro|net|com|cc|online))/(?:streaming|embed(?:plus)?|ajax|load)(?:\.php)?\?id=([a-zA-Z0-9-]+)'
@@ -381,7 +330,7 @@ def __extract_goload(url, page_content, referer=None):
     if r:
         host, media_id = re.findall(pattern, url)[0]
         keys = ['37911490979715163134003223491201', '54674138327930866480207815084989']
-        iv = six.ensure_binary('3134003223491201')
+        iv = control.bin('3134003223491201')
         params = _decrypt(r.group(1), keys[0], iv)
         eurl = 'https://{0}/encrypt-ajax.php?id={1}&alias={2}'.format(
             host, _encrypt(media_id, keys[0], iv), params)
@@ -432,21 +381,34 @@ def __relative_url(original_url, new_url):
     if new_url.startswith("//"):
         return "http:%s" % new_url
     else:
-        return urllib_parse.urljoin(original_url, new_url)
+        return urllib.parse.urljoin(original_url, new_url)
+
+
+def get_sub(sub_url, sub_lang):
+    content = client.request(sub_url)
+    subtitle = xbmcvfs.translatePath('special://temp/')
+    fname = f'TemporarySubs.{sub_lang}.srt'
+    fpath = os.path.join(subtitle, fname)
+    if sub_url.endswith('.vtt'):
+        fname = fname.replace('.srt', '.vtt')
+        fpath = fpath.replace('.srt', '.vtt')
+    fpath = fpath.encode(encoding='ascii', errors='ignore').decode(encoding='ascii')
+    fname = fname.encode(encoding='ascii', errors='ignore').decode(encoding='ascii')
+    with open(fpath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    return f'special://temp/{fname}'
+
+
+def del_subs():
+    dirs, files = xbmcvfs.listdir('special://temp/')
+    for fname in files:
+        if fname.startswith('TemporarySubs'):
+            xbmcvfs.delete(f'special://temp/{fname}')
 
 
 __register_extractor(["https://www.mp4upload.com/",
                       "https://mp4upload.com/"],
                      __extract_mp4upload)
-
-__register_extractor(["https://vidplay.online/",
-                      "https://mcloud.bz/",
-                      "https://megaf.cc",
-                      "https://a9bfed0818.nl/",
-                      "https://vid142.site/",
-                      "https://vid2a41.site/",
-                      "https://vid1a52.site/"],
-                     __extract_vidplay)
 
 __register_extractor(["https://kwik.cx/",
                       "https://kwik.si/"],

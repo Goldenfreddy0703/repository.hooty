@@ -1,9 +1,5 @@
 <window type="dialog">
     <defaultcontrol>1000</defaultcontrol>
-    <coordinates>
-        <left>0</left>
-        <top>0</top>
-    </coordinates>
     <controls>
         <!-- Background Texture -->
         <control type="image">
@@ -18,21 +14,21 @@
               <height>100</height>
               <width>1800</width>
               <font>font12</font>
-              <label>$ADDON[plugin.video.otaku 40100]</label>
+              <label>$ADDON[plugin.video.otaku 30040]</label>
            </control>
            <control type="label">
               <top>50</top>
               <height>100</height>
               <width>1800</width>
               <font>font12</font>
-              <label>$ADDON[plugin.video.otaku 40101]</label>
+              <label>$ADDON[plugin.video.otaku 30041]</label>
            </control>
            <control type="label">
               <top>100</top>
               <height>100</height>
               <width>1800</width>
               <font>font12</font>
-              <label>$ADDON[plugin.video.otaku 40110]</label>
+              <label>$ADDON[plugin.video.otaku 30044]</label>
            </control>
         </control>
 
@@ -89,13 +85,5 @@
             </control>
 
        </control>
-
-        <!--LAYOUT GRID-->
-        <!--<control type="image">-->
-        <!--<width>100%</width>-->
-        <!--<height>100%</height>-->
-        <!--<texture>$INFO[Window(13000).Property(test_pattern)]</texture>-->
-        <!--<colordiffuse>55FFFFFF</colordiffuse>-->
-        <!--</control>-->
     </controls>
 </window>

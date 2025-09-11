@@ -2,24 +2,22 @@ import json
 import pickle
 
 from bs4 import BeautifulSoup, SoupStrainer
-from resources.lib.ui import control, database, source_utils
+from resources.lib.ui import database, source_utils
 from resources.lib.ui.BrowserBase import BrowserBase
 
 
-class sources(BrowserBase):
+class Sources(BrowserBase):
     _BASE_URL = 'https://animepahe.ru/'
     _headers = {
         'Referer': _BASE_URL,
         'Cookie': '__ddg1_=PZYJSmACHBBQGP6auJU9; __ddg2_=hxAe1bBqtlUhMFik'
     }
 
-    def get_sources(self, anilist_id, episode, get_backup):
-        show = database.get_show(anilist_id)
+    def get_sources(self, mal_id, episode):
+        show = database.get_show(mal_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
-        etitle = kodi_meta.get('ename')
-        etitle = self._clean_title(etitle)
         params = {'m': 'search',
                   'q': title}
         r = database.get(
@@ -54,11 +52,6 @@ class sources(BrowserBase):
                 items = [x for x in sitems if title.lower() in x.get('title').lower()]
             else:
                 items = [x for x in sitems if (title.lower() + '  ') in (x.get('title').lower() + '  ')]
-            if not items:
-                if etitle[-1].isdigit():
-                    items = [x for x in sitems if etitle.lower() in x.get('title').lower()]
-                else:
-                    items = [x for x in sitems if (etitle.lower() + '  ') in (x.get('title').lower() + '  ')]
             if not items:
                 items = sitems
             if items:
@@ -104,16 +97,17 @@ class sources(BrowserBase):
             items = mdiv.find_all('button')
 
             for item in items:
-                if any(x in item.get('data-src').lower() for x in control.enabled_embeds()):
+                if any(x in item.get('data-src').lower() for x in self.embeds()):
                     qual = int(item.get('data-resolution'))
-                    if qual < 577:
-                        quality = 'SD'
-                    elif qual < 721:
-                        quality = '720p'
-                    elif qual < 1081:
-                        quality = '1080p'
+                    if qual <= 577:
+                        quality = 1
+                    elif qual <= 721:
+                        quality = 2
+                    elif qual <= 1081:
+                        quality = 3
                     else:
-                        quality = '4K'
+                        quality = 0
+
                     source = {
                         'release_title': '{0} - Ep {1}'.format(title, episode),
                         'hash': item.get('data-src'),
@@ -122,8 +116,12 @@ class sources(BrowserBase):
                         'debrid_provider': '',
                         'provider': 'animepahe',
                         'size': 'NA',
-                        'info': [source_utils.get_embedhost(item.get('data-src')), 'DUB' if item.get('data-audio') == 'eng' else 'SUB'],
-                        'lang': 2 if item.get('data-audio') == 'eng' else 0
+                        'seeders': 0,
+                        'byte_size': 0,
+                        'info': [source_utils.get_embedhost(item.get('data-src')) + (' DUB' if item.get('data-audio') == 'eng' else ' SUB')],
+                        'lang': 3 if item.get('data-audio') == 'eng' else 2,
+                        'channel': 3,
+                        'sub': 1
                     }
                     sources.append(source)
 

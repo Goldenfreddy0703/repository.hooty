@@ -3,22 +3,21 @@ import codecs
 import json
 import pickle
 import re
-import six
+import urllib.parse
 
 from bs4 import BeautifulSoup, SoupStrainer
-from six.moves import urllib_parse
 from resources.lib.ui import control, database
 from resources.lib.ui.BrowserBase import BrowserBase
 
 
-class sources(BrowserBase):
+class Sources(BrowserBase):
     _BASE_URL = 'https://aniwave.se/'
     EKEY = "ysJhV6U27FVIjjuk"
     DKEY = "hlPeNwkncH0fq9so"
     CHAR_SUBST_OFFSETS = (-3, 3, -4, 2, -2, 5, 4, 5)
 
-    def get_sources(self, anilist_id, episode, get_backup):
-        show = database.get_show(anilist_id)
+    def get_sources(self, mal_id, episode):
+        show = database.get_show(mal_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
@@ -26,9 +25,9 @@ class sources(BrowserBase):
         all_results = []
         items = []
         srcs = ['sub', 'dub', 's-sub']
-        if control.getSetting('general.source') == 'Sub':
+        if control.getInt('general.source') == 1:
             srcs.remove('dub')
-        elif control.getSetting('general.source') == 'Dub':
+        elif control.getInt('general.source') == 2:
             srcs.remove('sub')
             srcs.remove('s-sub')
 
@@ -58,15 +57,15 @@ class sources(BrowserBase):
             sitems = soup.find_all('div', {'class': 'item'})
             if sitems:
                 items = [
-                    urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
+                    urllib.parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
                     for x in sitems
-                    if self.clean_title(title) == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                    if self.clean_embed_title(title) == self.clean_embed_title(x.find('a', {'class': 'name'}).get('data-jp'))
                 ]
                 if not items:
                     items = [
-                        urllib_parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
+                        urllib.parse.urljoin(self._BASE_URL, x.find('a', {'class': 'name'}).get('href'))
                         for x in sitems
-                        if self.clean_title(title + 'dub') == self.clean_title(x.find('a', {'class': 'name'}).get('data-jp'))
+                        if self.clean_embed_title(title + 'dub') == self.clean_embed_title(x.find('a', {'class': 'name'}).get('data-jp'))
                     ]
         elif r:
             r = json.loads(r)
@@ -74,9 +73,9 @@ class sources(BrowserBase):
             sitems = r.find_all('a', {'class': 'item'})
             if sitems:
                 items = [
-                    urllib_parse.urljoin(self._BASE_URL, x.get('href'))
+                    urllib.parse.urljoin(self._BASE_URL, x.get('href'))
                     for x in sitems
-                    if self.clean_title(title) in self.clean_title(x.find('div', {'class': 'name'}).text)
+                    if self.clean_embed_title(title) in self.clean_embed_title(x.find('div', {'class': 'name'}).text)
                 ]
 
         if items:
@@ -130,7 +129,7 @@ class sources(BrowserBase):
                     for src in srcs:
                         edata_id = src.get('data-link-id')
                         edata_name = src.text
-                        if any(x in self.clean_title(edata_name) for x in control.enabled_embeds()):
+                        if any(x in self.clean_embed_title(edata_name) for x in self.embeds()):
                             vrf = self.generate_vrf(edata_id)
                             params = {'vrf': vrf}
                             r = self._get_request(
@@ -151,7 +150,7 @@ class sources(BrowserBase):
                                 if outro:
                                     skip.update({'outro': {'start': outro[0], 'end': outro[1]}})
                             slink = self.decrypt_vrf(resp.get('url'))
-                            if self._BASE_URL in slink:
+                            if 'aniwave.' in slink:
                                 sresp = self.__extract_aniwave(slink)
                                 if sresp:
                                     if isinstance(sresp, dict):
@@ -164,27 +163,32 @@ class sources(BrowserBase):
                                     headers.update({'Origin': self._BASE_URL[:-1]})
                                     res = self._get_request(srclink, headers=headers)
                                     quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
+                                    src_hdrs = {'User-Agent': 'iPad', 'Referer': urllib.parse.urljoin(srclink, '/')}
                                     for qual, qlink in quals:
                                         qual = int(qual)
-                                        if qual < 577:
-                                            quality = 'SD'
-                                        elif qual < 721:
-                                            quality = '720p'
-                                        elif qual < 1081:
-                                            quality = '1080p'
+                                        if qual <= 577:
+                                            quality = 1
+                                        elif qual <= 721:
+                                            quality = 2
+                                        elif qual <= 1081:
+                                            quality = 3
                                         else:
-                                            quality = '4K'
-
+                                            quality = 0
+                                        hlink = '{0}|{1}'.format(urllib.parse.urljoin(srclink, qlink), urllib.parse.urlencode(src_hdrs))
                                         source = {
                                             'release_title': '{0} - Ep {1}'.format(title, episode),
-                                            'hash': urllib_parse.urljoin(srclink, qlink) + '|User-Agent=iPad',
+                                            'hash': hlink,
                                             'type': 'direct',
                                             'quality': quality,
                                             'debrid_provider': '',
                                             'provider': 'aniwave',
                                             'size': 'NA',
-                                            'info': ['{0} {1}'.format(edata_name, lang)],
-                                            'lang': 2 if lang == 'dub' else 0
+                                            'seeders': 0,
+                                            'byte_size': 0,
+                                            'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                            'lang': 3 if lang == 'dub' else 2,
+                                            'channel': 3,
+                                            'sub': 1
                                         }
                                         if subs:
                                             source.update({'subs': subs})
@@ -196,12 +200,16 @@ class sources(BrowserBase):
                                     'release_title': '{0} - Ep {1}'.format(title, episode),
                                     'hash': slink,
                                     'type': 'embed',
-                                    'quality': 'EQ',
+                                    'quality': 0,
                                     'debrid_provider': '',
                                     'provider': 'aniwave',
                                     'size': 'NA',
-                                    'info': ['{0} {1}'.format(edata_name, lang)],
-                                    'lang': 2 if lang == 'dub' else 0
+                                    'seeders': 0,
+                                    'byte_size': 0,
+                                    'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                    'lang': 3 if lang == 'dub' else 2,
+                                    'channel': 3,
+                                    'sub': 1
                                 }
                                 if skip:
                                     source.update({'skip': skip})
@@ -220,18 +228,18 @@ class sources(BrowserBase):
         return o
 
     def generate_vrf(self, content_id, key=EKEY):
-        vrf = control.arc4(six.b(key), six.b(urllib_parse.quote(content_id)))
-        vrf = six.ensure_str(base64.urlsafe_b64encode(six.b(vrf)))
-        vrf = six.ensure_str(base64.b64encode(six.b(vrf)))
+        vrf = control.arc4(control.bin(key), control.bin(urllib.parse.quote(content_id)))
+        vrf = (base64.urlsafe_b64encode(control.bin(vrf))).decode('latin-1')
+        vrf = (base64.b64encode(control.bin(vrf))).decode('latin-1')
         vrf = self.vrf_shift(vrf)
-        vrf = six.ensure_str(base64.b64encode(six.b(vrf)))
+        vrf = (base64.b64encode(control.bin(vrf))).decode('latin-1')
         vrf = codecs.encode(vrf, 'rot_13')
         return vrf.replace('/', '_').replace('+', '-')
 
     @staticmethod
     def decrypt_vrf(text, key=DKEY):
-        data = control.arc4(six.b(key), base64.urlsafe_b64decode(six.b(text)))
-        data = urllib_parse.unquote(data)
+        data = control.arc4(control.bin(key), base64.urlsafe_b64decode(control.bin(text)))
+        data = urllib.parse.unquote(data)
         return data
 
     def __extract_aniwave(self, url):

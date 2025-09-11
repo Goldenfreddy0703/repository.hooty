@@ -1,6 +1,5 @@
 import hashlib
 import base64
-import six
 from . import pyaes
 from .pkcs7 import PKCS7Encoder
 import os
@@ -14,7 +13,7 @@ def evpKDF(
         iterations=1,
         hash_algorithm="md5"):
     target_key_size = key_size + iv_size
-    derived_bytes = six.ensure_binary("")
+    derived_bytes = "".encode()
     number_of_derived_words = 0
     block = None
     hasher = hashlib.new(hash_algorithm)
@@ -44,7 +43,7 @@ def evpKDF(
 
 def encode(plaintext, passphrase, saltsize=8):
     salt = os.urandom(saltsize)
-    data = evpKDF(six.ensure_binary(passphrase), salt)
+    data = evpKDF(passphrase.encode(), salt)
     decryptor = pyaes.new(data['key'], pyaes.MODE_CBC, IV=data['iv'])
     plaintext = PKCS7Encoder().encode(plaintext)
     enctext = decryptor.encrypt(plaintext)
@@ -59,7 +58,7 @@ def decode(ciphertext, passphrase, salt=None):
     if not salt:
         salt = ciphertext[8:16]
         ciphertext = ciphertext[16:]
-    data = evpKDF(six.ensure_binary(passphrase), salt)
+    data = evpKDF(passphrase.encode(), salt)
     decryptor = pyaes.new(data['key'], pyaes.MODE_CBC, IV=data['iv'])
     d = decryptor.decrypt(ciphertext)
     return PKCS7Encoder().decode(d.decode())

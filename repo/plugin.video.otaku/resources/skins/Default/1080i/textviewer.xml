@@ -55,21 +55,21 @@
 					<scrolltime tween="sine">400</scrolltime>
 					<font>font14</font>
 					<textcolor>white</textcolor>
-					<label>$INFO[Window().Property(otaku.text)]</label>
+					<label>$INFO[Window().Property(otaku.changelog_text)]</label>
 					<pagecontrol>2060</pagecontrol>
 				</control>
-				<control type="textbox" id="2000">
+				<control type="textbox" id="2001">
 					<left>45</left>
 					<top>114</top>
 					<width>600</width>
 					<height>350</height>
-					<onup>2000</onup>
-					<ondown>2000</ondown>
+					<onup>2001</onup>
+					<ondown>2001</ondown>
 					<scrolltime tween="sine">400</scrolltime>
 					<font>font14</font>
 					<textcolor>white</textcolor>
-					<label>$INFO[Window().Property(otaku.text_2)]</label>
-					<pagecontrol>1940</pagecontrol>
+					<label>$INFO[Window().Property(otaku.news_text)]</label>
+					<pagecontrol>1941</pagecontrol>
 				</control>
 				<control type="scrollbar" id="2060">
 					<left>1320</left>
@@ -81,10 +81,27 @@
 					<texturesliderbarfocus border="15">scrollbars/scrollbaruni-bar-focus.png</texturesliderbarfocus>
 					<textureslidernib>scrollbars/scrollbaruni-nib.png</textureslidernib>
 					<textureslidernibfocus>scrollbars/scrollbaruni-nib.png</textureslidernibfocus>
-					<onleft>2060</onleft>
-					<onright>2060</onright>
-					<onup>2060</onup>
-					<ondown>2060</ondown>
+    				<onleft>1941</onleft> <!-- Switch to other scrollbar -->
+    				<onright>1941</onright> <!-- Switch to other scrollbar -->
+    				<onup>2060</onup> <!-- Stay within the same scrollbar -->
+    				<ondown>2060</ondown> <!-- Stay within the same scrollbar -->
+					<showonepage>false</showonepage>
+					<orientation>vertical</orientation>
+				</control>
+				<control type="scrollbar" id="1941">
+					<left>640</left>
+					<top>114</top>
+					<width>30</width>
+					<height>350</height>
+					<texturesliderbackground border="15">scrollbars/scrollbaruni-bg.png</texturesliderbackground>
+					<texturesliderbar border="15">scrollbars/scrollbaruni-bar.png</texturesliderbar>
+					<texturesliderbarfocus border="15">scrollbars/scrollbaruni-bar-focus.png</texturesliderbarfocus>
+					<textureslidernib>scrollbars/scrollbaruni-nib.png</textureslidernib>
+					<textureslidernibfocus>scrollbars/scrollbaruni-nib.png</textureslidernibfocus>
+    				<onleft>2060</onleft> <!-- Switch to other scrollbar -->
+    				<onright>2060</onright> <!-- Switch to other scrollbar -->
+    				<onup>1941</onup> <!-- Stay within the same scrollbar -->
+    				<ondown>1941</ondown> <!-- Stay within the same scrollbar -->
 					<showonepage>false</showonepage>
 					<orientation>vertical</orientation>
 				</control>

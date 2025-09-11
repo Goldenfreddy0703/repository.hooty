@@ -49,8 +49,6 @@ there clears it up.
 
 
 from array import array
-from six.moves import range
-import six
 import codecs
 
 # Globals mandated by PEP 272:
@@ -77,10 +75,14 @@ def new(key, mode, IV=None):
 # AES cipher implementation
 
 
-class AES(object):
+class AES:
     block_size = 16
 
     def __init__(self, key):
+        self.exkey = None
+        self.rounds = None
+        self.key_size = None
+        self.key = None
         self.setkey(key)
 
     def setkey(self, key):
@@ -165,10 +167,10 @@ class AES(object):
 
         self.exkey = exkey
 
-    def add_round_key(self, block, round):
+    def add_round_key(self, block, round_):
         """AddRoundKey step in AES. This is where the key is mixed into plaintext"""
 
-        offset = round * 16
+        offset = round_ * 16
         exkey = self.exkey
 
         for i in range(16):
@@ -176,7 +178,8 @@ class AES(object):
 
         # print 'AddRoundKey:', block
 
-    def sub_bytes(self, block, sbox):
+    @staticmethod
+    def sub_bytes(block, sbox):
         """SubBytes step, apply S-box to all bytes
 
         Depending on whether encrypting or decrypting, a different sbox array
@@ -188,7 +191,8 @@ class AES(object):
 
         # print 'SubBytes   :', block
 
-    def shift_rows(self, b):
+    @staticmethod
+    def shift_rows(b):
         """ShiftRows step. Shifts 2nd row to left by 1, 3rd row by 2, 4th row by 3
 
         Since we're performing this on a transposed matrix, cells are numbered
@@ -206,7 +210,8 @@ class AES(object):
 
         # print 'ShiftRows  :', b
 
-    def shift_rows_inv(self, b):
+    @staticmethod
+    def shift_rows_inv(b):
         """Similar to shift_rows above, but performed in inverse for decryption."""
 
         b[5], b[9], b[13], b[1] = b[1], b[5], b[9], b[13]
@@ -215,7 +220,8 @@ class AES(object):
 
         # print 'ShiftRows  :', b
 
-    def mix_columns(self, block):
+    @staticmethod
+    def mix_columns(block):
         """MixColumns step. Mixes the values in each column"""
 
         # Cache global multiplication tables (see below)
@@ -238,7 +244,8 @@ class AES(object):
 
         # print 'MixColumns :', block
 
-    def mix_columns_inv(self, block):
+    @staticmethod
+    def mix_columns_inv(block):
         """Similar to mix_columns above, but performed in inverse for decryption."""
 
         # Cache global multiplication tables (see below)
@@ -270,11 +277,11 @@ class AES(object):
         # mutable array, not returned.
         self.add_round_key(block, 0)
 
-        for round in range(1, self.rounds):
+        for round_ in range(1, self.rounds):
             self.sub_bytes(block, aes_sbox)
             self.shift_rows(block)
             self.mix_columns(block)
-            self.add_round_key(block, round)
+            self.add_round_key(block, round_)
 
         self.sub_bytes(block, aes_sbox)
         self.shift_rows(block)
@@ -289,10 +296,10 @@ class AES(object):
         self.add_round_key(block, self.rounds)
 
         # count rounds down from 15 ... 1
-        for round in range(self.rounds - 1, 0, -1):
+        for round_ in range(self.rounds - 1, 0, -1):
             self.shift_rows_inv(block)
             self.sub_bytes(block, aes_inv_sbox)
-            self.add_round_key(block, round)
+            self.add_round_key(block, round_)
             self.mix_columns_inv(block)
 
         self.shift_rows_inv(block)
@@ -303,7 +310,7 @@ class AES(object):
 
 # ECB mode implementation
 
-class ECBMode(object):
+class ECBMode:
     """Electronic CodeBook (ECB) mode encryption.
 
     Basically this mode applies the cipher function to each block individually;
@@ -320,15 +327,15 @@ class ECBMode(object):
         if len(data) % self.block_size != 0:
             raise ValueError("Plaintext length must be multiple of 16")
 
-        block_size = self.block_size
+        block_size_ = self.block_size
         data = array('B', data)
 
-        for offset in range(0, len(data), block_size):
-            block = data[offset: offset + block_size]
+        for offset in range(0, len(data), block_size_):
+            block = data[offset: offset + block_size_]
             block_func(block)
-            data[offset: offset + block_size] = block
+            data[offset: offset + block_size_] = block
 
-        return data.tostring() if six.PY2 else data.tobytes()
+        return data.tobytes()
 
     def encrypt(self, data):
         """Encrypt data in ECB mode"""
@@ -343,7 +350,7 @@ class ECBMode(object):
 # CBC mode
 
 
-class CBCMode(object):
+class CBCMode:
     """Cipher Block Chaining (CBC) mode encryption. This mode avoids content leaks.
 
     In CBC encryption, each plaintext block is XORed with the ciphertext block
@@ -361,54 +368,54 @@ class CBCMode(object):
     def encrypt(self, data):
         """Encrypt data in CBC mode"""
 
-        block_size = self.block_size
-        if len(data) % block_size != 0:
+        block_size_ = self.block_size
+        if len(data) % block_size_ != 0:
             raise ValueError("Plaintext length must be multiple of 16")
 
         data = array('B', data)
         IV = self.IV
 
-        for offset in range(0, len(data), block_size):
-            block = data[offset: offset + block_size]
+        for offset in range(0, len(data), block_size_):
+            block = data[offset: offset + block_size_]
 
             # Perform CBC chaining
-            for i in range(block_size):
+            for i in range(block_size_):
                 block[i] ^= IV[i]
 
             self.cipher.encrypt_block(block)
-            data[offset: offset + block_size] = block
+            data[offset: offset + block_size_] = block
             IV = block
 
         self.IV = IV
-        return data.tostring() if six.PY2 else data.tobytes()
+        return data.tobytes()
 
     def decrypt(self, data):
         """Decrypt data in CBC mode"""
 
-        block_size = self.block_size
-        if len(data) % block_size != 0:
+        block_size_ = self.block_size
+        if len(data) % block_size_ != 0:
             raise ValueError("Ciphertext length must be multiple of 16")
 
         data = array('B', data)
         IV = self.IV
 
-        for offset in range(0, len(data), block_size):
-            ctext = data[offset: offset + block_size]
+        for offset in range(0, len(data), block_size_):
+            ctext = data[offset: offset + block_size_]
             block = ctext[:]
             self.cipher.decrypt_block(block)
 
             # Perform CBC chaining
-            # for i in range(block_size):
+            # for i in range(block_size_):
             #    data[offset + i] ^= IV[i]
-            for i in range(block_size):
+            for i in range(block_size_):
                 block[i] ^= IV[i]
-            data[offset: offset + block_size] = block
+            data[offset: offset + block_size_] = block
 
             IV = ctext
-            # data[offset : offset+block_size] = block
+            # data[offset : offset+block_size_] = block
 
         self.IV = IV
-        return data.tostring() if six.PY2 else data.tobytes()
+        return data.tobytes()
 
 ####
 

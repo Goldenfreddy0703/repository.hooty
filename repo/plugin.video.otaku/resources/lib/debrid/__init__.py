@@ -1,114 +1,127 @@
-import copy
 import threading
-from resources.lib.debrid import premiumize, torbox
+
+from copy import deepcopy
+from resources.lib.debrid import real_debrid, all_debrid, debrid_link, premiumize, torbox, easydebrid
 from resources.lib.ui import control
 
 
-class TorrentCacheCheck:
+class Debrid:
     def __init__(self):
         self.premiumizeCached = []
         self.realdebridCached = []
-        self.all_debridCached = []
-        self.debrid_linkCached = []
+        self.alldebridCached = []
+        self.debridlinkCached = []
         self.torboxCached = []
+        self.easydebridCached = []
+
+        self.premiumizeUnCached = []
+        self.realdebridUnCached = []
+        self.alldebridUnCached = []
+        self.debridlinkUnCached = []
+        self.torboxUnCached = []
         self.threads = []
 
-        self.episodeStrings = None
-        self.seasonStrings = None
 
     def torrentCacheCheck(self, torrent_list):
-        if control.real_debrid_enabled():
-            self.threads.append(
-                threading.Thread(target=self.real_debrid_worker, args=(copy.deepcopy(torrent_list),)))
+        enabled_debrids = control.enabled_debrid()
+        if enabled_debrids['realdebrid']:
+            t = threading.Thread(target=self.real_debrid_worker, args=(deepcopy(torrent_list),))
+            t.start()
+            self.threads.append(t)
 
-        if control.debrid_link_enabled():
-            self.threads.append(
-                threading.Thread(target=self.debrid_link_worker, args=(copy.deepcopy(torrent_list),)))
+        if enabled_debrids['debridlink']:
+            t = threading.Thread(target=self.debrid_link_worker, args=(deepcopy(torrent_list),))
+            self.threads.append(t)
+            t.start()
 
-        if control.premiumize_enabled():
-            self.threads.append(threading.Thread(target=self.premiumize_worker, args=(copy.deepcopy(torrent_list),)))
+        if enabled_debrids['premiumize']:
+            t = threading.Thread(target=self.premiumize_worker, args=(deepcopy(torrent_list),))
+            t.start()
+            self.threads.append(t)
 
-        if control.all_debrid_enabled():
-            self.threads.append(
-                threading.Thread(target=self.all_debrid_worker, args=(copy.deepcopy(torrent_list),)))
+        if enabled_debrids['alldebrid']:
+            t = threading.Thread(target=self.all_debrid_worker, args=(deepcopy(torrent_list),))
+            t.start()
+            self.threads.append(t)
 
-        if control.torbox_enabled():
-            self.threads.append(
-                threading.Thread(target=self.torbox_worker, args=(copy.deepcopy(torrent_list),)))
+        if enabled_debrids['torbox']:
+            t = threading.Thread(target=self.torbox_worker, args=(deepcopy(torrent_list),))
+            t.start()
+            self.threads.append(t)
 
-        for i in self.threads:
-            i.start()
+        if enabled_debrids['easydebrid']:
+            t = threading.Thread(target=self.easydebrid_worker, args=(deepcopy(torrent_list),))
+            t.start()
+            self.threads.append(t)
+
         for i in self.threads:
             i.join()
 
-        cachedList = self.realdebridCached + self.premiumizeCached + self.all_debridCached + self.debrid_linkCached + self.torboxCached
-        return cachedList
+        cached_list = self.realdebridCached + self.premiumizeCached + self.alldebridCached + self.debridlinkCached + self.torboxCached + self.easydebridCached
+        uncached_list = self.realdebridUnCached + self.premiumizeUnCached + self.alldebridUnCached + self.debridlinkUnCached + self.torboxUnCached
+        return cached_list, uncached_list
 
-    # Function to check cache on 'all_debrid'
+
     def all_debrid_worker(self, torrent_list):
-        if len(torrent_list) == 0:
-            return
+        if len(torrent_list) != 0:
+            for i in torrent_list:
+                i['debrid_provider'] = 'Alldebrid'
+                self.alldebridUnCached.append(i)
 
-        cache_list = []
-        for i in torrent_list:
-            i.update({'debrid_provider': 'all_debrid'})
-            cache_list.append(i)
 
-        self.all_debridCached = cache_list
-
-    # Function to check cache on 'debrid_link'
     def debrid_link_worker(self, torrent_list):
-        if len(torrent_list) == 0:
-            return
+        if len(torrent_list) != 0:
+            cache_check = debrid_link.DebridLink().check_hash([i['hash'] for i in torrent_list])
+            if cache_check:
+                for i in torrent_list:
+                    i['debrid_provider'] = 'Debrid-Link'
+                    if i['hash'] in list(cache_check.keys()):
+                        self.debridlinkCached.append(i)
+                    else:
+                        self.debridlinkUnCached.append(i)
 
-        cache_list = []
-        for i in torrent_list:
-            i.update({'debrid_provider': 'debrid_link'})
-            cache_list.append(i)
 
-        self.debrid_linkCached = cache_list
-
-    # Function to check cache on 'real_debrid'
     def real_debrid_worker(self, torrent_list):
-        if len(torrent_list) == 0:
-            return
+        hash_list = [i['hash'] for i in torrent_list]
+        if len(hash_list) != 0:
+            for torrent in torrent_list:
+                torrent['debrid_provider'] = 'Real-Debrid'
+                self.realdebridUnCached.append(torrent)
 
-        cache_list = []
-        for i in torrent_list:
-            i['debrid_provider'] = 'real_debrid'
-            cache_list.append(i)
 
-        self.realdebridCached = cache_list
-
-    # Function to check cache on 'premiumize'
     def premiumize_worker(self, torrent_list):
         hash_list = [i['hash'] for i in torrent_list]
-        if len(hash_list) == 0:
-            return
-        premiumizeCache = premiumize.Premiumize().hash_check(hash_list)
-        premiumizeCache = premiumizeCache['response']
-        cache_list = []
-        count = 0
-        for i in torrent_list:
-            if premiumizeCache[count] is True:
-                i['debrid_provider'] = 'premiumize'
-                cache_list.append(i)
-            count += 1
+        if len(hash_list) != 0:
+            premiumizeCache = premiumize.Premiumize().hash_check(hash_list)
+            premiumizeCache = premiumizeCache['response']
 
-        self.premiumizeCached = cache_list
+            for index, torrent in enumerate(torrent_list):
+                torrent['debrid_provider'] = 'Premiumize'
+                if premiumizeCache[index] is True:
+                    self.premiumizeCached.append(torrent)
+                else:
+                    self.premiumizeUnCached.append(torrent)
 
-    # Function to check cache on 'torbox'
+
     def torbox_worker(self, torrent_list):
         hash_list = [i['hash'] for i in torrent_list]
-        if len(hash_list) == 0:
-            return
+        if len(hash_list) != 0:
+            cache_check = [i['hash'] for i in torbox.TorBox().hash_check(hash_list)]
+            for torrent in torrent_list:
+                torrent['debrid_provider'] = 'TorBox'
+                if torrent['hash'] in cache_check:
+                    self.torboxCached.append(torrent)
+                else:
+                    self.torboxUnCached.append(torrent)
 
-        torboxCache = torbox.Torbox().hash_check(hash_list)
-        torboxCache = torboxCache['data']
-        cache_list = []
-        for i in torrent_list:
-            if i['hash'] in torboxCache:
-                i['debrid_provider'] = 'torbox'
-                cache_list.append(i)
 
-        self.torboxCached = cache_list
+    def easydebrid_worker(self, torrent_list):
+        # Prepend the magnet prefix to each hash within torrent_list
+        hash_list = ["magnet:?xt=urn:btih:" + i['hash'] for i in torrent_list]
+        if len(hash_list) != 0:
+            response = easydebrid.EasyDebrid().lookup_link(hash_list)
+            cached_flags = response.get("cached", [])
+            for torrent, is_cached in zip(torrent_list, cached_flags):
+                torrent['debrid_provider'] = 'EasyDebrid'
+                if is_cached:
+                    self.easydebridCached.append(torrent)

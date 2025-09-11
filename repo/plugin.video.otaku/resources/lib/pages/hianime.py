@@ -1,19 +1,20 @@
 import json
 import pickle
 import re
+import urllib.parse
 
 from bs4 import BeautifulSoup, SoupStrainer
-from six.moves import urllib_parse
 from resources.lib.ui import control, database
 from resources.lib.ui.BrowserBase import BrowserBase
-from resources.lib.indexers.malsync import MALSYNC
+from resources.lib.endpoints import malsync
 
 
-class sources(BrowserBase):
-    _BASE_URL = 'https://hianime.sx/' if control.getSetting('provider.hianimealt') == 'true' else 'https://hianime.to/'
+class Sources(BrowserBase):
+    _BASE_URL = 'https://hianime.sx/' if control.getBool('provider.hianimealt') else 'https://hianime.to/'
+    _MEGA_URL = 'https://mega-embed-2.vercel.app/'
 
-    def get_sources(self, anilist_id, episode, get_backup):
-        show = database.get_show(anilist_id)
+    def get_sources(self, mal_id, episode):
+        show = database.get_show(mal_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
@@ -21,12 +22,12 @@ class sources(BrowserBase):
 
         all_results = []
         srcs = ['sub', 'dub', 'raw']
-        if control.getSetting('general.source') == 'Sub':
+        if control.getInt('general.source') == 1:
             srcs.remove('dub')
-        elif control.getSetting('general.source') == 'Dub':
+        elif control.getInt('general.source') == 2:
             srcs.remove('sub')
 
-        items = MALSYNC().get_slugs(anilist_id=anilist_id, site='Zoro')
+        items = malsync.get_slugs(mal_id=mal_id, site='Zoro')
         if not items:
             if kodi_meta.get('start_date'):
                 year = kodi_meta.get('start_date').split('-')[0]
@@ -102,7 +103,7 @@ class sources(BrowserBase):
                 for src in srcs:
                     edata_id = src.get('data-id')
                     edata_name = src.text.strip().lower()
-                    if edata_name.lower() in control.enabled_embeds():
+                    if edata_name.lower() in self.embeds():
                         params = {'id': edata_id}
                         r = self._get_request(
                             self._BASE_URL + 'ajax/v2/episode/sources',
@@ -116,63 +117,98 @@ class sources(BrowserBase):
                                 'release_title': '{0} - Ep {1}'.format(title, episode),
                                 'hash': slink,
                                 'type': 'embed',
-                                'quality': 'EQ',
+                                'quality': 0,
                                 'debrid_provider': '',
                                 'provider': 'h!anime',
                                 'size': 'NA',
-                                'info': [lang, edata_name],
-                                'lang': 2 if lang == 'dub' else 0
+                                'seeders': 0,
+                                'byte_size': 0,
+                                'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                'lang': 3 if lang == 'dub' else 2,
+                                'channel': 3,
+                                'sub': 1,
+                                'skip': {}
                             }
                             sources.append(source)
                         else:
                             srclink = False
                             params = {'url': slink, 'referer': self._BASE_URL}
-                            mcs_url = urllib_parse.urljoin(control.getSetting('mcs_url'), '/get')
-                            res = self._get_request(mcs_url, data=params)
-                            res = json.loads(res)
+
+                            if control.getBool('ms_enable'):
+                                ms_url = control.getSetting('ms_url')
+                                mcs_url = urllib.parse.urljoin(ms_url, '/get')
+                            else:
+                                mcs_url = urllib.parse.urljoin(self._MEGA_URL, '/get')
+
+                            try:
+                                res = self._get_request(mcs_url, data=params)
+                                res = json.loads(res)
+                            except json.JSONDecodeError:
+                                continue
                             subs = res.get('tracks')
                             if subs:
                                 subs = [{'url': x.get('file'), 'lang': x.get('label')} for x in subs if x.get('kind') == 'captions']
                             skip = {}
                             if res.get('intro'):
-                                skip.update({'intro': res.get('intro')})
+                                skip['intro'] = res['intro']
                             if res.get('outro'):
-                                skip.update({'outro': res.get('outro')})
-                            if res.get('encrypted'):
-                                srclink = self._process_link(res.get('sources'))
-                            elif res.get('sources'):
+                                skip['outro'] = res['outro']
+                            if res.get('sources'):
                                 srclink = res.get('sources')[0].get('file')
                             if not srclink:
                                 continue
-                            netloc = urllib_parse.urljoin(slink, '/')
+                            netloc = urllib.parse.urljoin(slink, '/')
                             headers = {'Referer': netloc, 'Origin': netloc[:-1]}
                             res = self._get_request(srclink, headers=headers)
                             quals = re.findall(r'#EXT.+?RESOLUTION=\d+x(\d+).*\n(?!#)(.+)', res)
+                            if quals:
+                                for qual, qlink in quals:
+                                    qual = int(qual)
+                                    if qual <= 480:
+                                        quality = 1
+                                    elif qual <= 720:
+                                        quality = 2
+                                    elif qual <= 1080:
+                                        quality = 3
+                                    else:
+                                        quality = 0
 
-                            for qual, qlink in quals:
-                                qual = int(qual)
-                                if qual < 577:
-                                    quality = 'SD'
-                                elif qual < 721:
-                                    quality = '720p'
-                                elif qual < 1081:
-                                    quality = '1080p'
-                                else:
-                                    quality = '4K'
-
+                                    source = {
+                                        'release_title': '{0} - Ep {1}'.format(title, episode),
+                                        'hash': urllib.parse.urljoin(srclink, qlink) + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
+                                        'type': 'direct',
+                                        'quality': quality,
+                                        'debrid_provider': '',
+                                        'provider': 'h!anime',
+                                        'size': 'NA',
+                                        'seeders': 0,
+                                        'byte_size': 0,
+                                        'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                        'lang': 3 if lang == 'dub' else 2,
+                                        'channel': 3,
+                                        'sub': 1,
+                                        'subs': subs,
+                                        'skip': skip
+                                    }
+                                    sources.append(source)
+                            else:
                                 source = {
                                     'release_title': '{0} - Ep {1}'.format(title, episode),
-                                    'hash': urllib_parse.urljoin(srclink, qlink) + '|User-Agent=iPad&{0}'.format(urllib_parse.urlencode(headers)),
+                                    'hash': srclink + '|User-Agent=iPad&{0}'.format(urllib.parse.urlencode(headers)),
                                     'type': 'direct',
-                                    'quality': quality,
+                                    'quality': 0,
                                     'debrid_provider': '',
                                     'provider': 'h!anime',
                                     'size': 'NA',
-                                    'info': ['DUB' if lang == 'dub' else 'SUB', edata_name],
-                                    'lang': 2 if lang == 'dub' else 0,
-                                    'subs': subs
+                                    'seeders': 0,
+                                    'byte_size': 0,
+                                    'info': [edata_name + (' DUB' if lang == 'dub' else ' SUB')],
+                                    'lang': 3 if lang == 'dub' else 2,
+                                    'channel': 3,
+                                    'sub': 1,
+                                    'subs': subs,
+                                    'skip': skip
                                 }
-                                if skip:
-                                    source.update({'skip': skip})
                                 sources.append(source)
+
         return sources

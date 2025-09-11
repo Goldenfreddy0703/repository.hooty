@@ -1,178 +1,156 @@
-# -*- coding: utf-8 -*-
-
-import time
 import json
-from six.moves import urllib_parse
-from resources.lib.ui import source_utils, control, database, client
+import urllib.parse
+
+from resources.lib.ui import source_utils, client, control, database
 
 
 class Premiumize:
-
     def __init__(self):
-        self.client_id = "855400527"
-        # self.client_secret = ""
-        self.headers = {
-            'Authorization': 'Bearer {}'.format(control.getSetting('premiumize.token'))
-        }
+        api_info = database.get_info('Premiumize')
+        self.client_id = api_info['client_id']
+        self.token = control.getSetting('premiumize.token')
+        self.addtocloud = control.getBool('premiumize.addToCloud')
+        self.autodelete = control.getBool('premiumize.autodelete')
+        self.threshold = control.getInt('premiumize.threshold')
+        self.base_url = 'https://www.premiumize.me/api'
+        self.OauthTimeStep = 0
+        self.OauthTimeout = 0
+        self.OauthTotalTimeout = 0
+
+    def headers(self):
+        return {'Authorization': f"Bearer {self.token}"}
 
     def auth(self):
         data = {'client_id': self.client_id, 'response_type': 'device_code'}
-        token = client.request('https://www.premiumize.me/token', post=data)
-        token = json.loads(token)
-        expiry = token['expires_in']
-        token_ttl = token['expires_in']
-        token_interval = token['interval']
-        poll_again = True
-        success = False
-        control.copy2clip(token['user_code'])
-        control.progressDialog.create(
-            control.ADDON_NAME,
-            control.lang(30100).format(control.colorString(token['verification_uri'])) + '[CR]'
-            + control.lang(30101).format(control.colorString(token['user_code'])) + '[CR]'
-            + control.lang(30102)
-        )
-        control.progressDialog.update(0)
+        r = client.request('https://www.premiumize.me/token', post=data, jpost=True)
+        resp = json.loads(r) if r else {}
+        self.OauthTotalTimeout = self.OauthTimeout = resp['expires_in']
+        self.OauthTimeStep = int(resp['interval'])
+        copied = control.copy2clip(resp['user_code'])
+        display_dialog = (f"{control.lang(30021).format(control.colorstr(resp['verification_uri']))}[CR]"
+                          f"{control.lang(30022).format(control.colorstr(resp['user_code']))}")
+        if copied:
+            display_dialog = f"{display_dialog}[CR]{control.lang(30023)}"
+        control.progressDialog.create(f'{control.ADDON_NAME}: Premiumize Auth', display_dialog)
+        control.progressDialog.update(100)
 
-        while poll_again and not token_ttl <= 0 and not control.progressDialog.iscanceled():
-            time.sleep(token_interval)
-            token_ttl -= int(token_interval)
-            poll_again, success = self.poll_token(token['device_code'])
-            progress_percent = 100 - int((float((expiry - token_ttl) / expiry) * 100))
-            control.progressDialog.update(progress_percent)
-
+        auth_done = False
+        while not auth_done and self.OauthTimeout > 0:
+            self.OauthTimeout -= self.OauthTimeStep
+            control.sleep(self.OauthTimeStep * 1000)
+            auth_done = self.auth_loop(resp['device_code'])
         control.progressDialog.close()
 
-        if success:
-            control.ok_dialog(control.ADDON_NAME, 'Premiumize ' + control.lang(30103))
+        if auth_done:
+            self.status()
 
-    def poll_token(self, device_code):
+    def status(self):
+        r = client.request(f'{self.base_url}/account/info', headers=self.headers())
+        user_information = json.loads(r) if r else {}
+        premium = user_information['premium_until'] > 0
+        control.setSetting('premiumize.username', user_information['customer_id'])
+        control.ok_dialog(control.ADDON_NAME, f'Premiumize {control.lang(30024)}')
+        if not premium:
+            control.setSetting('premiumize.auth.status', 'Expired')
+            control.ok_dialog(f'{control.ADDON_NAME}: Premiumize', control.lang(30025))
+        else:
+            control.setSetting('premiumize.auth.status', 'Premium')
+
+    def auth_loop(self, device_code):
+        if control.progressDialog.iscanceled():
+            self.OauthTimeout = 0
+            return False
+        control.progressDialog.update(int(self.OauthTimeout / self.OauthTotalTimeout * 100))
         data = {'client_id': self.client_id, 'code': device_code, 'grant_type': 'device_code'}
-        token = client.request('https://www.premiumize.me/token', post=data, error=True)
-        token = json.loads(token)
+        r = client.request('https://www.premiumize.me/token', post=data, jpost=True)
+        token = json.loads(r) if r else {}
+        if r and 'access_token' in token:
+            self.token = token['access_token']
+            control.setSetting('premiumize.token', self.token)
+            return True
+        else:
+            if token.get('error') == 'access_denied':
+                self.OauthTimeout = 0
+            if token.get('error') == 'slow_down':
+                control.sleep(1000)
+        return False
 
-        if 'error' in token:
-            if token['error'] == "access_denied":
-                return False, False
-            return True, False
+    def search_folder(self, query):
+        params = {'q': query}
+        r = client.request(f'{self.base_url}/folder/search', headers=self.headers(), params=params)
+        return json.loads(r)['content'] if r else None
 
-        control.setSetting('premiumize.token', token['access_token'])
-        self.headers['Authorization'] = 'Bearer {}'.format(token['access_token'])
+    def list_folder(self, folderid=None):
+        params = {'id': folderid} if folderid else None
+        r = client.request(f"{self.base_url}/folder/list", headers=self.headers(), params=params)
+        return json.loads(r)['content'] if r else None
 
-        account_info = self.account_info()
-        control.setSetting('premiumize.username', account_info['customer_id'])
-
-        return False, True
-
-    def get_url(self, url):
-        if self.headers['Authorization'] == 'Bearer ':
-            return None
-        url = "https://www.premiumize.me/api{}".format(url)
-        req = client.request(url, timeout=10, headers=self.headers, error=True)
-        return json.loads(req)
-
-    def post_url(self, url, data):
-        if self.headers['Authorization'] == 'Bearer ':
-            return None
-        url = "https://www.premiumize.me/api{}".format(url)
-        req = client.request(url, headers=self.headers, post=data, timeout=10, error=True)
-        return json.loads(req)
-
-    def account_info(self):
-        url = "/account/info"
-        response = self.get_url(url)
-        return response
-
-    def list_folder(self, folderID):
-        url = "/folder/list"
-        postData = {'id': folderID} if folderID else ''
-        response = self.post_url(url, postData)
-        return response['content']
-
-    def list_folder_all(self, folderID):
-        url = "/item/listall"
-        response = self.get_url(url)
-        return response['files']
-
-    def hash_check(self, hashList):
-        url = '/cache/check'
-        # postData = {'items[]': hashList}
-        hashString = '&'.join(['items[]=' + x for x in hashList])
-        # response = self.post_url(url, postData)
-        response = self.get_url('{0}?{1}'.format(url, urllib_parse.quote(hashString, '=&')))
-        return response
-
-    def item_details(self, itemID):
-        url = "/item/details"
-        postData = {'id': itemID}
-        return self.post_url(url, postData)
-
-    def create_transfer(self, src, folderID=0):
-        postData = {'src': src, 'folder_id': folderID}
-        url = "/transfer/create"
-        return self.post_url(url, postData)
+    def hash_check(self, hashlist):
+        params = urllib.parse.urlencode([('items[]', hash) for hash in hashlist])
+        url = f'{self.base_url}/cache/check?{params}'
+        r = client.request(url, headers=self.headers())
+        return json.loads(r) if r else None
 
     def direct_download(self, src):
         postData = {'src': src}
-        url = '/transfer/directdl'
-        return self.post_url(url, postData)
+        r = client.request(f'{self.base_url}/transfer/directdl', headers=self.headers(), post=postData)
+        return json.loads(r) if r else None
 
-    def list_transfers(self):
-        url = "/transfer/list"
-        postData = {}
-        return self.post_url(url, postData)
+    def addMagnet(self, src):
+        postData = {'src': src}
+        r = client.request(f'{self.base_url}/transfer/create', headers=self.headers(), post=postData)
+        return json.loads(r) if r else None
 
-    def delete_transfer(self, id):
-        url = "/transfer/delete"
-        postData = {'id': id}
-        return self.post_url(url, postData)
+    def transfer_list(self):
+        r = client.request(f'{self.base_url}/transfer/list', headers=self.headers())
+        return json.loads(r)['transfers'] if r else None
 
-    def get_used_space(self):
-        info = self.account_info()
-        used_space = int(((info['space_used'] / 1024) / 1024) / 1024)
-        return used_space
+    def delete_torrent(self, torrent_id):
+        params = {'id': torrent_id}
+        r = client.request(f'{self.base_url}/transfer/delete', headers=self.headers(), post=params)
+        return json.loads(r) if r else None
 
-    def hosterCacheCheck(self, source_list):
-        post_data = {'items[]': source_list}
-        return self.post_url('/cache/check', data=post_data)
+    def manage_storage_space(self):
+        storage_info = self.get_storage_info()
+        used_space_gb = storage_info['space_used'] / (1024 ** 3)
+        if used_space_gb > self.threshold:
+            oldest_items = self.get_oldest_items()
+            for item in oldest_items:
+                self.delete_torrent(item['id'])
+                used_space_gb -= item['size'] / (1024 ** 3)
+                if used_space_gb <= self.threshold:
+                    break
 
-    def updateRelevantHosters(self):
-        hoster_list = database.get(self.post_url, 1, '/services/list', {})
-        return hoster_list
+    def get_storage_info(self):
+        r = client.request(f'{self.base_url}/account/info', headers=self.headers())
+        return json.loads(r) if r else None
+
+    def get_oldest_items(self):
+        r = client.request(f'{self.base_url}/transfer/list', headers=self.headers())
+        transfers = json.loads(r)['transfers'] if r else []
+        return sorted(transfers, key=lambda x: x['created_at'])
+
+    def add_to_cloud(self, link):
+        postData = {'src': link}
+        r = client.request(f'{self.base_url}/transfer/create', headers=self.headers(), post=postData)
+        response = json.loads(r) if r else {}
+        if response.get('status') == 'success':
+            control.log(f"Successfully added to cloud: {link}")
+        else:
+            control.log(f"Failed to add to cloud: {link}", level=control.LOGERROR)
+        return response
 
     def resolve_hoster(self, source):
-
+        self.manage_storage_space()
         directLink = self.direct_download(source)
         if directLink['status'] == 'success':
-            stream_link = directLink['location']
-        else:
-            stream_link = None
+            if self.addtocloud:
+                self.add_to_cloud(directLink['location'])
+            return directLink['location']
+        return None
 
-        return stream_link
-
-    def folder_streams(self, folderID):
-
-        files = self.list_folder(folderID)
-        returnFiles = []
-        for i in files:
-            if i['type'] == 'file':
-                if i['transcode_status'] == 'finished':
-                    returnFiles.append({'name': i['name'], 'link': i['stream_link'], 'type': 'file'})
-                else:
-                    for extension in source_utils.COMMON_VIDEO_EXTENSIONS:
-                        if i['link'].endswith(extension):
-                            returnFiles.append({'name': i['name'], 'link': i['link'], 'type': 'file'})
-                            break
-        return returnFiles
-
-    def internal_folders(self, folderID):
-        folders = self.list_folder(folderID)
-        returnFolders = []
-        for i in folders:
-            if i['type'] == 'folder':
-                returnFolders.append({'name': i['name'], 'id': i['id'], 'type': 'folder'})
-        return returnFolders
-
-    def resolve_single_magnet(self, hash_, magnet, episode='', pack_select=False):
+    def resolve_single_magnet(self, hash_, magnet, episode, pack_select):
+        self.manage_storage_space()
         folder_details = self.direct_download(magnet)['content']
         folder_details = sorted(folder_details, key=lambda i: int(i['size']), reverse=True)
         folder_details = [i for i in folder_details if source_utils.is_file_ext_valid(i['link'])]
@@ -180,103 +158,101 @@ class Premiumize:
 
         if pack_select:
             identified_file = source_utils.get_best_match('path', folder_details, episode, pack_select)
-            stream_link = self._fetch_transcode_or_standard(identified_file)
-            return stream_link
-
+            stream_link = identified_file.get('link')
         elif len(filter_list) == 1:
-            stream_link = self._fetch_transcode_or_standard(filter_list[0])
-            self._handle_add_to_cloud(magnet)
-            return stream_link
-
+            stream_link = filter_list[0]['link']
         elif len(filter_list) >= 1:
-            identified_file = source_utils.get_best_match('path', folder_details, episode, pack_select)
-            stream_link = self._fetch_transcode_or_standard(identified_file)
-            return stream_link
+            identified_file = source_utils.get_best_match('path', folder_details, episode)
+            stream_link = identified_file.get('link')
+        else:
+            filter_list = [tfile for tfile in folder_details if 'sample' not in tfile['path'].lower()]
+            if len(filter_list) == 1:
+                stream_link = filter_list[0]['link']
 
-        filter_list = [tfile for tfile in folder_details if 'sample' not in tfile['path'].lower()]
-
-        if len(filter_list) == 1:
-            stream_link = self._fetch_transcode_or_standard(filter_list[0])
-            self._handle_add_to_cloud(magnet)
-            return stream_link
-
-    def resolve_magnet(self, magnet, args, torrent, pack_select):
-
-        if 'showInfo' not in args:
-            return self._single_magnet_resolve(magnet, args)
-
-        try:
-
-            folder_details = self.direct_download(magnet)['content']
-
-            if pack_select is not False and pack_select is not None:
-                return self.user_select(folder_details)
-
-            folder_details = source_utils.clear_extras_by_string(args, 'extras', folder_details)
-            folder_details = source_utils.clear_extras_by_string(args, 'specials', folder_details)
-            folder_details = source_utils.clear_extras_by_string(args, 'featurettes', folder_details)
-            folder_details = source_utils.clear_extras_by_string(args, 'deleted scenes', folder_details)
-            folder_details = source_utils.clear_extras_by_string(args, 'sample', folder_details)
-
-            folder_details = [i for i in folder_details if source_utils.is_file_ext_valid(i['link'])]
-
-            identified_file = source_utils.get_best_match('path', folder_details, args)
-
-            stream_link = self._fetch_transcode_or_standard(identified_file)
-
-        except:
-            import traceback
-            traceback.print_exc()
-            return
-
-        if stream_link is not None:
-            self._handle_add_to_cloud(magnet)
-
+        if stream_link and self.addtocloud:
+            self.add_to_cloud(stream_link)
         return stream_link
 
-    def _handle_add_to_cloud(self, magnet):
-        pass
-        # if control.getSetting('premiumize.addToCloud') == 'true':
-        #     transfer = self.create_transfer(magnet)
-        #     database.add_premiumize_transfer(transfer['id'])
+    def resolve_cloud(self, source, pack_select):
+        def get_all_files(folder_id):
+            items = self.list_folder(folder_id)
+            files = []
+            for item in items:
+                if item['type'] == 'folder':
+                    files.extend(get_all_files(item['id']))
+                else:
+                    files.append(item)
+            return files
 
-    def _fetch_transcode_or_standard(self, file_object):
-        # if control.getSetting('premiumize.transcoded') == 'true' and \
-        #         file_object['transcode_status'] == 'finished':
-        #     return file_object['stream_link']
-        # else:
-        return file_object['link']
+        link = None
+        if source['torrent_type'] == 'file':
+            link = source['hash']
+        elif source['torrent_type'] == 'folder':
+            all_files = get_all_files(source['id'])
+            best_match = source_utils.get_best_match('name', all_files, source['episode'], pack_select)
+            if best_match and best_match.get('link'):
+                link = best_match['link']
+        return link
 
-    def user_select(self, content):
-        pass
-        # display_list = []
-        # for i in content:
-        #     if any(i['path'].endswith(ext) for ext in source_utils.COMMON_VIDEO_EXTENSIONS):
-        #         display_list.append(i)
+    def resolve_uncached_source(self, source, runinbackground, runinforground, pack_select):
+        heading = f'{control.ADDON_NAME}: Cache Resolver'
+        if runinforground:
+            control.progressDialog.create(heading, "Caching Progress")
+        stream_link = None
+        magnet = source['magnet']
+        magnet_data = self.addMagnet(magnet)
+        transfer_id = magnet_data['id']
+        transfer_status = self.transfer_list()
+        status = next((item for item in transfer_status if item['id'] == transfer_id), None)['status']
 
-        # selection = control.showDialog.select('{}: {}'.format(tools.addonName, control.lang(40297)),
-        #                                     [i['path'] for i in display_list])
-        # if selection == -1:
-        #     return None
+        if runinbackground:
+            control.notify(heading, "The source is downloading to your cloud")
+            return
 
-        # selection = content[selection]
+        progress = 0
+        while status not in ['finished', 'error']:
+            if runinforground and (control.progressDialog.iscanceled() or control.wait_for_abort(5)):
+                break
+            transfer_status = self.transfer_list()
+            status = next((item for item in transfer_status if item['id'] == transfer_id), None).get('status', 'error')
+            progress = next((item for item in transfer_status if item['id'] == transfer_id), None).get('progress', 0)
+            if progress is not None:
+                progress *= 100
+            else:
+                progress = 100 if status == 'finished' else 0
+            if runinforground:
+                f_body = (f"Status: {status}[CR]"
+                          f"Progress: {round(progress, 2)} %")
+                control.progressDialog.update(int(progress), f_body)
 
-        # if control.getSetting('premiumize.transcoded') == 'true':
-        #     if selection['transcode_status'] == 'finished':
+        if status == 'finished':
+            self.manage_storage_space()
+            control.ok_dialog(heading, "This file has been added to your Cloud")
+            folder_details = self.direct_download(magnet)['content']
+            folder_details = sorted(folder_details, key=lambda i: int(i['size']), reverse=True)
+            folder_details = [i for i in folder_details if source_utils.is_file_ext_valid(i['link'])]
+            filter_list = [i for i in folder_details]
 
-        #         return selection['stream_link']
-        #     else:
-        #         pass
+            if pack_select:
+                identified_file = source_utils.get_best_match('path', folder_details, source['episode_re'], pack_select)
+                stream_link = identified_file.get('link')
 
-        # return selection['link']
+            elif len(filter_list) == 1:
+                stream_link = filter_list[0]['link']
 
-    def get_hosters(self, hosters):
+            elif len(filter_list) >= 1:
+                identified_file = source_utils.get_best_match('path', folder_details, source['episode_re'])
+                stream_link = identified_file.get('link')
 
-        host_list = database.get(self.updateRelevantHosters, 1)
-        if host_list is None:
-            host_list = self.updateRelevantHosters()
+            filter_list = [tfile for tfile in folder_details if 'sample' not in tfile['path'].lower()]
 
-        if host_list is not None:
-            hosters['premium']['premiumize'] = [(i, i.split('.')[0]) for i in host_list['directdl']]
+            if len(filter_list) == 1:
+                stream_link = filter_list[0]['link']
+
+            if stream_link and self.addtocloud:
+                self.add_to_cloud(stream_link)
         else:
-            hosters['premium']['premiumize'] = []
+            self.delete_torrent(transfer_id)
+        if runinforground:
+            control.progressDialog.close()
+        return stream_link

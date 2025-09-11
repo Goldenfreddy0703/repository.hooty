@@ -104,7 +104,7 @@
         			<width>400</width>
         			<height>22</height>
         			<font>font12</font>
-        			<selectedcolor>white</selectedcolor>
+        			<textcolor>AAFFFFFF</textcolor>
         			<align>left</align>
         			<label>Ep $INFO[ListItem.Property(ep_title)] at</label>
         		</control>
@@ -114,7 +114,7 @@
               <width>400</width>
               <height>22</height>
               <font>font14</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>[B]$INFO[ListItem.Property(ep_airingAt)][/B]</label>
             </control>
@@ -142,7 +142,7 @@
               <width>395</width>
               <height>22</height>
               <font>font10</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>center</align>
               <label>[B]$INFO[ListItem.Property(genres)][/B]</label>
             </control>
@@ -200,6 +200,71 @@
               <align>left</align>
               <label>#$INFO[ListItem.Property(rank)]</label>
             </control>
+
+            <control type="group">
+              <left>750</left>
+              <top>10</top>
+              <control type="label">
+                <visible>Integer.IsGreater(ListItem.Property(rating),0)</visible>
+                <left>-110</left>
+                <top>0</top>
+                <width>100</width>
+                <height>22</height>
+                <font>font12</font>
+                <textcolor>AAFFFFFF</textcolor>
+                <align>right</align>
+                <label>$INFO[ListItem.Property(rating)]%</label>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreaterOrEqual(ListItem.Property(rating),75)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.aver)]</texture>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(rating),60) + Integer.IsLess(ListItem.Property(rating),75)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.averstr)]</texture>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(rating),0) + Integer.IsLessOrEqual(ListItem.Property(rating),60)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.aversad)]</texture>
+              </control>
+            </control>
+
+            <control type="group">
+              <left>750</left>
+              <top>60</top>
+              <control type="label">
+                <visible>Integer.IsGreater(ListItem.Property(simkl_rank),0)</visible>
+                <left>-110</left>
+                <top>0</top>
+                <width>100</width>
+                <height>22</height>
+                <font>font12</font>
+                <textcolor>AAFFFFFF</textcolor>
+                <align>right</align>
+                <label>#$INFO[ListItem.Property(simkl_rank)]</label>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(simkl_rank),0)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.simkl_rank)]</texture>
+              </control>
+            </control>
+
         	</itemlayout>
         	<focusedlayout height="390" width="800">
             <control type="image">
@@ -242,7 +307,7 @@
         			<width>400</width>
         			<height>22</height>
         			<font>font12</font>
-        			<selectedcolor>white</selectedcolor>
+        			<textcolor>AAFFFFFF</textcolor>
         			<align>left</align>
         			<label>Ep $INFO[ListItem.Property(ep_title)] at</label>
         		</control>
@@ -252,7 +317,7 @@
               <width>400</width>
               <height>22</height>
               <font>font14</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>[B]$INFO[ListItem.Property(ep_airingAt)][/B]</label>
             </control>
@@ -281,7 +346,7 @@
               <width>395</width>
               <height>22</height>
               <font>font10</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>center</align>
               <label>[B]$INFO[ListItem.Property(genres)][/B]</label>
             </control>
@@ -314,7 +379,7 @@
               <width>50</width>
               <height>22</height>
               <font>font12</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>$INFO[ListItem.Property(averageScore)]%</label>
             </control>
@@ -335,10 +400,75 @@
               <width>50</width>
               <height>22</height>
               <font>font12</font>
-              <selectedcolor>white</selectedcolor>
+              <textcolor>AAFFFFFF</textcolor>
               <align>left</align>
               <label>#$INFO[ListItem.Property(rank)]</label>
             </control>
+
+            <control type="group">
+              <left>750</left>
+              <top>10</top>
+              <control type="label">
+                <visible>Integer.IsGreater(ListItem.Property(rating),0)</visible>
+                <left>-110</left>
+                <top>0</top>
+                <width>100</width>
+                <height>22</height>
+                <font>font12</font>
+                <textcolor>AAFFFFFF</textcolor>
+                <align>right</align>
+                <label>$INFO[ListItem.Property(rating)]%</label>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreaterOrEqual(ListItem.Property(rating),75)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.aver)]</texture>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(rating),60) + Integer.IsLess(ListItem.Property(rating),75)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.averstr)]</texture>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(rating),0) + Integer.IsLessOrEqual(ListItem.Property(rating),60)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.aversad)]</texture>
+              </control>
+            </control>
+
+            <control type="group">
+              <left>750</left>
+              <top>60</top>
+              <control type="label">
+                <visible>Integer.IsGreater(ListItem.Property(simkl_rank),0)</visible>
+                <left>-110</left>
+                <top>0</top>
+                <width>100</width>
+                <height>22</height>
+                <font>font12</font>
+                <textcolor>AAFFFFFF</textcolor>
+                <align>right</align>
+                <label>#$INFO[ListItem.Property(simkl_rank)]</label>
+              </control>
+              <control type="image">
+                <visible>Integer.IsGreater(ListItem.Property(simkl_rank),0)</visible>
+                <left>0</left>
+                <top>0</top>
+                <width>35</width>
+                <height>35</height>
+                <texture>$INFO[Window().Property(texture.simkl_rank)]</texture>
+              </control>
+            </control>
+
         	</focusedlayout>
         </control>
 

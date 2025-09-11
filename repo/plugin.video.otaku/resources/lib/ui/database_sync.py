@@ -1,278 +1,275 @@
-# -*- coding: utf-8 -*-
 from resources.lib.ui import control
-from kodi_six import xbmcvfs
+from sqlite3 import version
+from resources.lib.ui.database import SQL
 
-try:
-    from sqlite3 import dbapi2 as db
-except ImportError:
-    from pysqlite2 import dbapi2 as db
-
-database_path = control.anilistSyncDB
+sqlite_version = version
 
 
-class AnilistSyncDatabase:
+class SyncDatabase:
     def __init__(self):
+        self.activites = None
 
-        self.activites = {}
-
-        self._build_show_table()
-        self._build_showmeta_table()
-        self._build_episode_table()
-        self._build_sync_activities()
-        self._build_season_table()
+        self.build_sync_activities()
+        self.build_show_table()
+        self.build_showmeta_table()
+        self.build_episode_table()
+        self.build_show_data_table()
 
         # If you make changes to the required meta in any indexer that is cached in this database
         # You will need to update the below version number to match the new addon version
         # This will ensure that the metadata required for operations is available
         # You may also update this version number to force a rebuild of the database after updating Otaku
-        self.last_meta_update = '0.2.4'
+        self.last_meta_update = '1.0.8'
+        self.refresh_activites()
+        self.check_database_version()
 
-        control.anilistSyncDB_lock.acquire()
-
-        self._refresh_activites()
-
-        if self.activites is None:
-            cursor = self._get_cursor()
-            cursor.execute("DELETE FROM shows")
-            cursor.execute("DELETE FROM seasons")
-            cursor.execute("DELETE FROM episodes")
-            cursor.connection.commit()
-
-            self._set_base_activites()
-
+    def refresh_activites(self):
+        with SQL(control.malSyncDB) as cursor:
             cursor.execute('SELECT * FROM activities WHERE sync_id=1')
             self.activites = cursor.fetchone()
-            cursor.close()
 
-        control.try_release_lock(control.anilistSyncDB_lock)
-
-        if self.activites is not None:
-            self._check_database_version()
-
-    def _refresh_activites(self):
-        cursor = self._get_cursor()
-        cursor.execute('SELECT * FROM activities WHERE sync_id=1')
-        self.activites = cursor.fetchone()
-        cursor.close()
-
-    def _set_base_activites(self):
-        cursor = self._get_cursor()
-        cursor.execute('INSERT INTO activities(sync_id, otaku_version)'
-                       'VALUES(1, ?)',
-                       (self.last_meta_update,))
-
-        cursor.connection.commit()
-        self.activites = cursor.fetchone()
-        cursor.close()
-
-    def _check_database_version(self):
-        # Migrate from an old version before database migrations
-        if 'otaku_version' not in self.activites:
-            # control.log('Upgrading Trakt Sync Database Version')
-            self.clear_all_meta()
-            control.anilistSyncDB_lock.acquire()
-            cursor = self._get_cursor()
-            cursor.execute('ALTER TABLE activities ADD COLUMN otaku_version TEXT')
-            cursor.execute('UPDATE activities SET otaku_version = ?', (self.last_meta_update,))
+    def set_base_activites(self):
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('INSERT INTO activities(sync_id, otaku_version) VALUES(1, ?)', (self.last_meta_update,))
             cursor.connection.commit()
-            cursor.close()
-            control.try_release_lock(control.anilistSyncDB_lock)
 
-        if self.check_version_numbers(self.activites['otaku_version'], self.last_meta_update):
-            # control.log('Rebuilding Trakt Sync Database Version')
+    def check_database_version(self):
+        # import xbmcvfs
+        if not self.activites or self.activites.get('otaku_version') != self.last_meta_update:
+            # xbmcvfs.delete(control.sort_options_json)
+            # xbmcvfs.delete(control.searchHistoryDB)
+            first_time = control.getBool('first_time')
+            current_version = control.getSetting('version')
+            target_version = '0.5.43'
+
+            # Convert version strings to tuples of integers for comparison
+            try:
+                current_parts = tuple(map(int, current_version.split('.')))
+                target_parts = tuple(map(int, target_version.split('.')))
+
+                if current_parts <= target_parts:
+                    self.migration_process()
+            except (ValueError, AttributeError):
+                # Fallback to exact comparison if version format is invalid
+                if current_version == target_version:
+                    self.migration_process()
+
+            if first_time:
+                control.setInt('showchangelog', 1)
+                # Ask the user if they would like to go throught the setup wizard
+                # Here the button labels are:
+                # Button 0: "Yes"   | Button 1: "No"
+                choice = control.yesno_dialog(
+                    control.ADDON_NAME + ' - ' + control.lang(30417),
+                    "Welcome to Otaku!!!\nWould you like to go through the setup wizard?",
+                    "No", "Yes",
+                )
+
+                # Yes selected
+                if choice == 1:
+                    control.setBool('first_time', False)
+                    control.execute('RunPlugin(plugin://plugin.video.otaku/setup_wizard)')
+
+                # No selected
+                elif choice == 0:
+                    control.setBool('first_time', False)
+
             self.re_build_database(True)
-            return
 
-    def check_version_numbers(self, current, new):
-        # Compares version numbers and return True if new version is newer
-        current = current.split('.')
-        new = new.split('.')
-        step = 0
-        for i in current:
-            if int(new[step]) > int(i):
-                return True
-            if int(i) == int(new[step]):
-                step += 1
-                continue
+            # Clear last_watched setting
+            control.setSetting('addon.last_watched', '')
 
-        return False
+            # Update menu configurations with last_watched and watch_history items
+            self._update_menu_config('menu.mainmenu.config', 'last_watched', 'watch_history')
+            self._update_menu_config('movie.mainmenu.config', 'last_watched_movie', 'watch_history_movie')
+            self._update_menu_config('tv_show.mainmenu.config', 'last_watched_tv_show', 'watch_history_tv_show')
+            self._update_menu_config('tv_short.mainmenu.config', 'last_watched_tv_short', 'watch_history_tv_short')
+            self._update_menu_config('special.mainmenu.config', 'last_watched_special', 'watch_history_special')
+            self._update_menu_config('ova.mainmenu.config', 'last_watched_ova', 'watch_history_ova')
+            self._update_menu_config('ona.mainmenu.config', 'last_watched_ona', 'watch_history_ona')
+            self._update_menu_config('music.mainmenu.config', 'last_watched_music', 'watch_history_music')
 
-    def clear_all_meta(self):
-        path = control.anilistSyncDB
-        xbmcvfs.delete(path)
-        file = open(path, 'a+')
-        file.close()
+    def _update_menu_config(self, config_key, last_watched_item, watch_history_item):
+        """Helper method to update menu configurations with last_watched and watch_history items"""
+        menu = control.getStringList(config_key)
+        if menu:
+            # Add last_watched item if not already in the list
+            if last_watched_item not in menu:
+                menu.insert(0, last_watched_item)
 
-        self._build_show_table()
-        self._build_showmeta_table()
-        self._build_episode_table()
-        self._build_sync_activities()
-        self._build_season_table()
+            # Add watch_history item if not already in the list
+            if watch_history_item not in menu:
+                # Insert watch_history after last_watched if last_watched exists
+                if last_watched_item in menu:
+                    insert_index = menu.index(last_watched_item) + 1
+                    menu.insert(insert_index, watch_history_item)
+                else:
+                    menu.insert(0, watch_history_item)
+            control.setStringList(config_key, menu)
 
-    def _build_show_table(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS shows '
-                       '(anilist_id INTEGER PRIMARY KEY, '
-                       'mal_id INTEGER,'
-                       'simkl_id INTEGER,'
-                       'kitsu_id INTEGER,'
-                       'kodi_meta BLOB NOT NULL, '
-                       'last_updated TEXT NOT NULL, '
-                       'air_date TEXT, '
-                       'UNIQUE(anilist_id))')
-        cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_shows ON "shows" (anilist_id ASC )')
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
+    @staticmethod
+    def build_show_table():
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('CREATE TABLE IF NOT EXISTS shows (mal_id INTEGER PRIMARY KEY, '
+                           'anilist_id INTEGER,'
+                           'simkl_id INTEGER,'
+                           'kitsu_id INTEGER,'
+                           'kodi_meta BLOB NOT NULL, '
+                           'anime_schedule_route TEXT NOT NULL, '
+                           'UNIQUE(mal_id))')
+            cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_shows ON "shows" (mal_id ASC )')
+            cursor.connection.commit()
 
-    def _build_showmeta_table(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS shows_meta '
-                       '(anilist_id INTEGER PRIMARY KEY, '
-                       'meta_ids BLOB,'
-                       'art BLOB, '
-                       'UNIQUE(anilist_id))')
-        cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_shows_meta ON "shows_meta" (anilist_id ASC )')
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
+    @staticmethod
+    def build_showmeta_table():
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('CREATE TABLE IF NOT EXISTS shows_meta (mal_id INTEGER PRIMARY KEY, '
+                           'meta_ids BLOB,'
+                           'art BLOB, '
+                           'UNIQUE(mal_id))')
+            cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_shows_meta ON "shows_meta" (mal_id ASC )')
+            cursor.connection.commit()
 
-    def _build_season_table(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS seasons ('
-                       'anilist_id INTEGER NOT NULL, '
-                       'season INTEGER NOT NULL, '
-                       'kodi_meta BLOB NOT NULL, '
-                       'air_date TEXT, '
-                       'FOREIGN KEY(anilist_id) REFERENCES shows(anilist_id) ON DELETE CASCADE)')
-        cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_season ON seasons (anilist_id ASC, season ASC)')
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
+    @staticmethod
+    def build_show_data_table():
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('CREATE TABLE IF NOT EXISTS show_data (mal_id INTEGER PRIMARY KEY, '
+                           'data BLOB NOT NULL, '
+                           'last_updated TEXT NOT NULL, '
+                           'UNIQUE(mal_id))')
+            cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_show_data ON "show_data" (mal_id ASC )')
+            cursor.connection.commit()
 
-    def _build_episode_table(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS episodes ('
-                       'anilist_id INTEGER NOT NULL, '
-                       'season INTEGER NOT NULL, '
-                       'kodi_meta BLOB NOT NULL, '
-                       'last_updated TEXT NOT NULL, '
-                       'number INTEGER NOT NULL, '
-                       'number_abs INTEGER,'
-                       'air_date TEXT, '
-                       'FOREIGN KEY(anilist_id) REFERENCES shows(anilist_id) ON DELETE CASCADE)')
-        cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_episodes ON episodes (anilist_id ASC, season ASC, number ASC)')
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
+    @staticmethod
+    def build_episode_table():
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('CREATE TABLE IF NOT EXISTS episodes (mal_id INTEGER NOT NULL, '
+                           'season INTEGER NOT NULL, '
+                           'kodi_meta BLOB NOT NULL, '
+                           'last_updated TEXT NOT NULL, '
+                           'number INTEGER NOT NULL, '
+                           'filler TEXT, '
+                           'anidb_ep_id INTEGER, '
+                           'FOREIGN KEY(mal_id) REFERENCES shows(mal_id) ON DELETE CASCADE)')
+            cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS ix_episodes ON episodes (mal_id ASC, season ASC, number ASC)')
+            cursor.connection.commit()
 
-    def _build_sync_activities(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS activities ('
-                       'sync_id INTEGER PRIMARY KEY, '
-                       'otaku_version TEXT NOT NULL) '
-                       )
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
-
-    def _build_lists_table(self):
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('CREATE TABLE IF NOT EXISTS lists ('
-                       'trakt_id INTEGER NOT NULL, '
-                       'media_type TEXT NOT NULL,'
-                       'name TEXT NOT NULL, '
-                       'username TEXT NOT NULL, '
-                       'kodi_meta BLOB NOT NULL, '
-                       'updated_at TEXT NOT NULL,'
-                       'list_type TEXT NOT NULL,'
-                       'item_count INT NOT NULL,'
-                       'sort_by TEXT NOT NULL,'
-                       'sort_how TEXT NOT NULL,'
-                       'slug TEXT NOT NULL,'
-                       'PRIMARY KEY (trakt_id, media_type)) '
-                       )
-
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
-
-    def _get_cursor(self):
-        conn = _get_connection()
-        conn.execute("PRAGMA FOREIGN_KEYS = 1")
-        cursor = conn.cursor()
-        return cursor
-
-    def flush_activities(self, clear_meta=False):
-        if clear_meta:
-            self.clear_all_meta()
-        control.anilistSyncDB_lock.acquire()
-        cursor = self._get_cursor()
-        cursor.execute('DROP TABLE activities')
-        cursor.connection.commit()
-        cursor.close()
-        control.try_release_lock(control.anilistSyncDB_lock)
+    @staticmethod
+    def build_sync_activities():
+        with SQL(control.malSyncDB) as cursor:
+            cursor.execute('CREATE TABLE IF NOT EXISTS activities (sync_id INTEGER PRIMARY KEY, otaku_version TEXT NOT NULL)')
+            cursor.connection.commit()
 
     def re_build_database(self, silent=False):
+        import service
+
         if not silent:
-            confirm = control.yesno_dialog(control.ADDON_NAME, control.lang(30203))
+            confirm = control.yesno_dialog(control.ADDON_NAME, control.lang(30032))
             if confirm == 0:
                 return
 
-        path = control.anilistSyncDB
-        xbmcvfs.delete(path)
-        file = open(path, 'a+')
-        file.close()
+        service.update_mappings_db()
+        service.update_dub_json()
 
-        self._build_show_table()
-        self._build_showmeta_table()
-        self._build_episode_table()
-        self._build_sync_activities()
-        self._build_season_table()
-
-        self._set_base_activites()
-        self._refresh_activites()
-
-        # from resources.lib.modules.trakt_sync import activities
-        # sync_errors = activities.TraktSyncDatabase().sync_activities(silent)
-
-        # if sync_errors:
-        #     control.showDialog.notification(control.addonName + ': Trakt', control.lang(40353), time=5000)
-        # elif sync_errors is None:
-        #     self._refresh_activites()
-        #     return
-        # else:
-        #     control.showDialog.notification(control.addonName + ': Trakt', control.lang(40262), time=5000)
-
-        control.showDialog.notification('{}: {}'.format(control.ADDON_NAME, control.lang(30204)), control.lang(30205), time=5000, sound=False)
-
-
-def _dict_factory(cursor, row):
-    d = {}
-    for idx, col in enumerate(cursor.description):
-        d[col[0]] = row[idx]
-    return d
-
-
-def makeFile(path):
-    try:
-        xbmcvfs.mkdir(path)
-    except:
-        try:
-            file = open(path, 'a+')
-            file.close()
-        except:
+        with open(control.malSyncDB, 'w'):
             pass
 
+        self.build_sync_activities()
+        self.build_show_table()
+        self.build_showmeta_table()
+        self.build_episode_table()
+        self.build_show_data_table()
 
-def _get_connection():
-    makeFile(control.dataPath)
-    conn = db.connect(database_path, timeout=60.0)
-    conn.row_factory = _dict_factory
-    return conn
+        self.set_base_activites()
+        self.refresh_activites()
+        if not silent:
+            control.notify(f'{control.ADDON_NAME}: Database', 'Metadata Database Successfully Cleared', sound=False)
+
+    def migration_process(self):
+        import json
+        import xbmc
+
+        # Retrieve current settings
+        watchlist_update_enabled = control.getBool('watchlist.update.enabled')
+        watchlist_update_flavor = control.getSetting('watchlist.update.flavor')
+        watchlist_update_percent = control.getInt('watchlist.update.percent')
+        watchlist_sync_enabled = control.getBool('watchlist.sync.enabled')
+        anilist_enabled = control.getBool('anilist.enabled')
+        anilist_username = control.getSetting('anilist.username')
+        anilist_token = control.getSetting('anilist.token')
+        anilist_userid = control.getSetting('anilist.userid')
+        mal_enabled = control.getBool('mal.enabled')
+        mal_username = control.getSetting('mal.username')
+        mal_authvar = control.getSetting('mal.authvar')
+        mal_refresh = control.getSetting('mal.refresh')
+        mal_token = control.getSetting('mal.token')
+        mal_expiry = control.getInt('mal.expiry')
+        kitsu_enabled = control.getBool('kitsu.enabled')
+        kitsu_username = control.getSetting('kitsu.username')
+        kitsu_authvar = control.getSetting('kitsu.authvar')
+        kitsu_password = control.getSetting('kitsu.password')
+        kitsu_refresh = control.getSetting('kitsu.refresh')
+        kitsu_token = control.getSetting('kitsu.token')
+        kitsu_userid = control.getSetting('kitsu.userid')
+        kitsu_expiry = control.getInt('kitsu.expiry')
+        simkl_enabled = control.getBool('simkl.enabled')
+        simkl_username = control.getSetting('simkl.username')
+        simkl_token = control.getSetting('simkl.token')
+        first_time = False
+        version = control.ADDON_VERSION
+
+        # First, clear existing settings
+        control.clear_settings(True)
+
+        # Save all these settings to migrationSettings (migration.json)
+        migration_data = {
+            "watchlist.update.enabled": watchlist_update_enabled,
+            "watchlist.update.flavor": watchlist_update_flavor,
+            "watchlist.update.percent": watchlist_update_percent,
+            "watchlist.sync.enabled": watchlist_sync_enabled,
+            "anilist.enabled": anilist_enabled,
+            "anilist.username": anilist_username,
+            "anilist.token": anilist_token,
+            "anilist.userid": anilist_userid,
+            "mal.enabled": mal_enabled,
+            "mal.username": mal_username,
+            "mal.authvar": mal_authvar,
+            "mal.refresh": mal_refresh,
+            "mal.token": mal_token,
+            "mal.expiry": mal_expiry,
+            "kitsu.enabled": kitsu_enabled,
+            "kitsu.username": kitsu_username,
+            "kitsu.authvar": kitsu_authvar,
+            "kitsu.password": kitsu_password,
+            "kitsu.refresh": kitsu_refresh,
+            "kitsu.token": kitsu_token,
+            "kitsu.userid": kitsu_userid,
+            "kitsu.expiry": kitsu_expiry,
+            "simkl.enabled": simkl_enabled,
+            "simkl.username": simkl_username,
+            "simkl.token": simkl_token,
+            "first_time": first_time,
+            "version": version,
+        }
+        try:
+            with open(control.migrationSettings, 'w', encoding='utf-8') as f:
+                json.dump(migration_data, f, indent=4, sort_keys=True)
+        except Exception as e:
+            control.log(f"Error writing migration settings: {e}")
+
+        # Remove old addons
+        try:
+            import shutil
+            import os
+
+            addon_ids = ['script.otaku.mappings', 'script.otaku.themepak']
+            for addon_id in addon_ids:
+                addon_path = os.path.join(control.ADDONS_PATH, addon_id)
+                if os.path.exists(addon_path):
+                    shutil.rmtree(addon_path)
+        except Exception as e:
+            control.log(f"Error removing old addons: {e}")
+
+        # Inform user and force restart Kodi
+        control.ok_dialog(control.ADDON_NAME, "Otaku has gotten a major update and requires a force restart to complete the watchlist migration.\nPlease restart Otaku to complete the migration.")
+        xbmc.executebuiltin('Quit')

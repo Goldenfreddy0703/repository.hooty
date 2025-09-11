@@ -2,18 +2,30 @@ import itertools
 import json
 import pickle
 import re
-from functools import partial
 
+from functools import partial
 from bs4 import BeautifulSoup
-from resources.lib.ui import control, database
+from resources.lib.ui import control, client, database, source_utils
 from resources.lib.ui.BrowserBase import BrowserBase
 
 
-class sources(BrowserBase):
-    _BASE_URL = 'https://gogoanime3.cc/' if control.getSetting('provider.gogoalt') == 'false' else 'https://anitaku.bz/'
+def get_backup(mal_id, source):
+    params = {
+        "type": "myanimelist",
+        "id": mal_id
+    }
+    result = client.request("https://arm2.vercel.app/api/kaito-b", params=params)
+    if result:
+        result = json.loads(result)
+        result = result.get('Pages', {}).get(source, {})
+    return result
 
-    def get_sources(self, anilist_id, episode, get_backup):
-        show = database.get_show(anilist_id)
+
+class Sources(BrowserBase):
+    _BASE_URL = 'https://anitaku.bz' if control.getBool('provider.gogoalt') else 'https://gogoanime3.cc/'
+
+    def get_sources(self, mal_id, episode):
+        show = database.get_show(mal_id)
         kodi_meta = pickle.loads(show.get('kodi_meta'))
         title = kodi_meta.get('name')
         title = self._clean_title(title)
@@ -46,28 +58,27 @@ class sources(BrowserBase):
             )
             r = json.loads(r).get('content')
 
-        if r:
-            soup = BeautifulSoup(r, 'html.parser')
-            items = soup.find_all('div', {'class': 'list_search_ajax'})
-            if len(items) == 1:
-                slugs = [items[0].find('a').get('href').split('/')[-1]]
-            else:
-                slugs = [
-                    item.find('a').get('href').split('/')[-1]
-                    for item in items
-                    if ((item.a.text.strip() + '  ').lower()).startswith((title + '  ').lower())
-                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (Dub)  ').lower())
-                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV)  ').lower())
-                    or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV) (Dub)  ').lower())
-                    or ((item.a.text.strip().replace(' - ', ' ') + '  ').lower()).startswith((title + '  ').lower())
-                    or (item.a.text.strip().replace(':', ' ') + '   ').startswith(title + '   ')
-                ]
+        soup = BeautifulSoup(r, 'html.parser')
+        items = soup.find_all('div', {'class': 'list_search_ajax'})
+        if len(items) == 1:
+            slugs = [items[0].find('a').get('href').split('/')[-1]]
+        else:
+            slugs = [
+                item.find('a').get('href').split('/')[-1]
+                for item in items
+                if ((item.a.text.strip() + '  ').lower()).startswith((title + '  ').lower())
+                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (Dub)  ').lower())
+                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV)  ').lower())
+                or ((item.a.text.strip() + '  ').lower()).startswith((title + ' (TV) (Dub)  ').lower())
+                or ((item.a.text.strip().replace(' - ', ' ') + '  ').lower()).startswith((title + '  ').lower())
+                or (item.a.text.strip().replace(':', ' ') + '   ').startswith(title + '   ')
+            ]
         if not slugs:
-            slugs = database.get(get_backup, 168, anilist_id, 'Gogoanime')
+            slugs = database.get(get_backup, 168, mal_id, 'Gogoanime')
             if not slugs:
                 return []
         slugs = list(slugs.keys()) if isinstance(slugs, dict) else slugs
-        mapfunc = partial(self._process_gogo, show_id=anilist_id, episode=episode)
+        mapfunc = partial(self._process_gogo, show_id=mal_id, episode=episode)
         all_results = list(map(mapfunc, slugs))
         all_results = list(itertools.chain(*all_results))
         return all_results
@@ -78,7 +89,7 @@ class sources(BrowserBase):
         lang = 'dub' if '-dub' in slug else 'sub'
         url = "{0}{1}-episode-{2}".format(self._BASE_URL, slug, episode)
         headers = {'Referer': self._BASE_URL}
-        title = (slug.replace('-', ' ')).title() + '  Episode-{0}'.format(episode)
+        title = (slug.replace('-', ' ')).title() + ' - Ep {0}'.format(episode)
         r = database.get(
             self._send_request,
             8,
@@ -111,12 +122,11 @@ class sources(BrowserBase):
 
         soup = BeautifulSoup(r, 'html.parser')
         sources = []
-
         for element in soup.select('.anime_muti_link > ul > li'):
             server = element.get('class')[0]
             link = element.a.get('data-video')
 
-            if server.lower() in control.enabled_embeds():
+            if server.lower() in self.embeds():
                 if link.startswith('//'):
                     link = 'https:' + link
 
@@ -124,12 +134,16 @@ class sources(BrowserBase):
                     'release_title': title,
                     'hash': link,
                     'type': 'embed',
-                    'quality': 'EQ',
+                    'quality': 0,
                     'debrid_provider': '',
                     'provider': 'gogo',
                     'size': 'NA',
-                    'info': ['{} {}'.format(server.upper(), lang.upper())],
-                    'lang': 2 if lang == 'dub' else 0
+                    'seeders': 0,
+                    'byte_size': 0,
+                    'info': [f"{server.upper()} {lang.upper()}"],
+                    'lang': 3 if lang == 'dub' else 2,
+                    'channel': source_utils.getAudio_channel(title),
+                    'sub': source_utils.getSubtitle_lang(title),
                 }
                 sources.append(source)
 

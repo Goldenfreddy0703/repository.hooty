@@ -1,21 +1,73 @@
 # -*- coding: utf-8 -*-
 import base64
-
 import re
-import six
-from resources.lib.ui import client
-from six.moves import urllib_parse
+import urllib.parse
+
+from resources.lib.ui import client, control, utils
 
 
 class BrowserBase(object):
     _BASE_URL = None
 
     @staticmethod
-    def _clean_title(text):
-        return text.replace(u'×'.encode('utf-8') if six.PY2 else u'×', ' x ')
+    def handle_paging(hasnextpage, base_url, page):
+        if not hasnextpage or not control.is_addon_visible() and control.getBool('widget.hide.nextpage'):
+            return []
+
+        next_page = page + 1
+        name = "Next Page (%d)" % next_page
+        next_url = base_url % next_page
+        url_path, sep, query = next_url.partition('?')
+
+        try:
+            from resources.lib import Main
+            plugin_path = getattr(Main, 'plugin_url', '')
+            if plugin_path and plugin_path.startswith(url_path):
+                url_path = plugin_path
+        except Exception:
+            pass
+
+        next_url = url_path + (sep + query if query else '')
+        return [utils.allocate_item(name, next_url, True, False, [], 'next.png', {'plot': name}, 'next.png')]
 
     @staticmethod
-    def clean_title(text):
+    def open_completed():
+        import json
+        try:
+            with open(control.completed_json) as file:
+                completed = json.load(file)
+        except FileNotFoundError:
+            completed = {}
+        return completed
+
+    @staticmethod
+    def duration_to_seconds(duration_str):
+        # Regular expressions to match hours, minutes, and seconds
+        hours_pattern = re.compile(r'(\d+)\s*hr')
+        minutes_pattern = re.compile(r'(\d+)\s*min')
+        seconds_pattern = re.compile(r'(\d+)\s*sec')
+
+        # Extract hours, minutes, and seconds
+        hours_match = hours_pattern.search(duration_str)
+        minutes_match = minutes_pattern.search(duration_str)
+        seconds_match = seconds_pattern.search(duration_str)
+
+        # Convert to integers, default to 0 if not found
+        hours = int(hours_match.group(1)) if hours_match else 0
+        minutes = int(minutes_match.group(1)) if minutes_match else 0
+        seconds = int(seconds_match.group(1)) if seconds_match else 0
+
+        # Calculate total duration in seconds
+        total_seconds = hours * 3600 + minutes * 60 + seconds
+
+        return total_seconds
+
+    @staticmethod
+    def _clean_title(text):
+        return text.replace(u'×', ' x ')
+
+    @staticmethod
+    def clean_embed_title(text):
         return re.sub(r'\W', '', text).lower()
 
     def _to_url(self, url=''):
@@ -34,7 +86,7 @@ class BrowserBase(object):
 
     def _get_request(self, url, data=None, headers=None, XHR=False):
         if data:
-            url = "%s?%s" % (url, urllib_parse.urlencode(data))
+            url = "%s?%s" % (url, urllib.parse.urlencode(data))
         return self._send_request(url, data=None, headers=headers, XHR=XHR)
 
     @staticmethod
@@ -48,16 +100,16 @@ class BrowserBase(object):
 
     @staticmethod
     def _bencode(text):
-        return six.ensure_str(base64.b64encode(six.ensure_binary(text)))
+        return (base64.b64encode(control.bin(text))).decode('latin-1')
 
     @staticmethod
     def _bdecode(text, binary=False):
         dec = base64.b64decode(text)
-        return dec if binary else six.ensure_str(dec)
+        return dec if binary else dec.decode('latin-1')
 
     @staticmethod
     def _get_origin(url):
-        purl = urllib_parse.urlparse(url)
+        purl = urllib.parse.urlparse(url)
         return '{0}://{1}'.format(purl.scheme, purl.netloc)
 
     @staticmethod
@@ -82,3 +134,13 @@ class BrowserBase(object):
         text = text.replace('?', r'\?')
         text = text.replace(':', r'\:')
         return text
+
+    @staticmethod
+    def embeds():
+        return control.getStringList('embed.config')
+
+    # control.setStringList('embed.config', ['bunny', 'doodstream', 'filelions', 'filemoon', 'hd-2',
+    #                       'iga', 'kwik', 'megaf', 'moonf', 'mp4upload', 'mp4u',
+    #                       'mycloud', 'noads', 'noadsalt', 'swish', 'streamtape',
+    #                       'streamwish', 'vidcdn', 'vidhide', 'vidplay', 'vidstream',
+    #                       'yourupload', 'zto'])

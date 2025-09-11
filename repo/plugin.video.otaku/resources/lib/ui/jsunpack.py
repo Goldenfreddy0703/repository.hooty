@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
     Unpacker for Dean Edward's p.a.c.k.e.r
     Copyright (C) 2013 Bstrdsmkr
@@ -35,14 +34,13 @@
 
 import re
 import binascii
-from six import PY2
 
 
 def detect(source):
     """Detects whether `source` is P.A.C.K.E.R. coded."""
     mystr = re.search(
-        r"eval[ ]*\([ ]*function[ ]*\([ ]*p[ ]*,[ ]*a[ ]*,[ ]*c["
-        r" ]*,[ ]*k[ ]*,[ ]*e[ ]*,[ ]*",
+        r"eval *\( *function *\( *p *, *a *, *c "
+        r"*, *k *, *e *, *",
         source,
     )
     return mystr is not None
@@ -67,24 +65,18 @@ def unpack(source):
 
     def getstring(c, a=radix):
         foo = chr(c % a + 161)
-        if c < a:
-            return foo
-        else:
-            return getstring(int(c / a), a) + foo
+        return foo if c < a else getstring(int(c / a), a) + foo
 
     payload = payload.replace("\\\\", "\\").replace("\\'", "'")
     p = re.search(r'eval\(function\(p,a,c,k,e.+?String\.fromCharCode\(([^)]+)', source)
-    if p:
-        pnew = re.findall(r'String\.fromCharCode\(([^)]+)', source)[0].split('+')[1] == '161'
-    else:
-        pnew = False
+    pnew = re.findall(r'String\.fromCharCode\(([^)]+)', source)[0].split('+')[1] == '161' if p else False
 
     if pnew:
         for i in range(count - 1, -1, -1):
-            payload = payload.replace(getstring(i).decode('latin-1') if PY2 else getstring(i), symtab[i])
+            payload = payload.replace(getstring(i), symtab[i])
         return _replacejsstrings((_replacestrings(payload)))
     else:
-        source = re.sub(r"\b\w+\b", lookup, payload) if PY2 else re.sub(r"\b\w+\b", lookup, payload, flags=re.ASCII)
+        source = re.sub(r"\b\w+\b", lookup, payload, flags=re.ASCII)
         return _replacestrings(source)
 
 
@@ -131,7 +123,7 @@ def _replacejsstrings(source):
     return source
 
 
-class Unbaser(object):
+class Unbaser:
     """Functor for a given base. Will efficiently convert
     strings to natural numbers."""
     ALPHABET = {

@@ -1,3 +1,7 @@
+Note: If Anyone has not gotten a migration dialog when getting this major update, Please go to your maintenance catagory of the addon settings and run the migration script.
+Thank you
+
+
 Welcome to the New Era of Otaku!
 
 Hi everyone,

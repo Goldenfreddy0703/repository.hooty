@@ -311,11 +311,7 @@ class Resolver(BaseWindow):
                     f"[CR]"
                     f"This source is not cached. Would you like to cache it now?")
 
-        if source['debrid_provider'] == 'Debrid-Link':
-            control.ok_dialog(heading, 'Cache Resolver has not been added for Debrid-Link')
-            return
-
-        if source['debrid_provider'] in ['Alldebrid', 'Real-Debrid']:
+        if source['debrid_provider'] in ['Alldebrid', 'Real-Debrid', 'Debrid-Link']:
             # Get an instance of the debrid API and check torrent status early.
             torrent_status = api.get_torrent_status(source['magnet'])
             # torrent_status returns (torrent_id, status, torrent_info)

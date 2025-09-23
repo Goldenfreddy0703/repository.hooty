@@ -231,7 +231,7 @@ class Resolver(BaseWindow):
                 if monitor.playing:
                     break
             else:
-                control.log('no xbmc playing source found; Continuing code', 'warning')
+                control.log('no xbmc playing source found; Continuing code', level='warning')
             del monitor
             self.close()
             if not self.abort:
@@ -357,7 +357,7 @@ class Resolver(BaseWindow):
             control.progressDialog.close()
             import traceback
             control.ok_dialog(control.ADDON_NAME, f'Error: {e}')
-            control.log(traceback.format_exc(), 'error')
+            control.log(traceback.format_exc(), level='error')
             return
 
         best_match = control.getBool('best_match')

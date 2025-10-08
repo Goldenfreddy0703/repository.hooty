@@ -322,11 +322,11 @@ class Resolver(BaseWindow):
             torrent_id, status, torrent_info = torrent_status
             if source['debrid_provider'] == 'Alldebrid':
                 api.delete_magnet(torrent_id)
-            else:
+            elif source['debrid_provider'] == 'Real-Debrid':
                 api.deleteTorrent(torrent_id)
 
         # If the file is already cached, bypass any prompting.
-        if status in ['downloaded', 'Ready']:
+        if status in ['downloaded', 'Ready', True]:
             runbackground = False
             runinforground = False
         else:

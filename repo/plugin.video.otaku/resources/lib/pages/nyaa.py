@@ -271,8 +271,8 @@ class Sources(BrowserBase):
                 # Compare seeders first; if equal, compare byte_size
                 if source.get('seeders', -1) > current.get('seeders', -1):
                     unique[key] = source
-                elif (source.get('seeders', -1) == current.get('seeders', -1) and
-                      source.get('byte_size', 0) > current.get('byte_size', 0)):
+                elif (source.get('seeders', -1) == current.get('seeders', -1)
+                      and source.get('byte_size', 0) > current.get('byte_size', 0)):
                     unique[key] = source
             else:
                 unique[key] = source

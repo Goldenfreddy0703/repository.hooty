@@ -40,6 +40,7 @@ class Resolver(BaseWindow):
         self.canceled = False
         self.sources = None
         self.args = None
+        self.image = {}
         self.resolvers = {
             'Alldebrid': all_debrid.AllDebrid,
             'Debrid-Link': debrid_link.DebridLink,
@@ -204,23 +205,44 @@ class Resolver(BaseWindow):
                 # Run any mimetype hook
                 item = hook_mimetype.trigger(linkInfo['headers']['Content-Type'], item)
 
+            if self.params.get('image'):
+                self.image = self.params.get('image', {})
+
             if self.context:
                 control.set_videotags(item, self.params)
                 art = {
-                    'icon': self.params.get('icon'),
-                    'thumb': self.params.get('thumb'),
-                    'fanart': self.params.get('fanart'),
-                    'landscape': self.params.get('landscape'),
-                    'banner': self.params.get('banner'),
-                    'clearart': self.params.get('clearart'),
-                    'clearlogo': self.params.get('clearlogo'),
-                    'tvshow.poster': self.params.get('tvshow.poster')
+                    'icon': self.params.get('icon') or self.image.get('icon') or '',
+                    'thumb': self.params.get('thumb') or self.image.get('thumb') or '',
+                    'fanart': self.params.get('fanart') or self.image.get('fanart') or '',
+                    'landscape': self.params.get('landscape') or self.image.get('landscape') or '',
+                    'banner': self.params.get('banner') or self.image.get('banner') or '',
+                    'clearart': self.params.get('clearart') or self.image.get('clearart') or '',
+                    'clearlogo': self.params.get('clearlogo') or self.image.get('clearlogo') or '',
+                    'tvshow.poster': self.params.get('tvshow.poster') or self.params.get('poster') or '',
                 }
                 item.setArt(art)
+                control.playList.clear()
                 control.playList.add(linkInfo['url'], item)
                 xbmc.Player().play(control.playList, item)
             else:
-                xbmcplugin.setResolvedUrl(control.HANDLE, True, item)
+                if self.params.get('info'):
+                    control.set_videotags(item, self.params['info'])
+                else:
+                    control.set_videotags(item, self.params)
+                art = {
+                    'icon': self.image.get('icon') or '',
+                    'thumb': self.image.get('thumb') or '',
+                    'fanart': (self.image.get('fanart')[0] if isinstance(self.image.get('fanart'), list) and self.image.get('fanart') else self.image.get('fanart')) or '',
+                    'landscape': self.image.get('landscape') or '',
+                    'banner': self.image.get('banner') or '',
+                    'clearart': self.image.get('clearart') or '',
+                    'clearlogo': self.image.get('clearlogo') or '',
+                    'tvshow.poster': self.image.get('poster') or self.params.get('poster') or '',
+                }
+                item.setArt(art)
+                control.playList.clear()
+                control.playList.add(linkInfo['url'], item)
+                xbmc.Player().play(control.playList, item)
             monitor = Monitor()
             for _ in range(30):
                 if monitor.waitForAbort(1) or monitor.playbackerror or monitor.abortRequested():
@@ -287,19 +309,19 @@ class Resolver(BaseWindow):
                 headers["Cookie"] = cookie
                 headers["User-Agent"] = ua
 
-        limit = None if '.m3u8' in url else '0'
-        linkInfo = client.request(url, headers=headers, limit=limit, output='extended', error=True)
-        if linkInfo[1] not in ['200', '201']:
+        response = client.get(url, headers=headers)
+        if not response or str(response.status_code) not in ['200', '201']:
+            status = response.status_code if response else 'failed'
             raise Exception('could not resolve %s. status_code=%s' %
-                            (link, linkInfo[1]))
-        resp_headers = linkInfo[2]
+                            (link, status))
+        resp_headers = dict(response.headers)
         if 'Content-Type' not in resp_headers.keys():
             if 'Content-Length' not in resp_headers.keys():
                 resp_headers.update({'Content-Type': 'video/MP2T'})
         elif resp_headers['Content-Type'] == 'application/octet-stream' and '.m3u8' in url:
             resp_headers.update({'Content-Type': 'video/MP2T'})
         return {
-            "url": link if '|' in link else linkInfo[5],
+            "url": link if '|' in link else response.url,
             "headers": resp_headers,
         }
 
@@ -326,7 +348,7 @@ class Resolver(BaseWindow):
                 api.deleteTorrent(torrent_id)
 
         # If the file is already cached, bypass any prompting.
-        if status in ['downloaded', 'Ready', True]:
+        if status in ['downloaded', 'Ready']:
             runbackground = False
             runinforground = False
         else:

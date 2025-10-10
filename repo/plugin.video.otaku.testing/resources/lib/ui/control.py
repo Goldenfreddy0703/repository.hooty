@@ -84,7 +84,7 @@ def closeBusyDialog():
         execute('Dialog.Close(busydialognocancel)')
 
 
-def log(msg, level="info"):
+def log(msg, level="debug"):
     if level == 'info':
         level = xbmc.LOGINFO
     elif level == 'warning':
@@ -237,6 +237,10 @@ def setGlobalProp(property, value):
     homeWindow.setProperty(property, str(value))
 
 
+def getGlobalProp(property):
+    return homeWindow.getProperty(property)
+
+
 def clearGlobalProp(property):
     homeWindow.clearProperty(property)
 
@@ -325,9 +329,9 @@ def browse(type_, heading, shares, mask=''):
 
 def set_videotags(li, info):
     vinfo: xbmc.InfoTagVideo = li.getVideoInfoTag()
-    if title := info.get('title'):
+    if title := info.get('title') or info.get('title_userPreferred'):
         vinfo.setTitle(title)
-    if media_type := info.get('mediatype'):
+    if media_type := info.get('mediatype') or info.get('format'):
         vinfo.setMediaType(media_type)
     if tvshow_title := info.get('tvshowtitle'):
         vinfo.setTvShowTitle(tvshow_title)

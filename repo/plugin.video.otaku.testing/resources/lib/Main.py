@@ -74,6 +74,7 @@ def add_last_watched(items):
 
     except TypeError:
         pass
+
     return items
 
 
@@ -1577,30 +1578,42 @@ def SEARCH_HISTORY(payload, params):
 
 @Route('remove_search_item/*')
 def REMOVE_SEARCH_ITEM(payload, params):
+    from urllib.parse import unquote
     search_types, _, _, _ = get_search_config()
     format = control.getSetting('format')
-
+    found = False
     for search_type in search_types:
-        if search_type in payload:
-            search_item = payload.rsplit(search_type)[1]
-            database.remove_search(table=format, value=search_item)
+        if payload.startswith(search_type):
+            search_item = payload.split(search_type, 1)[1]
+            if search_item:
+                decoded_item = unquote(search_item)
+                database.remove_search(table=format, value=decoded_item)
+                found = True
+    if not found:
+        control.notify(control.ADDON_NAME, "Failed to remove search item", time=3000)
     control.exit_code()
 
 
 @Route('edit_search_item/*')
 def EDIT_SEARCH_ITEM(payload, params):
+    from urllib.parse import unquote
     search_types, _, _, _ = get_search_config()
     format = control.getSetting('format')
-
+    found = False
     for search_type in search_types:
-        if search_type in payload:
-            search_item = payload.rsplit(search_type)[1]
+        if payload.startswith(search_type):
+            search_item = payload.split(search_type, 1)[1]
             if search_item:
-                query = control.keyboard(control.lang(30918), search_item)
-                if query and query != search_item:
-                    database.remove_search(table=format, value=search_item)
+                decoded_item = unquote(search_item)
+                query = control.keyboard(control.lang(30918), decoded_item)
+                if query and query != decoded_item:
+                    database.remove_search(table=format, value=decoded_item)
                     control.sleep(500)
                     database.addSearchHistory(query, format)
+                found = True
+    if not found:
+        control.notify(control.ADDON_NAME, "Failed to edit search item", time=3000)
+    control.refresh()
     control.exit_code()
 
 
@@ -1651,6 +1664,14 @@ def PLAY(payload, params):
     if rating := params.get('rating'):
         params['rating'] = ast.literal_eval(rating)
     params['path'] = f"{control.addon_url(f'play/{payload}')}"
+
+    # Populate params with episode metadata from database if not already present
+    # This ensures metadata is available even when playing from Information dialog
+    if not params.get('tvshowtitle'):
+        episode_data = database.get_episode(mal_id, episode)
+        if episode_data:
+            params = pickle.loads(episode_data['kodi_meta'])
+
     if resume:
         resume = float(resume)
         context = control.context_menu([f'Resume from {utils.format_time(resume)}', 'Play from beginning'])
@@ -1715,6 +1736,23 @@ def PLAY_MOVIE(payload, params):
     rescrape = bool(params.get('rescrape'))
     resume = params.get('resume')
     params['path'] = f"{control.addon_url(f'play_movie/{payload}')}"
+
+    # Populate params with movie metadata from database if not already present
+    # This ensures metadata is available even when playing from Information dialog
+    if not params.get('name'):
+        anime_meta = database.get_show_meta(mal_id)
+        anime_data = database.get_show(mal_id)
+        kodi_meta = pickle.loads(anime_data['kodi_meta'])
+
+        params = {
+            **kodi_meta,
+            'info': kodi_meta,  # video info tags
+            'image': {  # art fields for UI
+                k: (v[0] if isinstance(v, list) else v)
+                for k, v in pickle.loads(anime_meta['art']).items()
+            }
+        }
+
     if resume:
         resume = float(resume)
         context = control.context_menu([f'Resume from {utils.format_time(resume)}', 'Play from beginning'])
@@ -1852,7 +1890,7 @@ def TMDB_HELPER(payload, params):
 
         if mal_ids:
             episode_titles = tmdb.get_episode_titles(tmdb_id, season_number, episode_number)
-            match = find_episode_by_title(mal_ids, episode_titles)            
+            match = find_episode_by_title(mal_ids, episode_titles)
             if match:
                 mal_id = match['mal_id']
                 episode_num = match['episode_number']
@@ -1885,20 +1923,17 @@ def remove_punctuation(s):
 
 
 def find_episode_by_title(mal_ids, episode_titles):
-    # ...existing code...
-    # After matching episode, extract rating/score and aired date if available
-    # This assumes 'res' or 'ep' is the episode meta dict from Jikan
-    # Add these fields to the info dict where episode match is found
     import time
     from resources.lib.indexers.jikanmoe import JikanAPI
-    from resources.lib.ui.source_utils import cleanTitle
+    from resources.lib.ui.source_utils import get_fuzzy_match
     # Split titles on '|' and clean each part
     split_titles = []
     for t in episode_titles:
         if t:
             split_titles.extend([x.strip() for x in t.split('|') if x.strip()])
-    # Clean and normalize titles, ignore spaces and punctuation
-    cleaned_titles = set(remove_punctuation(cleanTitle(t)).replace(' ', '').lower() for t in split_titles)
+    # Use shared clean_text for normalization (removes punctuation, preserves spaces)
+    from resources.lib.ui.source_utils import clean_text
+    cleaned_titles = [clean_text(t) for t in split_titles]
     jikan_api = JikanAPI()
     requests_made = 0
     last_request_time = time.time()
@@ -1935,29 +1970,55 @@ def find_episode_by_title(mal_ids, episode_titles):
         else:
             control.log(f"Jikan API failed for mal_id {mal_id} after {max_retries} retries.")
             episodes = []
+        # Prepare candidate episode titles from Jikan
+        episode_candidates = []
+        episode_meta_map = []
         for ep in episodes:
             candidates = [
                 ep.get('title', ''),
-                # ep.get('title_japanese', ''),
                 ep.get('title_romanji', '')
             ]
-            split_candidates = []
             for candidate in candidates:
                 if candidate:
-                    split_candidates.extend([x.strip() for x in candidate.split('|') if x.strip()])
-            for candidate in split_candidates:
-                cleaned_candidate = remove_punctuation(cleanTitle(candidate)).replace(' ', '').lower() if candidate else ''
-                # Direct match ignoring spaces and punctuation
-                if cleaned_candidate in cleaned_titles:
-                    control.log(f"MATCH FOUND: Jikan '{candidate}' matched TMDB title.")
+                    episode_candidates.append(candidate)
+                    episode_meta_map.append((candidate, ep))
+        # Use shared clean_text for normalization
+        cleaned_candidates = [clean_text(c) for c in episode_candidates]
+        # Run fuzzy matching for each cleaned title variant individually
+        best_score = -1
+        best_idx = None
+        for cleaned_query in cleaned_titles:
+            match_indices = get_fuzzy_match(cleaned_query, cleaned_candidates)
+            if match_indices:
+                # get_fuzzy_match returns sorted indices by best match first
+                idx = match_indices[0]
+                # Optionally, you could get the score from token/sequence matching for more granularity
+                # For now, just select the first match
+                # If multiple queries match, prefer the one with the highest index (first found)
+                if best_idx is None or idx < best_idx:
+                    best_idx = idx
+        if best_idx is not None:
+            best_candidate, best_ep = episode_meta_map[best_idx]
+            control.log(f"FUZZY MATCH FOUND: Jikan '{best_candidate}' matched TMDB title (fuzzy).")
+            info = {
+                'mal_id': mal_id,
+                'episode_number': best_ep.get('mal_id'),
+                'matched_title': best_candidate,
+            }
+            return info
+        else:
+            # Fallback to direct match if fuzzy fails
+            for idx, candidate in enumerate(cleaned_candidates):
+                if candidate in cleaned_titles:
+                    orig_candidate, ep = episode_meta_map[idx]
+                    control.log(f"DIRECT MATCH FOUND: Jikan '{orig_candidate}' matched TMDB title.")
                     info = {
                         'mal_id': mal_id,
                         'episode_number': ep.get('mal_id'),
-                        'matched_title': candidate,
+                        'matched_title': orig_candidate,
                     }
                     return info
-                else:
-                    control.log(f"No match for Jikan '{candidate}' (cleaned: '{cleaned_candidate}')")
+            control.log(f"No fuzzy or direct match for Jikan episode titles against TMDB titles.")
     return None  # No match found
 
 
@@ -2630,6 +2691,11 @@ def get_menu_items(menu_type):
 
 @Route('')
 def LIST_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('Menu refresh flag detected - rebuilding menu items')
+
     MENU_ITEMS = get_menu_items('main')
 
     enabled_menu_items = []
@@ -2691,6 +2757,11 @@ def LIST_MENU(payload, params):
 
 @Route('movies')
 def MOVIES_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('Movie menu refresh flag detected - rebuilding menu items')
+
     MOVIES_ITEMS = get_menu_items('movies')
 
     enabled_movies_items = []
@@ -2752,6 +2823,11 @@ def MOVIES_MENU(payload, params):
 
 @Route('tv_shows')
 def TV_SHOWS_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('TV shows menu refresh flag detected - rebuilding menu items')
+
     TV_SHOWS_ITEMS = get_menu_items('tv_shows')
 
     enabled_tv_show_items = []
@@ -2813,6 +2889,11 @@ def TV_SHOWS_MENU(payload, params):
 
 @Route('tv_shorts')
 def TV_SHORTS_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('TV shorts menu refresh flag detected - rebuilding menu items')
+
     TV_SHORTS_ITEMS = get_menu_items('tv_shorts')
 
     enabled_tv_short_items = []
@@ -2874,6 +2955,11 @@ def TV_SHORTS_MENU(payload, params):
 
 @Route('specials')
 def SPECIALS_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('Specials menu refresh flag detected - rebuilding menu items')
+
     SPECIALS_ITEMS = get_menu_items('specials')
 
     enabled_special_items = []
@@ -2934,8 +3020,13 @@ def SPECIALS_MENU(payload, params):
 
 
 @Route('ovas')
-def OVAs_MENU(payload, params):
-    OVAs_ITEMS = get_menu_items('ovas')
+def OVAS_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('OVAs menu refresh flag detected - rebuilding menu items')
+
+    OVAS_ITEMS = get_menu_items('ovas')
 
     enabled_ova_items = []
     enabled_ova_items = add_watchlist(enabled_ova_items)
@@ -2949,7 +3040,7 @@ def OVAs_MENU(payload, params):
     if "watch_history_ova" in enabled_ids:
         enabled_ova_items = add_watch_history(enabled_ova_items)
 
-    for item in OVAs_ITEMS:
+    for item in OVAS_ITEMS:
         if item[1] in enabled_ids:
             enabled_ova_items.append(item)
 
@@ -2995,8 +3086,13 @@ def OVAs_MENU(payload, params):
 
 
 @Route('onas')
-def ONAs_MENU(payload, params):
-    ONAs_ITEMS = get_menu_items('onas')
+def ONAS_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('ONAs menu refresh flag detected - rebuilding menu items')
+
+    ONAS_ITEMS = get_menu_items('onas')
 
     enabled_ona_items = []
     enabled_ona_items = add_watchlist(enabled_ona_items)
@@ -3010,7 +3106,7 @@ def ONAs_MENU(payload, params):
     if "watch_history_ona" in enabled_ids:
         enabled_ona_items = add_watch_history(enabled_ona_items)
 
-    for item in ONAs_ITEMS:
+    for item in ONAS_ITEMS:
         if item[1] in enabled_ids:
             enabled_ona_items.append(item)
 
@@ -3057,6 +3153,11 @@ def ONAs_MENU(payload, params):
 
 @Route('music')
 def MUSIC_MENU(payload, params):
+    # Check if menu needs refreshing due to recent playback
+    if control.getGlobalProp('otaku.menu.needs_refresh') == 'true':
+        control.clearGlobalProp('otaku.menu.needs_refresh')
+        control.log('Music menu refresh flag detected - rebuilding menu items')
+
     MUSIC_ITEMS = get_menu_items('music')
 
     enabled_music_items = []

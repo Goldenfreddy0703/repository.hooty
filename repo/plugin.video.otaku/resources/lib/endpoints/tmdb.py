@@ -1,4 +1,3 @@
-import json
 from resources.lib.ui import client, database
 
 api_info = database.get_info('TMDB')
@@ -18,8 +17,8 @@ def getArt(meta_ids, mtype):
                 'external_source': 'tvdb_id',
                 "api_key": apiKey
             }
-            response = client.request(f'{baseUrl}find/{tvdb}', params=params)
-            res = json.loads(response) if response else {}
+            response = client.get(f'{baseUrl}find/{tvdb}', params=params)
+            res = response.json() if response else {}
             res = res.get('tv_results')
             if res:
                 mid = res[0].get('id')
@@ -29,8 +28,8 @@ def getArt(meta_ids, mtype):
             'include_image_language': 'en,ja,null',
             "api_key": apiKey
         }
-        response = client.request(f'{baseUrl}{mtype[0:5]}/{mid}/images', params=params)
-        res = json.loads(response) if response else {}
+        response = client.get(f'{baseUrl}{mtype[0:5]}/{mid}/images', params=params)
+        res = response.json() if response else {}
 
         if res:
             if res.get('backdrops'):
@@ -54,15 +53,21 @@ def get_episode_titles(tmdb_id, season_number, episode_number):
         'include_image_language': 'en,ja,null',
         "api_key": apiKey
     }
-    response = client.request(f'{baseUrl}tv/{tmdb_id}/season/{season_number}/episode/{episode_number}/translations', params=params)
-    res = json.loads(response) if response else {}
+    response = client.get(f'{baseUrl}tv/{tmdb_id}/season/{season_number}/episode/{episode_number}/translations', params=params)
+    res = response.json() if response else {}
 
-    # Extract all 'name' fields from translations
-    names = []
+    # Extract English name, fallback to Japanese if not found
     translations = res.get('translations', [])
     for t in translations:
-        data = t.get('data', {})
-        name = data.get('name')
-        if name:
-            names.append(name)
-    return names
+        if t.get('iso_639_1') == 'en':
+            data = t.get('data', {})
+            name = data.get('name')
+            if name:
+                return [name]
+    for t in translations:
+        if t.get('iso_639_1') == 'ja':
+            data = t.get('data', {})
+            name = data.get('name')
+            if name:
+                return [name]
+    return []

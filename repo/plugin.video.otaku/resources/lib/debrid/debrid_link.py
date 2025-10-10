@@ -1,4 +1,3 @@
-import json
 import time
 from resources.lib.ui import client, control, source_utils, database
 
@@ -33,9 +32,9 @@ class DebridLink:
             'code': self.DeviceCode,
             'grant_type': 'urn:ietf:params:oauth:grant-type:device_code'
         }
-        r = client.request(url, post=data, headers={'User-Agent': self.USER_AGENT})
+        r = client.post(url, data=data, headers={'User-Agent': self.USER_AGENT})
         if r:
-            response = json.loads(r)
+            response = r.json()
             control.progressDialog.close()
             self.token = response.get('access_token')
             self.refresh = response.get('refresh_token')
@@ -47,9 +46,9 @@ class DebridLink:
     def auth(self):
         url = '{0}/oauth/device/code'.format(self.api_url[:-3])
         data = {'client_id': self.ClientID, 'scope': 'get.post.delete.seedbox get.account'}
-        r = client.request(url, post=data, headers={'User-Agent': self.USER_AGENT})
+        r = client.post(url, data=data, headers={'User-Agent': self.USER_AGENT})
         if r:
-            resp = json.loads(r)
+            resp = r.json()
             self.OauthTotalTimeout = self.OauthTimeout = resp['expires_in']
             self.OauthTimeStep = resp['interval']
             self.DeviceCode = resp['device_code']
@@ -73,8 +72,8 @@ class DebridLink:
 
     def status(self):
         url = f"{self.api_url[:-3]}/account/infos"
-        response = client.request(url, headers=self.headers())
-        response = json.loads(response)
+        response = client.get(url, headers=self.headers())
+        response = response.json()
         username = response['value']['pseudo']
         premium = response['value']['premiumLeft'] > 0
         control.setSetting('debridlink.username', username)
@@ -96,8 +95,8 @@ class DebridLink:
             'client_id': self.ClientID
         }
         url = f"{self.api_url[:-3]}/oauth/token"
-        response = client.request(url, post=postData, headers={'User-Agent': self.USER_AGENT})
-        response = json.loads(response)
+        response = client.post(url, data=postData, headers={'User-Agent': self.USER_AGENT})
+        response = response.json()
         if response.get('access_token'):
             self.token = response['access_token']
             control.setSetting('debridlink.token', self.token)
@@ -109,8 +108,8 @@ class DebridLink:
             'async': 'true'
         }
         url = f"{self.api_url}/seedbox/add"
-        r = client.request(url, post=postData, headers=self.headers())
-        return json.loads(r).get('value') if r else None
+        r = client.post(url, data=postData, headers=self.headers())
+        return r.json().get('value') if r else None
 
     def resolve_single_magnet(self, hash_, magnet, episode, pack_select):
         files = self.addMagnet(magnet)['files']
@@ -142,8 +141,8 @@ class DebridLink:
 
     def magnet_status(self, magnet_id):
         url = f'{self.api_url}/seedbox/{magnet_id}/infos'
-        r = client.request(url, headers=self.headers())
-        return json.loads(r)['value'] if r else None
+        r = client.get(url, headers=self.headers())
+        return r.json()['value'] if r else None
 
     def resolve_uncached_source(self, source, runinbackground, runinforground, pack_select):
         heading = f'{control.ADDON_NAME}: Cache Resolver'

@@ -59,7 +59,7 @@ class Sources(BrowserBase):
             meta_ids = pickle.loads(show_meta['meta_ids'])
             self.anidb_id = meta_ids.get('anidb_id')
             if not self.anidb_id:
-                ids = SIMKLAPI().get_unique_ids_from_simkl(mal_id, 'mal_id')
+                ids = SIMKLAPI().get_mapping_ids_from_simkl(mal_id, 'mal_id')
                 if ids:
                     self.anidb_id = meta_ids['anidb_id'] = ids['anidb']
                     database.update_show_meta(mal_id, meta_ids, pickle.loads(show_meta['art']))
@@ -171,7 +171,7 @@ class Sources(BrowserBase):
             meta_ids = pickle.loads(show_meta['meta_ids'])
             self.anidb_id = meta_ids.get('anidb_id')
             if not self.anidb_id:
-                ids = SIMKLAPI().get_unique_ids_from_simkl(mal_id, 'mal_id')
+                ids = SIMKLAPI().get_mapping_ids_from_simkl(mal_id, 'mal_id')
                 if ids:
                     self.anidb_id = meta_ids['anidb_id'] = ids['anidb']
                     database.update_show_meta(mal_id, meta_ids, pickle.loads(show_meta['art']))
@@ -196,7 +196,7 @@ class Sources(BrowserBase):
             meta_ids = pickle.loads(show_meta['meta_ids'])
             self.anidb_id = meta_ids.get('anidb_id')
             if not self.anidb_id:
-                ids = SIMKLAPI().get_unique_ids_from_simkl(mal_id, 'mal_id')
+                ids = SIMKLAPI().get_mapping_ids_from_simkl(mal_id, 'mal_id')
                 if ids:
                     self.anidb_id = meta_ids['anidb_id'] = ids['anidb']
                     database.update_show_meta(mal_id, meta_ids, pickle.loads(show_meta['art']))
@@ -255,11 +255,12 @@ class Sources(BrowserBase):
             uncashed_list = [i for i in uncashed_list_ if i['seeders'] != 0]
             uncashed_list = sorted(uncashed_list, key=lambda k: k['seeders'], reverse=True)
 
+            # Parse sources in parallel for faster processing
             mapfunc = partial(self.parse_animetosho_view, episode=episode)
-            all_results = list(map(mapfunc, cache_list))
-            if control.settingids.showuncached:
+            all_results = utils.parallel_process(cache_list, mapfunc, max_workers=5) if cache_list else []
+            if control.settingids.showuncached and uncashed_list:
                 mapfunc2 = partial(self.parse_animetosho_view, episode=episode, cached=False)
-                all_results += list(map(mapfunc2, uncashed_list))
+                all_results += utils.parallel_process(uncashed_list, mapfunc2, max_workers=5)
             return all_results
         return []
 
@@ -302,11 +303,12 @@ class Sources(BrowserBase):
             cache_list = sorted(cache_list, key=lambda k: k['downloads'], reverse=True)
             uncashed_list = sorted([i for i in uncashed_list_ if i['seeders'] != 0], key=lambda k: k['seeders'], reverse=True)
 
+            # Parse sources in parallel for faster processing
             mapfunc = partial(self.parse_animetosho_view, episode="1")
-            all_results = list(map(mapfunc, cache_list))
-            if control.settingids.showuncached:
+            all_results = utils.parallel_process(cache_list, mapfunc, max_workers=5) if cache_list else []
+            if control.settingids.showuncached and uncashed_list:
                 mapfunc2 = partial(self.parse_animetosho_view, episode="1", cached=False)
-                all_results += list(map(mapfunc2, uncashed_list))
+                all_results += utils.parallel_process(uncashed_list, mapfunc2, max_workers=5)
             return all_results
         return []
 

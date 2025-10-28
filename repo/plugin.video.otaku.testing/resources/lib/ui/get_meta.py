@@ -1,15 +1,13 @@
 import concurrent.futures
 
 from resources.lib.endpoints import fanart, tmdb, tvdb
-from resources.lib.ui import database
+from resources.lib.ui import database, control
 
 
 def collect_meta(anime_list):
     # Prepare list of anime that need metadata
     anime_to_fetch = []
-    mal_ids_to_check = []
 
-    # First pass: collect all mal_ids and their types
     for anime in anime_list:
         if 'media' in anime.keys():
             anime = anime.get('media')
@@ -22,23 +20,12 @@ def collect_meta(anime_list):
         if not mal_id:
             continue
 
-        mal_ids_to_check.append(mal_id)
-
-        # Determine media type
-        if (anime.get('format') or anime.get('type')) in ['MOVIE', 'ONA', 'OVA', 'SPECIAL', 'Movie', 'Special'] and anime.get('episodes') == 1:
-            mtype = 'movies'
-        else:
-            mtype = 'tv'
-        anime_to_fetch.append((mal_id, mtype))
-
-    # PERFORMANCE FIX: Batch check which shows already have metadata
-    # Instead of 25 individual queries, do 1 batch query
-    existing_meta_ids = set()
-    if mal_ids_to_check:
-        existing_meta_ids = database.get_existing_show_meta_ids(mal_ids_to_check)
-
-    # Filter to only fetch shows that don't have metadata
-    anime_to_fetch = [(mal_id, mtype) for mal_id, mtype in anime_to_fetch if mal_id not in existing_meta_ids]
+        if not database.get_show_meta(mal_id):
+            if (anime.get('format') or anime.get('type')) in ['MOVIE', 'ONA', 'OVA', 'SPECIAL', 'Movie', 'Special'] and anime.get('episodes') == 1:
+                mtype = 'movies'
+            else:
+                mtype = 'tv'
+            anime_to_fetch.append((mal_id, mtype))
 
     # Fetch metadata in parallel with controlled thread pool (max 8 workers)
     if anime_to_fetch:
@@ -49,75 +36,97 @@ def collect_meta(anime_list):
 
 
 def update_meta(mal_id, mtype='tv'):
+    """
+    Fetch and combine artwork from all providers (Fanart.tv, TMDB, TVDB)
+    """
     meta_ids = database.get_mappings(mal_id, 'mal_id')
-    art = fanart.getArt(meta_ids, mtype)
-    if not art:
-        art = tmdb.getArt(meta_ids, mtype)
-        if not art:
-            art = tvdb.getArt(meta_ids, mtype)
-    elif 'fanart' not in art.keys():
-        art2 = tmdb.getArt(meta_ids, mtype)
-        if art2.get('fanart'):
-            art['fanart'] = art2['fanart']
-        else:
-            art3 = tvdb.getArt(meta_ids, mtype)
-            if art3.get('fanart'):
-                art['fanart'] = art3['fanart']
 
-    # Update legacy shows_meta table (pickle)
-    database.update_show_meta(mal_id, meta_ids, art)
-
-    # PERFORMANCE: Also update pre-computed art in shows table for Seren-style list building
-    # Get existing show data to merge art with existing pre-computed data
-    show_data = database.get_show(mal_id)
-
-    import json
-    import datetime
-
-    # Get existing pre-computed art, or start with empty dict
-    existing_art = {}
-    if show_data and show_data.get('art'):
+    # Scrape art from all providers in parallel for faster performance
+    def fetch_fanart():
         try:
-            existing_art = json.loads(show_data['art'])
-        except (json.JSONDecodeError, TypeError):
-            pass
+            return fanart.getArt(meta_ids, mtype)
+        except Exception as e:
+            control.log(f"Fanart.tv fetch failed: {str(e)}")
+            return {}
 
-    # IMPORTANT: Convert list values to single URL strings (Kodi expects strings, not lists)
-    # Fanart.tv/TMDB/TVDB return lists: {'fanart': [url1, url2], 'thumb': [url1]}
-    # But Kodi expects strings: {'fanart': 'url1', 'thumb': 'url1'}
-    art_converted = {}
-    for key, value in art.items():
-        if isinstance(value, list) and len(value) > 0:
-            art_converted[key] = value[0]  # Use first URL from list
-        elif isinstance(value, str):
-            art_converted[key] = value
+    def fetch_tmdb():
+        try:
+            return tmdb.getArt(meta_ids, mtype)
+        except Exception as e:
+            control.log(f"TMDB fetch failed: {str(e)}")
+            return {}
 
-    # Merge new art with existing art (new art takes priority)
-    merged_art = {**existing_art, **art_converted}
+    def fetch_tvdb():
+        try:
+            return tvdb.getArt(meta_ids, mtype)
+        except Exception as e:
+            control.log(f"TVDB fetch failed: {str(e)}")
+            return {}
 
-    # PERFORMANCE: Update the art column in shows table for Seren-style list building
-    # Create minimal show entry if it doesn't exist yet (for watchlists that don't create shows)
-    from resources.lib.ui.database import SQL
-    from resources.lib.ui import control
-    import pickle
+    # Fetch from all providers concurrently
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        fanart_future = executor.submit(fetch_fanart)
+        tmdb_future = executor.submit(fetch_tmdb)
+        tvdb_future = executor.submit(fetch_tvdb)
 
-    art_json = json.dumps(merged_art)
-    last_updated = datetime.datetime.now().isoformat()
+        # Wait for all to complete
+        concurrent.futures.wait([fanart_future, tmdb_future, tvdb_future])
 
-    with SQL(control.malSyncDB) as cursor:
-        if show_data:
-            # Show exists, just update art
-            cursor.execute(
-                'UPDATE shows SET art = ?, last_updated = ? WHERE mal_id = ?',
-                (art_json, last_updated, mal_id)
-            )
-        else:
-            # Show doesn't exist, create minimal entry with empty kodi_meta and anime_schedule_route
-            # This ensures watchlist items have fanart available via get_show_list()
-            empty_kodi_meta = pickle.dumps({})  # Empty pickle blob
-            cursor.execute(
-                'INSERT OR IGNORE INTO shows (mal_id, kodi_meta, anime_schedule_route, art, last_updated) '
-                'VALUES (?, ?, ?, ?, ?)',
-                (mal_id, empty_kodi_meta, '', art_json, last_updated)
-            )
-        cursor.connection.commit()
+        fanart_art = fanart_future.result()
+        tmdb_art = tmdb_future.result()
+        tvdb_art = tvdb_future.result()
+
+    # Combine art from all providers
+    combined_art = merge_artwork(fanart_art, tmdb_art, tvdb_art)
+
+    database.update_show_meta(mal_id, meta_ids, combined_art)
+
+
+def merge_artwork(fanart_art, tmdb_art, tvdb_art):
+    """
+    Merge artwork from multiple providers, combining lists and preferring quality sources.
+    For clearlogo, maintain language preference logic.
+    """
+    merged = {}
+
+    # Merge fanart (backgrounds)
+    fanart_images = []
+    fanart_images.extend(fanart_art.get('fanart', []))
+    fanart_images.extend(tmdb_art.get('fanart', []))
+    fanart_images.extend(tvdb_art.get('fanart', []))
+    if fanart_images:
+        merged['fanart'] = fanart_images
+
+    # Merge thumbs
+    thumb_images = []
+    thumb_images.extend(fanart_art.get('thumb', []))
+    thumb_images.extend(tmdb_art.get('thumb', []))
+    thumb_images.extend(tvdb_art.get('thumb', []))
+    if thumb_images:
+        merged['thumb'] = thumb_images
+
+    # Merge clearart
+    clearart_images = []
+    clearart_images.extend(fanart_art.get('clearart', []))
+    clearart_images.extend(tmdb_art.get('clearart', []))
+    clearart_images.extend(tvdb_art.get('clearart', []))
+    if clearart_images:
+        merged['clearart'] = clearart_images
+
+    # Merge clearlogo with language preference
+    # Each provider already returns language-filtered logos, so we combine them
+    clearlogo_images = []
+    clearlogo_images.extend(fanart_art.get('clearlogo', []))
+    clearlogo_images.extend(tmdb_art.get('clearlogo', []))
+    clearlogo_images.extend(tvdb_art.get('clearlogo', []))
+    if clearlogo_images:
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_logos = []
+        for logo in clearlogo_images:
+            if logo not in seen:
+                seen.add(logo)
+                unique_logos.append(logo)
+        merged['clearlogo'] = unique_logos
+
+    return merged

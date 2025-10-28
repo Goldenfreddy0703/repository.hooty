@@ -76,7 +76,8 @@ class SIMKLAPI:
         #         return []
 
         mapfunc = partial(self.parse_episode_view, mal_id=mal_id, season=season, poster=poster, fanart=fanart, clearart=clearart, clearlogo=clearlogo, eps_watched=eps_watched, update_time=update_time, tvshowtitle=tvshowtitle, dub_data=dub_data, filler_data=filler_data)
-        all_results = list(map(mapfunc, result_ep))
+        # Parallelize episode parsing for faster processing
+        all_results = utils.parallel_process(result_ep, mapfunc, max_workers=8)
 
         if control.getBool('override.meta.api') and control.getBool('override.meta.notify'):
             control.notify("SIMKL", f'{tvshowtitle} Added to Database', icon=poster)
@@ -89,12 +90,14 @@ class SIMKLAPI:
             result_ep = [x for x in result_meta if x['type'] == 'episode']
             season = episodes[0]['season']
             mapfunc2 = partial(self.parse_episode_view, mal_id=mal_id, season=season, poster=poster, fanart=fanart, clearart=clearart, clearlogo=clearlogo, eps_watched=eps_watched, update_time=update_time, tvshowtitle=tvshowtitle, dub_data=dub_data, filler_data=None, episodes=episodes)
-            all_results = list(map(mapfunc2, result_ep))
+            # Parallelize episode parsing
+            all_results = utils.parallel_process(result_ep, mapfunc2, max_workers=8)
             if control.getBool('override.meta.api') and control.getBool('override.meta.notify'):
                 control.notify("SIMKL Appended", f'{tvshowtitle} Appended to Database', icon=poster)
         else:
             mapfunc1 = partial(indexers.parse_episodes, eps_watched=eps_watched, dub_data=dub_data)
-            all_results = list(map(mapfunc1, episodes))
+            # Parallelize episode parsing
+            all_results = utils.parallel_process(episodes, mapfunc1, max_workers=8)
         return all_results
 
     def get_episodes(self, mal_id, show_meta):
@@ -169,7 +172,7 @@ class SIMKLAPI:
                 anime_id = r[0]['ids']['simkl']
                 return anime_id
 
-    def get_unique_ids_from_simkl(self, anime_id, send_id):
+    def get_mapping_ids_from_simkl(self, anime_id, send_id):
         # Query local database for all available IDs
         meta_ids = database.get_mappings(anime_id, send_id)
         if meta_ids:

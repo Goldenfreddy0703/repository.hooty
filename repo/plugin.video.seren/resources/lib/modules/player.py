@@ -1,3 +1,4 @@
+import contextlib
 import copy
 import importlib
 import json
@@ -356,20 +357,46 @@ class SerenPlayer(xbmc.Player):
             if not hasattr(provider_module, "get_listitem") and hasattr(provider_module, "sources"):
                 provider_module = provider_module.sources()
             item = provider_module.get_listitem(stream_link)
-            item.setInfo("video", info)
         else:
             item = xbmcgui.ListItem(path=stream_link)
             info["FileNameAndPath"] = parse.unquote(self.playing_file)
-            item.setInfo("video", info)
-            item.setProperty("IsPlayable", "true")
+
+        item.setProperty("IsPlayable", "true")
 
         art = self.item_information.get("art", {})
         item.setArt(art if isinstance(art, dict) else {})
-        cast = self.item_information.get("cast", [])
-        item.setCast(cast if isinstance(cast, list) else [])
-        item.setUniqueIDs(
-            {i.split("_")[0]: info[i] for i in info if i.endswith("id")},
-        )
+
+        kodi_major = getattr(g, "KODI_VERSION", 0) or 0
+        info_tag = None
+        use_video_info_tag = False
+        if kodi_major >= 20:
+            with contextlib.suppress(Exception):
+                info_tag = item.getVideoInfoTag()
+                use_video_info_tag = info_tag is not None
+
+        menu_item_data = self.item_information if isinstance(self.item_information, dict) else {}
+
+        if use_video_info_tag and info_tag:
+            g._apply_video_info_tag(info_tag, info, menu_item_data)
+        else:
+            item.setInfo("video", info)
+
+        primary_cast = menu_item_data.get("cast") if isinstance(menu_item_data, dict) else None
+        fallback_cast = info.get("castandrole")
+        g._apply_cast(item, info_tag if use_video_info_tag else None, primary_cast, fallback_cast)
+
+        unique_ids = g._extract_unique_ids(info, info.get("mediatype"))
+        g._apply_unique_ids(item, info_tag if use_video_info_tag else None, unique_ids)
+
+        if not use_video_info_tag:
+            resume_time = menu_item_data.get("resume_time") if isinstance(menu_item_data, dict) else None
+            if resume_time is not None:
+                item.setProperty("resumetime", str(resume_time))
+                duration_seconds = info.get("duration")
+                with contextlib.suppress(Exception, ZeroDivisionError):
+                    if duration_seconds:
+                        progress = int((float(resume_time) / float(duration_seconds)) * 100)
+                        item.setProperty("WatchedProgress", str(progress))
         return item
 
     def _add_support_for_external_trakt_scrobbling(self):
@@ -613,7 +640,8 @@ class SerenPlayer(xbmc.Player):
                 final_chapter = float(final_chapter.split(',')[-1])
                 if final_chapter >= 90:
                     return final_chapter
-        except: pass
+        except Exception:  # noqa: broad-except
+            pass
         return None
 
 

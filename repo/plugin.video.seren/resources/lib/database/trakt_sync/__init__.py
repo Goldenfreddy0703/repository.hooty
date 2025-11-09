@@ -1717,20 +1717,24 @@ class TraktSyncDatabase(Database):
                    needs_update
             FROM new
             WHERE TRUE
-            ON CONFLICT(trakt_show_id, season, number) DO UPDATE
-                SET (trakt_id, trakt_season_id,
+            ON CONFLICT(trakt_id) DO UPDATE
+                SET (trakt_id, trakt_show_id, trakt_season_id,
                         watched, collected,
                         air_date, last_updated,
+                        season, number,
                         tmdb_id, tvdb_id, imdb_id,
                         info, art, cast,
                         args, last_watched_at, collected_at,
                         user_rating, meta_hash,
                         needs_update) = (SELECT new.trakt_id,
+                                                coalesce(new.trakt_show_id, old.trakt_show_id),
                                                 coalesce(new.trakt_season_id, old.trakt_season_id),
                                                 coalesce(new.watched, old.watched),
                                                 coalesce(new.collected, old.collected),
                                                 coalesce(new.air_date, old.air_date),
                                                 coalesce(new.last_updated, old.last_updated),
+                                                coalesce(new.season, old.season),
+                                                coalesce(new.number, old.number),
                                                 coalesce(new.tmdb_id, old.tmdb_id),
                                                 coalesce(new.tvdb_id, old.tvdb_id),
                                                 coalesce(new.imdb_id, old.imdb_id),
@@ -1759,7 +1763,5 @@ class TraktSyncDatabase(Database):
                                                     END AS needs_update
                                          FROM new
                                                   LEFT JOIN episodes AS old
-                                                            ON old.trakt_show_id = new.trakt_show_id
-                                                                AND old.season = new.season
-                                                                AND old.number = new.number)
+                                                            ON old.trakt_id = new.trakt_id)
             """

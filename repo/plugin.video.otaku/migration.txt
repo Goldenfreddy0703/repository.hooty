@@ -45,7 +45,7 @@ Support & Feedback
 
 If you run into any issues or have feedback, we’d love to hear from you! Reach out through our community channels for assistance.
 
-Wiki: https://github.com/Goldenfreddy0703/Otaku-Testing/wiki
+Wiki: https://github.com/Goldenfreddy0703/Otaku/wiki
 
 We hope you enjoy the new Otaku! A huge thanks to our development team and contributors who made this possible.
 

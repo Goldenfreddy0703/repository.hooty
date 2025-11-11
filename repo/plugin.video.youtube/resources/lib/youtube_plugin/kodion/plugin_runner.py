@@ -128,7 +128,7 @@ def run(context=_context,
             log_params[key] = '<redacted>'
 
     system_version = context.get_system_version()
-    log.info(('Running v{version}',
+    log.info(('Running v{version} (unofficial)',
               'Kodi:   v{kodi}',
               'Python: v{python}',
               'Handle: {handle}',

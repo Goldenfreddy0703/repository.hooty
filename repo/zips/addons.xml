@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="1.0.30" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="1.0.31" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>

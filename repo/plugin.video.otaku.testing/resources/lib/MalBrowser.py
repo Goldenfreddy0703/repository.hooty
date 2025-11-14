@@ -1496,7 +1496,7 @@ class MalBrowser(BrowserBase):
         genres_list = []
         for x in genre:
             genres_list.append(x['name'])
-        multiselect = control.multiselect_dialog(control.lang(30940), genres_list, preselect=[])
+        multiselect = control.multiselect_dialog(control.lang(30040), genres_list, preselect=[])
         if not multiselect:
             return []
         genre_display_list = []
@@ -1603,16 +1603,21 @@ class MalBrowser(BrowserBase):
             "image": image,
             "poster": image,
             'fanart': kodi_meta['fanart'] if kodi_meta.get('fanart') else image,
-            "banner": image,
             "info": info
         }
 
+        # Pull all artwork from kodi_meta (already respects settings and is pre-selected)
+        # Fallback to poster image for banner if not in kodi_meta
+        base['banner'] = kodi_meta.get('banner', image)
         if kodi_meta.get('thumb'):
-            base['landscape'] = random.choice(kodi_meta['thumb'])
+            thumb = kodi_meta['thumb']
+            base['landscape'] = random.choice(thumb) if isinstance(thumb, list) else thumb
         if kodi_meta.get('clearart'):
-            base['clearart'] = random.choice(kodi_meta['clearart'])
+            clearart = kodi_meta['clearart']
+            base['clearart'] = random.choice(clearart) if isinstance(clearart, list) else clearart
         if kodi_meta.get('clearlogo'):
-            base['clearlogo'] = random.choice(kodi_meta['clearlogo'])
+            clearlogo = kodi_meta['clearlogo']
+            base['clearlogo'] = random.choice(clearlogo) if isinstance(clearlogo, list) else clearlogo
 
         if res['episodes'] == 1:
             base['url'] = f'play_movie/{mal_id}/'
@@ -1674,7 +1679,7 @@ class MalBrowser(BrowserBase):
         genre = res['data']
         genres_list = [x['name'] for x in genre]
 
-        multiselect = control.multiselect_dialog(control.lang(30940), genres_list, preselect=[])
+        multiselect = control.multiselect_dialog(control.lang(30040), genres_list, preselect=[])
         if not multiselect:
             return []
 

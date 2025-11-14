@@ -2141,16 +2141,21 @@ class AniListBrowser(BrowserBase):
             "image": image,
             "poster": image,
             'fanart': kodi_meta['fanart'] if kodi_meta.get('fanart') else image,
-            "banner": res.get('bannerImage'),
             "info": info
         }
 
+        # Pull all artwork from kodi_meta (already respects settings and is pre-selected)
+        if kodi_meta.get('banner'):
+            base['banner'] = kodi_meta['banner']
         if kodi_meta.get('thumb'):
-            base['landscape'] = random.choice(kodi_meta['thumb'])
+            thumb = kodi_meta['thumb']
+            base['landscape'] = random.choice(thumb) if isinstance(thumb, list) else thumb
         if kodi_meta.get('clearart'):
-            base['clearart'] = random.choice(kodi_meta['clearart'])
+            clearart = kodi_meta['clearart']
+            base['clearart'] = random.choice(clearart) if isinstance(clearart, list) else clearart
         if kodi_meta.get('clearlogo'):
-            base['clearlogo'] = random.choice(kodi_meta['clearlogo'])
+            clearlogo = kodi_meta['clearlogo']
+            base['clearlogo'] = random.choice(clearlogo) if isinstance(clearlogo, list) else clearlogo
         if res['episodes'] == 1:
             base['url'] = f'play_movie/{mal_id}/'
             base['info']['mediatype'] = 'movie'
@@ -2264,7 +2269,7 @@ class AniListBrowser(BrowserBase):
             tags_list = [x['name'] for x in results['data']['tags'] if not x['isAdult']]
         except KeyError:
             tags_list = []
-        multiselect = control.multiselect_dialog(control.lang(30940), genres_list + tags_list, preselect=[])
+        multiselect = control.multiselect_dialog(control.lang(30040), genres_list + tags_list, preselect=[])
         if not multiselect:
             return []
         genre_display_list = []
@@ -2466,7 +2471,7 @@ class AniListBrowser(BrowserBase):
         except KeyError:
             tags_list = []
 
-        multiselect = control.multiselect_dialog(control.lang(30940), genres_list + tags_list, preselect=[])
+        multiselect = control.multiselect_dialog(control.lang(30040), genres_list + tags_list, preselect=[])
         if not multiselect:
             return [], []
 

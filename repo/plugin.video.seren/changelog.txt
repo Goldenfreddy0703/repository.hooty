@@ -1,3 +1,6 @@
+Changelog 3.0.67
+[BUG] Reverted Changes from last release due to more bugs that were created.
+
 Changelog 3.0.66
 [BUG] Resolved Kodi Omega deprecation warnings by migrating cast metadata to InfoTagVideo APIs
 [BUG] Fixed cast normalization to build xbmc.Actor objects and stop setCast runtime exceptions

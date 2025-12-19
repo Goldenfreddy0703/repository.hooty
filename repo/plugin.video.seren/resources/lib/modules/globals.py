@@ -1092,20 +1092,17 @@ class GlobalVariables:
         :type if_playing: bool
         """
         player = xbmc.Player()
-        refresh_flag_set = False
+        if (
+            self.get_bool_runtime_setting("widget_refreshing")
+            or (player.isPlaying() and not if_playing)
+            or xbmc.getCondVisibility(  # Don't wait if we are playing as it will refresh after
+                "Library.IsScanningVideo"
+            )  # Don't do library update if already scanning library
+        ):
+            del player
+            return
         try:
-            if (
-                self.get_bool_runtime_setting("widget_refreshing")
-                or (player.isPlaying() and not if_playing)
-                or xbmc.getCondVisibility(  # Don't wait if we are playing as it will refresh after
-                    "Library.IsScanningVideo"
-                )  # Don't do library update if already scanning library
-            ):
-                return
-
             g.set_runtime_setting("widget_refreshing", True)
-            refresh_flag_set = True
-
             while not self.abort_requested():
                 if xbmcgui.getCurrentWindowId() == 10000:
                     if not (
@@ -1117,15 +1114,16 @@ class GlobalVariables:
                         self.log("TRIGGERING WIDGET REFRESH")
                         xbmc.executebuiltin('UpdateLibrary(video,widget_refresh,true)')
                     else:
-                        self.log(
-                            "Aborting widget refresh as container on home screen already refreshing",
-                            "debug",
-                        )
+                        self.log("Aborting widget refresh as container on home screen already refreshing", "debug")
+                    break
+                elif (
+                    self.wait_for_abort(0.3) or player.isPlaying() or xbmc.getCondVisibility("Library.IsScanningVideo")
+                ):
+                    self.log("Aborting queued widget refresh as another process will trigger it", "debug")
                     break
         finally:
-            if refresh_flag_set:
-                g.set_runtime_setting("widget_refreshing", False)
             del player
+            g.clear_runtime_setting("widget_refreshing")
 
     def get_language_code(self, country=None):
         lang = self.json_rpc("Application.getProperties", {"properties": ["language"]}).get("language")
@@ -1148,251 +1146,6 @@ class GlobalVariables:
     def common_video_extensions(self):
         return tuple({ext for ext in xbmc.getSupportedMedia("video").split("|") if ext not in {"", ".zip", ".rar", ".url"}})
 
-    @staticmethod
-    def _coerce_unique_id_value(value):
-        if value in (None, "", [], {}, ()):  # fast empty checks
-            return None
-        if isinstance(value, bool):  # treat bools as invalid IDs
-            return None
-        if isinstance(value, (list, tuple, set, dict)):
-            return None
-        try:
-            if isinstance(value, float) and value.is_integer():
-                value = int(value)
-            return str(value).strip() or None
-        except (TypeError, ValueError):
-            return None
-
-    def _collect_cast(self, *cast_sources):
-        formatted_cast = []
-        seen = set()
-
-        for source in cast_sources:
-            if not source:
-                continue
-
-            if isinstance(source, dict):
-                candidate = None
-                for key in ("cast", "actors"):
-                    value = source.get(key)
-                    if isinstance(value, (list, tuple, set)):
-                        candidate = value
-                        break
-                if candidate is None:
-                    continue
-                entries = candidate
-            elif isinstance(source, (list, tuple, set)):
-                entries = source
-            elif isinstance(source, str):
-                entries = [source]
-            else:
-                continue
-
-            for entry in entries:
-                actor = None
-                if isinstance(entry, dict):
-                    name = entry.get("name") or entry.get("actor") or entry.get("title")
-                    if not name:
-                        continue
-                    actor = {"name": str(name)}
-                    role = entry.get("role") or entry.get("character") or entry.get("job")
-                    if role:
-                        actor["role"] = str(role)
-                    thumbnail = entry.get("thumbnail") or entry.get("thumb") or entry.get("image") or entry.get("profile_path")
-                    if thumbnail:
-                        actor["thumbnail"] = thumbnail
-                    order = entry.get("order") if entry.get("order") is not None else entry.get("cast_id")
-                    if order is not None:
-                        try:
-                            actor["order"] = int(order)
-                        except (TypeError, ValueError):
-                            pass
-                elif isinstance(entry, (list, tuple)):
-                    if not entry:
-                        continue
-                    name = entry[0]
-                    if not name:
-                        continue
-                    actor = {"name": str(name)}
-                    if len(entry) > 1 and entry[1]:
-                        actor["role"] = str(entry[1])
-                elif hasattr(entry, "getName") and callable(entry.getName):
-                    name = entry.getName()
-                    if not name:
-                        continue
-                    actor = {"name": str(name)}
-                    with contextlib.suppress(Exception):
-                        role = entry.getRole()
-                        if role:
-                            actor["role"] = str(role)
-                    with contextlib.suppress(Exception):
-                        thumbnail = entry.getThumbnail()
-                        if thumbnail:
-                            actor["thumbnail"] = thumbnail
-                    with contextlib.suppress(Exception):
-                        order = entry.getOrder() if hasattr(entry, "getOrder") else None
-                        if order is not None:
-                            actor["order"] = int(order)
-                elif isinstance(entry, str):
-                    if not entry.strip():
-                        continue
-                    actor = {"name": entry.strip()}
-
-                if not actor:
-                    continue
-
-                identity = (actor["name"], actor.get("role"))
-                if identity in seen:
-                    continue
-                seen.add(identity)
-                formatted_cast.append(actor)
-
-            if formatted_cast:
-                break
-
-        if not formatted_cast:
-            return []
-
-        formatted_cast.sort(key=lambda cast_item: cast_item.get("order", 2147483647))
-        return formatted_cast
-
-    @staticmethod
-    def _to_actor_api_objects(cast_list):
-        try:
-            from xbmc import Actor
-        except ImportError:  # pragma: no cover - older runtimes without Actor support
-            return []
-
-        actor_objects = []
-        for entry in cast_list:
-            if not isinstance(entry, dict):
-                continue
-
-            name = entry.get("name")
-            if not name:
-                continue
-
-            role = entry.get("role")
-            thumbnail = entry.get("thumbnail")
-            order = entry.get("order")
-
-            actor_obj = None
-            kwargs = {"name": name}
-            if role not in (None, ""):
-                kwargs["role"] = role
-            if thumbnail not in (None, ""):
-                kwargs["thumbnail"] = thumbnail
-            if order is not None:
-                try:
-                    kwargs["order"] = int(order)
-                except (TypeError, ValueError):
-                    pass
-
-            with contextlib.suppress(TypeError, ValueError):
-                actor_obj = Actor(**kwargs)
-
-            if actor_obj is None:
-                call_args = [name]
-                if role not in (None, ""):
-                    call_args.append(role)
-                if thumbnail not in (None, ""):
-                    call_args.append(thumbnail)
-                if order is not None:
-                    call_args.append(int(order))
-                with contextlib.suppress(TypeError, ValueError):
-                    actor_obj = Actor(*call_args)
-
-            if actor_obj is not None:
-                actor_objects.append(actor_obj)
-
-        return actor_objects
-
-    def _apply_cast(self, item, info_tag, primary_cast=None, fallback_cast=None):
-        cast_list = self._collect_cast(primary_cast, fallback_cast)
-        if not cast_list:
-            return
-
-        api_cast = self._to_actor_api_objects(cast_list) if info_tag and hasattr(info_tag, "setCast") else []
-
-        if api_cast:
-            with contextlib.suppress(Exception):
-                info_tag.setCast(api_cast)
-
-        needs_listitem_fallback = not api_cast and hasattr(item, "setCast")
-        if needs_listitem_fallback or (info_tag is None and hasattr(item, "setCast")):
-            cleaned_cast = []
-            for actor in cast_list:
-                if not isinstance(actor, dict):
-                    continue
-                clean_entry = {"name": actor.get("name", "")}
-                if actor.get("role"):
-                    clean_entry["role"] = actor["role"]
-                if actor.get("thumbnail"):
-                    clean_entry["thumbnail"] = actor["thumbnail"]
-                if actor.get("order") is not None:
-                    clean_entry["order"] = actor["order"]
-                cleaned_cast.append(clean_entry)
-
-            if cleaned_cast:
-                with contextlib.suppress(Exception):
-                    item.setCast(cleaned_cast)
-
-    def _extract_unique_ids(self, info, media_type=None):
-        if not isinstance(info, dict):
-            return {}
-
-        id_map = {
-            "tmdb": [
-                "tmdb_id",
-                "tmdbid",
-                "tmdb",
-                "movie.tmdb_id",
-                "tvshow.tmdb_id",
-                "tmdb_show_id",
-                "tmdb_season_id",
-                "tmdb_episode_id",
-            ],
-            "imdb": ["imdb_id", "imdbnumber", "imdb"],
-            "tvdb": ["tvdb_id", "tvdbid", "tvdb", "tvshow.tvdb_id", "tvdb_show_id"],
-            "trakt": ["trakt_id", "traktid", "trakt", "trakt_show_id", "trakt_episode_id", "trakt_season_id"],
-            "slug": ["slug", "trakt_slug"],
-            "tvmaze": ["tvmaze_id", "tvmaze"],
-            "anidb": ["anidb_id", "anidb"],
-        }
-
-        unique_ids = {}
-        for target_key, candidate_keys in id_map.items():
-            for candidate in candidate_keys:
-                value = info.get(candidate)
-                coerced = self._coerce_unique_id_value(value)
-                if coerced is None:
-                    continue
-                unique_ids[target_key] = coerced
-                break
-
-        return unique_ids
-
-    def _apply_unique_ids(self, item, info_tag, unique_ids):
-        if not unique_ids or not isinstance(unique_ids, dict):
-            return
-
-        normalized = {}
-        for key, value in unique_ids.items():
-            coerced = self._coerce_unique_id_value(value)
-            if coerced is None:
-                continue
-            normalized[key] = coerced
-
-        if not normalized:
-            return
-
-        if info_tag and hasattr(info_tag, "setUniqueIDs"):
-            with contextlib.suppress(Exception):
-                info_tag.setUniqueIDs(normalized)
-        elif hasattr(item, "setUniqueIDs"):
-            with contextlib.suppress(Exception):
-                item.setUniqueIDs(normalized)
-
     def add_directory_item(self, name, **params):
         menu_item = params.pop("menu_item", {})
         if not isinstance(menu_item, dict):
@@ -1401,17 +1154,8 @@ class GlobalVariables:
         item = xbmcgui.ListItem(label=name, offscreen=True)
         item.setContentLookup(False)
 
-        kodi_major = getattr(self, "KODI_VERSION", 0) or 0
-        info_tag = None
-        use_video_info_tag = False
-        if kodi_major >= 20:
-            with contextlib.suppress(Exception):
-                info_tag = item.getVideoInfoTag()
-                use_video_info_tag = info_tag is not None
-
         info = menu_item.pop("info", {})
-        if not use_video_info_tag:
-            item.addStreamInfo("video", {})
+        item.addStreamInfo("video", {})
 
         if info is None or not isinstance(info, dict):
             info = {}
@@ -1452,15 +1196,8 @@ class GlobalVariables:
             and int(menu_item.get("resume_time", 0)) > 0
         ):
             params["resume"] = str(menu_item["resume_time"])
-            if not use_video_info_tag:
-                item.setProperty("resumetime", str(menu_item["resume_time"]))
-            duration_seconds = info.get("duration")
-            try:
-                progress = int((float(menu_item["resume_time"]) / float(duration_seconds)) * 100) if duration_seconds else None
-            except (TypeError, ValueError, ZeroDivisionError):
-                progress = None
-            if progress is not None:
-                item.setProperty("WatchedProgress", str(progress))
+            item.setProperty("resumetime", str(menu_item["resume_time"]))
+            item.setProperty("WatchedProgress", str(int((float(menu_item["resume_time"]) / info["duration"]) * 100)))
         if "play_count" in menu_item and menu_item.get("play_count") is not None:
             info["playcount"] = menu_item["play_count"]
         if "air_date" in menu_item and menu_item.get("air_date") is not None:
@@ -1469,11 +1206,7 @@ class GlobalVariables:
         if "description" in params:
             info["plot"] = info["overview"] = info["description"] = params.pop("description", None)
         if menu_item.get("user_rating"):
-            user_rating_value = menu_item["user_rating"]
-            item.setProperty("userrating", str(user_rating_value))
-            if use_video_info_tag and info_tag and hasattr(info_tag, "setUserRating"):
-                with contextlib.suppress(Exception):
-                    info_tag.setUserRating(int(float(user_rating_value)))
+            item.setProperty("userrating", str(menu_item["user_rating"]))
 
         special_sort = params.pop("special_sort", None)
         if special_sort is not None:
@@ -1489,9 +1222,10 @@ class GlobalVariables:
             item.setProperty("IsPlayable", "false")
             is_folder = params.pop("is_folder", True)
 
-        primary_cast = menu_item.get("cast")
-        fallback_cast = None if primary_cast else info.get("castandrole")
-        self._apply_cast(item, info_tag if use_video_info_tag else None, primary_cast, fallback_cast)
+        cast = menu_item.get("cast", [])
+        if cast is None or not isinstance(cast, (set, list)):
+            cast = []
+        item.setCast(cast)
 
         for key, value in info.items():
             if key.endswith("_id"):
@@ -1499,31 +1233,22 @@ class GlobalVariables:
 
         # TODO: Fix setting of IDs on seasons and episodes
         media_type = info.get("mediatype", None)
-        unique_ids = self._extract_unique_ids(info, media_type)
-        self._apply_unique_ids(item, info_tag if use_video_info_tag else None, unique_ids)
+        id_keys = {
+            "tmdb_id": "tmdb",
+            "imdb_id": "imdb",
+            "tvdb_id": "tvdb",
+        }
+        item.setUniqueIDs(
+            {
+                unique_id_key: info[f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key]
+                for id_key, unique_id_key in id_keys.items()
+                if info.get(f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key)
+            }
+        )
 
-        for key, value in list(info.items()):
-            if not key.startswith("rating."):
-                continue
-            if not isinstance(value, dict):
-                continue
-            rating_type = key.split(".", 1)[1]
-            try:
-                rating_value = float(value.get("rating", 0.0))
-            except (TypeError, ValueError):
-                continue
-            try:
-                votes_value = int(float(value.get("votes", 0)))
-            except (TypeError, ValueError):
-                votes_value = 0
-            if use_video_info_tag and info_tag and hasattr(info_tag, "setRating"):
-                with contextlib.suppress(Exception):
-                    try:
-                        info_tag.setRating(rating_value, votes_value, rating_type, False)
-                    except TypeError:
-                        info_tag.setRating(rating_value, votes_value, rating_type)
-            else:
-                item.setRating(rating_type, rating_value, votes_value, False)
+        for i in info:
+            if i.startswith("rating."):
+                item.setRating(i.split(".")[1], float(info[i].get("rating", 0.0)), int(info[i].get("votes", 0)), False)
 
         cm = params.pop("cm", [])
         if cm is None or not isinstance(cm, (set, list)):
@@ -1551,10 +1276,7 @@ class GlobalVariables:
         # Convert dates to localtime for display
         self.convert_info_dates(info)
 
-        if use_video_info_tag and info_tag:
-            self._apply_video_info_tag(info_tag, info, menu_item)
-        else:
-            item.setInfo("video", info)
+        item.setInfo("video", info)
 
         bulk_add = params.pop("bulk_add", False)
         url = self.create_url(self.BASE_URL, params)
@@ -1695,140 +1417,6 @@ class GlobalVariables:
 
             if value:
                 item.setProperty(prop[1], str(value))
-
-    @staticmethod
-    def _apply_video_info_tag(info_tag, info, menu_item=None):
-        if not info_tag or not isinstance(info, dict):
-            return
-
-        menu_item = menu_item if isinstance(menu_item, dict) else {}
-
-        def call(method_names, value, transform=None):
-            if value is None:
-                return
-            if transform:
-                value = transform(value)
-            if value in (None, "", [], {}, ()):  # empty guard
-                return
-            names = method_names if isinstance(method_names, (list, tuple)) else (method_names,)
-            for method_name in names:
-                method = getattr(info_tag, method_name, None)
-                if callable(method):
-                    with contextlib.suppress(Exception):
-                        method(value)
-                    return
-
-        def to_list(value):
-            if value is None:
-                return None
-            if isinstance(value, (list, tuple, set)):
-                result = [i for i in value if i not in (None, "")]
-                return result or None
-            if isinstance(value, str):
-                parts = [part.strip() for part in re.split(r"[\\|/,]", value) if part.strip()]
-                return parts or None
-            return [value]
-
-        def to_int(value):
-            try:
-                if isinstance(value, bool):
-                    return int(value)
-                return int(float(value))
-            except (TypeError, ValueError):
-                return None
-
-        def to_float(value):
-            try:
-                return float(value)
-            except (TypeError, ValueError):
-                return None
-
-        # Numeric metadata
-        call("setDuration", info.get("duration"), to_int)
-        call("setYear", info.get("year"), to_int)
-        call("setEpisode", info.get("episode"), to_int)
-        call("setSeason", info.get("season"), to_int)
-        call("setSortEpisode", info.get("sortepisode"), to_int)
-        call("setSortSeason", info.get("sortseason"), to_int)
-        call("setTop250", info.get("top250"), to_int)
-        call("setTrackNumber", info.get("tracknumber"), to_int)
-        call("setDBID", info.get("dbid"), to_int)
-
-        playcount = info.get("playcount")
-        if playcount is None and info.get("watched"):
-            playcount = 1
-        call("setPlaycount", playcount, to_int)
-
-        call("setVotes", info.get("votes"), to_int)
-        call("setUserRating", info.get("userrating"), to_int)
-        if menu_item.get("user_rating") is not None:
-            call("setUserRating", menu_item.get("user_rating"), to_int)
-
-        # String metadata
-        call("setTitle", info.get("title"))
-        call("setOriginalTitle", info.get("originaltitle"))
-        call("setSortTitle", info.get("sorttitle"))
-        call("setPlot", info.get("plot"))
-        call("setPlotOutline", info.get("plotoutline"))
-        call("setTagline", info.get("tagline"))
-        call(["setTvShowTitle", "setShowTitle"], info.get("tvshowtitle"))
-        call("setPremiered", info.get("premiered"))
-        call(["setFirstAired", "setAired"], info.get("aired"))
-        call("setLastPlayed", info.get("lastplayed"))
-        call("setDateAdded", info.get("dateadded"))
-        call("setMPAA", info.get("mpaa"))
-        call("setStatus", info.get("status"))
-        call("setTrailer", info.get("trailer"))
-        call("setPath", info.get("path"))
-        call(["setFilenameAndPath", "setFileNameAndPath"], info.get("FileNameAndPath"))
-        call("setEpisodeGuide", info.get("episodeguide"))
-        call("setIMDBNumber", info.get("imdbnumber"))
-        call("setCode", info.get("code"))
-        call("setAlbum", info.get("album"))
-        call("setMediaType", info.get("mediatype"))
-        call("setSet", info.get("set"))
-        call("setSetOverview", info.get("setoverview"))
-
-        # List-like metadata
-        call(["setGenres", "setGenre"], info.get("genre"), to_list)
-        call(["setCountries", "setCountry"], info.get("country"), to_list)
-        call(["setStudios", "setStudio"], info.get("studio"), to_list)
-        call(["setTags", "setTag"], info.get("tag"), to_list)
-        call(["setWriters", "setWriter"], info.get("writer") or info.get("credits"), to_list)
-        call(["setDirectors", "setDirector"], info.get("director"), to_list)
-        call(["setArtists", "setArtist"], info.get("artist"), to_list)
-
-        if hasattr(info_tag, "setCast") and (not menu_item.get("cast")):
-            cast_and_role = info.get("castandrole")
-            formatted_cast = []
-            if isinstance(cast_and_role, list):
-                for entry in cast_and_role:
-                    if isinstance(entry, dict):
-                        formatted_cast.append(entry)
-                    elif isinstance(entry, (list, tuple)) and entry:
-                        name = entry[0]
-                        role = entry[1] if len(entry) > 1 else ""
-                        formatted_cast.append({"name": name, "role": role})
-            if formatted_cast:
-                with contextlib.suppress(Exception):
-                    info_tag.setCast(formatted_cast)
-
-        # Ratings - default rating handled here; per-source ratings handled elsewhere
-        default_rating = to_float(info.get("rating"))
-        if default_rating is not None and hasattr(info_tag, "setRating"):
-            votes_value = to_int(info.get("votes")) or 0
-            with contextlib.suppress(Exception):
-                try:
-                    info_tag.setRating(default_rating, votes_value, "default", True)
-                except TypeError:
-                    info_tag.setRating(default_rating, votes_value, "default")
-
-        # Resume point
-        resume_time = to_float(menu_item.get("resume_time")) if menu_item else None
-        duration_seconds = to_float(info.get("duration"))
-        if resume_time and duration_seconds and hasattr(info_tag, "setResumePoint"):
-            with contextlib.suppress(Exception):
-                info_tag.setResumePoint(resume_time, duration_seconds)
 
     @cached_property
     def fanart_fallback_disabled(self):

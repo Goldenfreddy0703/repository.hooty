@@ -740,7 +740,7 @@ Changelog 0.0.1:
             <clearlogo>resources/media/clearlogo.png</clearlogo>
         </assets>
     </extension>
-</addon><addon id="plugin.program.iagl" name="Internet Archive Game Launcher" version="4.0.5~beta">
+</addon><addon id="plugin.program.iagl" name="Internet Archive Game Launcher" version="4.0.5">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.infotagger" />
@@ -1888,7 +1888,7 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="6.12.8" name="TMDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="6.12.10" name="TMDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
@@ -2490,7 +2490,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.wikipedia" version="0.0.8" name="Wikipedia" provider-name="jurialmunkey">
+</addon><addon id="script.wikipedia" version="0.0.9" name="Wikipedia" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.beautifulsoup4" version="4.9.3" />

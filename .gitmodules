@@ -33,9 +33,6 @@
 [submodule "repo/context.kaito"]
 	path = repo/context.kaito
 	url = https://github.com/Goldenfreddy0703/context.kaito.git
-[submodule "repo/plugin.program.iagl"]
-	path = repo/plugin.program.iagl
-	url = https://github.com/zach-morris/plugin.program.iagl.git
 [submodule "repo/plugin.program.retrobiostool"]
 	path = repo/plugin.program.retrobiostool
 	url = https://github.com/zach-morris/plugin.program.retrobiostool.git

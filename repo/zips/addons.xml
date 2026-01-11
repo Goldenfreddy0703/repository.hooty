@@ -1850,13 +1850,13 @@ Initial release
             Debrid account status now visible from Seren settings
         </news>
     </extension>
-</addon><addon id="plugin.video.themoviedb.helper" version="6.12.10" name="TMDb Helper" provider-name="jurialmunkey">
+</addon><addon id="plugin.video.themoviedb.helper" version="6.14.2" name="TMDb Helper" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
   <import addon="script.module.requests" version="2.9.1" />
   <import addon="script.module.pil" version="1.1.7" />
   <import addon="script.module.addon.signals" version="0.0.6" />
-  <import addon="script.module.jurialmunkey" version="0.2.29" />
+  <import addon="script.module.jurialmunkey" version="0.2.31" />
   <import addon="script.module.infotagger" version="0.0.5" />
   <import addon="script.module.qrcode" version="6.1.0" />
 </requires>
@@ -2341,7 +2341,7 @@ Initial release
     </assets>
   </extension>
 
-</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.2.29">
+</addon><addon id="script.module.jurialmunkey" name="jurialmunkey common" provider-name="jurialmunkey" version="0.2.31">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.requests" version="2.9.1" />
@@ -2350,6 +2350,7 @@ Initial release
   <extension point="xbmc.python.module" library="resources/modules" />
   <extension point="xbmc.addon.metadata">
     <description lang="en_GB">Common code required by TMDbHelper and other related jurialmunkey add-ons</description>
+    <description lang="zh_CN">TMDb 助手及其他相关 jurialmunkey 插件所需的通用代码</description>
     <license>GPL-3.0-or-later</license>
     <website>https://github.com/jurialmunkey/script.module.jurialmunkey</website>
     <assets>
@@ -2409,7 +2410,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
             <fanart>resources/images/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.skinvariables" version="2.1.34" name="Skin Variables" provider-name="jurialmunkey">
+</addon><addon id="script.skinvariables" version="2.1.35" name="Skin Variables" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
   <import addon="script.module.jurialmunkey" version="0.2.28" />
@@ -2421,11 +2422,17 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
 </extension>
 <extension point="xbmc.addon.metadata">
   <summary lang="en_GB">Skin Variables helps skinners to construct variables and expressions for multiple containers and listitems using a template</summary>
+  <summary lang="zh_CN">Skin Variables 帮助皮肤设计者使用模板为多个容器和列表项构建变量及表达式</summary>
   <summary lang="fr_FR">Skin Variables aide les skinners à créer des variables et des expressions pour plusieurs conteneurs et listes à l'aide d'un modèle</summary>
+  <summary lang="sv_SE">Skin Variables hjälper de som bygger skal att skapa variabler och uttryck för flera behållare och listobjekt med hjälp av en mall</summary>
   <description lang="en_GB">Skin Variables helps skinners to construct variables and expressions for multiple containers and listitems using a template</description>
+  <description lang="zh_CN">Skin Variables 帮助皮肤设计者使用模板为多个容器和列表项构建变量及表达式</description>
   <description lang="fr_FR">Skin Variables aide les skinners à créer des variables et des expressions pour plusieurs conteneurs et listes à l'aide d'un modèle</description>
+  <description lang="sv_SE">Skin Variables hjälper de som bygger skal att skapa variabler och uttryck för flera behållare och listobjekt med hjälp av en mall</description>
   <disclaimer lang="en_GB">For skinners</disclaimer>
+  <disclaimer lang="zh_CN">适用于皮肤设计者</disclaimer>
   <disclaimer lang="fr_FR">Pour les skinners</disclaimer>
+  <disclaimer lang="sv_SE">För de som bygger skal</disclaimer>
   <license>GPL-3.0-or-later</license>
   <assets>
     <icon>icon.png</icon>
@@ -2468,7 +2475,7 @@ Benutzer melden diverse Segmente die dann automatisch übersprungen werden.
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.21.4" provider-name="Unknown">
+</addon><addon id="service.subtitles.a4ksubtitles" name="a4kSubtitles" version="3.22.0" provider-name="Unknown">
     <requires>
       <import addon="script.module.requests" />
       <import addon="vfs.libarchive" optional="true" />
@@ -2493,8 +2500,12 @@ Supports: OpenSubtitles, BSPlayer, Podnadpisi.NET, SubDL, Addic7ed
             <screenshot>screenshot-03.png</screenshot>
         </assets>
     <news>
+[v3.22.0]:
+  * Fix Podnadpisi service returning incorrect language codes.
+
 [v3.21.5]:
   * SubSource: Fix language handling so all regional variants are detected instead of only one.
+
 [v3.21.4]:
   * SubSource: Fix foreign language handling in the new API.
   * Metainfo: Fix IMDb release year to correctly pull the first release date for TV shows.

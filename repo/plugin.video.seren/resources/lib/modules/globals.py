@@ -1197,7 +1197,27 @@ class GlobalVariables:
         ):
             params["resume"] = str(menu_item["resume_time"])
             item.setProperty("resumetime", str(menu_item["resume_time"]))
-            item.setProperty("WatchedProgress", str(int((float(menu_item["resume_time"]) / info["duration"]) * 100)))
+            # Some episode meta doesn't include duration, so don't explode the whole menu over it.
+        duration = info.get("duration")
+
+        # Fallback: some metadata sources use "runtime" (often in minutes)
+        if not duration:
+            runtime = info.get("runtime")
+            try:
+                duration = int(float(runtime)) * 60 if runtime else None
+            except Exception:
+                duration = None
+
+        try:
+            if duration and float(duration) > 0:
+                progress = int((float(menu_item["resume_time"]) / float(duration)) * 100)
+                # clamp just in case resume_time is weird
+                progress = max(0, min(100, progress))
+                item.setProperty("WatchedProgress", str(progress))
+        except Exception:
+            # If anything is off, just skip WatchedProgress
+            pass
+
         if "play_count" in menu_item and menu_item.get("play_count") is not None:
             info["playcount"] = menu_item["play_count"]
         if "air_date" in menu_item and menu_item.get("air_date") is not None:

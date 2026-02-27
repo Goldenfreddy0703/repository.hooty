@@ -375,7 +375,7 @@ class Menus:
         hidden_shows = self.hidden_database.get_hidden_items("calendar", "shows")
         date_string = datetime.datetime.now() - datetime.timedelta(days=13)
         trakt_list = self.trakt_api.get_json(
-            f"calendars/my/shows/{date_string.strftime('%d-%m-%Y')}/14", extended="full", pull_all=True
+            f"calendars/my/shows/{date_string.strftime('%Y-%m-%d')}/14", extended="full", pull_all=True
         )
         trakt_list = sorted(
             [i for i in trakt_list if i["trakt_show_id"] not in hidden_shows],

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.seren" version="3.0.67" name="Seren" provider-name="Nixgates">
+<addon id="plugin.video.seren" version="4.0.0" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.0" />
-        <import addon="script.module.beautifulsoup4" version="4.9.3"/>
-        <import addon="context.seren" version="2.2.0"/>
-        <import addon="script.module.inputstreamhelper" version="0.5.10" optional="true"/>
-        <import addon="script.module.unidecode" version="1.1.1"/>
-        <import addon="script.module.myconnpy" version="8.0.18"/>
-        <import addon="script.module.web-pdb" version="1.5.6"/>
+        <import addon="script.module.beautifulsoup4" version="4.9.3" />
+        <import addon="context.seren" version="2.2.0" />
+        <import addon="script.module.inputstreamhelper" version="0.5.10" optional="true" />
+        <import addon="script.module.unidecode" version="1.1.1" />
+        <import addon="script.module.myconnpy" version="8.0.18" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="seren.py">
         <provides>video</provides>
@@ -18,9 +17,7 @@
     <extension point="xbmc.addon.metadata">
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <summary lang="en">Seren - Modular Multi-source Addon</summary>
-        <description lang="en">Seren is a modular provider based, cloud service streaming software that is tightly
-            interwoven with Trakt. Seren provides the freedom to view media from a single menu system from service
-            providers of the users choosing. Please Note: This addon requires the use of a compatible cloud service.
+        <description lang="en">Seren is a modular provider based, cloud service streaming software that is tightly interwoven with Trakt. Seren provides the freedom to view media from a single menu system from service providers of the users choosing. Please Note: This addon requires the use of a compatible cloud service.
         </description>
         <platform>all</platform>
         <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
@@ -66,6 +63,20 @@
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
         <news>
+            Changelog 4.0.0
+            [BUG] Fixed Trakt Sections, Next Up, etc.
+            [FEATURE] Added support for Kodi 22
+            
+            Changelog 3.0.67
+            [BUG] Reverted Changes from last release due to more bugs that were created.
+        
+            Changelog 3.0.66
+            [BUG] Resolved Kodi Omega deprecation warnings by migrating cast metadata to InfoTagVideo APIs
+            [BUG] Fixed cast normalization to build xbmc.Actor objects and stop setCast runtime exceptions
+            [BUG] Normalized unique IDs and resume data to prevent type errors and deprecated property usage
+            [BUG] Ensured widget refresh runtime flag resets correctly after triggering refresh
+            [BUG] Stopped duplicate episode rows during Trakt sync by keying upserts on show/season/number
+        
             Changelog 3.0.65
             [BUG] Improved SQLite database lock handling
             [BUG] If you skip back to the start and stop playback seren will now stop trakt scrobble and remove playback history
@@ -101,9 +112,9 @@
             [FEATURE] Added 60 FPS filter
 
             Changelog 3.0.1
+            [PERFORMANCE] Compressed icons from 3.53 MB to 1.34 MB
             [FEATURE] Handle Kodi database version for Omega 21
-            [PERFORMANCE] Compressed icons from 3.53 MB to 1.34
-            [FEATURE] Update background color to Black for 3.0.1
+            [FEATURE] Update background color to Black
 
             Changelog 3.0.0
             [PERFORMANCE] Drop support for Python 2.x (Kodi Leia and below)
@@ -150,8 +161,8 @@
             [BUG] Fix typo in German localizations
             [BUG] Remove rogue \ in translations
 
-		    Changelog 2.2.4
-			[BUG] Fix bugs related to foreign key constraints
+            Changelog 2.2.4
+            [BUG] Fix bugs related to foreign key constraints
 
             Changelog 2.2.3
             [BUG] Fix Trakt Scrobbling and Playing Next

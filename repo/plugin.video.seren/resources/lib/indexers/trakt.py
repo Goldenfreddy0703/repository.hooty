@@ -646,6 +646,9 @@ class TraktAPI(ApiBase):
 
     @handle_single_item_or_list
     def _handle_response(self, item):
+        if isinstance(item, list):
+            return [self._handle_response(i) for i in item]
+
         item = self._try_detect_type(item)
         item = self._try_flatten_if_single_type(item)
 

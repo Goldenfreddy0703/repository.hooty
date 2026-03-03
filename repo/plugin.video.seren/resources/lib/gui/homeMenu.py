@@ -17,6 +17,12 @@ class Menus:
             description=g.get_language_string(30365),
             menu_item=g.create_icon_dict("shows", g.ICONS_PATH),
         )
+        g.add_directory_item(
+            g.get_language_string(30658),  # "Discover Anime"
+            action='discoverAnime',
+            description=g.get_language_string(30659),
+            menu_item=g.create_icon_dict("anime", g.ICONS_PATH),
+        )
         if g.get_setting('trakt.auth'):
             g.add_directory_item(
                 g.get_language_string(30001),

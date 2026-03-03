@@ -1212,6 +1212,90 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
+			<group id="7" label="30718">
+				<setting id="torbox.enabled" type="boolean" label="30719" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="tb.username" type="string" label="30720" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30720</heading>
+					</control>
+				</setting>
+				<setting id="tb.premiumstatus" type="string" label="30458" help="" parent="tb.username">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30458</heading>
+					</control>
+				</setting>
+				<setting id="tb.authTorBox" type="action" label="30721" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authTorBox)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="tb.torrents" type="boolean" label="30722" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="tb.hosters" type="boolean" label="30730" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="tb.autodelete" type="boolean" label="30723" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
 		</category>
 		<category id="providers" label="30136" help="">
 			<group id="1" label="30084">
@@ -1307,6 +1391,16 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
+				<setting id="tb.cloudInspection" type="boolean" label="30729" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
 			</group>
 			<group id="3" label="30113">
 				<setting id="general.autocache" type="boolean" label="30114" help="">
@@ -1338,6 +1432,7 @@
 							<option label="30134">0</option>
 							<option label="30135">1</option>
 							<option label="30333">2</option>
+							<option label="30718">3</option>
 						</options>
 					</constraints>
 					<dependencies>

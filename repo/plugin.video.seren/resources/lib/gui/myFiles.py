@@ -19,6 +19,8 @@ class Menus:
             self.providers['premiumize'] = ('Premiumize', PremiumizeWalker)
         if g.real_debrid_enabled():
             self.providers['real_debrid'] = ('Real Debrid', RealDebridWalker)
+        if g.torbox_enabled():
+            self.providers['torbox'] = ('TorBox', TorBoxWalker)
         self.providers['local_downloads'] = ('Local Downloads', LocalFileWalker)
 
     def home(self):
@@ -252,6 +254,118 @@ class AllDebridWalker(BaseDebridWalker):
 
     def resolve_link(self, list_item):
         return self.all_debrid.resolve_hoster(list_item['link'])
+
+
+class TorBoxWalker(BaseDebridWalker):
+    provider = 'torbox'
+
+    @cached_property
+    def torbox(self):
+        from resources.lib.debrid.torbox import TorBox
+
+        return TorBox()
+
+    def get_init_list(self):
+        """List all TorBox torrents, usenet, and web downloads."""
+        items = []
+
+        # Get torrent items
+        torrents = self.torbox.list_torrents()
+        for torrent in torrents or []:
+            files = torrent.get('files', [])
+            if files:
+                item = {
+                    "id": torrent['id'],
+                    "name": torrent['name'],
+                    "type": "torrent",
+                    "links": files,
+                }
+                items.append(item)
+
+        # Get usenet items
+        usenet = self.torbox.list_usenet()
+        for download in usenet or []:
+            files = download.get('files', [])
+            if files:
+                item = {
+                    "id": download['id'],
+                    "name": download['name'],
+                    "type": "usenet",
+                    "links": files,
+                }
+                items.append(item)
+
+        # Get web download items
+        webdl = self.torbox.list_webdl()
+        for download in webdl or []:
+            files = download.get('files', [])
+            if files:
+                item = {
+                    "id": download['id'],
+                    "name": download['name'],
+                    "type": "webdl",
+                    "links": files,
+                }
+                items.append(item)
+
+        self._format_items(items)
+
+    def _is_folder(self, list_item):
+        return bool(list_item.get("links"))
+
+    def get_folder(self, list_item):
+        """List files within a torrent/usenet/webdl item."""
+        items = []
+        item_type = list_item.get('type', 'torrent')
+        parent_id = list_item['id']
+
+        # Fetch fresh data from API since links aren't passed through URL args
+        # Note: _get() extracts 'data' from response, so result is already the data
+        if item_type == 'torrent':
+            torrent_info = self.torbox.torrent_info(parent_id)
+            files = torrent_info.get('files', []) if torrent_info else []
+        elif item_type == 'usenet':
+            usenet_info = self.torbox.usenet_info(parent_id)
+            files = usenet_info.get('files', []) if usenet_info else []
+        else:  # webdl
+            webdl_info = self.torbox.webdl_info(parent_id)
+            files = webdl_info.get('files', []) if webdl_info else []
+
+        for file_item in files:
+            filename = file_item.get('short_name', file_item.get('name', ''))
+            # Only show video files
+            if not filename.lower().endswith(g.common_video_extensions):
+                continue
+            item = {
+                "name": filename,
+                "link": f"{parent_id},{file_item.get('id', '')}",
+                "size": file_item.get('size', 0),
+                "type": item_type,
+            }
+            items.append(item)
+
+        self._format_items(sorted(items, key=lambda x: x['name']))
+
+    def resolve_link(self, list_item):
+        """Resolve TorBox file to direct download link."""
+        item_type = list_item.get('type', 'torrent')
+        link = list_item['link']
+
+        # All link formats are "id,file_id"
+        parts = link.split(',')
+        if len(parts) != 2:
+            g.log(f"TorBox invalid link format: {link}", "error")
+            return None
+
+        parent_id, file_id = parts
+
+        if item_type == 'usenet':
+            return self.torbox.resolve_usenet(link)
+        elif item_type == 'webdl':
+            return self.torbox.resolve_webdl(parent_id, file_id)
+        else:
+            # Torrent files
+            return self.torbox.resolve_torrent_file(parent_id, file_id)
 
 
 class LocalFileWalker(BaseDebridWalker):

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.seren" version="4.0.0" name="Seren" provider-name="Nixgates">
+<addon id="plugin.video.seren" version="4.0.1" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -63,6 +63,22 @@
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
         <news>
+            Changelog 4.0.1
+            [FEATURE] Added TorBox debrid service support - full integration including cache checking, source resolving, and cloud scraping
+            [FEATURE] TorBox My Files browser with support for Torrents, Usenet, and Web Downloads
+            [FEATURE] TorBox cloud inspection for provider scraping
+            [FEATURE] TorBox hoster/web download support for debrid link resolution
+            [FEATURE] Added TorBox to "Preferred Cloud Location" setting for auto-caching
+            [FEATURE] TorBox cache assist for manual torrent caching
+            [FEATURE] Added Discover Anime menu to home screen - browse anime using Trakt's anime genre filter
+            [FEATURE] Anime section includes both TV Shows and Movies: Popular, Popular Recent, Trending, Trending Recent, New, Most Played, Watched, Collected, Anticipated
+            [BUG] Safe duration access in player to prevent crashes when metadata is incomplete
+            [BUG] Properly migrated to InfoTagVideo API for Kodi 21/22 compatibility - eliminated all deprecation warnings
+            [BUG] Replaced deprecated ListItem.setInfo(), setCast(), setUniqueIDs(), addStreamInfo() with InfoTagVideo equivalents
+            [BUG] Cast members now properly converted to xbmc.Actor objects for InfoTagVideo.setCast()
+            [BUG] Named ratings (TMDb, IMDb, Trakt, TVDB) now set via InfoTagVideo.setRating()
+            [PERFORMANCE] Reduced log spam from deprecation warnings - improves menu loading performance
+            
             Changelog 4.0.0
             [BUG] Fixed Trakt Sections, Next Up, etc.
             [FEATURE] Added support for Kodi 22

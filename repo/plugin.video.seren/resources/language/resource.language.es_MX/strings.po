@@ -3774,3 +3774,308 @@ msgstr "Usar información del último capítulo cuando esté disponible"
 msgctxt "#30657"
 msgid "Limit Next Up Episodes"
 msgstr "Limitar los próximos episodios"
+
+msgctxt "#30658"
+msgid "Discover Anime"
+msgstr "Descubre Anime"
+
+msgctxt "#30659"
+msgid "Browse anime TV shows and movies"
+msgstr "Explorar series de TV y películas de anime"
+
+msgctxt "#30660"
+msgid "Popular"
+msgstr "Popular"
+
+msgctxt "#30661"
+msgid "Popular (Recently Aired)"
+msgstr "Popular (Transmitido recientemente)"
+
+msgctxt "#30662"
+msgid "Browse popular anime"
+msgstr "Explorar anime popular"
+
+msgctxt "#30663"
+msgid "Browse recently aired popular anime"
+msgstr "Explorar anime popular transmitido recientemente"
+
+msgctxt "#30664"
+msgid "Trending"
+msgstr "Tendencias"
+
+msgctxt "#30665"
+msgid "Trending (Recently Aired)"
+msgstr "Tendencias (Transmitido recientemente)"
+
+msgctxt "#30666"
+msgid "New Anime Shows"
+msgstr "Nuevas series de anime"
+
+msgctxt "#30667"
+msgid "Browse new anime releases"
+msgstr "Explorar nuevos lanzamientos de anime"
+
+msgctxt "#30668"
+msgid "Browse trending anime"
+msgstr "Explorar anime en tendencia"
+
+msgctxt "#30669"
+msgid "Browse recently aired trending anime"
+msgstr "Explorar anime en tendencia transmitido recientemente"
+
+msgctxt "#30670"
+msgid "Most Played"
+msgstr "Más Reproducidos"
+
+msgctxt "#30671"
+msgid "Most Watched"
+msgstr "Más Vistos"
+
+msgctxt "#30672"
+msgid "Most Collected"
+msgstr "Más Coleccionados"
+
+msgctxt "#30673"
+msgid "Anticipated"
+msgstr "Anticipado"
+
+msgctxt "#30674"
+msgid "Recently Updated"
+msgstr "Actualizado Recientemente"
+
+msgctxt "#30675"
+msgid "Browse most played anime"
+msgstr "Explorar anime más reproducido"
+
+msgctxt "#30676"
+msgid "Browse most watched anime"
+msgstr "Explorar anime más visto"
+
+msgctxt "#30677"
+msgid "Browse most collected anime"
+msgstr "Explorar anime más coleccionado"
+
+msgctxt "#30678"
+msgid "Browse anticipated anime"
+msgstr "Explorar anime anticipado"
+
+msgctxt "#30679"
+msgid "Browse recently updated anime"
+msgstr "Explorar anime actualizado recientemente"
+
+msgctxt "#30680"
+msgid "Search Anime"
+msgstr "Buscar Anime"
+
+msgctxt "#30681"
+msgid "Search for anime shows"
+msgstr "Buscar series de anime"
+
+msgctxt "#30682"
+msgid "Popular (TV Shows)"
+msgstr "Popular (Series de TV)"
+
+msgctxt "#30683"
+msgid "Popular (Movies)"
+msgstr "Popular (Películas)"
+
+msgctxt "#30684"
+msgid "Trending (TV Shows)"
+msgstr "Tendencias (Series de TV)"
+
+msgctxt "#30685"
+msgid "Trending (Movies)"
+msgstr "Tendencias (Películas)"
+
+msgctxt "#30686"
+msgid "New (TV Shows)"
+msgstr "Nuevo (Series de TV)"
+
+msgctxt "#30687"
+msgid "New (Movies)"
+msgstr "Nuevo (Películas)"
+
+msgctxt "#30688"
+msgid "Most Played (TV Shows)"
+msgstr "Más Reproducidos (Series de TV)"
+
+msgctxt "#30689"
+msgid "Most Played (Movies)"
+msgstr "Más Reproducidos (Películas)"
+
+msgctxt "#30690"
+msgid "Most Watched (TV Shows)"
+msgstr "Más Vistos (Series de TV)"
+
+msgctxt "#30691"
+msgid "Most Watched (Movies)"
+msgstr "Más Vistos (Películas)"
+
+msgctxt "#30692"
+msgid "Most Collected (TV Shows)"
+msgstr "Más Coleccionados (Series de TV)"
+
+msgctxt "#30693"
+msgid "Most Collected (Movies)"
+msgstr "Más Coleccionados (Películas)"
+
+msgctxt "#30694"
+msgid "Anticipated (TV Shows)"
+msgstr "Anticipado (Series de TV)"
+
+msgctxt "#30695"
+msgid "Anticipated (Movies)"
+msgstr "Anticipado (Películas)"
+
+msgctxt "#30696"
+msgid "Browse popular anime TV shows"
+msgstr "Explorar series de anime populares"
+
+msgctxt "#30697"
+msgid "Browse popular anime movies"
+msgstr "Explorar películas de anime populares"
+
+msgctxt "#30698"
+msgid "Browse trending anime TV shows"
+msgstr "Explorar series de anime en tendencia"
+
+msgctxt "#30699"
+msgid "Browse trending anime movies"
+msgstr "Explorar películas de anime en tendencia"
+
+msgctxt "#30700"
+msgid "Browse new anime TV shows"
+msgstr "Explorar nuevas series de anime"
+
+msgctxt "#30701"
+msgid "Browse new anime movies"
+msgstr "Explorar nuevas películas de anime"
+
+msgctxt "#30702"
+msgid "Browse most played anime TV shows"
+msgstr "Explorar series de anime más reproducidas"
+
+msgctxt "#30703"
+msgid "Browse most played anime movies"
+msgstr "Explorar películas de anime más reproducidas"
+
+msgctxt "#30704"
+msgid "Browse most watched anime TV shows"
+msgstr "Explorar series de anime más vistas"
+
+msgctxt "#30705"
+msgid "Browse most watched anime movies"
+msgstr "Explorar películas de anime más vistas"
+
+msgctxt "#30706"
+msgid "Browse most collected anime TV shows"
+msgstr "Explorar series de anime más coleccionadas"
+
+msgctxt "#30707"
+msgid "Browse most collected anime movies"
+msgstr "Explorar películas de anime más coleccionadas"
+
+msgctxt "#30708"
+msgid "Browse anticipated anime TV shows"
+msgstr "Explorar series de anime anticipadas"
+
+msgctxt "#30709"
+msgid "Browse anticipated anime movies"
+msgstr "Explorar películas de anime anticipadas"
+
+msgctxt "#30710"
+msgid "Popular Recent (TV Shows)"
+msgstr "Popular Reciente (Series de TV)"
+
+msgctxt "#30711"
+msgid "Popular Recent (Movies)"
+msgstr "Popular Reciente (Películas)"
+
+msgctxt "#30712"
+msgid "Trending Recent (TV Shows)"
+msgstr "Tendencia Reciente (Series de TV)"
+
+msgctxt "#30713"
+msgid "Trending Recent (Movies)"
+msgstr "Tendencia Reciente (Películas)"
+
+msgctxt "#30714"
+msgid "Browse recently aired popular anime TV shows"
+msgstr "Explorar series de anime populares transmitidas recientemente"
+
+msgctxt "#30715"
+msgid "Browse recently released popular anime movies"
+msgstr "Explorar películas de anime populares lanzadas recientemente"
+
+msgctxt "#30716"
+msgid "Browse recently aired trending anime TV shows"
+msgstr "Explorar series de anime en tendencia transmitidas recientemente"
+
+msgctxt "#30717"
+msgid "Browse recently released trending anime movies"
+msgstr "Explorar películas de anime en tendencia lanzadas recientemente"
+
+#: /resources/settings.xml
+msgctxt "#30718"
+msgid "TorBox"
+msgstr "TorBox"
+
+#: /resources/settings.xml
+msgctxt "#30719"
+msgid "Enable TorBox"
+msgstr "Enable TorBox"
+
+#: /resources/settings.xml:auth
+msgctxt "#30720"
+msgid "Authorize TorBox"
+msgstr "Authorize TorBox"
+
+#: /resources/settings.xml
+msgctxt "#30721"
+msgid "TorBox Account Status"
+msgstr "TorBox Account Status"
+
+#: /resources/settings.xml
+msgctxt "#30722"
+msgid "Enable TorBox Torrents"
+msgstr "Enable TorBox Torrents"
+
+#: /resources/settings.xml
+msgctxt "#30723"
+msgid "Auto-Delete Completed Torrents"
+msgstr "Auto-Delete Completed Torrents"
+
+#: /resources/lib/debrid/torbox.py
+msgctxt "#30724"
+msgid "TorBox Authentication Successful"
+msgstr "TorBox Authentication Successful"
+
+#: /resources/lib/debrid/torbox.py
+msgctxt "#30725"
+msgid "TorBox Authentication Failed"
+msgstr "TorBox Authentication Failed"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30726"
+msgid "TorBox Torrents"
+msgstr "TorBox Torrents"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30727"
+msgid "TorBox Usenet"
+msgstr "TorBox Usenet"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30728"
+msgid "TorBox Web Downloads"
+msgstr "TorBox Web Downloads"
+
+#: /resources/settings.xml
+msgctxt "#30729"
+msgid "Scrape TorBox Cloud"
+msgstr "Scrape TorBox Cloud"
+
+#: /resources/settings.xml
+msgctxt "#30730"
+msgid "Enable TorBox Hosters"
+msgstr "Enable TorBox Hosters"

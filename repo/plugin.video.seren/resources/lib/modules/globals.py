@@ -234,6 +234,242 @@ info_dates = {
     "dateadded",
 }
 
+
+def normalize_cast_to_actors(cast_list):
+    """
+    Convert cast dictionaries to xbmc.Actor objects for InfoTagVideo.setCast().
+    
+    :param cast_list: List of cast dictionaries with 'name', 'role', 'order', 'thumbnail' keys
+    :return: List of xbmc.Actor objects
+    """
+    if not cast_list or not isinstance(cast_list, (list, set)):
+        return []
+    
+    actors = []
+    for idx, cast_member in enumerate(cast_list):
+        if not isinstance(cast_member, dict):
+            continue
+        name = cast_member.get("name", "")
+        if not name:
+            continue
+        role = cast_member.get("role", cast_member.get("character", ""))
+        order = cast_member.get("order", idx)
+        thumbnail = cast_member.get("thumbnail", cast_member.get("thumb", ""))
+        try:
+            actors.append(xbmc.Actor(name, role, order, thumbnail or ""))
+        except Exception:
+            # Fallback if xbmc.Actor fails
+            pass
+    return actors
+
+
+def set_video_info_tag(item, info, cast=None, unique_ids=None):
+    """
+    Set video metadata using InfoTagVideo API (Kodi 21+).
+    
+    :param item: xbmcgui.ListItem
+    :param info: Dictionary of info labels
+    :param cast: List of cast dictionaries (optional)
+    :param unique_ids: Dictionary of unique IDs (optional)
+    """
+    info_tag = item.getVideoInfoTag()
+    
+    # Basic info
+    if info.get("title"):
+        info_tag.setTitle(str(info["title"]))
+    if info.get("originaltitle"):
+        info_tag.setOriginalTitle(str(info["originaltitle"]))
+    if info.get("sorttitle"):
+        info_tag.setSortTitle(str(info["sorttitle"]))
+    if info.get("plot"):
+        info_tag.setPlot(str(info["plot"]))
+    if info.get("plotoutline"):
+        info_tag.setPlotOutline(str(info["plotoutline"]))
+    if info.get("tagline"):
+        info_tag.setTagLine(str(info["tagline"]))
+    if info.get("mediatype"):
+        info_tag.setMediaType(str(info["mediatype"]))
+    
+    # Numeric fields
+    if info.get("year"):
+        try:
+            info_tag.setYear(int(info["year"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("episode") is not None:
+        try:
+            info_tag.setEpisode(int(info["episode"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("season") is not None:
+        try:
+            info_tag.setSeason(int(info["season"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("sortepisode") is not None:
+        try:
+            info_tag.setSortEpisode(int(info["sortepisode"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("sortseason") is not None:
+        try:
+            info_tag.setSortSeason(int(info["sortseason"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("duration"):
+        try:
+            info_tag.setDuration(int(info["duration"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("playcount") is not None:
+        try:
+            info_tag.setPlaycount(int(info["playcount"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("userrating") is not None:
+        try:
+            info_tag.setUserRating(int(info["userrating"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("top250"):
+        try:
+            info_tag.setTop250(int(info["top250"]))
+        except (ValueError, TypeError):
+            pass
+    if info.get("dbid"):
+        try:
+            info_tag.setDbId(int(info["dbid"]))
+        except (ValueError, TypeError):
+            pass
+    
+    # Rating with votes
+    rating = info.get("rating")
+    votes = info.get("votes", 0)
+    if rating is not None:
+        try:
+            info_tag.setRating(float(rating), int(votes) if votes else 0, "default", True)
+        except (ValueError, TypeError):
+            pass
+    
+    # String fields
+    if info.get("mpaa"):
+        info_tag.setMpaa(str(info["mpaa"]))
+    if info.get("tvshowtitle"):
+        info_tag.setTvShowTitle(str(info["tvshowtitle"]))
+    if info.get("imdbnumber"):
+        info_tag.setIMDBNumber(str(info["imdbnumber"]))
+    if info.get("trailer"):
+        info_tag.setTrailer(str(info["trailer"]))
+    if info.get("code"):
+        info_tag.setProductionCode(str(info["code"]))
+    if info.get("status"):
+        info_tag.setTvShowStatus(str(info["status"]))
+    if info.get("path"):
+        info_tag.setPath(str(info["path"]))
+    if info.get("set"):
+        info_tag.setSet(str(info["set"]))
+    if info.get("setoverview"):
+        info_tag.setSetOverview(str(info["setoverview"]))
+    if info.get("album"):
+        info_tag.setAlbum(str(info["album"]))
+    
+    # Date fields
+    if info.get("premiered"):
+        try:
+            info_tag.setPremiered(str(info["premiered"]))
+        except Exception:
+            pass
+    if info.get("aired"):
+        try:
+            info_tag.setFirstAired(str(info["aired"]))
+        except Exception:
+            pass
+    if info.get("dateadded"):
+        try:
+            info_tag.setDateAdded(str(info["dateadded"]))
+        except Exception:
+            pass
+    if info.get("lastplayed"):
+        try:
+            info_tag.setLastPlayed(str(info["lastplayed"]))
+        except Exception:
+            pass
+    
+    # List fields (need to be lists)
+    if info.get("genre"):
+        genres = info["genre"]
+        if isinstance(genres, str):
+            genres = [x.strip() for x in genres.split(",") if x.strip()]
+        if isinstance(genres, (list, set)):
+            info_tag.setGenres(list(genres))
+    if info.get("country"):
+        countries = info["country"]
+        if isinstance(countries, str):
+            countries = [x.strip() for x in countries.split(",") if x.strip()]
+        if isinstance(countries, (list, set)):
+            info_tag.setCountries(list(countries))
+    if info.get("director"):
+        directors = info["director"]
+        if isinstance(directors, str):
+            directors = [x.strip() for x in directors.split(",") if x.strip()]
+        if isinstance(directors, (list, set)):
+            info_tag.setDirectors(list(directors))
+    if info.get("writer"):
+        writers = info["writer"]
+        if isinstance(writers, str):
+            writers = [x.strip() for x in writers.split(",") if x.strip()]
+        if isinstance(writers, (list, set)):
+            info_tag.setWriters(list(writers))
+    if info.get("studio"):
+        studios = info["studio"]
+        if isinstance(studios, str):
+            studios = [s.strip() for s in studios.split(",") if s.strip()]
+        if isinstance(studios, (list, set)):
+            info_tag.setStudios(list(studios))
+    if info.get("tag"):
+        tags = info["tag"]
+        if isinstance(tags, str):
+            tags = [t.strip() for t in tags.split(",") if t.strip()]
+        if isinstance(tags, (list, set)):
+            info_tag.setTags(list(tags))
+    if info.get("credits"):
+        credits = info["credits"]
+        if isinstance(credits, str):
+            credits = [c.strip() for c in credits.split(",") if c.strip()]
+        if isinstance(credits, (list, set)):
+            info_tag.setWriters(list(credits))  # credits maps to writers
+    if info.get("artist"):
+        artists = info["artist"]
+        if isinstance(artists, str):
+            artists = [a.strip() for a in artists.split(",") if a.strip()]
+        if isinstance(artists, (list, set)):
+            info_tag.setArtists(list(artists))
+    
+    # Cast (needs xbmc.Actor objects)
+    if cast:
+        actors = normalize_cast_to_actors(cast)
+        if actors:
+            info_tag.setCast(actors)
+    
+    # Unique IDs
+    if unique_ids and isinstance(unique_ids, dict):
+        # Filter out None/empty values and ensure all values are strings
+        clean_ids = {k: str(v) for k, v in unique_ids.items() if v}
+        if clean_ids:
+            info_tag.setUniqueIDs(clean_ids)
+    
+    # Handle named ratings (rating.tmdb, rating.imdb, rating.trakt, rating.tvdb, etc.)
+    for key in info:
+        if key.startswith("rating.") and isinstance(info[key], dict):
+            rating_name = key.split(".")[1]  # e.g., "tmdb" from "rating.tmdb"
+            try:
+                rating_value = float(info[key].get("rating", 0.0))
+                votes_value = int(info[key].get("votes", 0))
+                info_tag.setRating(rating_value, votes_value, rating_name, False)
+            except (ValueError, TypeError):
+                pass
+
+
 listitem_properties = [
     (("awards",), "Awards"),
     (("oscar_wins",), "Oscar_Wins"),
@@ -1064,7 +1300,7 @@ class GlobalVariables:
         return bool(self.PLAYLIST.getposition() > 0 or self.debrid_available())
 
     def debrid_available(self):
-        return self.premiumize_enabled() or self.real_debrid_enabled() or self.all_debrid_enabled()
+        return self.premiumize_enabled() or self.real_debrid_enabled() or self.all_debrid_enabled() or self.torbox_enabled()
 
     def premiumize_enabled(self):
         return bool(self.get_setting("premiumize.token") != "" and self.get_bool_setting("premiumize.enabled"))
@@ -1074,6 +1310,9 @@ class GlobalVariables:
 
     def all_debrid_enabled(self):
         return bool(self.get_setting("alldebrid.apikey") != "" and self.get_bool_setting("alldebrid.enabled"))
+
+    def torbox_enabled(self):
+        return bool(self.get_setting("tb.token") != "" and self.get_bool_setting("torbox.enabled"))
 
     def container_refresh(self):
         return xbmc.executebuiltin("Container.Refresh")
@@ -1155,7 +1394,6 @@ class GlobalVariables:
         item.setContentLookup(False)
 
         info = menu_item.pop("info", {})
-        item.addStreamInfo("video", {})
 
         if info is None or not isinstance(info, dict):
             info = {}
@@ -1245,30 +1483,25 @@ class GlobalVariables:
         cast = menu_item.get("cast", [])
         if cast is None or not isinstance(cast, (set, list)):
             cast = []
-        item.setCast(cast)
 
         for key, value in info.items():
             if key.endswith("_id"):
                 item.setProperty(key, str(value))
 
-        # TODO: Fix setting of IDs on seasons and episodes
+        # Build unique IDs dict for InfoTagVideo
         media_type = info.get("mediatype", None)
         id_keys = {
             "tmdb_id": "tmdb",
             "imdb_id": "imdb",
             "tvdb_id": "tvdb",
         }
-        item.setUniqueIDs(
-            {
-                unique_id_key: info[f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key]
-                for id_key, unique_id_key in id_keys.items()
-                if info.get(f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key)
-            }
-        )
+        unique_ids = {
+            unique_id_key: info[f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key]
+            for id_key, unique_id_key in id_keys.items()
+            if info.get(f"tvshow.{id_key}" if media_type in ["episode", "season"] else id_key)
+        }
 
-        for i in info:
-            if i.startswith("rating."):
-                item.setRating(i.split(".")[1], float(info[i].get("rating", 0.0)), int(info[i].get("votes", 0)), False)
+        # Named ratings are now handled in set_video_info_tag()
 
         cm = params.pop("cm", [])
         if cm is None or not isinstance(cm, (set, list)):
@@ -1296,7 +1529,8 @@ class GlobalVariables:
         # Convert dates to localtime for display
         self.convert_info_dates(info)
 
-        item.setInfo("video", info)
+        # Use InfoTagVideo API (Kodi 21+) instead of deprecated setInfo/setCast/setUniqueIDs
+        set_video_info_tag(item, info, cast=cast, unique_ids=unique_ids)
 
         bulk_add = params.pop("bulk_add", False)
         url = self.create_url(self.BASE_URL, params)

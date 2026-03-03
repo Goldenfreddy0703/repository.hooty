@@ -2,6 +2,7 @@ from resources.lib.common import source_utils
 from resources.lib.debrid.all_debrid import AllDebrid
 from resources.lib.debrid.premiumize import Premiumize
 from resources.lib.debrid.real_debrid import RealDebrid
+from resources.lib.debrid.torbox import TorBox
 from resources.lib.indexers.apibase import ApiBase
 from resources.lib.modules.globals import g
 
@@ -238,3 +239,73 @@ class AllDebridCloudScraper(CloudScraper):
 
     def _is_enabled(self):
         return g.all_debrid_enabled()
+
+
+class TorBoxCloudScraper(CloudScraper):
+    def __init__(self, terminate_flag):
+        super().__init__(terminate_flag)
+        self.api_adapter = TorBox()
+        self.debrid_provider = "torbox"
+        self._source_normalization = (
+            ("short_name", "release_title", lambda k: k.lower()),
+            ("size", "size", lambda k: (k / 1024) / 1024),
+            ("id", "file_id", None),
+            ("torrent_id", "torrent_id", None),
+        )
+
+    def _fetch_cloud_items(self):
+        """Fetch all files from TorBox cloud (torrents, usenet, webdl)."""
+        all_items = []
+
+        # Get torrent files
+        torrents = self.api_adapter.list_torrents()
+        g.log(f"TorBox cloud scraper: Found {len(torrents) if torrents else 0} torrents", "debug")
+        
+        if torrents:
+            for torrent in torrents:
+                torrent_id = torrent.get("id")
+                torrent_name = torrent.get("name", "")
+                files = torrent.get("files", [])
+                g.log(f"TorBox torrent {torrent_id}: {len(files)} files", "debug")
+                
+                for file_item in files:
+                    file_id = file_item.get("id")
+                    file_item["torrent_id"] = torrent_id
+                    file_item["folder_name"] = torrent_name
+                    # Create the URL format TorBox expects: "torrent_id,file_id"
+                    file_item["url"] = f"{torrent_id},{file_id}"
+                    g.log(f"TorBox cloud file: url={file_item['url']}, name={file_item.get('short_name', '')[:50]}", "debug")
+                    all_items.append(file_item)
+
+        # Get usenet files
+        usenet = self.api_adapter.list_usenet()
+        g.log(f"TorBox cloud scraper: Found {len(usenet) if usenet else 0} usenet downloads", "debug")
+        
+        if usenet:
+            for download in usenet:
+                usenet_id = download.get("id")
+                download_name = download.get("name", "")
+                for file_item in download.get("files", []):
+                    file_id = file_item.get("id")
+                    file_item["usenet_id"] = usenet_id
+                    file_item["folder_name"] = download_name
+                    file_item["url"] = f"{usenet_id},{file_id}"
+                    file_item["is_usenet"] = True
+                    all_items.append(file_item)
+
+        g.log(f"TorBox cloud scraper: Total {len(all_items)} files", "debug")
+        return all_items
+
+    def _normalize_item(self, item):
+        normalized = super()._normalize_item(item)
+        # Preserve the URL for resolution
+        normalized["url"] = item.get("url", "")
+        normalized["is_usenet"] = item.get("is_usenet", False)
+        normalized["folder_name"] = item.get("folder_name", "")
+        return normalized
+
+    def _is_valid_pack(self, item):
+        return True
+
+    def _is_enabled(self):
+        return g.torbox_enabled()

@@ -3783,3 +3783,308 @@ msgstr "Χρησιμοποιήστε τις πληροφορίες του τελ
 msgctxt "#30657"
 msgid "Limit Next Up Episodes"
 msgstr "Περιορισμός επόμενων επεισοδίων"
+
+msgctxt "#30658"
+msgid "Discover Anime"
+msgstr "Ανακαλύψτε Anime"
+
+msgctxt "#30659"
+msgid "Browse anime TV shows and movies"
+msgstr "Περιήγηση σε anime τηλεοπτικές σειρές και ταινίες"
+
+msgctxt "#30660"
+msgid "Popular"
+msgstr "Δημοφιλές"
+
+msgctxt "#30661"
+msgid "Popular (Recently Aired)"
+msgstr "Δημοφιλές (Πρόσφατα μεταδοθέν)"
+
+msgctxt "#30662"
+msgid "Browse popular anime"
+msgstr "Περιήγηση σε δημοφιλές anime"
+
+msgctxt "#30663"
+msgid "Browse recently aired popular anime"
+msgstr "Περιήγηση σε πρόσφατα μεταδοθέν δημοφιλές anime"
+
+msgctxt "#30664"
+msgid "Trending"
+msgstr "Σε ανοδική τάση"
+
+msgctxt "#30665"
+msgid "Trending (Recently Aired)"
+msgstr "Σε ανοδική τάση (Πρόσφατα μεταδοθέν)"
+
+msgctxt "#30666"
+msgid "New Anime Shows"
+msgstr "Νέες σειρές anime"
+
+msgctxt "#30667"
+msgid "Browse new anime releases"
+msgstr "Περιήγηση σε νέες κυκλοφορίες anime"
+
+msgctxt "#30668"
+msgid "Browse trending anime"
+msgstr "Περιήγηση σε anime σε ανοδική τάση"
+
+msgctxt "#30669"
+msgid "Browse recently aired trending anime"
+msgstr "Περιήγηση σε πρόσφατα μεταδοθέν anime σε ανοδική τάση"
+
+msgctxt "#30670"
+msgid "Most Played"
+msgstr "Περισσότερο παιγμένα"
+
+msgctxt "#30671"
+msgid "Most Watched"
+msgstr "Περισσότερο παρακολουθημένα"
+
+msgctxt "#30672"
+msgid "Most Collected"
+msgstr "Περισσότερο συλλεγμένα"
+
+msgctxt "#30673"
+msgid "Anticipated"
+msgstr "Αναμενόμενα"
+
+msgctxt "#30674"
+msgid "Recently Updated"
+msgstr "Πρόσφατα ενημερωμένα"
+
+msgctxt "#30675"
+msgid "Browse most played anime"
+msgstr "Περιήγηση σε περισσότερο παιγμένα anime"
+
+msgctxt "#30676"
+msgid "Browse most watched anime"
+msgstr "Περιήγηση σε περισσότερο παρακολουθημένα anime"
+
+msgctxt "#30677"
+msgid "Browse most collected anime"
+msgstr "Περιήγηση σε περισσότερο συλλεγμένα anime"
+
+msgctxt "#30678"
+msgid "Browse anticipated anime"
+msgstr "Περιήγηση σε αναμενόμενα anime"
+
+msgctxt "#30679"
+msgid "Browse recently updated anime"
+msgstr "Περιήγηση σε πρόσφατα ενημερωμένα anime"
+
+msgctxt "#30680"
+msgid "Search Anime"
+msgstr "Αναζήτηση Anime"
+
+msgctxt "#30681"
+msgid "Search for anime shows"
+msgstr "Αναζήτηση σειρών anime"
+
+msgctxt "#30682"
+msgid "Popular (TV Shows)"
+msgstr "Δημοφιλή (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30683"
+msgid "Popular (Movies)"
+msgstr "Δημοφιλή (Ταινίες)"
+
+msgctxt "#30684"
+msgid "Trending (TV Shows)"
+msgstr "Σε ανοδική τάση (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30685"
+msgid "Trending (Movies)"
+msgstr "Σε ανοδική τάση (Ταινίες)"
+
+msgctxt "#30686"
+msgid "New (TV Shows)"
+msgstr "Νέα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30687"
+msgid "New (Movies)"
+msgstr "Νέα (Ταινίες)"
+
+msgctxt "#30688"
+msgid "Most Played (TV Shows)"
+msgstr "Περισσότερο παιγμένα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30689"
+msgid "Most Played (Movies)"
+msgstr "Περισσότερο παιγμένα (Ταινίες)"
+
+msgctxt "#30690"
+msgid "Most Watched (TV Shows)"
+msgstr "Περισσότερο παρακολουθημένα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30691"
+msgid "Most Watched (Movies)"
+msgstr "Περισσότερο παρακολουθημένα (Ταινίες)"
+
+msgctxt "#30692"
+msgid "Most Collected (TV Shows)"
+msgstr "Περισσότερο συλλεγμένα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30693"
+msgid "Most Collected (Movies)"
+msgstr "Περισσότερο συλλεγμένα (Ταινίες)"
+
+msgctxt "#30694"
+msgid "Anticipated (TV Shows)"
+msgstr "Αναμενόμενα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30695"
+msgid "Anticipated (Movies)"
+msgstr "Αναμενόμενα (Ταινίες)"
+
+msgctxt "#30696"
+msgid "Browse popular anime TV shows"
+msgstr "Περιήγηση σε δημοφιλείς τηλεοπτικές σειρές anime"
+
+msgctxt "#30697"
+msgid "Browse popular anime movies"
+msgstr "Περιήγηση σε δημοφιλείς ταινίες anime"
+
+msgctxt "#30698"
+msgid "Browse trending anime TV shows"
+msgstr "Περιήγηση σε τηλεοπτικές σειρές anime σε ανοδική τάση"
+
+msgctxt "#30699"
+msgid "Browse trending anime movies"
+msgstr "Περιήγηση σε ταινίες anime σε ανοδική τάση"
+
+msgctxt "#30700"
+msgid "Browse new anime TV shows"
+msgstr "Περιήγηση σε νέες τηλεοπτικές σειρές anime"
+
+msgctxt "#30701"
+msgid "Browse new anime movies"
+msgstr "Περιήγηση σε νέες ταινίες anime"
+
+msgctxt "#30702"
+msgid "Browse most played anime TV shows"
+msgstr "Περιήγηση σε περισσότερο παιγμένες τηλεοπτικές σειρές anime"
+
+msgctxt "#30703"
+msgid "Browse most played anime movies"
+msgstr "Περιήγηση σε περισσότερο παιγμένες ταινίες anime"
+
+msgctxt "#30704"
+msgid "Browse most watched anime TV shows"
+msgstr "Περιήγηση σε περισσότερο παρακολουθημένες τηλεοπτικές σειρές anime"
+
+msgctxt "#30705"
+msgid "Browse most watched anime movies"
+msgstr "Περιήγηση σε περισσότερο παρακολουθημένες ταινίες anime"
+
+msgctxt "#30706"
+msgid "Browse most collected anime TV shows"
+msgstr "Περιήγηση σε περισσότερο συλλεγμένες τηλεοπτικές σειρές anime"
+
+msgctxt "#30707"
+msgid "Browse most collected anime movies"
+msgstr "Περιήγηση σε περισσότερο συλλεγμένες ταινίες anime"
+
+msgctxt "#30708"
+msgid "Browse anticipated anime TV shows"
+msgstr "Περιήγηση σε αναμενόμενες τηλεοπτικές σειρές anime"
+
+msgctxt "#30709"
+msgid "Browse anticipated anime movies"
+msgstr "Περιήγηση σε αναμενόμενες ταινίες anime"
+
+msgctxt "#30710"
+msgid "Popular Recent (TV Shows)"
+msgstr "Δημοφιλή Πρόσφατα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30711"
+msgid "Popular Recent (Movies)"
+msgstr "Δημοφιλή Πρόσφατα (Ταινίες)"
+
+msgctxt "#30712"
+msgid "Trending Recent (TV Shows)"
+msgstr "Σε ανοδική τάση Πρόσφατα (Τηλεοπτικές Σειρές)"
+
+msgctxt "#30713"
+msgid "Trending Recent (Movies)"
+msgstr "Σε ανοδική τάση Πρόσφατα (Ταινίες)"
+
+msgctxt "#30714"
+msgid "Browse recently aired popular anime TV shows"
+msgstr "Περιήγηση σε πρόσφατα μεταδοθείσες δημοφιλείς τηλεοπτικές σειρές anime"
+
+msgctxt "#30715"
+msgid "Browse recently released popular anime movies"
+msgstr "Περιήγηση σε πρόσφατα κυκλοφορήσασες δημοφιλείς ταινίες anime"
+
+msgctxt "#30716"
+msgid "Browse recently aired trending anime TV shows"
+msgstr "Περιήγηση σε πρόσφατα μεταδοθείσες τηλεοπτικές σειρές anime σε ανοδική τάση"
+
+msgctxt "#30717"
+msgid "Browse recently released trending anime movies"
+msgstr "Περιήγηση σε πρόσφατα κυκλοφορήσασες ταινίες anime σε ανοδική τάση"
+
+#: /resources/settings.xml
+msgctxt "#30718"
+msgid "TorBox"
+msgstr "TorBox"
+
+#: /resources/settings.xml
+msgctxt "#30719"
+msgid "Enable TorBox"
+msgstr "Enable TorBox"
+
+#: /resources/settings.xml:auth
+msgctxt "#30720"
+msgid "Authorize TorBox"
+msgstr "Authorize TorBox"
+
+#: /resources/settings.xml
+msgctxt "#30721"
+msgid "TorBox Account Status"
+msgstr "TorBox Account Status"
+
+#: /resources/settings.xml
+msgctxt "#30722"
+msgid "Enable TorBox Torrents"
+msgstr "Enable TorBox Torrents"
+
+#: /resources/settings.xml
+msgctxt "#30723"
+msgid "Auto-Delete Completed Torrents"
+msgstr "Auto-Delete Completed Torrents"
+
+#: /resources/lib/debrid/torbox.py
+msgctxt "#30724"
+msgid "TorBox Authentication Successful"
+msgstr "TorBox Authentication Successful"
+
+#: /resources/lib/debrid/torbox.py
+msgctxt "#30725"
+msgid "TorBox Authentication Failed"
+msgstr "TorBox Authentication Failed"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30726"
+msgid "TorBox Torrents"
+msgstr "TorBox Torrents"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30727"
+msgid "TorBox Usenet"
+msgstr "TorBox Usenet"
+
+#: /resources/lib/gui/myFiles.py
+msgctxt "#30728"
+msgid "TorBox Web Downloads"
+msgstr "TorBox Web Downloads"
+
+#: /resources/settings.xml
+msgctxt "#30729"
+msgid "Scrape TorBox Cloud"
+msgstr "Scrape TorBox Cloud"
+
+#: /resources/settings.xml
+msgctxt "#30730"
+msgid "Enable TorBox Hosters"
+msgstr "Enable TorBox Hosters"

@@ -10,6 +10,7 @@ from resources.lib.database.torrentAssist import TorrentAssist
 from resources.lib.debrid import all_debrid
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
+from resources.lib.debrid import torbox
 from resources.lib.modules.exceptions import DebridNotEnabled
 from resources.lib.modules.exceptions import FailureAtRemoteParty
 from resources.lib.modules.exceptions import GeneralCachingFailure
@@ -363,12 +364,58 @@ class _AllDebridCacheAssist(_BaseCacheAssist):
         self.debrid.delete_magnet(self.transfer_id)
 
 
+class _TorBoxCacheAssist(_BaseCacheAssist):
+    def __init__(self, uncached_source, silent=False):
+        if not g.torbox_enabled():
+            raise DebridNotEnabled
+        super().__init__(uncached_source, silent)
+        self.debrid_slug = "torbox"
+        self.debrid_readable = "TorBox"
+        self.debrid = torbox.TorBox()
+
+        self.uncached_source = uncached_source
+        self.transfer_info = self.debrid.add_magnet(uncached_source["magnet"])
+        if not self.transfer_info or "torrent_id" not in self.transfer_info:
+            raise GeneralCachingFailure("Failed to add magnet to TorBox")
+        self.transfer_id = self.transfer_info["torrent_id"]
+        self._update_status()
+
+    def _update_status(self):
+        status = self.debrid.torrent_info(self.transfer_id)
+
+        if not status or "data" not in status:
+            self.status = "failed"
+            return
+
+        torrent_data = status["data"]
+        download_state = torrent_data.get("download_state", "")
+
+        # TorBox states: "downloading", "completed", "cached", "paused", "error", etc.
+        if download_state in ["downloading", "paused", "uploading", "checkingDL", "metaDL"]:
+            self.status = "downloading"
+        elif download_state in ["completed", "cached"]:
+            self.status = "finished"
+        else:
+            self.status = "failed"
+
+        self.previous_percent = self.current_percent
+        self.seeds = torrent_data.get("seeds", 0)
+        self.download_speed = torrent_data.get("download_speed", 0)
+
+        progress = torrent_data.get("progress", 0)
+        self.current_percent = tools.safe_round(progress * 100, 2)
+
+    def delete_transfer(self):
+        self.debrid.delete_torrent(self.transfer_id)
+
+
 class CacheAssistHelper:
     def __init__(self):
         self.locations = [
             ("Premiumize", _PremiumizeCacheAssist, "premiumize", g.premiumize_enabled()),
             ("Real Debrid", _RealDebridCacheAssist, "real_debrid", g.real_debrid_enabled()),
             ("AllDebrid", _AllDebridCacheAssist, "all_debrid", g.all_debrid_enabled()),
+            ("TorBox", _TorBoxCacheAssist, "torbox", g.torbox_enabled()),
         ]
 
     def _get_cache_location(self):

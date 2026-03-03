@@ -14,7 +14,7 @@ from resources.lib.common import tools
 from resources.lib.database.trakt_sync import bookmark
 from resources.lib.indexers import trakt
 from resources.lib.modules import smartPlay
-from resources.lib.modules.globals import g
+from resources.lib.modules.globals import g, normalize_cast_to_actors, set_video_info_tag
 
 
 class SerenPlayer(xbmc.Player):
@@ -102,7 +102,7 @@ class SerenPlayer(xbmc.Player):
         self._handle_bookmark()
         self._add_support_for_external_trakt_scrobbling()
 
-        self.playing_next_time = max(self.playing_next_time, self.item_information["info"]["duration"] * (1 - (g.get_int_setting("playingnext.percent") / 100)))
+        self.playing_next_time = max(self.playing_next_time, self.item_information["info"].get("duration", 0) * (1 - (g.get_int_setting("playingnext.percent") / 100)))
 
         xbmcplugin.setResolvedUrl(g.PLUGIN_HANDLE, True, self._create_list_item(stream_link))
 
@@ -356,20 +356,26 @@ class SerenPlayer(xbmc.Player):
             if not hasattr(provider_module, "get_listitem") and hasattr(provider_module, "sources"):
                 provider_module = provider_module.sources()
             item = provider_module.get_listitem(stream_link)
-            item.setInfo("video", info)
+            # Use InfoTagVideo API for adaptive sources
+            set_video_info_tag(item, info)
         else:
             item = xbmcgui.ListItem(path=stream_link)
             info["FileNameAndPath"] = parse.unquote(self.playing_file)
-            item.setInfo("video", info)
             item.setProperty("IsPlayable", "true")
+            
+            # Build unique IDs for InfoTagVideo
+            unique_ids = {i.split("_")[0]: str(info[i]) for i in info if i.endswith("id") and info[i]}
+            
+            # Get cast from item information
+            cast = self.item_information.get("cast", [])
+            if not isinstance(cast, list):
+                cast = []
+            
+            # Use InfoTagVideo API (Kodi 21+)
+            set_video_info_tag(item, info, cast=cast, unique_ids=unique_ids)
 
         art = self.item_information.get("art", {})
         item.setArt(art if isinstance(art, dict) else {})
-        cast = self.item_information.get("cast", [])
-        item.setCast(cast if isinstance(cast, list) else [])
-        item.setUniqueIDs(
-            {i.split("_")[0]: info[i] for i in info if i.endswith("id")},
-        )
         return item
 
     def _add_support_for_external_trakt_scrobbling(self):

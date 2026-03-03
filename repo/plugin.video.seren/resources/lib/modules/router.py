@@ -256,6 +256,104 @@ def dispatch(params):
 
         tvshowMenus.Menus().discover_shows()
 
+    # ANIME SECTION - Discover Anime (TV Shows + Movies)
+    elif action == "discoverAnime":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().discover_anime()
+
+    # Anime TV Shows
+    elif action == "animeShowsPopular":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_popular()
+
+    elif action == "animeShowsTrending":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_trending()
+
+    elif action == "animeShowsPopularRecent":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_popular_recent()
+
+    elif action == "animeShowsTrendingRecent":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_trending_recent()
+
+    elif action == "animeShowsNew":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_new()
+
+    elif action == "animeShowsPlayed":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_played()
+
+    elif action == "animeShowsWatched":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_watched()
+
+    elif action == "animeShowsCollected":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_collected()
+
+    elif action == "animeShowsAnticipated":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_shows_anticipated()
+
+    # Anime Movies
+    elif action == "animeMoviesPopular":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_popular()
+
+    elif action == "animeMoviesTrending":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_trending()
+
+    elif action == "animeMoviesPopularRecent":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_popular_recent()
+
+    elif action == "animeMoviesTrendingRecent":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_trending_recent()
+
+    elif action == "animeMoviesNew":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_new()
+
+    elif action == "animeMoviesPlayed":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_played()
+
+    elif action == "animeMoviesWatched":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_watched()
+
+    elif action == "animeMoviesCollected":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_collected()
+
+    elif action == "animeMoviesAnticipated":
+        from resources.lib.gui import animeMenus
+
+        animeMenus.Menus().anime_movies_anticipated()
+
     elif action == "myShows":
         from resources.lib.gui import tvshowMenus
 
@@ -678,6 +776,12 @@ def dispatch(params):
 
         AllDebrid().auth()
         g.open_addon_settings(3, 36)
+
+    elif action == "authTorBox":
+        from resources.lib.debrid.torbox import TorBox
+
+        TorBox().auth()
+        g.open_addon_settings(3, 45)
 
     elif action == "checkSkinUpdates":
         from resources.lib.database.skinManager import SkinManager

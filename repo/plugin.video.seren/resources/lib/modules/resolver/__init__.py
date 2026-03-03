@@ -13,6 +13,7 @@ from resources.lib.common.thread_pool import ThreadPool
 from resources.lib.debrid.all_debrid import AllDebrid
 from resources.lib.debrid.premiumize import Premiumize
 from resources.lib.debrid.real_debrid import RealDebrid
+from resources.lib.debrid.torbox import TorBox
 from resources.lib.modules.exceptions import FileIdentification
 from resources.lib.modules.exceptions import ResolverFailure
 from resources.lib.modules.exceptions import UnexpectedResponse
@@ -20,6 +21,7 @@ from resources.lib.modules.globals import g
 from resources.lib.modules.resolver.torrent_resolvers import AllDebridResolver
 from resources.lib.modules.resolver.torrent_resolvers import PremiumizeResolver
 from resources.lib.modules.resolver.torrent_resolvers import RealDebridResolver
+from resources.lib.modules.resolver.torrent_resolvers import TorBoxResolver
 
 
 class Resolver:
@@ -37,6 +39,7 @@ class Resolver:
             "all_debrid": AllDebridResolver,
             "premiumize": PremiumizeResolver,
             "real_debrid": RealDebridResolver,
+            "torbox": TorBoxResolver,
         }
 
     def resolve_multiple_until_valid_link(self, sources, item_information, pack_select=False, silent=False):
@@ -147,6 +150,29 @@ class Resolver:
                 selected_file["stream_link"] if g.get_bool_setting("premiumize.transcoded") else selected_file["link"]
             )
 
+        if source["type"] == "cloud" and source["debrid_provider"] == "torbox":
+            # TorBox cloud sources have URL format: "torrent_id,file_id" or "usenet_id,file_id"
+            try:
+                url = source.get("url", "")
+                g.log(f"TorBox cloud resolve: url={url}, is_usenet={source.get('is_usenet')}", "debug")
+                
+                if not url or "," not in url:
+                    g.log(f"TorBox cloud: Invalid URL format: {url}", "error")
+                    return None
+                    
+                ids = url.split(",")
+                if len(ids) == 2:
+                    item_id, file_id = ids
+                    if source.get("is_usenet"):
+                        result = TorBox().resolve_usenet(url)
+                    else:
+                        result = TorBox().resolve_torrent_file(item_id, file_id)
+                    g.log(f"TorBox cloud resolved: {result[:50] if result else None}...", "debug")
+                    return result
+            except Exception as e:
+                g.log(f"TorBox cloud resolve error: {e}", "error")
+                return None
+
         if "provider_imports" in source:
             source = self._handle_provider_imports_resolving(source)
 
@@ -235,6 +261,9 @@ class Resolver:
 
             if g.get_bool_setting("alldebrid.enabled") and g.get_bool_setting("alldebrid.hosters"):
                 thread_pool.put(AllDebrid().get_hosters, hosters)
+
+            if g.get_bool_setting("torbox.enabled") and g.get_bool_setting("tb.hosters"):
+                thread_pool.put(TorBox().get_hosters, hosters)
             thread_pool.wait_completion()
         except ValueError:
             g.log_stacktrace()

@@ -25,6 +25,7 @@ from resources.lib.database.torrentCache import TorrentCache
 from resources.lib.debrid import all_debrid
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
+from resources.lib.debrid import torbox
 from resources.lib.gui.windows.get_sources_window import GetSourcesWindow
 from resources.lib.gui.windows.manual_caching import ManualCacheWindow
 from resources.lib.modules import monkey_requests
@@ -32,6 +33,7 @@ from resources.lib.modules import resolver as resolver
 from resources.lib.modules.cloud_scrapers import AllDebridCloudScraper
 from resources.lib.modules.cloud_scrapers import PremiumizeCloudScraper
 from resources.lib.modules.cloud_scrapers import RealDebridCloudScraper
+from resources.lib.modules.cloud_scrapers import TorBoxCloudScraper
 from resources.lib.modules.globals import g
 from resources.lib.modules.source_sorter import SourceSorter
 
@@ -381,6 +383,7 @@ class Sources:
             (g.get_bool_setting('premiumize.torrents') and g.premiumize_enabled())
             or (g.get_bool_setting('rd.torrents') and g.real_debrid_enabled())
             or (g.get_bool_setting('alldebrid.torrents') and g.all_debrid_enabled())
+            or (g.get_bool_setting('tb.torrents') and g.torbox_enabled())
         )
 
     @staticmethod
@@ -389,6 +392,7 @@ class Sources:
             (g.get_bool_setting('premiumize.hosters') and g.premiumize_enabled())
             or (g.get_bool_setting('rd.hosters') and g.real_debrid_enabled())
             or (g.get_bool_setting('alldebrid.hosters') and g.all_debrid_enabled())
+            or (g.get_bool_setting('tb.hosters') and g.torbox_enabled())
         )
 
     def _store_torrent_results(self, torrent_list):
@@ -758,6 +762,11 @@ class Sources:
                     "setting": "alldebrid.cloudInspection",
                     "provider": AllDebridCloudScraper,
                     "enabled": g.all_debrid_enabled(),
+                },
+                {
+                    "setting": "tb.cloudInspection",
+                    "provider": TorBoxCloudScraper,
+                    "enabled": g.torbox_enabled(),
                 },
             ]
 
@@ -1140,6 +1149,9 @@ class TorrentCacheCheck:
 
         if g.all_debrid_enabled() and g.get_bool_setting('alldebrid.torrents'):
             self.threads.put(self._all_debrid_worker, copy.deepcopy(torrent_list))
+
+        if g.torbox_enabled() and g.get_bool_setting('tb.torrents'):
+            self.threads.put(self._torbox_worker, copy.deepcopy(torrent_list))
         self.threads.wait_completion()
 
     def _all_debrid_worker(self, torrent_list):
@@ -1198,6 +1210,21 @@ class TorrentCacheCheck:
             for count, i in enumerate(torrent_list):
                 if premiumize_cache[count] is True:
                     i['debrid_provider'] = 'premiumize'
+                    self.store_torrent(i)
+        except Exception:
+            g.log_stacktrace()
+
+    def _torbox_worker(self, torrent_list):
+        try:
+            hash_list = [i['hash'] for i in torrent_list]
+            if not hash_list:
+                return
+            cached_hashes = torbox.TorBox().check_hash(hash_list)
+            if not cached_hashes:
+                return
+            for i in torrent_list:
+                if i['hash'].lower() in [h.lower() for h in cached_hashes]:
+                    i['debrid_provider'] = 'torbox'
                     self.store_torrent(i)
         except Exception:
             g.log_stacktrace()

@@ -2202,7 +2202,7 @@ Initial release
 			<fanart>fanart-seren-2.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="resource.images.serenv2icons.white" name="Seren Icons V2- White" version="0.0.1" provider-name="Goldenfreddy0703">
+</addon><addon id="resource.images.serenv2icons.white" name="Seren Icons V2- White" version="0.0.2" provider-name="Goldenfreddy0703">
 	<extension point="kodi.resource.images" compile="true" type="serenv2icons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
@@ -2285,6 +2285,21 @@ Initial release
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Twitch Icons</summary>
 		<description lang="en">Icons for Twitch</description>
+		<platform>all</platform>
+		<license>CC-BY-SA-3.0</license>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+	</extension>
+</addon><addon id="resource.images.youtube.coloured" name="YouTube Icons - Coloured" version="0.0.1" provider-name="Goldenfreddy0703">
+	<extension point="kodi.resource.images" compile="true" type="ytmusicicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">YouTube Icons</summary>
+		<description lang="en">Icons for YouTube</description>
 		<platform>all</platform>
 		<license>CC-BY-SA-3.0</license>
 		<assets>

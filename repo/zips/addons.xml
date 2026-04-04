@@ -118,7 +118,7 @@ Changelog 0.0.1:
       <poster>poster.png</poster>
     </assets>
   </extension>
-</addon><addon id="context.otaku.testing" version="1.0.31" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku.testing" version="1.0.32" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -1231,12 +1231,13 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.84">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.85">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
     <import addon="script.module.inputstreamhelper" />
-    <import addon="context.otaku.testing" version="1.0.31" />
+    <import addon="script.module.pyqrcode" version="1.2.1" />
+    <import addon="context.otaku.testing" version="1.0.32" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -1919,7 +1920,7 @@ Initial release
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.4.2+beta.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="7.4.2+beta.2" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />

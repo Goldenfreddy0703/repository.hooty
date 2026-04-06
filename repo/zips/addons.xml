@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="1.0.31" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="1.0.32" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -1199,12 +1199,13 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.2.84">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.2.86">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
     <import addon="script.module.inputstreamhelper" />
-    <import addon="context.otaku" version="1.0.31" />
+    <import addon="script.module.pyqrcode" />
+    <import addon="context.otaku" version="1.0.32" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -1231,12 +1232,12 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.85">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.86">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
     <import addon="script.module.inputstreamhelper" />
-    <import addon="script.module.pyqrcode" version="1.2.1" />
+    <import addon="script.module.pyqrcode" />
     <import addon="context.otaku.testing" version="1.0.32" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">

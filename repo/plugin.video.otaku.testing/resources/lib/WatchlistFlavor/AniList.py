@@ -356,7 +356,7 @@ class AniListWLF(WatchlistFlavorBase):
                 return None
 
         # Process items in parallel
-        all_results = utils.parallel_process(entries, process_next_up_item, max_workers=5)
+        all_results = utils.parallel_process(entries, process_next_up_item)
         all_results = [r for r in all_results if r is not None]
 
         # Handle paging
@@ -670,6 +670,8 @@ class AniListWLF(WatchlistFlavorBase):
         anilist_id = self._get_mapping_id(mal_id, 'anilist_id')
         if not anilist_id:
             return False
+        if anilist_id.startswith('http'):
+            anilist_id = anilist_id.split('/')[-1]
         query = '''
         mutation ($mediaId: Int, $status: MediaListStatus) {
             SaveMediaListEntry (mediaId: $mediaId, status: $status) {

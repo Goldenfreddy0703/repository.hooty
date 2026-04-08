@@ -52,7 +52,7 @@ Changelog 0.0.1:
 - Initial release
 		</news>
 	</extension>
-</addon><addon id="context.otaku" version="1.0.32" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku" version="1.0.33" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -69,6 +69,10 @@ Changelog 0.0.1:
       <item library="default.py" args="getwatchorder">
         <label>Get Watch Order</label>
         <visible>String.IsEqual(Window(home).Property(context.otaku.getwatchorder),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="viewreviews">
+        <label>View Reviews</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.viewreviews),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="markedaswatched">
         <label>Marked as Watched [COLOR blue]WatchList[/COLOR]</label>
@@ -118,7 +122,7 @@ Changelog 0.0.1:
       <poster>poster.png</poster>
     </assets>
   </extension>
-</addon><addon id="context.otaku.testing" version="1.0.32" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
+</addon><addon id="context.otaku.testing" version="1.0.33" name="Otaku - Global Context Menu Items" provider-name="TeamOtaku">
   <requires>
      <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -135,6 +139,10 @@ Changelog 0.0.1:
       <item library="default.py" args="getwatchorder">
         <label>Get Watch Order</label>
         <visible>String.IsEqual(Window(home).Property(context.otaku.testing.getwatchorder),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku.testing/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
+      </item>
+      <item library="default.py" args="viewreviews">
+        <label>View Reviews</label>
+        <visible>String.IsEqual(Window(home).Property(context.otaku.testing.viewreviews),true) + String.StartsWith(ListItem.Path,plugin://plugin.video.otaku.testing/) + [String.IsEqual(ListItem.DBTYPE,tvshow)|String.IsEqual(ListItem.DBTYPE,movie)]</visible>
       </item>
       <item library="default.py" args="markedaswatched">
         <label>Marked as Watched [COLOR blue]WatchList[/COLOR]</label>
@@ -1199,13 +1207,13 @@ Changelog 0.0.1:
 Initial release
     </news>
   </extension>
-</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.2.87">
+</addon><addon id="plugin.video.otaku" name="Otaku" provider-name="TeamOtaku" version="5.2.88">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
     <import addon="script.module.inputstreamhelper" />
     <import addon="script.module.pyqrcode" />
-    <import addon="context.otaku" version="1.0.32" />
+    <import addon="context.otaku" version="1.0.33" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>
@@ -1232,13 +1240,13 @@ Initial release
       <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
     </assets>
   </extension>
-</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.87">
+</addon><addon id="plugin.video.otaku.testing" name="Otaku Testing" provider-name="TeamOtaku" version="5.2.88">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
     <import addon="script.module.beautifulsoup4" />
     <import addon="script.module.inputstreamhelper" />
     <import addon="script.module.pyqrcode" />
-    <import addon="context.otaku.testing" version="1.0.32" />
+    <import addon="context.otaku.testing" version="1.0.33" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource">
         <provides>video</provides>

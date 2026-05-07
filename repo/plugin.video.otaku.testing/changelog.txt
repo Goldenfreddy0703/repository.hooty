@@ -1,3 +1,11 @@
+- Changelog v5.2.91 (2026-05-06):
+- Updated AniList, MAL, and Otaku browser flows
+- Improved main navigation, routing, and context menu behaviors
+- Refined UI client/control/database helpers and utility handling
+- Added schedule/anichart and service/runtime improvements
+- Updated watchlist integration and AniList/Jikan endpoint handling
+- Improved anime page handling (AnimePahe, local files, debrid cloud files)
+
 - Changelog v5.2.90 (2026-04-14):
 - Added Torrentio provider with filename matching and provider config options
 - Added Torrentio to torrent source selection and settings (toggle and provider list)

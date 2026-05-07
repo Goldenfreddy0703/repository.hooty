@@ -1,5 +1,6 @@
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from resources.lib.pages import nyaa, animetosho, nekobt, torrentio, debrid_cloudfiles, animixplay, aniwave, animepahe, hianime, animekai, watchnixtoons2, localfiles
 from resources.lib.ui import control, database
@@ -507,18 +508,14 @@ class Sources(GetSources):
         return sortedList
 
     def updateProgress(self):
-        self.torrents_qual_len = [
-            len([i for i in self.torrentSources if i['quality'] == 4]),
-            len([i for i in self.torrentSources if i['quality'] == 3]),
-            len([i for i in self.torrentSources if i['quality'] == 2]),
-            len([i for i in self.torrentSources if i['quality'] == 1]),
-            len([i for i in self.torrentSources if i['quality'] == 0])
-        ]
+        qualities = [4, 3, 2, 1, 0]
 
-        self.embeds_qual_len = [
-            len([i for i in self.embedSources if i['quality'] == 4]),
-            len([i for i in self.embedSources if i['quality'] == 3]),
-            len([i for i in self.embedSources if i['quality'] == 2]),
-            len([i for i in self.embedSources if i['quality'] == 1]),
-            len([i for i in self.embedSources if i['quality'] == 0])
-        ]
+        def count_quality(args):
+            source_list, quality = args
+            return len([i for i in source_list if i['quality'] == quality])
+
+        with ThreadPoolExecutor(max_workers=min(control.max_threads or 1, 10)) as executor:
+            torrent_tasks = [(self.torrentSources, quality) for quality in qualities]
+            embed_tasks = [(self.embedSources, quality) for quality in qualities]
+            self.torrents_qual_len = list(executor.map(count_quality, torrent_tasks))
+            self.embeds_qual_len = list(executor.map(count_quality, embed_tasks))

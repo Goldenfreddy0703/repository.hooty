@@ -28,8 +28,10 @@ import os
 import sys
 import json
 import shutil
+import threading
 
 from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from urllib import parse
 
 
@@ -582,7 +584,7 @@ def jsonrpc(json_data):
 #  Directory Listing - draw_items / bulk_dir_list / xbmc_add_dir
 # ═══════════════════════════════════════════════════════════════════════════
 
-def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable):
+def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable, bulk_prefs=None):
     u = addon_url(url)
     liz = xbmcgui.ListItem(name, offscreen=True)
     if info:
@@ -591,13 +593,24 @@ def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable):
         cm = [(x[0], f'RunPlugin(plugin://{ADDON_ID}/{x[1]}/{url})') for x in draw_cm]
         liz.addContextMenuItems(cm)
     # Check new artwork.fanart setting (inverted logic from old fanart_disable)
-    artwork_fanart_enabled = getBool('artwork.fanart')
+    if bulk_prefs is not None:
+        artwork_fanart_enabled = bulk_prefs['artwork_fanart_enabled']
+        fanart_select_enabled = bulk_prefs['fanart_select_enabled']
+        artwork_clearlogo_enabled = bulk_prefs['artwork_clearlogo_enabled']
+        fanart_mal_ids = bulk_prefs.get('fanart_mal_ids')
+        fanart_selections = bulk_prefs.get('fanart_selections')
+    else:
+        artwork_fanart_enabled = getBool('artwork.fanart')
+        fanart_select_enabled = getBool('context.otaku.testing.fanartselect')
+        artwork_clearlogo_enabled = getBool('artwork.clearlogo')
+        fanart_mal_ids = None
+        fanart_selections = None
 
     if not art.get('fanart') or not artwork_fanart_enabled:
         art['fanart'] = OTAKU_FANART
     else:
         if isinstance(art['fanart'], list):
-            if getBool('context.otaku.testing.fanartselect'):
+            if fanart_select_enabled:
                 if info.get('UniqueIDs', {}).get('mal_id'):
                     mal_id = str(info["UniqueIDs"]["mal_id"])
 
@@ -606,14 +619,17 @@ def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable):
                     if cache_key in _artwork_cache:
                         art['fanart'] = _artwork_cache[cache_key]
                     else:
-                        # Get fanart selection using string lists (only once)
-                        mal_ids = getStringList('fanart.mal_ids')
-                        fanart_selections = getStringList('fanart.selections')
+                        if fanart_mal_ids is not None:
+                            mal_ids = fanart_mal_ids
+                            fanart_selections_list = fanart_selections or []
+                        else:
+                            mal_ids = getStringList('fanart.mal_ids')
+                            fanart_selections_list = getStringList('fanart.selections')
 
                         fanart_select = ''
                         try:
                             index = mal_ids.index(mal_id)
-                            fanart_select = fanart_selections[index] if index < len(fanart_selections) else ''
+                            fanart_select = fanart_selections_list[index] if index < len(fanart_selections_list) else ''
                         except (ValueError, IndexError):
                             pass
 
@@ -634,7 +650,6 @@ def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable):
         # If fanart is already a string (pre-selected), use it directly
 
     # Check new artwork.clearlogo setting (inverted logic from old clearlogo_disable)
-    artwork_clearlogo_enabled = getBool('artwork.clearlogo')
     if not artwork_clearlogo_enabled or not art.get('clearlogo'):
         art['clearlogo'] = OTAKU_ICONS_PATH
     # If clearlogo is already a string (pre-selected), use it directly
@@ -646,22 +661,37 @@ def xbmc_add_dir(name, url, art, info, draw_cm, bulk_add, isfolder, isplayable):
     return u, liz, isfolder if bulk_add else xbmcplugin.addDirectoryItem(HANDLE, u, liz, isfolder)
 
 
+def item_looks_like_next_page_row(item):
+    """True when *item* is the standard Next page folder row (next.png artwork)."""
+    if not isinstance(item, dict):
+        return False
+    icon = (item.get('image') or {}).get('icon') or ''
+    norm = icon.replace('\\', '/').lower()
+    return norm.endswith('/next.png') or norm.endswith('next.png')
+
+
+def schedule_next_page_prefetch(items, prefetch_callable):
+    """Warm ``database.get`` / API cache for the following page after the directory is shown."""
+    if not items or not callable(prefetch_callable):
+        return
+    if not item_looks_like_next_page_row(items[-1]):
+        return
+
+    def _run():
+        try:
+            prefetch_callable()
+        except Exception as e:
+            log(f'prefetch next page: {e}', level='debug')
+
+    threading.Thread(target=_run, daemon=True).start()
+
+
 def bulk_draw_items(video_data):
     list_items = bulk_dir_list(video_data, True)
     return xbmcplugin.addDirectoryItems(HANDLE, list_items)
 
 
 def draw_items(video_data, content_type=''):
-    # Widget rate limiting - detect if this is a widget request
-    is_widget = xbmc.getInfoLabel('Container.PluginName') != ADDON_ID
-
-    if is_widget:
-        # This is a widget request - add delay to respect rate limits
-        widget_delay = getInt('widgets.delay') or 1000  # Default 1 second (1000ms)
-        log(f"Widget detected - adding {widget_delay}ms delay")
-        xbmc.sleep(widget_delay)
-
-    # Always use bulk directory adds for better performance (Seren-style optimization)
     bulk_draw_items(video_data)
     if content_type:
         xbmcplugin.setContent(HANDLE, content_type)
@@ -669,13 +699,10 @@ def draw_items(video_data, content_type=''):
         xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_NONE, "%H. %T", "%R | %P")
     elif content_type == 'tvshows':
         xbmcplugin.addSortMethod(HANDLE, xbmcplugin.SORT_METHOD_NONE, "%L", "%R")
-    # cacheToDisc=True lets Kodi cache the rendered directory listing
-    # so navigating back is instant without re-executing Python
     xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=True)
+    closeAllDialogs()
     if getBool('interface.viewtype'):
-        xbmc.sleep(100)  # Delay to ensure directory is rendered before changing view
         if getBool('interface.viewidswitch'):
-            # Use integer view types
             if content_type == '' or content_type == 'addons':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % getInt('interface.addon.view.id'))
             elif content_type == 'tvshows':
@@ -683,7 +710,6 @@ def draw_items(video_data, content_type=''):
             elif content_type == 'episodes':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % getInt('interface.episode.view.id'))
         else:
-            # Use optional view types
             if content_type == '' or content_type == 'addons':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('interface.addon.view')))
             elif content_type == 'tvshows':
@@ -691,7 +717,6 @@ def draw_items(video_data, content_type=''):
             elif content_type == 'episodes':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('interface.episode.view')))
 
-    # move to episode position currently watching
     if content_type == "episodes" and getBool('general.smart.scroll.enable'):
         wait_loop(10, 250, f"plugin://{ADDON_ID}/animes", f'plugin://{ADDON_ID}/watchlist_to_ep')
         window = xbmcgui.getCurrentWindowId()
@@ -710,12 +735,27 @@ def draw_items(video_data, content_type=''):
             xbmc.executebuiltin(f'Control.SetFocus({active_id}, {target_index})')
 
 
+def _dir_list_item_worker(item, bulk_add, bulk_prefs):
+    return xbmc_add_dir(
+        item['name'], item['url'], item['image'], item['info'], item['cm'],
+        bulk_add, item['isfolder'], item['isplayable'], bulk_prefs,
+    )
+
+
 def bulk_dir_list(video_data, bulk_add=True):
+    artwork_fanart_enabled = getBool('artwork.fanart')
+    fanart_select_enabled = getBool('context.otaku.testing.fanartselect')
+    bulk_prefs = {
+        'artwork_fanart_enabled': artwork_fanart_enabled,
+        'fanart_select_enabled': fanart_select_enabled,
+        'artwork_clearlogo_enabled': getBool('artwork.clearlogo'),
+    }
+    if artwork_fanart_enabled and fanart_select_enabled:
+        bulk_prefs['fanart_mal_ids'] = getStringList('fanart.mal_ids')
+        bulk_prefs['fanart_selections'] = getStringList('fanart.selections')
+    mapfunc = partial(_dir_list_item_worker, bulk_add=bulk_add, bulk_prefs=bulk_prefs)
     with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        list_items = list(executor.map(
-            lambda x: xbmc_add_dir(x['name'], x['url'], x['image'], x['info'], x['cm'], bulk_add, x['isfolder'], x['isplayable']),
-            [v for v in video_data if v]
-        ))
+        list_items = list(executor.map(mapfunc, filter(None, video_data)))
     return list_items
 
 

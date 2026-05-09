@@ -1,4 +1,13 @@
-- Changelog v5.2.91 (2026-05-06):
+Changelog v5.2.92 (2026-05-09):
+- MAL/Otaku browser: retry Jikan without multi-genre filter when the first query is empty (genres are ANDed)
+- Ranked/browse dates: normalize params to ISO strings; fix this_year/this_season end bounds
+- Watchlist: max eps_watched across enabled services when using watchlist data and there is no local progress
+- Indexers (anidb, anizip, jikanmoe, kitsu, otaku, next up, simkl) use merged progress; read errors debug-logged
+- Smart episode scroll: shorter label, wait_loop can require items and uses safer timing bounds
+- draw_items: brief sleep before view mode changes
+- Scroll path retries infolabel/focus reads before firstpage/SetFocus
+
+Changelog v5.2.91 (2026-05-06):
 - Updated AniList, MAL, and Otaku browser flows
 - Improved main navigation, routing, and context menu behaviors
 - Refined UI client/control/database helpers and utility handling
@@ -6,7 +15,7 @@
 - Updated watchlist integration and AniList/Jikan endpoint handling
 - Improved anime page handling (AnimePahe, local files, debrid cloud files)
 
-- Changelog v5.2.90 (2026-04-14):
+Changelog v5.2.90 (2026-04-14):
 - Added Torrentio provider with filename matching and provider config options
 - Added Torrentio to torrent source selection and settings (toggle and provider list)
 - Improved Debrid cache usage and Torrentio parsing for better source results

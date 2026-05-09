@@ -42,7 +42,9 @@ class OtakuBrowser(BrowserBase):
 
     # Indices returned by get_season_year()
     _IX_YEAR_START = 2
+    _IX_YEAR_END = 3
     _IX_SEASON_START = 4
+    _IX_SEASON_END = 5
     _IX_LAST_SEASON_START = 6
     _IX_LAST_SEASON_END = 7
     _IX_LAST_YEAR_START = 8
@@ -233,7 +235,7 @@ class OtakuBrowser(BrowserBase):
         if self.genre:
             params['genres'] = self.genre
 
-    def _browse_anime_list(self, page, format, prefix, route_slug, extra_params=None):
+    def _browse_anime_list(self, page, format, prefix, route_slug, extra_params=None, relax_on_empty=False):
         params = {
             'page': page,
             'limit': self.perpage,
@@ -244,25 +246,48 @@ class OtakuBrowser(BrowserBase):
         self._apply_anime_type_params(params, format)
         self._apply_content_filters(params)
         mal_res = database.get(self.get_mal_base_res, 24, f"{self._BASE_URL}/anime", params)
+        if relax_on_empty and not mal_res.get('data'):
+            # Jikan treats multiple genre ids as a strict AND filter.
+            # For ranked pages this can easily return 0 items; retry without multi-genre filter.
+            genres = params.get('genres')
+            if isinstance(genres, str) and ',' in genres:
+                params_relaxed = dict(params)
+                params_relaxed.pop('genres', None)
+                mal_res_relaxed = database.get(self.get_mal_base_res, 24, f"{self._BASE_URL}/anime", params_relaxed)
+                if mal_res_relaxed and mal_res_relaxed.get('data'):
+                    mal_res = mal_res_relaxed
         return self.process_otaku_view(mal_res, self._plugin_page_url(prefix, route_slug), page)
 
     def _date_extra_from_bounds(self, sy, mode):
         if mode == 'last_year':
             return {'start_date': sy[self._IX_LAST_YEAR_START], 'end_date': sy[self._IX_LAST_YEAR_END]}
         if mode == 'this_year':
-            return {'start_date': sy[self._IX_YEAR_START]}
+            return {'start_date': sy[self._IX_YEAR_START], 'end_date': sy[self._IX_YEAR_END]}
         if mode == 'last_season':
             return {'start_date': sy[self._IX_LAST_SEASON_START], 'end_date': sy[self._IX_LAST_SEASON_END]}
         if mode == 'this_season':
-            return {'start_date': sy[self._IX_SEASON_START]}
+            return {'start_date': sy[self._IX_SEASON_START], 'end_date': sy[self._IX_SEASON_END]}
         return {}
+
+    @staticmethod
+    def _normalize_date_params(params):
+        normalized = {}
+        for key, value in params.items():
+            if value in (None, ''):
+                continue
+            if hasattr(value, 'isoformat'):
+                normalized[key] = value.isoformat()
+            else:
+                normalized[key] = value
+        return normalized
 
     def _ranked_anime_list(self, page, format, prefix, route_slug, order_by, sort, date_mode=None):
         sy = self.get_season_year('')
         extra = {'order_by': order_by, 'sort': sort}
         if date_mode:
             extra.update(self._date_extra_from_bounds(sy, date_mode))
-        return self._browse_anime_list(page, format, prefix, route_slug, extra)
+        extra = self._normalize_date_params(extra)
+        return self._browse_anime_list(page, format, prefix, route_slug, extra, relax_on_empty=True)
 
     def _browse_season_airing(self, page, format, prefix, route_slug, period):
         season, year, _, _, _, _, _, _, _, _, _, _, _, _ = self.get_season_year(period)

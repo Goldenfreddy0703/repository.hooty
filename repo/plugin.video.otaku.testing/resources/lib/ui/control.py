@@ -447,22 +447,32 @@ def keyboard(title, text=''):
 #  GUI - Dialogs & Notifications
 # ═══════════════════════════════════════════════════════════════════════════
 
-def wait_loop(step: int, timeout: int, path: str, path2: str = ''):
+def wait_loop(step: int, timeout: int, path: str, path2: str = '', *, require_item_count=False):
     """
     :param step: Step wait time in ms
     :param timeout: max timeout time in ms
     :param path: path to match Container.FolderPath
     :param path2: path2 to match Container.FolderPath
-
+    :param require_item_count: if True, also wait until Container.NumItems parses as int > 0
     """
-    max_loop = int(timeout / step)
+    step = max(1, step)
+    max_loop = max(1, int(timeout / step))
     for i in range(max_loop):
         xbmc.sleep(step)
         if xbmcgui.getCurrentWindowId() == 10025:
             kodi_path = xbmc.getInfoLabel('Container.FolderPath')
-            if path in kodi_path or path2 in kodi_path:
-                if not xbmc.getCondVisibility("Container.IsUpdating"):
-                    break
+            paths_ok = path in kodi_path or (path2 and path2 in kodi_path)
+            if paths_ok:
+                if xbmc.getCondVisibility("Container.IsUpdating"):
+                    continue
+                if require_item_count:
+                    try:
+                        n = int(xbmc.getInfoLabel('Container.NumItems'))
+                    except ValueError:
+                        continue
+                    if n <= 0:
+                        continue
+                break
     else:
         log(f"Waited ({step * max_loop}ms) for path {xbmc.getInfoLabel('Container.FolderPath')}")
 
@@ -702,6 +712,7 @@ def draw_items(video_data, content_type=''):
     xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=True)
     closeAllDialogs()
     if getBool('interface.viewtype'):
+        xbmc.sleep(100)  # Delay so the directory is painted before changing view mode
         if getBool('interface.viewidswitch'):
             if content_type == '' or content_type == 'addons':
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % getInt('interface.addon.view.id'))
@@ -718,21 +729,38 @@ def draw_items(video_data, content_type=''):
                 xbmc.executebuiltin('Container.SetViewMode(%d)' % get_view_type(getSetting('interface.episode.view')))
 
     if content_type == "episodes" and getBool('general.smart.scroll.enable'):
-        wait_loop(10, 250, f"plugin://{ADDON_ID}/animes", f'plugin://{ADDON_ID}/watchlist_to_ep')
-        window = xbmcgui.getCurrentWindowId()
-        current_window = xbmcgui.Window(window)
-        active_id = current_window.getFocusId()
-        try:
-            num_watched = int(xbmc.getInfoLabel("Container.TotalWatched"))
-            total_ep = int(xbmc.getInfoLabel('Container.NumItems'))
-            all_items = int(xbmc.getInfoLabel('Container.NumAllItems'))
+        if getBool('interface.viewtype'):
+            xbmc.sleep(150)  # View mode change can repaint the list; let infolabels settle
+        wait_loop(50, 4500, f"plugin://{ADDON_ID}/animes", f'plugin://{ADDON_ID}/watchlist_to_ep',
+                  require_item_count=True)
+        for _ in range(16):
+            window = xbmcgui.getCurrentWindowId()
+            if window != 10025:
+                xbmc.sleep(80)
+                continue
+            current_window = xbmcgui.Window(window)
+            active_id = current_window.getFocusId()
+            if not active_id:
+                xbmc.sleep(80)
+                continue
+            try:
+                num_watched = int(xbmc.getInfoLabel("Container.TotalWatched"))
+                total_ep = int(xbmc.getInfoLabel('Container.NumItems'))
+                all_items = int(xbmc.getInfoLabel('Container.NumAllItems'))
+            except ValueError:
+                xbmc.sleep(80)
+                continue
+            if all_items <= 0:
+                xbmc.sleep(80)
+                continue
             offset = 1 if all_items > total_ep else 0
             target_index = num_watched + offset
-        except ValueError:
-            return
-        if 0 < target_index < all_items:
+            if not (0 < target_index < all_items):
+                break
             xbmc.executebuiltin('Action(firstpage)')
+            xbmc.sleep(50)
             xbmc.executebuiltin(f'Control.SetFocus({active_id}, {target_index})')
+            break
 
 
 def _dir_list_item_worker(item, bulk_add, bulk_prefs):

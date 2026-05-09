@@ -436,7 +436,7 @@ msgid "Enable search history"
 msgstr ""
 
 msgctxt "#30101"
-msgid "Smart Episode Scrolling (Only works in List View)"
+msgid "Smart Episode Scrolling"
 msgstr ""
 
 msgctxt "#30102"

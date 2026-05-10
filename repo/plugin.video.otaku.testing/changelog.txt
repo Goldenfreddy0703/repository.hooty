@@ -1,3 +1,10 @@
+Changelog v5.2.93 (2026-05-10):
+- Optional ffprobe chapter probing as a last-resort for skip intro/outro (after AniSkip, AnimeSkip, embedded chapters)
+- New ffprobe_chapters helper: probe play URLs with headers; find ffprobe on PATH, beside Kodi, or via settings path
+- Resolver passes chapter metadata on linkinfo; WatchlistPlayer applies ffprobe chapters after other skip sources
+- source_utils: chapter title keyword helpers for intro/outro detection
+- Settings and language strings to enable ffprobe chapters and set a custom ffprobe path
+
 Changelog v5.2.92 (2026-05-09):
 - MAL/Otaku browser: retry Jikan without multi-genre filter when the first query is empty (genres are ANDed)
 - Ranked/browse dates: normalize params to ISO strings; fix this_year/this_season end bounds

@@ -1227,8 +1227,31 @@
 				</setting>
 			</group>
 
+			<!-- FFprobe (optional chapter metadata; complements inputstream.ffmpegdirect playback) -->
+			<group id="3" label="30471" help="">
+				<setting id="ffprobe.chapters.enable" type="boolean" label="30467" help="30468">
+					<level>1</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="ffprobe.path" type="string" label="30469" help="30470" parent="ffprobe.chapters.enable">
+					<level>2</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30469</heading>
+						<hidden>false</hidden>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="ffprobe.chapters.enable">true</dependency>
+					</dependencies>
+				</setting>
+			</group>
+
 			<!-- Skip Intro Dialog -->
-			<group id="3" label="30148" help="">
+			<group id="4" label="30148" help="">
 				<setting id="smartplay.skipintrodialog" type="boolean" label="30149" help="">
 					<level>0</level>
 					<default>true</default>
@@ -1318,7 +1341,7 @@
 			</group>
 
 			<!-- Playing Next Dialog -->
-			<group id="4" label="30145" help="">
+			<group id="5" label="30145" help="">
 				<setting id="smartplay.playingnextdialog" type="boolean" label="30146" help="">
 					<level>0</level>
 					<default>true</default>

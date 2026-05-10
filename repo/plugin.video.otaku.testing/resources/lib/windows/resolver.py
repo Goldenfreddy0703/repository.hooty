@@ -6,7 +6,7 @@ import urllib.parse
 
 from resources.lib.WatchlistIntegration import watchlist_update_episode
 from resources.lib.debrid import all_debrid, debrid_link, premiumize, real_debrid, torbox, easydebrid
-from resources.lib.ui import client, control, source_utils, player
+from resources.lib.ui import client, control, ffprobe_chapters, source_utils, player
 from resources.lib.windows.base_window import BaseWindow
 
 control.sys.path.append(control.dataPath)
@@ -174,6 +174,8 @@ class Resolver(BaseWindow):
         else:
             self.return_data['linkinfo'] = self.prefetch_play_link(self.return_data['link'])
 
+        ffprobe_chapters.attach_to_linkinfo(self.return_data.get('linkinfo'))
+
         if not self.return_data['linkinfo']:
             self.return_data = False
 
@@ -198,6 +200,7 @@ class Resolver(BaseWindow):
             self.source_select_close()
 
         linkInfo = self.return_data['linkinfo']
+
         item = xbmcgui.ListItem(path=linkInfo['url'], offscreen=True)
 
         # Handle subtitles
@@ -212,9 +215,10 @@ class Resolver(BaseWindow):
             item.setSubtitles(subtitles)
 
         # Handle mimetype - hooks will configure InputStream Adaptive for HLS/DASH
-        if linkInfo['headers'].get('Content-Type'):
-            item.setProperty('MimeType', linkInfo['headers']['Content-Type'])
-            item = hook_mimetype.trigger(linkInfo['headers']['Content-Type'], item)
+        hdr = linkInfo.get('headers') or {}
+        if hdr.get('Content-Type'):
+            item.setProperty('MimeType', hdr['Content-Type'])
+            item = hook_mimetype.trigger(hdr['Content-Type'], item)
 
         if self.params.get('image'):
             self.image = self.params.get('image', {})
@@ -275,6 +279,8 @@ class Resolver(BaseWindow):
         self.close()
 
         if not self.abort:
+            link_info = self.return_data.get('linkinfo') or {}
+            ch = link_info.get('chapters') if isinstance(link_info, dict) else None
             player.WatchlistPlayer().handle_player(
                 self.mal_id,
                 watchlist_update_episode,
@@ -283,7 +289,8 @@ class Resolver(BaseWindow):
                 self.params.get('path', ''),
                 self.return_data['source']['type'] if 'type' in self.return_data['source'] else '',
                 self.return_data['source']['provider'] if 'provider' in self.return_data['source'] else '',
-                self.context
+                self.context,
+                ch,
             )
 
     def _build_art_dict(self, use_params=False):

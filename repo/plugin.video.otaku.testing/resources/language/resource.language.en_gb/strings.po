@@ -1884,3 +1884,23 @@ msgstr ""
 msgctxt "#30466"
 msgid "Torrentio Providers"
 msgstr ""
+
+msgctxt "#30467"
+msgid "Probe MKV/MP4 chapters with ffprobe before playback"
+msgstr ""
+
+msgctxt "#30468"
+msgid "Requires ffprobe (FFmpeg), auto-detected on PATH or beside Kodi. Adds a short delay while resolving. Chapter titles are used only as a fallback for skip intro and skip outro times when embeds, AniSkip, and AnimeSkip did not supply them. inputstream.ffmpegdirect handles some playback paths but does not expose chapter lists to add-ons."
+msgstr ""
+
+msgctxt "#30469"
+msgid "Optional path to ffprobe"
+msgstr ""
+
+msgctxt "#30470"
+msgid "Leave empty to auto-detect. Example: C:\\Program Files\\ffmpeg\\bin\\ffprobe.exe"
+msgstr ""
+
+msgctxt "#30471"
+msgid "FFprobe (chapters / skip times)"
+msgstr ""

@@ -1,3 +1,9 @@
+Changelog v5.2.94 (2026-05-12):
+- Added Easynews (Usenet) as a hoster source with settings, auth, search, and resolve
+- Refactored source scraping: registry-driven torrent/hoster/embed workers; hosters kept separate from torrent lists
+- Get sources dialog: Torrent / Hoster / Embed counts and quality line; filter vocabulary (INFO_STRUCT) lives in source_utils
+- Router and Easynews auth reliability fixes; sort options include Easynews
+
 Changelog v5.2.93 (2026-05-10):
 - Optional ffprobe chapter probing as a last-resort for skip intro/outro (after AniSkip, AnimeSkip, embedded chapters)
 - New ffprobe_chapters helper: probe play URLs with headers; find ffprobe on PATH, beside Kodi, or via settings path

@@ -1904,3 +1904,55 @@ msgstr ""
 msgctxt "#30471"
 msgid "FFprobe (chapters / skip times)"
 msgstr ""
+
+msgctxt "#30472"
+msgid "Easynews"
+msgstr ""
+
+msgctxt "#30473"
+msgid "Enable Easynews (Usenet)"
+msgstr ""
+
+msgctxt "#30474"
+msgid "Easynews Username"
+msgstr ""
+
+msgctxt "#30475"
+msgid "Easynews Password"
+msgstr ""
+
+msgctxt "#30476"
+msgid "Easynews: stricter moderation (fewer adult-oriented search hits; maps to Easynews safe search)"
+msgstr ""
+
+msgctxt "#30477"
+msgid "Easynews does not support uncached torrents."
+msgstr ""
+
+msgctxt "#30478"
+msgid "Enable Easynews"
+msgstr ""
+
+msgctxt "#30479"
+msgid "Connected"
+msgstr ""
+
+msgctxt "#30480"
+msgid "Easynews status"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Authorize Easynews..."
+msgstr ""
+
+msgctxt "#30482"
+msgid "Enter Easynews username and password above, then verify."
+msgstr ""
+
+msgctxt "#30483"
+msgid "Invalid Easynews login."
+msgstr ""
+
+msgctxt "#30484"
+msgid "Hosters"
+msgstr ""

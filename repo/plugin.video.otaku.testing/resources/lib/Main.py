@@ -1616,6 +1616,9 @@ def AUTH(payload, params):
     elif payload == 'easydebrid':
         from resources.lib.debrid.easydebrid import EasyDebrid
         EasyDebrid().auth()
+    elif payload == 'easynews':
+        from resources.lib.debrid.easynews import Easynews
+        Easynews().auth()
 
 
 @Route('refresh/*')

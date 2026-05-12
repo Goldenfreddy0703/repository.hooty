@@ -846,8 +846,20 @@
 				</setting>
 			</group>
 
+			<!-- Hosters -->
+			<group id="2" label="30484" help="">
+				<setting id="provider.easynews" type="boolean" label="30473" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
+			</group>
+
 			<!-- Embeds -->
-			<group id="2" label="30131" help="">
+			<group id="3" label="30131" help="">
 				<setting id="embed.config" type="list[string]" label="30389" help="">
 					<level>0</level>
 					<default>doodstream,filelions,filemoon,hd-1,hd-2,hd-3,iga,kwik,megacloud,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,t-cloud,vidcdn,vidhide,vidplay,vidsrc,vidstream,yourupload,zto</default>
@@ -2165,6 +2177,66 @@
 						<dependency type="visible" setting="easydebrid.enabled">true</dependency>
 					</dependencies>
 				</setting> -->
+			</group>
+			<!-- Easynews (HTTP Basic — username / password below) -->
+			<group id="8" label="30472" help="">
+				<setting id="easynews.enabled" type="boolean" label="30478" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="easynews.user" type="string" label="30474" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
+				<setting id="easynews.password" type="string" label="30475" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
+				<setting id="easynews.auth.status" type="string" label="30480" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
+				<setting id="easynews.auth_start" type="action" label="30481" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.otaku.testing/auth/easynews)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
+				<setting id="easynews.moderation" type="boolean" label="30476" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="visible" setting="easynews.enabled">true</dependency>
+					</dependencies>
+				</setting>
 			</group>
 		</category>
 

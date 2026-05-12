@@ -5,7 +5,7 @@ import xbmc
 import urllib.parse
 
 from resources.lib.WatchlistIntegration import watchlist_update_episode
-from resources.lib.debrid import all_debrid, debrid_link, premiumize, real_debrid, torbox, easydebrid
+from resources.lib.debrid import all_debrid, debrid_link, easynews, premiumize, real_debrid, torbox, easydebrid
 from resources.lib.ui import client, control, ffprobe_chapters, source_utils, player
 from resources.lib.windows.base_window import BaseWindow
 
@@ -48,7 +48,8 @@ class Resolver(BaseWindow):
             'Premiumize': premiumize.Premiumize,
             'Real-Debrid': real_debrid.RealDebrid,
             'TorBox': torbox.TorBox,
-            'EasyDebrid': easydebrid.EasyDebrid
+            'EasyDebrid': easydebrid.EasyDebrid,
+            'Easynews': easynews.Easynews,
         }
         self.source_select = source_select
         self.pack_select = False
@@ -336,10 +337,12 @@ class Resolver(BaseWindow):
                 if hash_:
                     stream_link = api.resolve_hoster(hash_)
             elif source['type'] == 'hoster':
-                # Get the hoster links from EasyDebrid
-                hoster_response = api.resolve_hoster(magnet, source['episode_re'], self.pack_select)
-                if hoster_response:
-                    stream_link = hoster_response
+                if source.get('debrid_provider') == 'Easynews':
+                    stream_link = api.unrestrict_link(source['hash'])
+                else:
+                    hoster_response = api.resolve_hoster(magnet, source['episode_re'], self.pack_select)
+                    if hoster_response:
+                        stream_link = hoster_response
 
             return stream_link
         except Exception as e:

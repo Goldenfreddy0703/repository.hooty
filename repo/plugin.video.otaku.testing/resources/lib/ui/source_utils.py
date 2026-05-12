@@ -13,6 +13,7 @@ Torrent Filtering          - filter_sources (season / episode / part regex)
 Text Cleaning              - remove_patterns, cleanup_text, clean_text, cleanTitle
 File Utilities             - is_file_ext_valid, video_ext, user_select, get_embedhost
 Chapter Keywords           - CHAPTER_*_KEYWORDS, chapter_title_matches_intro/outro
+Filter UI vocabulary       - INFO_STRUCT (codec / HDR / audio / misc tags for filter dialog)
 """
 
 import re
@@ -23,6 +24,27 @@ import xbmc
 from resources.lib.ui import control
 
 res = ['EQ', '480p', '720p', '1080p', '4k']
+
+# Filter dialog: selectable tags per category (see windows/filter_select.py)
+INFO_STRUCT = {
+    "videocodec": {
+        "AVC", "HEVC", "XVID", "DIVX", "WMV", "MP4", "MPEG", "VP9", "AV1",
+    },
+    "hdrcodec": {
+        "DV", "HDR", "HYBRID", "SDR",
+    },
+    "audiocodec": {
+        "AAC", "DTS", "DTS-HDMA", "DTS-HDHR", "DTS-X", "ATMOS", "TRUEHD",
+        "DD+", "DD", "MP3", "WMA", "OPUS",
+    },
+    "audiochannels": {
+        "2.0", "5.1", "7.1",
+    },
+    "misc": {
+        "CAM", "HDTV", "PDTV", "REMUX", "HDRIP", "BLURAY", "DVDRIP", "WEB",
+        "HC", "SCR", "3D", "60-FPS", "BATCH"
+    },
+}
 
 
 # ═══════════════════════════════════════════════════════════════════════════

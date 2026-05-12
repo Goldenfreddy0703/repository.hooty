@@ -13,7 +13,7 @@ SORT_OPTIONS = {
     'sortmethod': SORT_METHODS,
     'none': [],
     "source type": ['files', 'cloud', 'torrent', 'hoster', 'embeds', "none"],
-    "debrid provider": ['Real-Debrid', 'Premiumize', 'Alldebrid', 'Debrid-Link', 'Torbox', 'EasyDebrid', 'none'],
+    "debrid provider": ['Real-Debrid', 'Premiumize', 'Alldebrid', 'Debrid-Link', 'Torbox', 'EasyDebrid', 'Easynews', 'none'],
     "audio": ['multi-audio', 'dual-audio', 'sub', 'dub', 'none'],
     "subtitles": ['multi sub', 'none'],
     "resolution": [],
@@ -29,7 +29,7 @@ audio = [0, 1, 2, 3, 'none']
 subtitles = [0, 'none']
 
 # Define debrid provider mapping
-debrid_provider = [['Real-Debrid'], ['Premiumize'], ['Alldebrid'], ['Debrid-Link'], ['Torbox'], ['EasyDebrid'], ['none']]
+debrid_provider = [['Real-Debrid'], ['Premiumize'], ['Alldebrid'], ['Debrid-Link'], ['Torbox'], ['EasyDebrid'], ['Easynews'], ['none']]
 
 # Define source type mapping
 source_type = [['local'], ['cloud'], ['torrent', 'torrent (uncached)'], ['hoster'], ['direct', 'embed'], ['none']]
@@ -66,7 +66,8 @@ default_sort_options = {
     'debrid provider.4': 3,  # Debrid-Link
     'debrid provider.5': 4,  # Torbox
     'debrid provider.6': 5,  # EasyDebrid
-    'debrid provider.7': 6,  # none
+    'debrid provider.7': 6,  # Easynews
+    'debrid provider.8': 7,  # none
     'audio.1': 0,  # multi-audio
     'audio.2': 1,  # dual-audio
     'audio.3': 2,  # sub
@@ -108,7 +109,8 @@ default_sub_options = {
     'debrid provider.4': 3,  # Debrid-Link
     'debrid provider.5': 4,  # Torbox
     'debrid provider.6': 5,  # EasyDebrid
-    'debrid provider.7': 6,  # none
+    'debrid provider.7': 6,  # Easynews
+    'debrid provider.8': 7,  # none
     'audio.1': 0,  # multi-audio
     'audio.2': 1,  # dual-audio
     'audio.3': 2,  # sub
@@ -150,7 +152,8 @@ default_dub_options = {
     'debrid provider.4': 3,  # Debrid-Link
     'debrid provider.5': 4,  # Torbox
     'debrid provider.6': 5,  # EasyDebrid
-    'debrid provider.7': 6,  # none
+    'debrid provider.7': 6,  # Easynews
+    'debrid provider.8': 7,  # none
     'audio.1': 0,  # multi-audio
     'audio.2': 1,  # dual-audio
     'audio.3': 3,  # sub
@@ -192,7 +195,8 @@ default_multi_audio_options = {
     'debrid provider.4': 3,  # Debrid-Link
     'debrid provider.5': 4,  # Torbox
     'debrid provider.6': 5,  # EasyDebrid
-    'debrid provider.7': 6,  # none
+    'debrid provider.7': 6,  # Easynews
+    'debrid provider.8': 7,  # none
     'audio.1': 0,  # multi-audio
     'audio.2': 1,  # dual-audio
     'audio.3': 4,  # none
@@ -234,7 +238,8 @@ default_multi_sub_options = {
     'debrid provider.4': 3,  # Debrid-Link
     'debrid provider.5': 4,  # Torbox
     'debrid provider.6': 5,  # EasyDebrid
-    'debrid provider.7': 6,  # none
+    'debrid provider.7': 6,  # Easynews
+    'debrid provider.8': 7,  # none
     'audio.1': 0,  # multi-audio
     'audio.2': 1,  # dual-audio
     'audio.3': 4,  # none

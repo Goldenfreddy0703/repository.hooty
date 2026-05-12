@@ -149,6 +149,15 @@ def enabled_debrid():
     return {x: getSetting(f'{x}.token') != '' and getBool(f'{x}.enabled') for x in debrids}
 
 
+def easynews_enabled():
+    """Easynews: account toggle + provider toggle + HTTP Basic credentials (no pin OAuth)."""
+    if not getBool('easynews.enabled'):
+        return False
+    if not getBool('provider.easynews'):
+        return False
+    return bool(getSetting('easynews.user') and getSetting('easynews.password'))
+
+
 def enabled_cloud():
     clouds = ['realdebrid', 'alldebrid', 'premiumize', 'torbox']
     return {x: getSetting(f'{x}.token') != '' and getBool(f'{x}.cloudInspection') for x in clouds}

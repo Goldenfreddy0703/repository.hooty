@@ -73,9 +73,10 @@ class Easynews:
                     continue
                 path = '/%s/%s/%s%s/%s%s' % (dl_farm, dl_port, post_hash, ext, post_title, ext)
                 url_dl = down_url + quote(path)
+                display_name = post_title + ext if ext.startswith('.') else '%s.%s' % (post_title, ext)
                 out.append({
                     'url_dl': url_dl,
-                    'name': post_title,
+                    'name': display_name,
                     'rawSize': int(item.get('rawSize', 0)),
                     'language': language,
                 })

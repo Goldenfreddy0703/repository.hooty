@@ -1,3 +1,8 @@
+Changelog v5.2.95 (2026-05-13):
+- Easynews: broader queries, concurrent search with dedupe, stricter title matching, and safer result filtering/sorting
+- Embed host defaults: reapplied only when SCHEMA_VERSION bumps (no longer reset on every BrowserBase import)
+- Returning users: after a schema migration, optional prompt to open the setup wizard (sources/sort review)
+
 Changelog v5.2.94 (2026-05-12):
 - Added Easynews (Usenet) as a hoster source with settings, auth, search, and resolve
 - Refactored source scraping: registry-driven torrent/hoster/embed workers; hosters kept separate from torrent lists

@@ -511,6 +511,9 @@ def filter_sources(provider, torrent_list, mal_id, season=None, episode=None, pa
                 continue
         elif provider == 'local':
             torrent['hash'] = torrent.get('path', '')
+        elif provider == 'easynews':
+            if 'hash' not in torrent or 'name' not in torrent:
+                continue
         else:
             continue
 

@@ -357,16 +357,8 @@ class Sources(GetSources):
             elif source == 2:
                 sortedList = [i for i in sortedList if i['lang'] in [0, 1, 3]]
 
-        # Sort Sources
-        SORT_METHODS = sort_select.SORT_METHODS
-        sort_options = sort_select.sort_options
-
-        for x in range(len(SORT_METHODS), 0, -1):
-            reverse = sort_options[f'sortmethod.{x}.reverse']
-            method = SORT_METHODS[int(sort_options[f'sortmethod.{x}'])]
-            # Replace spaces with underscores in the method name
-            method = method.replace(' ', '_')
-            sortedList = getattr(sort_select, f'sort_by_{method}')(sortedList, not reverse)
+        # Sort sources (Seren-style composite keys; fresh sort_options.json)
+        sortedList = sort_select.sort_sources_list(sortedList)
 
         return sortedList
 

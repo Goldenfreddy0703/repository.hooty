@@ -1,10 +1,15 @@
 import json
+import re
+import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 from bs4 import BeautifulSoup, SoupStrainer
 from resources.lib.ui import database, source_utils, control
 from resources.lib.ui.BrowserBase import BrowserBase
 from resources.lib.endpoints import malsync
+from resources.lib.ui import client
+
+_ANIME_SESSION_PATH_RE = re.compile(r'/anime/([^/?#]+)', re.I)
 
 
 class Sources(BrowserBase):
@@ -45,10 +50,50 @@ class Sources(BrowserBase):
             'sub': 1
         }
 
+    @staticmethod
+    def _session_slug_from_animepahe_url(page_url):
+        """Extract API session id from a canonical AnimePahe page URL (/anime/{session})."""
+        if not page_url:
+            return None
+        match = _ANIME_SESSION_PATH_RE.search(urllib.parse.urlparse(page_url).path)
+        return match.group(1) if match else None
+
+    def _resolve_session_from_malsync(self, mal_id):
+        """
+        MAL Sync stores legacy links like https://animepahe.com/a/6231; the live site
+        redirects to https://animepahe.pw/anime/{uuid}. Follow redirects and return that
+        session slug for the API (m=release&id=...).
+        """
+        for raw in malsync.get_slugs(mal_id, site='animepahe'):
+            if not raw:
+                continue
+            link = raw.strip()
+            if link.startswith('//'):
+                link = 'https:' + link
+            elif link.startswith('/'):
+                link = urllib.parse.urljoin('https://animepahe.com', link)
+            final = client.request(
+                link,
+                output='geturl',
+                headers=self._headers,
+                referer=self._BASE_URL,
+            )
+            slug = self._session_slug_from_animepahe_url(final)
+            if slug:
+                return slug
+        return None
+
     def get_sources(self, mal_id, episode):
         title = malsync.get_title(mal_id, site='animepahe')
         if not title:
             return []
+
+        slug = self._resolve_session_from_malsync(mal_id)
+        if slug:
+            direct = self._process_ap(slug, title=title, episode=episode)
+            if direct:
+                return direct
+
         params = {'m': 'search', 'q': title}
         r = database.get(
             self._get_request,

@@ -189,8 +189,9 @@ def get(function, duration, *args, **kwargs):
     if row and is_cache_valid(row['date'], duration):
         try:
             data = ast.literal_eval(row['value'])
-            _mem_set(key, row['value'], duration)
-            return data
+            if data is not None:
+                _mem_set(key, row['value'], duration)
+                return data
         except Exception:
             control.log(
                 f"Cache corrupt for key {key}, fetching fresh data",
@@ -198,6 +199,8 @@ def get(function, duration, *args, **kwargs):
 
     # --- Tier 3: Fresh call ---
     result = function(*args, **kwargs)
+    if result is None:
+        return result
     result_repr = repr(result)
     _cache_write(key, result_repr)
     _mem_set(key, result_repr, duration)

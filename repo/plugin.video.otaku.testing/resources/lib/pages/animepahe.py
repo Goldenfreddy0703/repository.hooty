@@ -13,7 +13,8 @@ _ANIME_SESSION_PATH_RE = re.compile(r'/anime/([^/?#]+)', re.I)
 
 
 class Sources(BrowserBase):
-    _BASE_URL = 'https://animepahe.pw/'
+    _BASE_URL = 'https://animepahe-pw.translate.goog/?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp/' if control.getBool('provider.animepahealt') else 'https://animepahe.pw/'
+
     _headers = {
         'Referer': _BASE_URL,
         'Cookie': '__ddg1_=PZYJSmACHBBQGP6auJU9; __ddg2_=hxAe1bBqtlUhMFik'

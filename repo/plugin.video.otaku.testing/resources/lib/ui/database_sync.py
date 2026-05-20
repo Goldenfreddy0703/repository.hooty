@@ -27,7 +27,7 @@ class SyncDatabase:
     # Bump this whenever the metadata schema changes;
     # a mismatch triggers re_build_database(silent=True) and refreshes
     # embed host defaults (see check_database_version).
-    SCHEMA_VERSION = '1.0.12'
+    SCHEMA_VERSION = '1.0.13'
 
     def __init__(self):
         self.activites = None

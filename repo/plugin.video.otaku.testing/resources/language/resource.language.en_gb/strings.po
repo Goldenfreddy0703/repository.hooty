@@ -1956,3 +1956,11 @@ msgstr ""
 msgctxt "#30484"
 msgid "Hosters"
 msgstr ""
+
+msgctxt "#30485"
+msgid "Anikoto"
+msgstr ""
+
+msgctxt "#30486"
+msgid "AnimePahe Alt"
+msgstr ""

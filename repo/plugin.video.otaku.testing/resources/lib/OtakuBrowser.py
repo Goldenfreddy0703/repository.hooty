@@ -246,7 +246,7 @@ class OtakuBrowser(BrowserBase):
         self._apply_anime_type_params(params, format)
         self._apply_content_filters(params)
         mal_res = database.get(self.get_mal_base_res, 24, f"{self._BASE_URL}/anime", params)
-        if relax_on_empty and not mal_res.get('data'):
+        if relax_on_empty and mal_res and not mal_res.get('data'):
             # Jikan treats multiple genre ids as a strict AND filter.
             # For ranked pages this can easily return 0 items; retry without multi-genre filter.
             genres = params.get('genres')
@@ -546,9 +546,13 @@ class OtakuBrowser(BrowserBase):
 
     @staticmethod
     def get_mal_base_res(url, params=None):
-        r = client.get(url, params=params)
-        if r:
-            return r.json()
+        for attempt in range(3):
+            r = client.get(url, params=params)
+            if r:
+                return r.json()
+            if attempt < 2:
+                control.sleep(1000 * (attempt + 1))
+        control.log(f'Jikan request failed: {url}', level='warning')
 
     @staticmethod
     def get_anilist_base_res(mal_ids, page=1, media_type="ANIME"):

@@ -208,12 +208,19 @@ class Resolver(BaseWindow):
         if self.return_data.get('sub'):
             from resources.lib.ui import embed_extractor
             embed_extractor.del_subs()
-            subtitles = []
-            for sub in self.return_data['sub']:
-                sub_url = sub.get('url')
-                sub_lang = sub.get('lang')
-                subtitles.append(embed_extractor.get_sub(sub_url, sub_lang))
-            item.setSubtitles(subtitles)
+            subtitle_entries = []
+            for idx, sub in enumerate(self.return_data['sub']):
+                entry = embed_extractor.get_sub(
+                    sub.get('url'),
+                    sub.get('lang'),
+                    headers=sub.get('headers'),
+                    sub_index=sub.get('index', idx),
+                    display_name=sub.get('name'),
+                )
+                if entry:
+                    subtitle_entries.append(entry)
+            if subtitle_entries:
+                item.setSubtitles([entry['path'] for entry in subtitle_entries])
 
         # Handle mimetype - hooks will configure InputStream Adaptive for HLS/DASH
         hdr = linkInfo.get('headers') or {}

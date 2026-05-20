@@ -907,10 +907,23 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="provider.anikoto" type="boolean" label="30485" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
 				<setting id="provider.animepahe" type="boolean" label="30237" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
+				</setting>
+				<setting id="provider.animepahealt" type="boolean" label="30486" help="" parent="provider.animepahe">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+					<dependencies>
+						<dependency type="visible" setting="provider.animepahe">true</dependency>
+					</dependencies>
 				</setting>
 				<setting id="provider.animix" type="boolean" label="30238" help="">
 					<level>0</level>
@@ -4001,6 +4014,26 @@
 					<control type="edit" format="integer"/>
 				</setting>
 				<setting id="animekai.skipoutro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer"/>
+				</setting>
+				<setting id="anikoto.skipintro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer"/>
+				</setting>
+				<setting id="anikoto.skipintro.start" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer"/>
+				</setting>
+				<setting id="anikoto.skipoutro.end" type="integer" label="" help="">
+					<level>4</level>
+					<default>0</default>
+					<control type="edit" format="integer"/>
+				</setting>
+				<setting id="anikoto.skipoutro.start" type="integer" label="" help="">
 					<level>4</level>
 					<default>0</default>
 					<control type="edit" format="integer"/>

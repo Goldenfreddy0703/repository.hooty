@@ -1,3 +1,11 @@
+Changelog v5.2.96 (2026-05-19):
+- AnimePahe Alt: optional proxied base URL (provider.animepahealt; visible when AnimePahe is on)
+- MAL/Jikan: retry get_mal_base_res up to 3 times; ui/database.get no longer caches or returns None from failed fetches
+- Added Anikoto provider (MegaPlay embeds) with skip intro/outro settings, extractor, and player integration
+- Embed/resolver: MegaPlay host, richer subtitle metadata/lang detection; subtitle headers passed through get_sub
+- Source sort: Seren-style composite tuple sorter; merged sort_options.json defaults; Sort Select max_level UI visibility
+- MALSync: single fetch_mal_anime cache reused by get_slugs/get_title; AnimePahe session resolve from legacy redirects
+
 Changelog v5.2.95 (2026-05-13):
 - Easynews: broader queries, concurrent search with dedupe, stricter title matching, and safer result filtering/sorting
 - Embed host defaults: reapplied only when SCHEMA_VERSION bumps (no longer reset on every BrowserBase import)

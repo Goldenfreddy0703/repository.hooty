@@ -840,9 +840,6 @@
 						<multiselect>true</multiselect>
 						<hidevalue>true</hidevalue>
 					</control>
-					<dependencies>
-						<dependency type="visible" setting="provider.torrentio">true</dependency>
-					</dependencies>
 				</setting>
 			</group>
 
@@ -902,11 +899,11 @@
 						<hidevalue>true</hidevalue>
 					</control>
 				</setting>
-				<setting id="provider.animekai" type="boolean" label="30458" help="">
+				<!-- <setting id="provider.animekai" type="boolean" label="30458" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting>
+				</setting> -->
 				<setting id="provider.anikoto" type="boolean" label="30485" help="">
 					<level>0</level>
 					<default>true</default>
@@ -925,12 +922,12 @@
 						<dependency type="visible" setting="provider.animepahe">true</dependency>
 					</dependencies>
 				</setting>
-				<setting id="provider.animix" type="boolean" label="30238" help="">
+				<!-- <setting id="provider.animix" type="boolean" label="30238" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting>
-				<setting id="provider.animixalt" type="boolean" label="30243" help="" parent="provider.animix">
+				</setting> -->
+				<!-- <setting id="provider.animixalt" type="boolean" label="30243" help="" parent="provider.animix">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
@@ -942,7 +939,7 @@
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting>
+				</setting> -->
 				<!-- <setting id="provider.gogo" type="boolean" label="30236" help="">
 					<level>0</level>
 					<default>true</default>
@@ -956,11 +953,11 @@
 						<dependency type="visible" setting="provider.gogo">true</dependency>
 					</dependencies>
 				</setting> -->
-				<setting id="provider.hianime" type="boolean" label="30235" help="">
+				<!-- <setting id="provider.hianime" type="boolean" label="30235" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting>
+				</setting> -->
 				<setting id="provider.watchnixtoons2" type="boolean" label="30379" help="">
 					<level>0</level>
 					<default>true</default>

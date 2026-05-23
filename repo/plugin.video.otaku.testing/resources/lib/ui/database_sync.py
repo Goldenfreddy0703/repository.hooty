@@ -205,7 +205,7 @@ class SyncDatabase:
     def check_database_version(self):
         if not self.activites or self.activites.get('otaku_version') != self.last_meta_update:
             first_time = control.getBool('first_time')
-            was_returning_user = not first_time
+            # was_returning_user = not first_time
 
             if first_time:
                 control.setInt('showchangelog', 1)
@@ -253,20 +253,20 @@ class SyncDatabase:
             control.setStringList(
                 'embed.config', list(BrowserBase.EMBED_SERVERS_DEFAULT))
 
-            if was_returning_user:
-                choice = control.yesno_dialog(
-                    f'{control.ADDON_NAME} - {control.lang(30415)}',
-                    'This update includes new source options (such as EasyNews) and may '
-                    'have changed how sort orders work.\n'
-                    'Would you like to open the setup wizard to review your preferences?',
-                    'No', 'Yes')
-                if choice == 1:
-                    control.execute(
-                        'RunPlugin(plugin://plugin.video.otaku.testing/setup_wizard)')
-                elif choice == 0:
-                    control.ok_dialog(
-                        f'{control.ADDON_NAME} - {control.lang(30415)}',
-                        'You will need to go to the Tools > Choose Sorting > Choose Preset to set your preferred sorting options.')
+            # if was_returning_user:
+            #     choice = control.yesno_dialog(
+            #         f'{control.ADDON_NAME} - {control.lang(30415)}',
+            #         'This update includes new source options (such as EasyNews) and may '
+            #         'have changed how sort orders work.\n'
+            #         'Would you like to open the setup wizard to review your preferences?',
+            #         'No', 'Yes')
+            #     if choice == 1:
+            #         control.execute(
+            #             'RunPlugin(plugin://plugin.video.otaku.testing/setup_wizard)')
+            #     elif choice == 0:
+            #         control.ok_dialog(
+            #             f'{control.ADDON_NAME} - {control.lang(30415)}',
+            #             'You will need to go to the Tools > Choose Sorting > Choose Preset to set your preferred sorting options.')
 
     # ─── Menu Configuration Helpers ──────────────────────────────────
 

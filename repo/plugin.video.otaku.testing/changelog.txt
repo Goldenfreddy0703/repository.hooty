@@ -1,3 +1,8 @@
+Changelog v5.2.97 (2026-05-22):
+- Embed providers: removed Animix, Aniwave, HiAnime, and AnimeKai from the active source registry
+- WatchNixtoons2: fixed WCO embed/player resolution (video-js.php, getvidlink API, VHS M3U8 paths)
+- WatchNixtoons2: collect English Subbed and Dubbed WCO listings separately so SUB and DUB both resolve
+
 Changelog v5.2.96 (2026-05-19):
 - AnimePahe Alt: optional proxied base URL (provider.animepahealt; visible when AnimePahe is on)
 - MAL/Jikan: retry get_mal_base_res up to 3 times; ui/database.get no longer caches or returns None from failed fetches

@@ -59,24 +59,15 @@ def load_video_from_url(in_url):
                                              data)
 
         control.log("Probing source: %s" % in_url)
-        print(f"Initial URL: {in_url}")
 
         headers = None
         if '|' in in_url:
             in_url, headers = in_url.split('|')
-            print(f"Split URL: {in_url}")
-            print(f"Raw headers: {headers}")
-
             headers = dict([item.split('=') for item in headers.split('&')])
-            print(f"Parsed headers: {headers}")
-
             for header in headers:
                 headers[header] = urllib.parse.unquote_plus(headers[header])
-                print(f"Decoded header: {header} = {headers[header]}")
 
         response = client.get(in_url, headers=headers)
-        print(f"Response object: {response}")
-
         return found_extractor['parser'](response.url,
                                          response.text,
                                          response.headers.get('Referer'))

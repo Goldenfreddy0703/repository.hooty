@@ -21,7 +21,7 @@ class Sources(BrowserBase):
     }
 
     def _build_source(self, item, title, episode, embed_hosts):
-        data_src = item.get('data-src')
+        data_src = f'{item.get('data-src')}|Referer={self._BASE_URL}'
         if not data_src or not any(host in data_src.lower() for host in embed_hosts):
             return None
 
@@ -72,7 +72,7 @@ class Sources(BrowserBase):
             if link.startswith('//'):
                 link = 'https:' + link
             elif link.startswith('/'):
-                link = urllib.parse.urljoin('https://animepahe.com', link)
+                link = urllib.parse.urljoin(self._BASE_URL, link)
             final = client.request(
                 link,
                 output='geturl',

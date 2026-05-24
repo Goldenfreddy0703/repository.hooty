@@ -1,3 +1,7 @@
+Changelog v5.2.98 (2026-05-24):
+- AnimePahe: fix embed playback by appending Referer to source URLs; MALSync legacy links use active base URL (Alt too)
+- Embed extractor: removed debug print output from load_video_from_url header/referer parsing
+
 Changelog v5.2.97 (2026-05-22):
 - Embed providers: removed Animix, Aniwave, HiAnime, and AnimeKai from the active source registry
 - WatchNixtoons2: fixed WCO embed/player resolution (video-js.php, getvidlink API, VHS M3U8 paths)

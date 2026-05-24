@@ -21,7 +21,7 @@ class Sources(BrowserBase):
     }
 
     def _build_source(self, item, title, episode, embed_hosts):
-        data_src = f'{item.get('data-src')}|Referer={self._BASE_URL}'
+        data_src = item.get('data-src') + f'|Referer={self._BASE_URL}'
         if not data_src or not any(host in data_src.lower() for host in embed_hosts):
             return None
 

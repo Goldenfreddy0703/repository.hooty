@@ -7,6 +7,7 @@ import json
 from bs4 import BeautifulSoup
 from resources.lib.ui import control, database, client
 from resources.lib.ui.BrowserBase import BrowserBase
+from resources.lib.ui.source_utils import get_fuzzy_match
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
@@ -170,7 +171,7 @@ class Sources(BrowserBase):
                         lang = self._episode_lang_key(episode_result)
                         version_type = "DUB" if lang == 3 else "SUB"
                         existing = found_episodes.get(lang)
-                        if not existing or episode_result.get('priority', 99) < existing.get('priority', 99):
+                        if self._is_better_episode(episode_result, existing):
                             found_episodes[lang] = episode_result
                             control.log(
                                 f"Added {search_type} {version_type} episode: {episode_result['title']} "
@@ -699,7 +700,7 @@ class Sources(BrowserBase):
                 control.log("No episodes found in any series variant")
                 return []
 
-            episode_matches = self.find_episode_match(all_episodes, season, mapped_episode)
+            episode_matches = self.find_episode_match(all_episodes, season, mapped_episode, search_title)
             if not episode_matches:
                 control.log(f"No matching episode found in any series variant for Season {season} Episode {mapped_episode}")
                 if all_episodes:
@@ -866,7 +867,51 @@ class Sources(BrowserBase):
             control.log(f"Error getting episodes from {series_url}: {e}")
             return []
 
-    def find_episode_match(self, episodes, target_season, target_episode):
+    def _filter_by_title_match(self, search_title, episodes):
+        """Keep episode-number matches whose titles fuzzy-match the search query."""
+        if not search_title or not episodes:
+            return episodes or []
+
+        titles = [ep.get('title', '') for ep in episodes]
+        match_indices = get_fuzzy_match(search_title, titles)
+        if not match_indices:
+            for ep in episodes:
+                control.log(
+                    f"Rejected episode (title mismatch): {ep.get('title')} "
+                    f"(series: {ep.get('series_title', 'Unknown')})"
+                )
+            return []
+
+        filtered = []
+        matched_indices = set(match_indices)
+        for rank, idx in enumerate(match_indices):
+            ep = episodes[idx]
+            ep['title_rank'] = rank
+            filtered.append(ep)
+
+        for idx, ep in enumerate(episodes):
+            if idx not in matched_indices:
+                control.log(
+                    f"Rejected episode (title mismatch): {ep.get('title')} "
+                    f"(series: {ep.get('series_title', 'Unknown')})"
+                )
+        return filtered
+
+    def _is_better_episode(self, candidate, existing):
+        """Prefer lower episode priority, then better fuzzy title rank."""
+        if not existing:
+            return True
+
+        candidate_priority = candidate.get('priority', 99)
+        existing_priority = existing.get('priority', 99)
+        if candidate_priority != existing_priority:
+            return candidate_priority < existing_priority
+
+        candidate_rank = candidate.get('title_rank', 99)
+        existing_rank = existing.get('title_rank', 99)
+        return candidate_rank < existing_rank
+
+    def find_episode_match(self, episodes, target_season, target_episode, search_title=None):
         """Find the matching episode from the episode list using original priority system"""
         matches = []
 
@@ -874,12 +919,16 @@ class Sources(BrowserBase):
             title_text = episode['title']
 
             # Pattern 1: Exact season and episode match
-            season_episode_pattern = re.compile(rf'season\s+{target_season}\s+episode\s+{target_episode}(?!\d)', re.IGNORECASE)
-            if season_episode_pattern.search(title_text):
-                episode['match_type'] = 'Perfect Match (Season + Episode)'
-                episode['priority'] = 1
-                matches.append(episode)
-                continue
+            if target_season is not None:
+                season_episode_pattern = re.compile(
+                    rf'season\s+{target_season}\s+episode\s+{target_episode}(?!\d)',
+                    re.IGNORECASE
+                )
+                if season_episode_pattern.search(title_text):
+                    episode['match_type'] = 'Perfect Match (Season + Episode)'
+                    episode['priority'] = 1
+                    matches.append(episode)
+                    continue
 
             # Pattern 2: Episode only match (for shows without clear seasons)
             episode_only_pattern = re.compile(rf'episode\s+{target_episode}(?!\d)', re.IGNORECASE)
@@ -898,6 +947,10 @@ class Sources(BrowserBase):
 
         # Sort by priority (lower number = higher priority)
         matches.sort(key=lambda x: x['priority'])
+
+        if search_title:
+            matches = self._filter_by_title_match(search_title, matches)
+
         return matches
 
     def _titles_match(self, search_title, series_title):

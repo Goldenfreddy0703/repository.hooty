@@ -1,3 +1,7 @@
+Changelog v5.2.99 (2026-05-23):
+- WatchNixtoons2: fuzzy title-match filtering on episode candidates; tie-break by priority then title rank; season pattern when season set
+- AnimePahe: minor embed hash formatting fix (Referer suffix concatenation instead of nested f-string)
+
 Changelog v5.2.98 (2026-05-24):
 - AnimePahe: fix embed playback by appending Referer to source URLs; MALSync legacy links use active base URL (Alt too)
 - Embed extractor: removed debug print output from load_video_from_url header/referer parsing

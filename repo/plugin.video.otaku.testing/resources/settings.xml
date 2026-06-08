@@ -859,9 +859,10 @@
 			<group id="3" label="30131" help="">
 				<setting id="embed.config" type="list[string]" label="30389" help="">
 					<level>0</level>
-					<default>doodstream,filelions,filemoon,hd-1,hd-2,hd-3,iga,kwik,megacloud,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,t-cloud,vidcdn,vidhide,vidplay,vidsrc,vidstream,yourupload,zto</default>
+					<default>doodstream,filelions,filemoon,hd-1,hd-2,hd-3,iga,kwik,megacloud,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,ryu,volt,ayame,swish,streamtape,streamwish,t-cloud,vidcdn,vidhide,vidplay,vidsrc,vidstream,yourupload,zto</default>
 					<constraints>
 						<options sort="ascending">
+							<option>ayame</option>
 							<option>doodstream</option>
 							<option>filelions</option>
 							<option>filemoon</option>
@@ -879,6 +880,7 @@
 							<option>noads</option>
 							<option>noadsalt</option>
 							<option>swish</option>
+							<option>ryu</option>
 							<option>streamtape</option>
 							<option>streamwish</option>
 							<option>t-cloud</option>
@@ -887,6 +889,7 @@
 							<option>vidplay</option>
 							<option>vidsrc</option>
 							<option>vidstream</option>
+							<option>volt</option>
 							<option>yourupload</option>
 							<option>zto</option>
 						</options>
@@ -953,11 +956,11 @@
 						<dependency type="visible" setting="provider.gogo">true</dependency>
 					</dependencies>
 				</setting> -->
-				<!-- <setting id="provider.hianime" type="boolean" label="30235" help="">
+				<setting id="provider.hianime" type="boolean" label="30235" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
-				</setting> -->
+				</setting>
 				<setting id="provider.watchnixtoons2" type="boolean" label="30379" help="">
 					<level>0</level>
 					<default>true</default>

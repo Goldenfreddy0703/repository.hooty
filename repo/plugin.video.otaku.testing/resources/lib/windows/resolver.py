@@ -216,6 +216,7 @@ class Resolver(BaseWindow):
                     headers=sub.get('headers'),
                     sub_index=sub.get('index', idx),
                     display_name=sub.get('name'),
+                    source_url=sub.get('file'),
                 )
                 if entry:
                     subtitle_entries.append(entry)

@@ -5,10 +5,9 @@ import json
 import struct
 import hashlib
 import re
-import threading
 
 from .kodi import xbmc, xbmcvfs, get_bool_setting
-from . import logger, cache, utils, request
+from . import logger, cache, utils
 
 __64k = 65536
 __longlong_format_char = 'q'
@@ -73,29 +72,6 @@ def __get_filename(title):
     except: pass
 
     return filename
-
-def __scrape_tvshow_year(core, meta):
-    imdb_response = request.execute(core, {
-        'method': 'GET',
-        'url': 'https://www.imdb.com/title/' + meta.imdb_id,
-        'timeout': 10,
-    })
-
-    if imdb_response.status_code != 200:
-        return
-
-    show_year_match = re.search(r' %s \((.*?)\)"' % meta.tvshow, imdb_response.text)
-    if not show_year_match:
-        show_year_match = re.search(r'<title>.*?\(TV (?:Mini-)?Series (\d\d\d\d).*?</title>', imdb_response.text)
-    if not show_year_match:
-        show_year_match = re.search(r'<span class="parentDate">\((\d\d\d\d).*?\)</span>', imdb_response.text)
-
-    if show_year_match:
-        meta.tvshow_year = show_year_match.group(1).strip()
-
-        tvshow_years_cache = cache.get_tvshow_years_cache()
-        tvshow_years_cache[meta.imdb_id] = meta.tvshow_year
-        cache.save_tvshow_years_cache(tvshow_years_cache)
 
 def __scrape_imdb_id(core, meta):
     if meta.title == '' or meta.year == '':
@@ -162,18 +138,14 @@ def __scrape_imdb_id(core, meta):
         meta.imdb_id = results[0]['id']
         return
 
-    episode_title_pattern = r'title=\"' + re.escape(episode_title) + r'\"'
+    # Multiple shows share the title, so the one airing the episode wins.
     for result in results:
-        episodes_response = core.request.execute(core, {
-            'method': 'GET',
-            'url': 'https://www.imdb.com/title/%s/episodes/_ajax?season=%s' % (result['id'], meta.season),
-            'timeout': 10
-        })
+        candidate = utils.DictAsObject(dict(meta))
+        candidate.imdb_id = result['id']
+        candidate.title = ''
+        __update_info_from_imdb(core, candidate)
 
-        if episodes_response.status_code != 200:
-            continue
-
-        if re.search(episode_title_pattern, episodes_response.text, re.IGNORECASE):
+        if candidate.title.lower() == episode_title:
             meta.tvshow_year = str(result['y'])
             meta.imdb_id = result['id']
             return
@@ -260,6 +232,7 @@ def __update_info_from_imdb(core, meta, pagination_token=''):
         }),
         'headers': {
             'content-type': 'application/json',
+            'referer': 'https://www.imdb.com/',  # without it the API responds with 403
         },
         'timeout': 10
     }
@@ -433,13 +406,7 @@ def get_meta(core):
 
     if meta.is_tvshow and meta.imdb_id != '' and meta.tvshow_year == '' and tvshow_year_requiring_service_enabled:
         tvshow_years_cache = cache.get_tvshow_years_cache()
-        tvshow_year = tvshow_years_cache.get(meta.imdb_id, '')
-
-        if tvshow_year != '':
-            meta.tvshow_year = tvshow_year
-        else:
-            meta.tvshow_year_thread = threading.Thread(target=__scrape_tvshow_year, args=(core, meta))
-            meta.tvshow_year_thread.start()
+        meta.tvshow_year = tvshow_years_cache.get(meta.imdb_id, '')
 
     try:
         if len(meta.imdb_id) > 2:

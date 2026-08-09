@@ -10,22 +10,21 @@ def build_search_requests(core, service_name, meta):
 
     lang_ids = core.utils.get_lang_ids(meta.languages, core.kodi.xbmc.ISO_639_1)
     params = {
-        'api_key': apikey,
         'languages': ','.join(lang_ids),
         'type': 'movie' if not meta.is_tvshow else 'tv',
-        'subs_per_page': 30
+    }
+    headers = {
+        'Authorization': 'Bearer %s' % apikey
     }
 
     if meta.is_tvshow:
         params.update({
             'film_name': meta.tvshow,
             'file_name': meta.filename_without_ext,
-            'season_number': meta.season,
-            'episode_number': meta.episode,
+            'season': meta.season,
+            'episode': meta.episode,
         })
 
-        if meta.tvshow_year_thread:
-            meta.tvshow_year_thread.join()
         if meta.tvshow_year:
             params['year'] = meta.tvshow_year
     else:
@@ -36,8 +35,9 @@ def build_search_requests(core, service_name, meta):
 
     request = {
         'method': 'GET',
-        'url': 'https://api.subdl.com/api/v1/subtitles',
+        'url': 'https://api.subdl.com/api/v2/subtitles/search',
         'params': params,
+        'headers': headers
     }
 
     return [request]
@@ -49,11 +49,13 @@ def parse_search_response(core, service_name, meta, response):
         core.logger.error('%s - %s' % (service_name, exc))
         return []
 
-    if not results.get('status', False):
-        core.logger.error('%s - %s' % (service_name, results.get('message', 'Unknown error')))
+    if 'error' in results:
+        error = results['error']
+        core.logger.error('%s - %s' % (service_name, error.get('message', error) if isinstance(error, dict) else error))
         return []
 
-    core.logger.debug('%s - Found %d subtitles' % (service_name, len(results['subtitles'])))
+    subtitles = results.get('subtitles', [])
+    core.logger.debug('%s - Found %d subtitles' % (service_name, len(subtitles)))
 
     service = core.services[service_name]
     lang_ids = core.utils.get_lang_ids(meta.languages, core.kodi.xbmc.ISO_639_1)
@@ -80,12 +82,13 @@ def parse_search_response(core, service_name, meta, response):
             }
         }
 
-    return list(map(map_result, results['subtitles']))
+    return list(map(map_result, subtitles))
 
 def build_download_request(core, service_name, args):
     request = {
         'method': 'GET',
-        'url': 'https://dl.subdl.com' + args['url']
+        'url': 'https://dl.subdl.com' + args['url'],
+        'stream': True
     }
 
     core.logger.debug('%s - Downloading %s' % (service_name, args['filename']))

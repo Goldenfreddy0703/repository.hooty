@@ -34,8 +34,6 @@ def build_search_requests(core, service_name, meta):
     if meta.is_movie:
         return []
 
-    if meta.tvshow_year_thread:
-        meta.tvshow_year_thread.join()
     if not meta.tvshow_year:
         return []
 

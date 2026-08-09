@@ -171,7 +171,7 @@ def parse_search_response(core, service_name, meta, response):
                 'url': result['files'][0]['file_id'],
                 'lang': language,
                 'filename': filename,
-                'gzip': True,
+                'raw': True
             }
         }
 

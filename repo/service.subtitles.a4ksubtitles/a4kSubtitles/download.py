@@ -11,6 +11,7 @@ def __download(core, filepath, request):
 
     with response as r:
         with open(filepath, 'wb') as f:
+            r.raw.decode_content = True
             core.shutil.copyfileobj(r.raw, f)
 
 def __extract_gzip(core, archivepath, filename):
@@ -94,7 +95,7 @@ def __insert_lang_code_in_filename(core, filename, lang_code):
 
 def __postprocess(core, filepath, lang_code):
     try:
-        with open(filepath, 'rb', encoding=core.utils.default_encoding) as f:
+        with open(filepath, 'rb') as f:
             text_bytes = f.read()
 
         if core.kodi.get_bool_setting('general.use_chardet'):

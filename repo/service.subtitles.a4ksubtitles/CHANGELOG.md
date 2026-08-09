@@ -1,3 +1,16 @@
+* [v3.24.2](https://github.com/newt-sc/a4kSubtitles/releases/tag/service.subtitles.a4ksubtitles%2Fservice.subtitles.a4ksubtitles-3.24.2):
+  * Replace the two IMDb pages that are no longer reachable with API lookups, fixing TV show detection for titles shared by multiple shows.
+
+* [v3.24.1](https://github.com/newt-sc/a4kSubtitles/releases/tag/service.subtitles.a4ksubtitles%2Fservice.subtitles.a4ksubtitles-3.24.1):
+  * Fix IMDb metadata lookups being rejected with 403, which broke TV show year and episode detection.
+
+* [v3.24.0](https://github.com/newt-sc/a4kSubtitles/releases/tag/service.subtitles.a4ksubtitles%2Fservice.subtitles.a4ksubtitles-3.24.0):
+  * Fix subtitle post-processing never running, so encoding conversion is applied again.
+  * SubDL: Switch to API v2 and fix downloads being saved still compressed.
+  * OpenSubtitles: Fix downloads of gzip-compressed subtitles.
+  * Fix missing flag for Brazilian Portuguese and Chinese results (by @peno64).
+  * Add Simplified Chinese translation (by @wabisabi926).
+
 * [v3.23.1](https://github.com/newt-sc/a4kSubtitles/releases/tag/service.subtitles.a4ksubtitles%2Fservice.subtitles.a4ksubtitles-3.23.1):
   * Fix overwriting existing subtitles during auto-download.
 

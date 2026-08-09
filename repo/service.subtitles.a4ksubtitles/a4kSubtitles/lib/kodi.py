@@ -130,6 +130,15 @@ def parse_language(language):  # pragma: no cover
     else:
         return language
 
+def get_flag(language_code):
+    language_list = {
+        "pt-pt": "pt",
+        "pt-br": "pb",
+        "zh-cn": "zh",
+        "zh-tw": "-"
+    }
+    return language_list.get(language_code.lower(), language_code)
+
 def create_listitem(item):  # pragma: no cover
     (item_name, item_ext) = os.path.splitext(item['name'])
     item_name = item_name.replace('.', ' ')
@@ -146,7 +155,7 @@ def create_listitem(item):  # pragma: no cover
     listitem = xbmcgui.ListItem(**args)
     listitem.setArt({
         'icon': str(item['rating']),
-        'thumb': item['lang_code'],
+        'thumb': get_flag(item['lang_code']),
     })
     listitem.setProperty('sync', item['sync'])
     listitem.setProperty('hearing_imp', item['impaired'])

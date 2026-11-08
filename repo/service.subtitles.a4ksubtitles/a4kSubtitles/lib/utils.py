@@ -67,6 +67,15 @@ def strip_non_ascii_and_unprintable(text):
 def slugify_filename(text):
     return re.sub(r'[\\/*?:"<>|]', '_', text)
 
+def shorten_filename(filename, lang_code, max_length=100):
+    # A season pack's release name lists every release, and on Windows the path in the temp folder must stay within 260 characters
+    if len(filename) <= max_length:
+        return filename
+    base, sep, tail = filename.rpartition('.' + lang_code)
+    if not sep:
+        return filename[:max_length]
+    return base[:max_length - len(sep) - len(tail)].rstrip(' ._') + sep + tail
+
 def get_lang_id(language, lang_format):
     try:
         return get_lang_ids([language], lang_format)[0]
@@ -105,12 +114,13 @@ def get_lang_ids(languages, lang_format=kodi.xbmc.ISO_639_2):
         return []
 
 def get_subfile_from_temp_dir():
-    if not os.path.exists(temp_dir):
+    # Every download has its own subdir under temp_dir: the newest subtitle is the current one.
+    try:
+        subfiles = [os.path.join(root, file) for (root, _, files) in os.walk(temp_dir)
+                    for file in files if file != 'sub.zip' and not file.endswith('.translated')]
+        return max(subfiles, key=os.path.getmtime) if subfiles else None
+    except OSError:  # a download pruned a dir while we looked
         return None
-    for file in os.listdir(temp_dir):
-        if file != 'sub.zip' and not file.endswith('.translated'):
-            return os.path.join(temp_dir, file.strip())
-    return None
 
 def wait_threads(threads):
     for thread in threads:
@@ -231,6 +241,7 @@ def extract_season_episode(filename, episode_fallback=False, zfill=3):
     episode_pattern = r'(?:e|ep.?|episode.?)(\d{1,5})(?:v\d?)?'
     season_pattern = r'(?:s|season.?)(\d{1,5})'
     combined_pattern = r'\b(?:s|season)(\d{1,5})\s?[x|\-|\_|\s]\s?[a-z]?(\d{1,5})(?:v\d?)?\b'
+    numbered_pattern = r'\b(\d{1,2})x(\d{1,3})\b'
     range_episodes_pattern = r'\b(?:.{1,4}e|ep|eps|episodes|\s)?(\d{1,5}?)(?:v.?)?\s?[\-|\~]\s?(\d{1,5})(?:v.?)?\b'
     date_pattern = r'\b(\d{2,4}-\d{1,2}-\d{2,4})\b'
 
@@ -247,6 +258,12 @@ def extract_season_episode(filename, episode_fallback=False, zfill=3):
     if combined_match:
         season = season if season else combined_match.group(1)
         episode = episode if episode else combined_match.group(2)
+    else:
+        # Season packs often name their files 2x04.srt
+        numbered_match = re.search(numbered_pattern, filename, re.IGNORECASE)
+        if numbered_match:
+            season = season if season else numbered_match.group(1)
+            episode = episode if episode else numbered_match.group(2)
 
     if range_episodes_match:
         range_start, range_end = map(int, range_episodes_match[-1])

@@ -5,10 +5,21 @@ def __auth_service(core, service_name, request):
     response = core.request.execute(core, request)
     service.parse_auth_response(core, service_name, response)
 
-def __query_service(core, service_name, meta, request, results):
+__results_ttl = 4 * 60 * 60  # seconds a saved last_results.json may be replayed
+__quick_timeout = 5  # seconds a quick search may take before it returns no rows
+
+def __is_transport_error(response):
+    # None is not an error here: request chains return None for "nothing found".
+    return response is not None and (response.status_code >= 500 or response.status_code == 429)
+
+def __query_service(core, service_name, meta, request, results, failed):
     try:
         service = core.services[service_name]
         response = core.request.execute(core, request)
+
+        if __is_transport_error(response):
+            failed.append(service_name)
+            core.logger.warning('%s - search failed: %s (HTTP %s)' % (service_name, core.request.host(request['url']), response.status_code))
 
         if response and response.status_code == 200 and response.text:
             service_results = service.parse_search_response(core, service_name, meta, response)
@@ -23,7 +34,7 @@ def __query_service(core, service_name, meta, request, results):
             'status_code': response.status_code if response else 'N/A'
         }, indent=2))
     finally:
-        core.progress_text = core.progress_text.replace(service.display_name, '')
+        core.progress_text = core.progress_text.replace(service.display_name, '', 1)  # two services share 'OpenSubtitles'
         core.kodi.update_progress(core)
 
 def __add_results(core, results, meta):  # pragma: no cover
@@ -43,7 +54,11 @@ def __add_results(core, results, meta):  # pragma: no cover
 def __has_results(service_name, results):
     return any(map(lambda r: r['service_name'] == service_name, results))
 
-def __save_results(core, meta, results):
+def __log_summary(core, searched, failed, results, cached_count):
+    rows = ['%s: %s' % (name, 'failed' if name in failed else sum(1 for r in results if r and r['service_name'] == name)) for name in searched]
+    core.logger.info('search - %s; %d rows from cache' % (', '.join(rows) or 'no service searched', cached_count))
+
+def __save_results(core, meta, results, created):
     try:
         if len(results) == 0:
             return
@@ -51,6 +66,8 @@ def __save_results(core, meta, results):
         json_data = core.json.dumps({
             'hash': meta_hash,
             'timestamp': core.time.time(),
+            # When the full search ran; a replay that refreshes bsplayer keeps it, so the TTL still ends.
+            'created': created or core.time.time(),
             'results': results
         }, indent=2)
         with open(core.cache.results_filepath, 'w') as f:
@@ -68,7 +85,11 @@ def __get_last_results(core, meta):
 
         meta_hash = core.cache.get_meta_hash(meta)
         if last_results['hash'] != meta_hash:
-            return ([], [])
+            return ([], [], None)
+
+        created = last_results.get('created', last_results['timestamp'])
+        if core.time.time() - created > __results_ttl:
+            return ([], [], None)
 
         has_bsplayer_results = __has_results('bsplayer', last_results['results'])
         has_bsplayer_results_expired = core.time.time() - last_results['timestamp'] > 3 * 60
@@ -76,37 +97,50 @@ def __get_last_results(core, meta):
             last_results['results'] = list(filter(lambda r: r['service_name'] != 'bsplayer', last_results['results']))
             force_search.append('bsplayer')
 
-        return (last_results['results'], force_search)
+        return (last_results['results'], force_search, created)
     except: pass
 
-    return ([], [])
+    return ([], [], None)
 
 def __sanitize_results(core, meta, results):
     temp_dict = {}
 
     for result in results:
-        temp_dict[result['action_args']['url']] = result
         result['name'] = core.utils.unquote(result['name'])
+        # Rows of one file from two services share a dedup_key (both OpenSubtitles services do).
+        key = result.get('dedup_key') or result['action_args']['url']
+        kept = temp_dict.get(key)
+        if kept is None or __dedup_rank(result) > __dedup_rank(kept):
+            temp_dict[key] = result
 
     return list(temp_dict.values())
+
+def __dedup_rank(result):
+    # Keep the synced row; else the one whose download spends no OpenSubtitles account quota.
+    return (result.get('sync') == 'true', result['service_name'] != 'opensubtitles')
 
 def __apply_language_filter(meta, results):
     return list(filter(lambda x: x and x['lang'] in meta.languages, results))
 
 def __apply_limit(core, all_results, meta):
+    # `all_results` is already in priority order: __prepare_results sorts it
+    # with `sorter`, whose first key is `not x['lang'] == meta.preferredlanguage`
+    # and whose second is `meta.languages.index(x['lang'])`, so the preferred
+    # language leads, the other requested languages follow in request order,
+    # and within a language the quality keys rank the rows. The preferred
+    # language keeps the bulk of the cap, but up to min(5, limit // 4) seats
+    # go to the best-ranked rows of the other requested languages so they
+    # never vanish entirely. Both halves are taken in sorted order and the
+    # preferred half goes first, so the sorter's order is kept.
     limit = core.kodi.get_int_setting('general.results_limit')
-    lang_limit = int(limit / len(meta.languages))
-    if lang_limit * len(meta.languages) < limit:
-        lang_limit += 1
+    preferred = [r for r in all_results if r['lang'] == meta.preferredlanguage]
+    others = [r for r in all_results if r['lang'] != meta.preferredlanguage]
+    if not preferred or not others:
+        return all_results[:limit]
 
-    results = []
-    for lang in meta.languages:
-        lang_results = list(filter(lambda x: x['lang'] == lang, all_results))
-        if len(lang_results) < lang_limit:
-            lang_limit += lang_limit - len(lang_results)
-        results.extend(lang_results[:lang_limit])
-
-    return results[:limit]
+    reserved = min(5, limit // 4, len(others))
+    preferred = preferred[:limit - reserved]
+    return preferred + others[:limit - len(preferred)]
 
 def __prepare_results(core, meta, results):
     results = __apply_language_filter(meta, results)
@@ -306,7 +340,10 @@ def __prepare_results(core, meta, results):
     return results
 
 def __parse_languages(core, languages):
-    return list({language for language in (core.kodi.parse_language(x) for x in languages) if language is not None})
+    # dict.fromkeys, not a set: de-duplicated but in REQUEST order, so
+    # `meta.languages.index` (the sorter's second key) is deterministic
+    # instead of per-process hash order.
+    return list(dict.fromkeys(language for language in (core.kodi.parse_language(x) for x in languages) if language is not None))
 
 def __chain_auth_and_search_threads(core, auth_thread, search_thread):
     auth_thread.start()
@@ -332,19 +369,22 @@ def __complete_search(core, results, meta):
 
     __add_results(core, results, meta)  # pragma: no cover
 
-def __search(core, service_name, meta, results):
+def __search(core, service_name, meta, results, failed):
     service = core.services[service_name]
     requests = service.build_search_requests(core, service_name, meta)
     core.logger.debug(lambda: '%s - %s' % (service_name, core.json.dumps(requests, default=lambda o: '', indent=2)))
 
     threads = []
     for request in requests:
-        thread = core.threading.Thread(target=__query_service, args=(core, service_name, meta, request, results))
+        thread = core.threading.Thread(target=__query_service, args=(core, service_name, meta, request, results, failed))
         threads.append(thread)
 
     core.utils.wait_threads(threads)
 
 def search(core, params):
+    # params['quick']: only services with `quick = True` run, the last_results cache is neither read nor written
+    # (a saved quick-only set would be replayed for the next full search), and the search gives up after __quick_timeout.
+    quick = params.get('quick', False)
     meta = core.video.get_meta(core)
     core.last_meta = meta
 
@@ -358,8 +398,14 @@ def search(core, params):
         return
 
     threads = []
-    (results, force_search) = __get_last_results(core, meta)
+    searched = []
+    failed = []
+    (results, force_search, created) = ([], [], None) if quick else __get_last_results(core, meta)
+    cached_count = len(results)
     for service_name in core.services:
+        if quick and not getattr(core.services[service_name], 'quick', False):
+            continue
+
         if len(results) > 0 and (__has_results(service_name, results) or service_name not in force_search):
             continue
 
@@ -374,11 +420,13 @@ def search(core, params):
         if auth_request:
             auth_thread = core.threading.Thread(target=__auth_service, args=(core, service_name, auth_request))
 
-        search_thread = core.threading.Thread(target=__search, args=(core, service_name, meta, results))
+        search_thread = core.threading.Thread(target=__search, args=(core, service_name, meta, results, failed))
+        searched.append(service_name)
 
         threads.append((auth_thread, search_thread))
 
     if len(threads) == 0:
+        __log_summary(core, searched, failed, results, cached_count)
         return __complete_search(core, results, meta)
 
     core.progress_text = core.progress_text[:-1]
@@ -402,13 +450,19 @@ def search(core, params):
 
     def wait_all_results():
         __wait_threads(core, threads)
+        __log_summary(core, searched, failed, results, cached_count)
         if cancellation_token.iscanceled:
             return
         final_results = __prepare_results(core, meta, results)
-        __save_results(core, meta, final_results)
+        if not failed and not quick:  # a cached set missing a service that failed would hide it until the TTL ends
+            __save_results(core, meta, final_results, created)
         ready_queue.put(__complete_search(core, final_results, meta))
 
     core.threading.Thread(target=check_cancellation).start()
     core.threading.Thread(target=wait_all_results).start()
 
-    return ready_queue.get()
+    try:
+        return ready_queue.get(timeout=__quick_timeout if quick else None)
+    except core.utils.queue.Empty:
+        core.logger.warning('quick search - no answer in %s s' % __quick_timeout)
+        return []

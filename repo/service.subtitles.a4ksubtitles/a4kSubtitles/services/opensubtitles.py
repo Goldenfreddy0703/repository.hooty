@@ -47,7 +47,9 @@ def build_auth_request(core, service_name):
     password = core.kodi.get_setting(service_name, 'password')
 
     if username == '' or password == '':
-        core.kodi.notification('OpenSubtitles now requires authentication! Enter username/password in the addon Settings->Accounts or disable the service.')
+        # With no account the opensubtitles_quick service still brings OpenSubtitles results.
+        if not core.kodi.get_bool_setting('opensubtitles_quick', 'enabled'):
+            core.kodi.notification('OpenSubtitles now requires authentication! Enter username/password in the addon Settings->Accounts or disable the service.')
         return
 
     request = {
@@ -106,6 +108,7 @@ def build_search_requests(core, service_name, meta):
         query = '%s %s' % (meta.title, meta.year)
 
     lang_ids = core.utils.get_lang_ids(meta.languages, core.kodi.xbmc.ISO_639_1)
+    lang_ids = ['pt-PT' if lid == 'pt' else lid for lid in lang_ids]
 
     params = {
         'query': query,
@@ -155,7 +158,14 @@ def parse_search_response(core, service_name, meta, response):
             return None
 
         filename = result['files'][0]['file_name']
-        language = core.utils.get_lang_id(result['language'], core.kodi.xbmc.ENGLISH_NAME)
+        raw_lang = result['language']
+        if raw_lang.lower() in ('pt-pt', 'pt'):
+            language = next(
+                (lang for lang in meta.languages if 'portuguese' in lang.lower() and 'brazil' not in lang.lower()),
+                'Portuguese'
+            )
+        else:
+            language = core.utils.get_lang_id(raw_lang, core.kodi.xbmc.ENGLISH_NAME)
 
         return {
             'service_name': service_name,
@@ -167,6 +177,7 @@ def parse_search_response(core, service_name, meta, response):
             'sync': 'true' if result.get('moviehash_match', False) else 'false',
             'impaired': 'true' if result['hearing_impaired'] else 'false',
             'color': 'springgreen',
+            'dedup_key': 'opensubtitles:%s' % result['legacy_subtitle_id'] if result.get('legacy_subtitle_id') else None,
             'action_args': {
                 'url': result['files'][0]['file_id'],
                 'lang': language,

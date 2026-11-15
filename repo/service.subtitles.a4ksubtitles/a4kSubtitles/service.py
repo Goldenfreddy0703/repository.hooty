@@ -11,6 +11,41 @@ def __quick_then_full(core, api, params, preferredlang):
         yield quick_results
     yield api.search(params) or []
 
+def __set_subtitles_when_playing(core, monitor, filename, subfile, min_time=2.0, timeout=10.0, cache_timeout=60.0, step=0.25):
+    # Setting a subtitle before the first frame is drawn can leave a black picture with MediaCodec (Surface)
+    # on some Android boxes; the quick search now answers ~1 s into playback, so wait (bounded) until the
+    # video is actually playing: not caching, and the position has advanced min_time past the first sample
+    # (a resumed play reports its resume point before any frame). A stuck, not-caching position (paused)
+    # is set after timeout; a stream still caching after cache_timeout is skipped, since setting while
+    # caching is the case this guards against. Returns False, without setting, when skipped, stopped or changed.
+    player = core.kodi.xbmc.Player()
+    waited = 0.0
+    start = None
+    while True:
+        if not player.isPlayingVideo() or core.kodi.xbmc.getInfoLabel('Player.Filenameandpath') != filename:
+            core.logger.debug('Playback stopped or changed, not setting subtitles: %s' % subfile)
+            return False
+        try:
+            position = player.getTime()
+        except Exception:
+            position = 0.0
+        if core.kodi.xbmc.getCondVisibility('Player.Caching'):
+            if waited >= cache_timeout:
+                core.logger.debug('Still caching after %ss, not setting subtitles: %s' % (cache_timeout, subfile))
+                return False
+        elif start is None:
+            start = (position, waited)
+        elif position - start[0] >= min_time:
+            break
+        elif waited - start[1] >= timeout:
+            core.logger.debug('Video not advancing after %ss, setting subtitles anyway' % timeout)
+            break
+        if monitor.waitForAbort(step):
+            return False
+        waited += step
+    player.setSubtitles(subfile)
+    return True
+
 def start(api):
     core = api.core
     core.kodi.xbmcvfs.delete(core.utils.suspend_service_file)
@@ -138,7 +173,7 @@ def start(api):
 
                     last_subfile = subfile
                     core.logger.debug('Translated subtitles file: %s' % subfile_translated)
-                    core.kodi.xbmc.Player().setSubtitles(subfile_translated)
+                    __set_subtitles_when_playing(core, monitor, prev_playing_filename, subfile_translated)
                     ai_tries = 0
                     return True
                 except:
@@ -282,7 +317,8 @@ def start(api):
 
                     if not use_ai or preferredlang == preferredlang_preai:
                         core.logger.debug('Setting subtitles: %s' % subfile)
-                        core.kodi.xbmc.Player().setSubtitles(subfile)
+                        if not __set_subtitles_when_playing(core, monitor, prev_playing_filename, subfile):
+                            break
                     else:
                         core.logger.debug('Using AI to translate subtitles: %s' % subfile)
                         subfile_translated = subfile + '.translated'
@@ -308,7 +344,8 @@ def start(api):
                             log=core.logger.debug
                         )
 
-                        core.kodi.xbmc.Player().setSubtitles(subfile_translated)
+                        if not __set_subtitles_when_playing(core, monitor, prev_playing_filename, subfile_translated):
+                            break
                         ai_tries = 0
                         has_done_subs_check = False
 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="2.5.9" provider-name="drinfernoo, slamious">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+        <import addon="script.kodi.android.update" optional="true" version="1.1.7" />
+        <import addon="script.speedtester" optional="true" version="1.1.2" />
+    </requires>
+    
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    
+    <extension point="xbmc.service" library="startup.py" start="startup" />
+    
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">[COLOR limegreen]Open[/COLOR]Wizard</summary>
+        <description lang="en">[COLOR limegreen]Open[/COLOR]Wizard offers many maintenance features, selective add-on data saving, and automated build installs.</description>
+        <platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <source>https://www.github.com/a4k-openproject/plugin.program.openwizard/</source>
+        <news>
+2.5.9
+ - Removed the Purge All Databases entry added in 2.5.8; Purge Databases stays where 2.5.8 moved it
+   (right after Clear Crash Logs, before the Clear Video Cache section)
+2.5.8
+ - Maintenance > Cleaning Tools: Purge Databases now sits right after Clear Crash Logs (before the Clear Video Cache
+   section; this reverses the 2.5.3 placement), followed by a new Purge All Databases entry that empties every
+   database file after one confirmation (a single summary notification instead of one per file)
+2.5.7
+ - Fixed a startup crash (TypeError: '>' not supported between 'str' and 'int') in the installed-build check
+   when the saved build error count was empty
+2.5.6
+ - Clear Cache: removed Dradis and FenLight (their Include toggles and cache lists)
+2.5.5
+ - Clear Cache and Total Clean Up empty the selected video cache databases automatically
+   (the "Empty N cache database(s)?" question is gone; what is emptied is written to the log)
+2.5.4
+ - Total Clean Up now also clears old thumbnails, crash logs and the archive cache (one confirmation,
+   no extra prompts); its size counts the archive cache
+2.5.3
+ - Maintenance > Cleaning Tools: the Clear Video Cache section (Include toggles) now sits right before Purge Databases
+2.5.2
+ - Fixed the missing label of the "Include Prism Cache DB" toggle (strings.po entry was not separated by a blank line)
+2.5.1
+ - Clear Cache: removed the Include toggles and cache lists for discontinued add-ons
+   (Exodus Redux, Gaia, NuMb3r5, Scrubs v2, THE CREW, Venom, Yoda); Save Data is unchanged
+2.5.0
+ - Clear Cache: Umbrella's source-results database is now found (providers.db);
+   Prism and Redlight cache databases added, each with its own Include toggle
+ - Clear Cache also removes leftover add-on install folders (addons/temp) that are
+   more than a day old
+2.4.0
+ - Settings converted to the current Kodi settings format (labels now come from
+   strings.po); every setting keeps its id, type and default, so saved
+   values carry over
+2.3.3
+ - Internal: the folder-cache list used for the cache size and for Clear Cache
+   is now defined once (no behaviour change)
+2.3.2
+ - Faster menus: the settings refresh done on every menu action now builds
+   one add-on object instead of one per setting
+2.3.1
+ - Clear Cache: TMDb Helper's cache databases are now found (database_v6
+   folder) and limited to the five its own "Delete cache" offers (TMDb,
+   Trakt, FanartTV, OMDb, Item Details); its sync and history databases are
+   never touched
+ - The database confirm dialog now shows a one-line summary per add-on
+   instead of a file list that did not fit
+2.3.0
+ - Clear Cache: emptying the cache databases now actually works (the old
+   DELETE + VACUUM sequence failed and rolled back on Python 3); each
+   database is emptied all-or-nothing and a locked one is skipped
+ - New confirm dialog before databases are emptied (manual Clear Cache only)
+ - Only regenerable caches are cleared: Seren providers.db and search.db and
+   Otaku search.db are no longer included, torrentScrape.db is dropped and
+   Seren providerPerf.db is added
+ - Add-on settings are re-read on every menu action, so toggles take effect
+   immediately (no Kodi restart needed with reuselanguageinvoker)
+ - "Removed N Files" counts only databases that were really emptied
+ - Cache size no longer counts the same folders twice when the profile path
+   differs from the add-on data path
+2.2.3
+ - Cache clearing: the per-addon database lists, the include toggles and
+   the Cleaning Tools rows now come from one registry (cache_registry.py);
+   behaviour is unchanged
+2.2.2
+ - Remove bundled Python 2 zipfile module and its import fallbacks
+ - Cache clearing: only file-system errors (OSError) are caught now,
+   failures are logged at debug level; other exceptions are no longer
+   silently swallowed
+ - Drop stale __pycache__ folders from the package
+ - Trim changelog (versions before 2.0.0 removed)
+2.2.1
+ - Fix TypeError crash on startup when build server is unreachable
+   (bool vs string comparison in main_menu.py and build_menu.py)
+2.2.0
+ - Add cache clearing support for Umbrella, Dradis, POV, FenLight,
+   Otaku, Otaku Testing, TMDb Helper, Diamond Info, Extended Info
+ - Update Seren cache DB list (torrentCache, debridCache, providers, search)
+ - Add Diamond Info image/TheMovieDB cache folder clearing
+ - Individual toggle controls for each new addon in Maintenance menu
+2.1.0
+ - Kodi 22 (Piers) compatibility
+ - Remove deprecated xbmc.makeLegalFilename (use xbmcvfs)
+ - Remove deprecated ListItem.setInfo (use InfoTagVideo)
+ - Remove deprecated ListItem iconImage/thumbnailImage params
+ - Remove script.module.six dependency (Python 3 only)
+ - Update kodi_version() to recognize Nexus, Omega and Piers
+ - Update mirror URL to omega repository
+2.0.7
+ - Fix Error when using default log settings
+2.0.6
+ - Fix regex for formatting tags
+ - Fix theme selection after build install
+ - Fix downloading into invalid path
+2.0.5
+ - Add Enable All Add-ons after Build Install
+2.0.4
+ - Fix leftover broken dialogs
+2.0.3
+ - Don't show previous version builds in Matrix
+2.0.2
+ - Replace remaining occurences of LOGNOTICE
+2.0.1
+ - Add attribution to @slamious
+2.0.0
+ - Initial Matrix support
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
+        </assets>
+    </extension>
+</addon>

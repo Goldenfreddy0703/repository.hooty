@@ -1,0 +1,420 @@
+# Kodi Media Center language file
+# Addon Name: OpenWizard
+# Addon id: plugin.program.openwizard
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.program.openwizard\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Build Options"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Current Build:"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Installed Build: "
+msgstr ""
+
+msgctxt "#30003"
+msgid "Installed Version: "
+msgstr ""
+
+msgctxt "#30004"
+msgid "Current Theme: "
+msgstr ""
+
+msgctxt "#30005"
+msgid "Latest Version: "
+msgstr ""
+
+msgctxt "#30006"
+msgid "Next check for build update: "
+msgstr ""
+
+msgctxt "#30007"
+msgid "Disable Update Notification"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Show Builds:"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Show Piers (v22.0) Builds"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Show Omega (v21.0) Builds"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Show Nexus (v20.0) Builds"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Show Matrix (v19.0) Builds"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Do not separate based off version"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Upload Log: "
+msgstr ""
+
+msgctxt "#30016"
+msgid "Include Kodi.Old.Log"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Include Wizard Logs"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Include Kodi Crash Logs"
+msgstr ""
+
+msgctxt "#30019"
+msgid "Maintenance Menu: "
+msgstr ""
+
+msgctxt "#30020"
+msgid "Choose Backup Storage Location"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Auto Clean On Startup:"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Enable Auto Clean"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Clear Cache on Startup"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Clear Packages on Startup"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Clear Week Old Thumbnails on Startup"
+msgstr ""
+
+msgctxt "#30026"
+msgid "How often would you like to Auto Clean on Startup?"
+msgstr ""
+
+msgctxt "#30027"
+msgid "Always"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Daily"
+msgstr ""
+
+msgctxt "#30029"
+msgid "3 Days"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Weekly"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Monthly"
+msgstr ""
+
+msgctxt "#30032"
+msgid "Clearing Video Cache:"
+msgstr ""
+
+msgctxt "#30033"
+msgid "Include Video Addons in Clear Cache: "
+msgstr ""
+
+msgctxt "#30034"
+msgid "Include All Addons: "
+msgstr ""
+
+msgctxt "#30039"
+msgid "Include Seren Cache DB: "
+msgstr ""
+
+msgctxt "#30043"
+msgid "Include Umbrella Cache DB: "
+msgstr ""
+
+msgctxt "#30045"
+msgid "Include POV Cache DB: "
+msgstr ""
+
+msgctxt "#30047"
+msgid "Include Otaku Testing Cache DB: "
+msgstr ""
+
+msgctxt "#30048"
+msgid "Include Otaku Cache DB: "
+msgstr ""
+
+msgctxt "#30049"
+msgid "Include TMDb Helper Cache DB: "
+msgstr ""
+
+msgctxt "#30050"
+msgid "Include Diamond Info Cache DB: "
+msgstr ""
+
+msgctxt "#30051"
+msgid "Include Extended Info Cache DB: "
+msgstr ""
+
+msgctxt "#30052"
+msgid "Install Settings"
+msgstr ""
+
+msgctxt "#30053"
+msgid "APKs"
+msgstr ""
+
+msgctxt "#30054"
+msgid "Open Kodi Android Updater Settings"
+msgstr ""
+
+msgctxt "#30055"
+msgid "Choose Download Location"
+msgstr ""
+
+msgctxt "#30056"
+msgid "Save Data When Installing Build:"
+msgstr ""
+
+msgctxt "#30057"
+msgid "Keep My Trakt Data"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Last Time Trakt Data Saved:"
+msgstr ""
+
+msgctxt "#30059"
+msgid "Keep My Debrid Data"
+msgstr ""
+
+msgctxt "#30060"
+msgid "Last Time Debrid Data Saved:"
+msgstr ""
+
+msgctxt "#30061"
+msgid "Keep My Login Data"
+msgstr ""
+
+msgctxt "#30062"
+msgid "Last Time Login Data Saved:"
+msgstr ""
+
+msgctxt "#30063"
+msgid "Keep Settings When Installing Build:"
+msgstr ""
+
+msgctxt "#30064"
+msgid "Keep My Favourites"
+msgstr ""
+
+msgctxt "#30065"
+msgid "Keep My Sources"
+msgstr ""
+
+msgctxt "#30066"
+msgid "Keep My Profiles"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Keep My playercorefactory.xml"
+msgstr ""
+
+msgctxt "#30068"
+msgid "Keep My guisettings.xml"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Keep My AdvancedSettings.xml"
+msgstr ""
+
+msgctxt "#30070"
+msgid "Keep Installed Repositories"
+msgstr ""
+
+msgctxt "#30071"
+msgid "Keep Super Favourites"
+msgstr ""
+
+msgctxt "#30072"
+msgid "Keep My Whitelist Addons"
+msgstr ""
+
+msgctxt "#30073"
+msgid "View Settings"
+msgstr ""
+
+msgctxt "#30074"
+msgid "Show Developer Menu: "
+msgstr ""
+
+msgctxt "#30075"
+msgid "Show Adult Addons: "
+msgstr ""
+
+msgctxt "#30076"
+msgid "Enable Auto View"
+msgstr ""
+
+msgctxt "#30077"
+msgid "View Type"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Notification Window on Startup:"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Disable Notification on Startup"
+msgstr ""
+
+msgctxt "#30080"
+msgid "Logging Settings"
+msgstr ""
+
+msgctxt "#30081"
+msgid "Event Logging in the Wizard:"
+msgstr ""
+
+msgctxt "#30082"
+msgid "What level would you like the wizard to log?"
+msgstr ""
+
+msgctxt "#30083"
+msgid "No Logging"
+msgstr ""
+
+msgctxt "#30084"
+msgid "Normal Logging"
+msgstr ""
+
+msgctxt "#30085"
+msgid "Full Logging"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Enable Wizard Logging:"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Automatically Clean up Wizard Log: "
+msgstr ""
+
+msgctxt "#30088"
+msgid "How would you like to clean up wizard.log?"
+msgstr ""
+
+msgctxt "#30089"
+msgid "By Days"
+msgstr ""
+
+msgctxt "#30090"
+msgid "By Size"
+msgstr ""
+
+msgctxt "#30091"
+msgid "By Lines"
+msgstr ""
+
+msgctxt "#30092"
+msgid "Keep how many days of wizard.log?"
+msgstr ""
+
+msgctxt "#30093"
+msgid "1 Day"
+msgstr ""
+
+msgctxt "#30094"
+msgid "2 Days"
+msgstr ""
+
+msgctxt "#30095"
+msgid "7 Days"
+msgstr ""
+
+msgctxt "#30096"
+msgid "Max file size for wizard.log?"
+msgstr ""
+
+msgctxt "#30097"
+msgid "100 KB"
+msgstr ""
+
+msgctxt "#30098"
+msgid "200 KB"
+msgstr ""
+
+msgctxt "#30099"
+msgid "300 KB"
+msgstr ""
+
+msgctxt "#30100"
+msgid "400 KB"
+msgstr ""
+
+msgctxt "#30101"
+msgid "500 KB"
+msgstr ""
+
+msgctxt "#30102"
+msgid "1 MB"
+msgstr ""
+
+msgctxt "#30103"
+msgid "Keep how many lines of wizard.log?"
+msgstr ""
+
+msgctxt "#30104"
+msgid "100"
+msgstr ""
+
+msgctxt "#30105"
+msgid "200"
+msgstr ""
+
+msgctxt "#30106"
+msgid "300"
+msgstr ""
+
+msgctxt "#30107"
+msgid "400"
+msgstr ""
+
+msgctxt "#30108"
+msgid "500"
+msgstr ""
+
+msgctxt "#30109"
+msgid "Include Prism Cache DB: "
+msgstr ""
+
+msgctxt "#30110"
+msgid "Include Redlight Cache DB: "
+msgstr ""
+

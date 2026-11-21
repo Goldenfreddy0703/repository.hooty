@@ -835,11 +835,10 @@ Changelog 0.0.1:
  - Initial Release
 		</news>
 	</extension>
-</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="2.0.7" provider-name="drinfernoo, slamious">
+</addon><addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="2.5.9" provider-name="drinfernoo, slamious">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
-        <import addon="script.module.six" />
         <import addon="script.kodi.android.update" optional="true" version="1.1.7" />
         <import addon="script.speedtester" optional="true" version="1.1.2" />
     </requires>
@@ -857,6 +856,94 @@ Changelog 0.0.1:
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <source>https://www.github.com/a4k-openproject/plugin.program.openwizard/</source>
         <news>
+2.5.9
+ - Removed the Purge All Databases entry added in 2.5.8; Purge Databases stays where 2.5.8 moved it
+   (right after Clear Crash Logs, before the Clear Video Cache section)
+2.5.8
+ - Maintenance &gt; Cleaning Tools: Purge Databases now sits right after Clear Crash Logs (before the Clear Video Cache
+   section; this reverses the 2.5.3 placement), followed by a new Purge All Databases entry that empties every
+   database file after one confirmation (a single summary notification instead of one per file)
+2.5.7
+ - Fixed a startup crash (TypeError: '&gt;' not supported between 'str' and 'int') in the installed-build check
+   when the saved build error count was empty
+2.5.6
+ - Clear Cache: removed Dradis and FenLight (their Include toggles and cache lists)
+2.5.5
+ - Clear Cache and Total Clean Up empty the selected video cache databases automatically
+   (the "Empty N cache database(s)?" question is gone; what is emptied is written to the log)
+2.5.4
+ - Total Clean Up now also clears old thumbnails, crash logs and the archive cache (one confirmation,
+   no extra prompts); its size counts the archive cache
+2.5.3
+ - Maintenance &gt; Cleaning Tools: the Clear Video Cache section (Include toggles) now sits right before Purge Databases
+2.5.2
+ - Fixed the missing label of the "Include Prism Cache DB" toggle (strings.po entry was not separated by a blank line)
+2.5.1
+ - Clear Cache: removed the Include toggles and cache lists for discontinued add-ons
+   (Exodus Redux, Gaia, NuMb3r5, Scrubs v2, THE CREW, Venom, Yoda); Save Data is unchanged
+2.5.0
+ - Clear Cache: Umbrella's source-results database is now found (providers.db);
+   Prism and Redlight cache databases added, each with its own Include toggle
+ - Clear Cache also removes leftover add-on install folders (addons/temp) that are
+   more than a day old
+2.4.0
+ - Settings converted to the current Kodi settings format (labels now come from
+   strings.po); every setting keeps its id, type and default, so saved
+   values carry over
+2.3.3
+ - Internal: the folder-cache list used for the cache size and for Clear Cache
+   is now defined once (no behaviour change)
+2.3.2
+ - Faster menus: the settings refresh done on every menu action now builds
+   one add-on object instead of one per setting
+2.3.1
+ - Clear Cache: TMDb Helper's cache databases are now found (database_v6
+   folder) and limited to the five its own "Delete cache" offers (TMDb,
+   Trakt, FanartTV, OMDb, Item Details); its sync and history databases are
+   never touched
+ - The database confirm dialog now shows a one-line summary per add-on
+   instead of a file list that did not fit
+2.3.0
+ - Clear Cache: emptying the cache databases now actually works (the old
+   DELETE + VACUUM sequence failed and rolled back on Python 3); each
+   database is emptied all-or-nothing and a locked one is skipped
+ - New confirm dialog before databases are emptied (manual Clear Cache only)
+ - Only regenerable caches are cleared: Seren providers.db and search.db and
+   Otaku search.db are no longer included, torrentScrape.db is dropped and
+   Seren providerPerf.db is added
+ - Add-on settings are re-read on every menu action, so toggles take effect
+   immediately (no Kodi restart needed with reuselanguageinvoker)
+ - "Removed N Files" counts only databases that were really emptied
+ - Cache size no longer counts the same folders twice when the profile path
+   differs from the add-on data path
+2.2.3
+ - Cache clearing: the per-addon database lists, the include toggles and
+   the Cleaning Tools rows now come from one registry (cache_registry.py);
+   behaviour is unchanged
+2.2.2
+ - Remove bundled Python 2 zipfile module and its import fallbacks
+ - Cache clearing: only file-system errors (OSError) are caught now,
+   failures are logged at debug level; other exceptions are no longer
+   silently swallowed
+ - Drop stale __pycache__ folders from the package
+ - Trim changelog (versions before 2.0.0 removed)
+2.2.1
+ - Fix TypeError crash on startup when build server is unreachable
+   (bool vs string comparison in main_menu.py and build_menu.py)
+2.2.0
+ - Add cache clearing support for Umbrella, Dradis, POV, FenLight,
+   Otaku, Otaku Testing, TMDb Helper, Diamond Info, Extended Info
+ - Update Seren cache DB list (torrentCache, debridCache, providers, search)
+ - Add Diamond Info image/TheMovieDB cache folder clearing
+ - Individual toggle controls for each new addon in Maintenance menu
+2.1.0
+ - Kodi 22 (Piers) compatibility
+ - Remove deprecated xbmc.makeLegalFilename (use xbmcvfs)
+ - Remove deprecated ListItem.setInfo (use InfoTagVideo)
+ - Remove deprecated ListItem iconImage/thumbnailImage params
+ - Remove script.module.six dependency (Python 3 only)
+ - Update kodi_version() to recognize Nexus, Omega and Piers
+ - Update mirror URL to omega repository
 2.0.7
  - Fix Error when using default log settings
 2.0.6
@@ -875,106 +962,6 @@ Changelog 0.0.1:
  - Add attribution to @slamious
 2.0.0
  - Initial Matrix support
-1.4.5
- - Fix bugs with unintended files being cleared`
-1.4.4
- - Transfer ownership
-1.4.3
- - Fix missing artwork on items (thanks @xulek)
-1.4.2
- - A few bug fixes
-1.4.1
- - Fix crash on fresh installs
-1.4.0
- - Fix APK Installer
- - Convert official APK downloader to use official script
- - Add scrollbar to Save Data dialog
- - Fix skin path in build info
-1.3.7
- - Fix import lock error
-1.3.6
- - Fix notifications
- - Cleanup log files
-1.3.5
- - Add Fen
- - Add Shadow
- - Fix restoring saved data every boot
-1.3.4
- - Fix bad indent
-1.3.3
- - Fix Unicode characters in notification window
-1.3.2
- - Fix build restore
-1.3.1
- - Fix "Keep Login Info" menu        
-1.3.0
- - Fix formatting of saved restore times
- - Fix local build zip being deleted on restore
- - Add YouTube API saving
- - Remove broken context menus
- - Fix repeating dialogs from shortcuts/favorites
- - Remove "Normal Install" option
- - Add "Logging Tools" menu
- - Add option to save guisettings.xml
- - Add TMDbHelper Fanart.tv saving
- - More fixes for OS X
- - Fix Seren Fanart.tv saving
-1.2.9
- - Fix NuMb3r5 cache clearing
- - Fix hang during repo force check
- - Fix logins being restored every startup
- - Fix some file permission errors
- - Fix OS X backup errors
-1.2.8
- - Add Gaia PM OAuth
- - Fix binary add-on restoration
- - Fix some issues with old settings
- - Fix timing on many startup tasks
-1.2.7
- - Add TheMovieDb Helper
-1.2.6
- - Fix Seren PM OAuth    
-1.2.5
- - Fix typo in debridit.py
-1.2.4
- - Cover more edge cases during binary detection
-1.2.3
- - Fix notification ID bug
-1.2.2
- - Add Seren PM OAuth
- - Add AllDebrid spport for Gaia, Seren, ResolveURL, and URLResolver
-1.2.1
- - General bug fixes
-1.2.0
- - Silence save data notifications on startup
- - Fix Addon Installer menu
- - Convert addons.txt to JSON format
-1.1.1
- - Fix error on advancedsettings categories
-1.1.0
- - Add back advancedsettings area under System Tweaks/Fixes
- - Rudimentary version of advancedsettings editor. Can currently only handle editing pre-existing tags under 'cache' and 'network'.
- - Convert advanced.txt to JSON format
- - Add "built-in" advancedsettings.xml presets
-1.0.3
- - Update artwork
- - Fix rare issues with URLs not working
- - Fix repetitive build prompt (again)
- - Fix builds downloading twice
- - Fix title coloring on notifications
- - Fix auto repo install
- - Fix first run settings not being respected
-1.0.2
- - Fix crash in login menu
- - Fix auto install repo
-1.0.1
- - Fix double startup
- - Fix repetitive build prompt
- - Fix main menu not opening on Krypton
- - Fix notification timeout
- - Fix crash in Trakt menu
-1.0.0
- - Initial Commit
         </news>
         <assets>
             <icon>icon.png</icon>

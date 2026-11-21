@@ -1,0 +1,1194 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="plugin.program.openwizard">
+        <category id="buildoptions" label="30000" help="">
+            <group id="1" label="30001">
+                <setting id="buildname" type="string" label="30002" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30002</heading></control>
+                </setting>
+                <setting id="buildversion" type="string" label="30003" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30003</heading></control>
+                </setting>
+                <setting id="buildtheme" type="string" label="30004" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30004</heading></control>
+                </setting>
+                <setting id="latestversion" type="string" label="30005" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30005</heading></control>
+                </setting>
+                <setting id="nextbuildcheck" type="string" label="30006" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30006</heading></control>
+                </setting>
+                <setting id="disableupdate" type="boolean" label="30007" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+            <group id="2" label="30008">
+                <setting id="show22" type="boolean" label="30009" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="show21" type="boolean" label="30010" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="show20" type="boolean" label="30011" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="show19" type="boolean" label="30012" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="separate" type="boolean" label="30013" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="first_install" type="boolean" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <visible>false</visible>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="enable_all" type="boolean" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <visible>false</visible>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="time_started" type="string" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="installed" type="string" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="extract" type="string" help="">
+                    <level>0</level>
+                    <default>100</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="errors" type="string" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="defaultskin" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="defaultskinname" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="defaultskinignore" type="boolean" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="default.enablerssfeeds" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.font" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.rssedit" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.skincolors" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.skintheme" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.skinzoom" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.soundskin" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.startupwindow" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.stereostrength" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="default.addonupdate" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+            </group>
+        </category>
+        <category id="maintenance" label="30014" help="">
+            <group id="1" label="30015">
+                <setting id="oldlog" type="boolean" label="30016" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="wizlog" type="boolean" label="30017" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="crashlog" type="boolean" label="30018" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+            <group id="2" label="30019">
+                <setting id="path" type="path" label="30020" help="">
+                    <level>0</level>
+                    <default>special://home/</default>
+                    <constraints><allowempty>true</allowempty><sources><source/></sources></constraints>
+                    <control type="button" format="path"><heading>30020</heading></control>
+                </setting>
+            </group>
+            <group id="3" label="30021">
+                <setting id="autoclean" type="boolean" label="30022" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="clearcache" type="boolean" label="30023" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <dependencies><dependency type="enable" setting="autoclean" operator="!is">false</dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="clearpackages" type="boolean" label="30024" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <dependencies><dependency type="enable" setting="autoclean" operator="!is">false</dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="clearthumbs" type="boolean" label="30025" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <dependencies><dependency type="enable" setting="autoclean" operator="!is">false</dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="autocleanfreq" type="integer" label="30026" help="">
+                    <level>0</level>
+                    <default>3</default>
+                    <constraints><options><option label="30027">0</option><option label="30028">1</option><option label="30029">2</option><option label="30030">3</option><option label="30031">4</option></options></constraints>
+                    <dependencies><dependency type="enable" setting="autoclean" operator="!is">false</dependency></dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="nextautocleanup" type="string" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <enable>false</enable>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+            </group>
+            <group id="4" label="30032">
+                <setting id="includevideo" type="boolean" label="30033" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeall" type="boolean" label="30034" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includevideo" operator="!is">false</dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeseren" type="boolean" label="30039" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.seren)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeumbrella" type="boolean" label="30043" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.umbrella)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includepov" type="boolean" label="30045" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.pov)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeotakutesting" type="boolean" label="30047" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.otaku.testing)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeotaku" type="boolean" label="30048" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.otaku)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeprism" type="boolean" label="30109" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.prism)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeredlight" type="boolean" label="30110" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.redlight)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includetmdbhelper" type="boolean" label="30049" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(plugin.video.themoviedb.helper)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includediamondinfo" type="boolean" label="30050" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(script.diamondinfo)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="includeextendedinfo" type="boolean" label="30051" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="enable" setting="includeall" operator="is">false</dependency><dependency type="visible"><condition on="property" name="InfoBool">System.HasAddon(script.extendedinfo)</condition></dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="exodusredux" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fen" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="gaia" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="numbers" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="openmeta" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="premiumizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="realizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="scrubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="seren" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="shadow" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="thecrew" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdbhelper" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="trakt" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="venom" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fenad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fenpm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fenrd" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="gaiaad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="gaiapm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="gaiard" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="pmzer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="serenad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="serenpm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="serenpm-oauth" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="serenrd" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="rurlad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="rurlpm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="rurlrd" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="urlad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="urlpm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="urlrd" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="shadowad" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="shadowpm" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="shadowrd" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="easynews-fen" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="furk-fen" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-exodusredux" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-gaia" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-numbers" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-thecrew" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-metadatautils" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-premiumizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-realizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-scrubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-venom" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-seren" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="fanart-tmdbhelper" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-exodusredux" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-gaia" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-numbers" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-thecrew" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-premiumizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-realizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-scrubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="imdb-venom" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="kitsu-wonderfulsubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-iagl" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-netflix" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="mal-wonderfulsubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="omdb-metadatautils" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="omdb-metahandler" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="omdb-tmdbhelper" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-opensubtitles" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-opensubsbyopensubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-orion" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-exodusredux" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-fen" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-eis" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-gaia" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-numbers" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-metadatautils" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-eis" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-openmeta" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-thecrew" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-premiumizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-realizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-scrubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-seren" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-tmdbhelper" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tmdb-venom" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="trakt-openmeta" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="trakt-seren" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tvdb-metahandler" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tvdb-openmeta" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tvdb-premiumizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tvdb-realizer" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="tvdb-seren" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="location-yahoo" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="login-youtube" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="ws-wonderfulsubs" type="string" help="">
+                    <level>0</level>
+                    <default/>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+            </group>
+        </category>
+        <category id="installsettings" label="30052" help="">
+            <group id="1" label="30053">
+                <setting id="open_android_updater_settings" type="action" label="30054" help="">
+                    <level>0</level>
+                    <data>RunPlugin(plugin://plugin.program.openwizard/?mode=fmchoose)</data>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <control type="button" format="action"><close>true</close></control>
+                </setting>
+                <setting id="apk_path" type="path" label="30055" help="">
+                    <level>0</level>
+                    <default>/storage/emulated/0/Download/</default>
+                    <constraints><allowempty>true</allowempty><sources><source/></sources></constraints>
+                    <control type="button" format="path"><heading>30055</heading></control>
+                </setting>
+            </group>
+            <group id="2" label="30056">
+                <setting id="keeptrakt" type="boolean" label="30057" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="traktnextsave" type="string" label="30058" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <dependencies><dependency type="visible" setting="keeptrakt" operator="!is">false</dependency></dependencies>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30058</heading></control>
+                </setting>
+                <setting id="keepdebrid" type="boolean" label="30059" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="debridnextsave" type="string" label="30060" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <dependencies><dependency type="visible" setting="keepdebrid" operator="!is">false</dependency></dependencies>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30060</heading></control>
+                </setting>
+                <setting id="keeplogin" type="boolean" label="30061" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="loginnextsave" type="string" label="30062" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <dependencies><dependency type="visible" setting="keeplogin" operator="!is">false</dependency></dependencies>
+                    <enable>false</enable>
+                    <control type="edit" format="string"><heading>30062</heading></control>
+                </setting>
+            </group>
+            <group id="3" label="30063">
+                <setting id="keepfavourites" type="boolean" label="30064" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepsources" type="boolean" label="30065" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepprofiles" type="boolean" label="30066" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepplayercore" type="boolean" label="30067" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepguisettings" type="boolean" label="30068" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepadvanced" type="boolean" label="30069" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keeprepos" type="boolean" label="30070" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepsuper" type="boolean" label="30071" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="keepwhitelist" type="boolean" label="30072" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+        <category id="viewsettings" label="30073" help="">
+            <group id="1">
+                <setting id="developer" type="boolean" label="30074" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="adult" type="boolean" label="30075" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="auto-view" type="boolean" label="30076" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="viewType" type="integer" label="30077" help="">
+                    <level>0</level>
+                    <default>50</default>
+                    <dependencies><dependency type="enable" setting="auto-view" operator="!is">false</dependency><dependency type="visible" setting="auto-view" operator="!is">false</dependency></dependencies>
+                    <control type="edit" format="integer"><heading>30077</heading></control>
+                </setting>
+            </group>
+            <group id="2" label="30078">
+                <setting id="notify" type="boolean" label="30079" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="noteid" type="string" help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+                <setting id="notedismiss" type="boolean" help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <visible>false</visible>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+        </category>
+        <category id="loggingsettings" label="30080" help="">
+            <group id="1" label="30081">
+                <setting id="debuglevel" type="integer" label="30082" help="">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints><options><option label="30083">0</option><option label="30084">1</option><option label="30085">2</option></options></constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="wizardlog" type="boolean" label="30086" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="autocleanwiz" type="boolean" label="30087" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <dependencies><dependency type="visible" setting="wizardlog" operator="!is">false</dependency></dependencies>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="wizlogcleanby" type="integer" label="30088" help="">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints><options><option label="30089">0</option><option label="30090">1</option><option label="30091">2</option></options></constraints>
+                    <dependencies><dependency type="visible"><and><condition setting="wizardlog" operator="!is">false</condition><condition setting="autocleanwiz" operator="!is">false</condition></and></dependency></dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="wizlogcleandays" type="integer" label="30092" help="" parent="wizlogcleanby">
+                    <level>0</level>
+                    <default>2</default>
+                    <constraints><options><option label="30093">0</option><option label="30094">1</option><option label="30029">2</option><option label="30095">3</option></options></constraints>
+                    <dependencies><dependency type="enable" setting="autocleanwiz" operator="!is">false</dependency><dependency type="visible"><and><condition setting="wizlogcleanby" operator="is">0</condition><condition setting="autocleanwiz" operator="!is">false</condition><condition setting="wizardlog" operator="!is">false</condition></and></dependency></dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="wizlogcleansize" type="integer" label="30096" help="" parent="wizlogcleanby">
+                    <level>0</level>
+                    <default>1</default>
+                    <constraints><options><option label="30097">0</option><option label="30098">1</option><option label="30099">2</option><option label="30100">3</option><option label="30101">4</option><option label="30102">5</option></options></constraints>
+                    <dependencies><dependency type="enable" setting="autocleanwiz" operator="!is">false</dependency><dependency type="visible"><and><condition setting="wizlogcleanby" operator="is">1</condition><condition setting="autocleanwiz" operator="!is">false</condition><condition setting="wizardlog" operator="!is">false</condition></and></dependency></dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="wizlogcleanlines" type="integer" label="30103" help="" parent="wizlogcleanby">
+                    <level>0</level>
+                    <default>2</default>
+                    <constraints><options><option label="30104">0</option><option label="30105">1</option><option label="30106">2</option><option label="30107">3</option><option label="30108">4</option></options></constraints>
+                    <dependencies><dependency type="enable" setting="autocleanwiz" operator="!is">false</dependency><dependency type="visible"><and><condition setting="wizlogcleanby" operator="is">2</condition><condition setting="autocleanwiz" operator="!is">false</condition><condition setting="wizardlog" operator="!is">false</condition></and></dependency></dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+                <setting id="nextwizcleandate" type="string" help="">
+                    <level>0</level>
+                    <default>2019-01-01 00:00:00</default>
+                    <constraints><allowempty>true</allowempty></constraints>
+                    <visible>false</visible>
+                    <control type="edit" format="string"><heading/></control>
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>
